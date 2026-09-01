@@ -1,7 +1,8 @@
 {
   "settings": {
     "taglineAr": "مطعم وكافيه",
-    "taglineEn": "Restaurant & Cafe"
+    "taglineEn": "Restaurant & Cafe",
+    "whatsappNumber": ""
   },
   "categories": [
     {"id":"popular","ar":"الأكثر طلباً","en":"Popular"},
@@ -49,7 +50,7 @@
     {"id":"donut-lotus","cat":"donuts","ar":"دونات لوتس","en":"Lotus Donut","descAr":"دونات طازجة بتغطية اللوتس","descEn":"Fresh donut with Lotus topping","price":1.5},
     {"id":"donut-oreo","cat":"donuts","ar":"دونات أوريو","en":"Oreo Donut","descAr":"دونات طازجة بتغطية الأوريو","descEn":"Fresh donut with Oreo topping","price":1.5},
     {"id":"shisha","cat":"shisha","ar":"أرجيلة عادية","en":"Classic Shisha","descAr":"اختر النكهة من مجموعة OLV","descEn":"Choose your flavor from the OLV selection","price":5,"shishaType":"classic","flavors":["double-apple","grape-mint","watermelon-mint","lemon-mint","mint","grape","blueberry","peach","mango","strawberry","watermelon","olv-mix"]},
-    {"id":"shisha-special","cat":"shisha","ar":"أرجيلة OLV Special","en":"OLV Special Shisha","descAr":"خلطة OLV الخاصة — اختر النكهة","descEn":"OLV signature blend — choose your flavor","price":6,"popular":true,"shishaType":"special","flavors":["double-apple","grape-mint","watermelon-mint","lemon-mint","mint","grape","blueberry","peach","mango","strawberry","watermelon","olv-mix"]}
+    {"id":"shisha-special","cat":"shisha","ar":"أرجيلة OLV Special","en":"OLV Special Shisha","descAr":"خلطة OLV الخاصة — اختر النكهة","descEn":"OLV signature blend — choose the flavor","price":6,"popular":true,"shishaType":"special","flavors":["double-apple","grape-mint","watermelon-mint","lemon-mint","mint","grape","blueberry","peach","mango","strawberry","watermelon","olv-mix"]}
   ],
   "shishaOptions": {
     "types": [
