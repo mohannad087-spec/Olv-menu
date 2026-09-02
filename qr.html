@@ -1,1 +1,47 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OLV — QR للطاولات</title><style>body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -15%,#38240f,#0d0b08 35%,#050505 75%);color:#f5efe2;font-family:Arial,"Noto Sans Arabic",sans-serif}.box{background:#121212;border:1px solid #4a3b26;border-radius:24px;padding:28px;max-width:430px;width:calc(100% - 40px);margin:30px auto;text-align:center}h1{color:#f0cf82;margin:0 0 8px}p{color:#aaa;line-height:1.6;font-size:13px}.field{width:100%;box-sizing:border-box;background:#0d0d0d;border:1px solid #403528;color:#fff;border-radius:11px;padding:12px;margin:8px 0}.btn{width:100%;padding:12px;border-radius:11px;border:1px solid #e1bd67;background:linear-gradient(135deg,#956a27,#f0cf76);color:#171006;font-weight:900;margin-top:8px}.qr{display:flex;justify-content:center;background:#fff;padding:14px;border-radius:16px;margin:20px auto}.small{font-size:10px;color:#777}.url{word-break:break-all;color:#cbb982;font-size:10px}</style></head><body><div class="box"><h1>OLV</h1><p>QR ذكي للطاولات — يفتح المنيو ويحدد رقم الطاولة تلقائياً.</p><input id="table" class="field" inputmode="numeric" placeholder="رقم الطاولة، مثلاً 12"><button class="btn" onclick="make()">إنشاء QR للطاولة</button><div id="qrcode" class="qr"></div><div id="out" class="url"></div><p class="small">للـ QR العام اترك رقم الطاولة فارغاً.</p></div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>function make(){const t=document.getElementById('table').value.trim().replace(/[^0-9A-Za-z-]/g,'');const base='https://courageous-sundae-1fb98e.netlify.app/';const u=t?base+'?table='+encodeURIComponent(t):base;document.getElementById('qrcode').innerHTML='';new QRCode(document.getElementById('qrcode'),{text:u,width:220,height:220,colorDark:'#111111',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});document.getElementById('out').textContent=u}make();</script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OLV — QR للطاولات</title>
+<style>
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -15%,#38240f,#0d0b08 35%,#050505 75%);color:#f5efe2;font-family:Arial,"Noto Sans Arabic",sans-serif}
+.box{background:#121212;border:1px solid #4a3b26;border-radius:24px;padding:28px;max-width:430px;width:calc(100% - 40px);margin:30px auto;text-align:center;box-shadow:0 25px 70px rgba(0,0,0,.45)}
+h1{color:#f0cf82;margin:0 0 8px}p{color:#aaa;line-height:1.6;font-size:13px}
+.field{width:100%;box-sizing:border-box;background:#0d0d0d;border:1px solid #403528;color:#fff;border-radius:11px;padding:12px;margin:8px 0}
+.btn{width:100%;padding:12px;border-radius:11px;border:1px solid #e1bd67;background:linear-gradient(135deg,#956a27,#f0cf76);color:#171006;font-weight:900;margin-top:8px}
+.btn.secondary{background:#171717;color:#e7ca83;border-color:#5e4a2c}
+.qr{display:flex;justify-content:center;background:#fff;padding:14px;border-radius:16px;margin:20px auto;min-height:220px;align-items:center}
+.small{font-size:10px;color:#777}.url{word-break:break-all;color:#cbb982;font-size:10px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+@media print{body{background:#fff;color:#111}.box{box-shadow:none;border:0;margin:auto}.actions,p.small,.url{display:none}.qr{margin:15px auto}}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>OLV</h1>
+<p>QR للطاولات — يفتح منيو OLV ويحدد رقم الطاولة تلقائياً.</p>
+<input id="table" class="field" inputmode="numeric" placeholder="رقم الطاولة، مثلاً 12">
+<div class="actions">
+<button class="btn" onclick="make()">إنشاء QR</button>
+<button class="btn secondary" onclick="window.print()">طباعة QR</button>
+</div>
+<div id="qrcode" class="qr"></div>
+<div id="out" class="url"></div>
+<p class="small">للـ QR العام اترك رقم الطاولة فارغاً.</p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const base='https://mohannad087-spec.github.io/Olv-menu/';
+function make(){
+  const t=document.getElementById('table').value.trim().replace(/[^0-9A-Za-z-]/g,'');
+  const u=t?base+'?table='+encodeURIComponent(t):base;
+  const box=document.getElementById('qrcode');
+  box.innerHTML='';
+  new QRCode(box,{text:u,width:220,height:220,colorDark:'#111111',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
+  document.getElementById('out').textContent=u;
+}
+make();
+</script>
+</body>
+</html>
