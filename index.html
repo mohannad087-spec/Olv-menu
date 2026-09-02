@@ -21,9 +21,87 @@
 .overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.86);display:none;align-items:flex-end}.overlay.open{display:flex}.sheet{width:100%;max-height:94vh;overflow:auto;background:linear-gradient(#14120f,#080808);border-top:1px solid #5b4527;border-radius:30px 30px 0 0;padding:23px}.sheet-inner{max-width:780px;margin:auto}.sheet h2{margin:0 0 15px;color:var(--gold2);font:700 30px Georgia,serif}.item-detail{display:grid;grid-template-columns:1.1fr 1fr;gap:17px}.detail-media{min-height:330px;border-radius:20px;overflow:hidden;border:1px solid #4b3a24;background:#12100d}.detail-media img{width:100%;height:100%;object-fit:cover;filter:saturate(1.4) contrast(1.08)}.detail-copy h3{font-size:29px;margin:0 0 4px}.detail-copy .en{font-size:13px}.detail-copy p{color:#a8a095;font-size:14px;line-height:1.8}.detail-price{color:var(--gold2);font-size:21px;font-weight:900;margin:14px 0}.order-box{border-top:1px solid var(--line);margin-top:16px;padding-top:14px}.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mode{background:#171717;border:1px solid #3a352e;border-radius:16px;padding:15px;color:#ddd;text-align:right}.mode.selected{border-color:var(--gold);background:#261e10;box-shadow:inset 0 0 0 1px #73582e}.mode b{display:block;color:var(--gold2);font-size:17px;margin-bottom:4px}.mode small{color:#8e867a;font-size:11px}.field{width:100%;background:#171717;border:1px solid #342f28;color:#fff;border-radius:12px;padding:13px;margin:6px 0;outline:0;font-size:14px}.notice{background:#17130d;border:1px solid #4b3a24;border-radius:12px;color:#d4bf95;font-size:11px;line-height:1.7;padding:11px 12px;margin:8px 0}.primary,.whatsapp,.secondary{width:100%;border-radius:14px;padding:14px;margin-top:8px;font-weight:900}.primary{background:linear-gradient(135deg,#b58132,#efca72);border:0;color:#181006}.whatsapp{background:#1b562d;border:1px solid #438354;color:#f2fff5}.secondary{background:#171717;border:1px solid #37322c;color:#ddd}.closex{position:absolute;top:12px;left:12px;z-index:5;width:40px;height:40px;border-radius:50%;background:#0c0c0c;border:1px solid #4b4032;color:#fff;font-size:22px}.shisha-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.type,.flavor{background:#171717;border:1px solid #39342d;color:#ddd;border-radius:14px;padding:13px;text-align:right}.type.selected,.flavor.selected{border-color:var(--gold);background:#261d0f;color:var(--gold2)}.type b{display:block;margin-bottom:4px;color:var(--gold2)}.type small{font-size:10px;color:#888}.flavors{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.cart{position:fixed;z-index:350;left:14px;right:14px;bottom:14px;max-width:960px;margin:auto;display:none;align-items:center;justify-content:space-between;border:1px solid #e3be65;border-radius:20px;padding:15px 18px;background:linear-gradient(110deg,#926728,#f0cb73);color:#181007;box-shadow:0 22px 65px rgba(0,0,0,.7);font-weight:900}.cart.show{display:flex}.toast{position:fixed;z-index:1000;left:50%;bottom:92px;transform:translate(-50%,12px);opacity:0;background:#f2efe7;color:#111;padding:11px 15px;border-radius:13px;font-size:12px;pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.featured{grid-template-columns:1fr 1fr}.feature:first-child{grid-column:1/-1}.benefits{grid-template-columns:repeat(2,1fr)}.subcategory-grid,.subitems-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.wrap{padding-bottom:130px}.hero-card,.hero-inner{min-height:245px}.hero-inner{padding:18px}.hero-logo{max-height:150px}.grid{grid-template-columns:1fr}.item-media,.media{height:240px}.item h3{font-size:21px}.desc{font-size:13px}.section-head h2{font-size:26px}.featured{grid-template-columns:1fr}.feature:first-child{grid-column:auto}.feature{min-height:280px}.choice-grid{grid-template-columns:1fr}.choice-box{min-height:170px}.entry-copy{font-size:12px}.entry-logo{max-height:48vh}.item-detail{grid-template-columns:1fr}.detail-media{min-height:270px}.detail-copy h3{font-size:26px}.modes{grid-template-columns:1fr 1fr}.flavors{grid-template-columns:repeat(2,1fr)}.benefits{grid-template-columns:1fr 1fr}.cat{font-size:13px}.subcategory-grid,.subitems-grid{grid-template-columns:1fr}.category-panel{padding:18px 12px 28px}}
+
+/* OLV automatic day/night theme: 06:00–17:59 light, 18:00–05:59 dark */
+body.olv-light{background:radial-gradient(circle at 50% -10%,#fffdf7 0,#f5eee1 42%,#ebe1cf 100%);color:#2b241b}
+body.olv-light .entry{background:#f4ecde;color:#2b241b}
+body.olv-light .entry-bg{background:linear-gradient(115deg,rgba(255,251,243,.78),rgba(224,191,133,.26),rgba(255,250,240,.82)),url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=90') center/cover;filter:saturate(1.12) contrast(1.02)}
+body.olv-light .entry-title,body.olv-light .choice h1,body.olv-light .category-title,body.olv-light .section-head h2{color:#9a6b20}
+body.olv-light .entry-copy{color:#665844}
+body.olv-light .entry-btn{color:#fff9ed}
+body.olv-light .choice{background:radial-gradient(circle at 50% 20%,#fffaf0,#eee3d0 72%);color:#2b241b}
+body.olv-light .choice-kicker,body.olv-light .choice-phone{color:#9a6b20}
+body.olv-light .choice p{color:#665b4d}
+body.olv-light .choice-box{background:linear-gradient(145deg,#fffdf8,#eee4d4);border-color:#c9aa73;color:#2b241b;box-shadow:0 18px 45px rgba(84,61,28,.16)}
+body.olv-light .choice-box strong,body.olv-light .choice-icon{color:#9a6b20}
+body.olv-light .choice-box span{color:#756a5b}
+body.olv-light .hero-card{border-color:#c8a96e;box-shadow:0 25px 70px rgba(77,57,29,.18)}
+body.olv-light .hero-card{background-image:linear-gradient(110deg,rgba(255,248,235,.90),rgba(255,247,229,.30)),url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=90')}
+body.olv-light .hero-card.delivery{background-image:linear-gradient(110deg,rgba(255,248,235,.92),rgba(255,247,229,.34)),url('https://images.unsplash.com/photo-1529429617124-95b109e86bb8?auto=format&fit=crop&w=1800&q=90')}
+body.olv-light .hero-shine{background:radial-gradient(circle at 72% 32%,rgba(214,164,67,.18),transparent 27%),linear-gradient(90deg,rgba(255,250,240,.72),transparent 73%)}
+body.olv-light .hero-copy{color:#5f5344}
+body.olv-light .pill,body.olv-light .mode-chip{background:rgba(255,250,240,.88);border-color:#c8a96e;color:#8d641e}
+body.olv-light .toolbar{background:linear-gradient(#f5eee3 76%,transparent)}
+body.olv-light .search{background:#fffdf9;border-color:#d7c9b3;color:#2b241b}
+body.olv-light .lang{background:#f2e8d7;border-color:#c8a96e;color:#8d641e}
+body.olv-light .cat{background:#fffdf9;border-color:#d8cbb7;color:#655b50}
+body.olv-light .quick button{background:#f7efe3;border-color:#d1b987;color:#80601f}
+body.olv-light .item{background:linear-gradient(160deg,#fffdf9,#f1e7d8);border-color:#ddcfba;box-shadow:0 14px 35px rgba(76,57,30,.12)}
+body.olv-light .item:hover{border-color:#b18a4a}
+body.olv-light .media{background:#eee3d3}
+body.olv-light .media:after{background:linear-gradient(180deg,transparent 48%,rgba(32,24,15,.72) 100%)}
+body.olv-light .favorite{background:rgba(255,250,240,.78);border-color:#b89557;color:#4b3c29}
+body.olv-light .badge{background:#e7c26d;color:#3b270c}
+body.olv-light .body h3,body.olv-light .item h3{color:#2b241b}
+body.olv-light .en{color:#85786a}
+body.olv-light .desc{color:#706559}
+body.olv-light .price{color:#986b20}
+body.olv-light .add{background:linear-gradient(135deg,#f0dfbc,#e1bd69);border-color:#b58a42;color:#674713}
+body.olv-light .featured .feature{border-color:#d1b47b;background:#eee4d5}
+body.olv-light .benefit{background:linear-gradient(160deg,#fffdf8,#eee5d7);border-color:#ddd0bb}
+body.olv-light .benefit span{color:#756a5d}
+body.olv-light .category-overlay{background:rgba(250,245,236,.94)}
+body.olv-light .category-top{background:linear-gradient(#f7f0e5 76%,transparent)}
+body.olv-light .category-back{background:#fffaf1;border-color:#c7aa72;color:#8d641e}
+body.olv-light .subcategory-card{background:#eee4d5;border-color:#d2b983}
+body.olv-light .subitem{background:linear-gradient(160deg,#fffdf9,#f1e7d9);border-color:#ddd0bb}
+body.olv-light .subitem p{color:#706559}
+body.olv-light .overlay{background:rgba(60,47,30,.34)}
+body.olv-light .sheet{background:linear-gradient(#fffaf1,#f0e6d8);border-color:#c8a96e;color:#2b241b}
+body.olv-light .detail-copy h3,body.olv-light .sheet h2{color:#2b241b}
+body.olv-light .detail-copy p{color:#706559}
+body.olv-light .order-box{border-color:#d8cbb7}
+body.olv-light .mode,body.olv-light .field,body.olv-light .type,body.olv-light .flavor{background:#fffdf9;border-color:#d8cbb7;color:#3d3429}
+body.olv-light .mode.selected,body.olv-light .type.selected,body.olv-light .flavor.selected{background:#f4e5c5;border-color:#b58a42;color:#7e5a1e}
+body.olv-light .field{color:#2b241b}
+body.olv-light .notice{background:#f7eddb;border-color:#d5bd8b;color:#715a35}
+body.olv-light .secondary{background:#fffdf9;border-color:#d8cbb7;color:#4d4337}
+body.olv-light .closex{background:#fffaf1;border-color:#c9b89d;color:#3f3427}
+body.olv-light .cart{box-shadow:0 18px 50px rgba(77,57,29,.22)}
+body.olv-light .toast{background:#30281e;color:#fffaf1}
+@media(prefers-reduced-motion:reduce){body.olv-light *{scroll-behavior:auto}}
+
 </style>
 </head>
 <body>
+
+<script>
+(function(){
+  const h=new Date().getHours();
+  const light=h>=6&&h<18;
+  document.body.classList.toggle('olv-light',light);
+  document.documentElement.dataset.olvTheme=light?'light':'dark';
+  const meta=document.querySelector('meta[name="theme-color"]');
+  if(meta)meta.content=light?'#f5eee3':'#060606';
+  window.olvApplyTimeTheme=function(){
+    const now=new Date().getHours(),isLight=now>=6&&now<18;
+    document.body.classList.toggle('olv-light',isLight);
+    document.documentElement.dataset.olvTheme=isLight?'light':'dark';
+    if(meta)meta.content=isLight?'#f5eee3':'#060606';
+  };
+})();
+</script>
+
 <div id="entry" class="entry"><div class="entry-bg"></div><div class="entry-card"><img class="entry-logo" src="assets/olv-original.jpg" alt="OLV Luxury Café & Restaurant"><div class="entry-line"></div><div class="entry-title">أهلاً بكم في OLV</div><div class="entry-copy">تجربة فاخرة تبدأ من أول لحظة… اختَر طريقة طلبك واستمتع.</div><button class="entry-btn" id="enterBtn">ابدأ التجربة</button></div></div>
 <div id="choice" class="choice"><div class="choice-card"><img class="choice-logo" src="assets/olv-original.jpg" alt="OLV"><div class="choice-kicker">OLV · LUXURY CAFÉ &amp; RESTAURANT</div><h1>كيف تود أن تطلب؟</h1><p>اختَر تجربتك أولاً، وبعدها نفتح لك المنيو.</p><div class="choice-grid"><button class="choice-box" onclick="chooseMode('hall')"><div class="choice-icon">⌂</div><strong>داخل الكافيه</strong><span>استمتع بتجربتك على طاولتك<br>رقم الطاولة عند التأكيد</span></button><button class="choice-box" onclick="chooseMode('delivery')"><div class="choice-icon">⌁</div><strong>توصيل</strong><span>OLV يوصلك أينما كنت<br>العنوان عند التأكيد</span></button></div><div class="choice-phone">للطلب والمساعدة: 0775 82 60 60</div></div></div>
 <div class="wrap"><header class="hero"><div id="heroCard" class="hero-card"><div class="hero-shine"></div><div class="hero-inner"><div><img class="hero-logo" src="assets/olv-original.jpg" alt="OLV Luxury Café & Restaurant"><div class="hero-copy">حيث الفخامة في التفاصيل، والطعم في الذاكرة.</div><div class="mode-chip" id="heroMode">اختر طريقة الطلب للبدء</div><div class="hero-meta"><span class="pill">قائمة رقمية</span><span class="pill">اختيارات OLV</span><span class="pill">صور حية</span></div></div></div></div></header>
