@@ -21,8 +21,16 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout
+      - name: Checkout latest main
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Refresh to latest main
+        run: |
+          git fetch origin main
+          git checkout --detach origin/main
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
