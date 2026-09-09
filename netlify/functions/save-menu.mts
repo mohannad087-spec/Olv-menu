@@ -6,6 +6,15 @@ export default async (request: Request) => {
     });
   }
 
+  const adminKey = Netlify.env.get('OLV_ADMIN_KEY');
+  const providedKey = request.headers.get('x-olv-admin-key') || '';
+  if (!adminKey || providedKey !== adminKey) {
+    return new Response(JSON.stringify({ ok: false, error: 'Admin access required.' }), {
+      status: 403,
+      headers: { 'content-type': 'application/json' }
+    });
+  }
+
   const token = Netlify.env.get('GITHUB_TOKEN');
   const repo = Netlify.env.get('GITHUB_REPO') || 'mohannad087-spec/Olv-menu';
   const branch = Netlify.env.get('GITHUB_BRANCH') || 'main';
