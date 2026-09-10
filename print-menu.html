@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OLV — نسخة المنيو للطباعة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f3efe8;color:#1c140f;font-family:"Cairo",Arial,"Noto Sans Arabic",sans-serif}
+.toolbar{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:10px;padding:14px;background:#1c140f;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.toolbar button{border:1px solid #c89a5e;background:linear-gradient(135deg,#7d5a34,#c89a5e);color:#201408;font-weight:900;border-radius:12px;padding:11px 22px;font-size:14px;cursor:pointer;font-family:inherit}
+.toolbar button.ghost{background:#241b14;color:#c89a5e}
+.sheet{max-width:820px;margin:24px auto;background:#fffdf9;border:1px solid #ddd0bb;border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.15);padding:36px 34px 50px}
+.head{text-align:center;border-bottom:2px solid #1c140f;padding-bottom:16px;margin-bottom:22px}
+.head h1{margin:0;font:900 34px "Cairo",Georgia,serif;letter-spacing:1px}
+.head p{margin:6px 0 0;color:#6b5d4d;font-size:13px}
+.cat{break-inside:avoid;margin-bottom:22px}
+.cat h2{margin:0 0 3px;font-size:19px;font-weight:800;border-bottom:1px solid #ddd0bb;padding-bottom:6px;color:#5a3f22}
+.rows{margin-top:8px}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px dotted #d8cdb8}
+.row:last-child{border-bottom:0}
+.row .name{font-weight:700;font-size:14.5px}
+.row .name .en{font-weight:400;color:#7a6c5a;font-size:11px;margin-inline-start:6px}
+.row .name .dtag{font-size:12px;margin-inline-start:4px}
+.row .price{white-space:nowrap;font-weight:900;font-size:14.5px}
+.foot{margin-top:26px;text-align:center;font-size:11px;color:#8a7c68;border-top:1px solid #ddd0bb;padding-top:12px}
+.empty{text-align:center;padding:60px;color:#8a7c68}
+@media print{
+  .toolbar{display:none}
+  body{background:#fff}
+  .sheet{box-shadow:none;border:0;margin:0;max-width:none;padding:0}
+  .cat{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="toolbar">
+<button onclick="window.print()">🖨️ طباعة</button>
+<button class="ghost" onclick="location.href='admin.html'">رجوع للإدارة</button>
+</div>
+<div class="sheet" id="sheet">
+<div class="head"><h1>OLV</h1><p id="tagline">مطعم وكافيه</p></div>
+<div id="body"><div class="empty">جاري تحميل المنيو...</div></div>
+<div class="foot" id="foot"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const tx=x=>x.ar;
+function tagBadges(i){const t=i.tags||[];let h='';if(t.includes('veg'))h+='<span class="dtag" title="نباتي">🌱</span>';if(t.includes('spicy'))h+='<span class="dtag" title="حار">🌶️</span>';if(i.popular)h+='<span class="dtag" title="الأكثر طلباً">⭐</span>';return h}
+async function init(){
+  try{
+    const DATA=await fetch('data/menu.json',{cache:'no-store'}).then(r=>r.json());
+    $('tagline').textContent=DATA.settings?.taglineAr||'مطعم وكافيه';
+    const cats=DATA.categories.filter(c=>c.id!=='popular');
+    let html='';
+    cats.forEach(c=>{
+      const items=DATA.items.filter(i=>i.cat===c.id&&i.available!==false);
+      if(!items.length)return;
+      html+=`<div class="cat"><h2>${c.ar}</h2><div class="rows">${items.map(i=>`<div class="row"><div class="name">${i.ar}<span class="en">${i.en||''}</span>${tagBadges(i)}</div><div class="price">${Number(i.price).toFixed(2)} د.أ</div></div>`).join('')}</div></div>`;
+    });
+    $('body').innerHTML=html||'<div class="empty">لا توجد أصناف متاحة حالياً.</div>';
+    $('foot').textContent='الأسعار بالدينار الأردني وقابلة للتغيير · '+(DATA.settings?.whatsappNumber||'');
+  }catch(e){
+    $('body').innerHTML='<div class="empty">تعذر تحميل المنيو.</div>';
+  }
+}
+init();
+</script>
+</body>
+</html>
