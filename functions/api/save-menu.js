@@ -1,3 +1,4 @@
+// Cloudflare Pages Function — reads GITHUB_TOKEN/GITHUB_REPO/GITHUB_BRANCH/OLV_ADMIN_KEY from context.env at request time.
 export async function onRequest(context) {
   const { request, env } = context;
 

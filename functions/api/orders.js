@@ -40,6 +40,7 @@ function summarize(o) {
   return { id: o.id, number: o.number, status: o.status, mode: o.mode, table: o.table || '', phone: o.phone || '', address: o.address || '', total: o.total, items: o.items || [], text: o.text || '', notes: o.notes || '', createdAt: o.createdAt, updatedAt: o.updatedAt };
 }
 
+// Cloudflare Pages Function — reads GITHUB_TOKEN/GITHUB_REPO/GITHUB_BRANCH/OLV_ADMIN_KEY from context.env at request time.
 export async function onRequest(context) {
   const { request, env } = context;
   const repo = env.GITHUB_REPO || 'mohannad087-spec/Olv-menu';
