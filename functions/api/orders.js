@@ -15,7 +15,7 @@ function adminOK(request, env) {
 
 function headersFor(env) {
   const token = env.GITHUB_TOKEN;
-  return token ? { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' } : null;
+  return token ? { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json', 'User-Agent': 'olv-menu-cloudflare-pages' } : null;
 }
 
 async function readStore(h, repo, branch) {

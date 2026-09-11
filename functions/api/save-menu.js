@@ -51,7 +51,8 @@ export async function onRequest(context) {
     'Authorization': `Bearer ${token}`,
     'Accept': 'application/vnd.github+json',
     'X-GitHub-Api-Version': '2022-11-28',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'User-Agent': 'olv-menu-cloudflare-pages'
   };
 
   const fileUrl = `${apiBase}/repos/${repo}/contents/data/menu.json?ref=${encodeURIComponent(branch)}`;
