@@ -246,7 +246,7 @@
     {
       "id": "olv-1789237900090-c79sfa",
       "number": 1008,
-      "status": "ready",
+      "status": "completed",
       "mode": "hall",
       "table": "1",
       "phone": "",
@@ -265,7 +265,7 @@
       ],
       "text": "بطاطا OLV × 1\nالمجموع: 2.50 JD",
       "createdAt": "2026-09-12T18:31:40.090Z",
-      "updatedAt": "2026-09-12T18:32:05.242Z"
+      "updatedAt": "2026-09-12T18:32:06.912Z"
     }
   ]
 }
