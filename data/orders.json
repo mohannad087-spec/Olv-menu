@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1009,
+  "nextNumber": 1010,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -266,6 +266,83 @@
       "text": "بطاطا OLV × 1\nالمجموع: 2.50 JD",
       "createdAt": "2026-09-12T18:31:40.090Z",
       "updatedAt": "2026-09-12T18:32:16.192Z"
+    },
+    {
+      "id": "olv-1789240994672-6tfq4x",
+      "number": 1009,
+      "status": "new",
+      "mode": "delivery",
+      "table": "",
+      "phone": "0779617277",
+      "address": "عجلون كفرنجة",
+      "notes": "",
+      "waiter": "",
+      "ip": "212.34.19.77",
+      "total": 15,
+      "items": [
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [
+              "بدون بصل"
+            ],
+            "extras": [
+              "جبنة إضافية",
+              "بطاطا إضافية"
+            ],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "cappuccino",
+          "qty": 1,
+          "price": 3,
+          "label": "كابتشينو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "قليل سكر"
+            ],
+            "note": ""
+          }
+        },
+        {
+          "id": "iced-spanish",
+          "qty": 1,
+          "price": 3.75,
+          "label": "آيس سبانش لاتيه",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "عادي"
+            ],
+            "note": ""
+          }
+        },
+        {
+          "id": "lotus-shake",
+          "qty": 1,
+          "price": 3.75,
+          "label": "ميلك شيك لوتس",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "إضافة نكهة"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أجنحة دجاج × 1\nكابتشينو × 1\nآيس سبانش لاتيه × 1\nميلك شيك لوتس × 1\nالمجموع: 15.00 JD",
+      "createdAt": "2026-09-12T19:23:14.672Z",
+      "updatedAt": "2026-09-12T19:23:14.672Z"
     }
   ]
 }
