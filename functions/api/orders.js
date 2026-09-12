@@ -70,6 +70,19 @@ function verifyOrderItems(rawItems, menu) {
   return { items, total, text };
 }
 
+// Simple abuse guard for public (unauthenticated) order submissions: a given
+// device/IP can only place a few orders within a short window. Staff placing
+// orders through waiter.html carry the staff/admin key and are exempt —
+// one waiter tablet legitimately places many orders back to back.
+const RATE_LIMIT_WINDOW_MS = 3 * 60 * 1000;
+const RATE_LIMIT_MAX = 3;
+function rateLimited(store, ip) {
+  if (!ip) return false;
+  const cutoff = Date.now() - RATE_LIMIT_WINDOW_MS;
+  const recent = (store.orders || []).filter(o => o.ip === ip && new Date(o.createdAt).getTime() > cutoff);
+  return recent.length >= RATE_LIMIT_MAX;
+}
+
 function summarize(o) {
   return { id: o.id, number: o.number, status: o.status, mode: o.mode, table: o.table || '', phone: o.phone || '', address: o.address || '', waiter: o.waiter || '', total: o.total, items: o.items || [], text: o.text || '', notes: o.notes || '', createdAt: o.createdAt, updatedAt: o.updatedAt };
 }
@@ -109,12 +122,17 @@ export async function onRequest(context) {
       } catch (e) {
         return json({ ok: false, error: e instanceof Error ? e.message : 'Unable to verify order.' }, 400);
       }
+      const trusted = adminOK(request, env);
+      const ip = request.headers.get('CF-Connecting-IP') || '';
       for (let attempt = 0; attempt < 3; attempt++) {
         const { sha, store } = await readStore(h, repo, branch);
         store.orders = Array.isArray(store.orders) ? store.orders : [];
+        if (!trusted && rateLimited(store, ip)) {
+          return json({ ok: false, error: 'في طلبات كثيرة من نفس الجهاز خلال وقت قصير، جرب بعد شوي.' }, 429);
+        }
         store.nextNumber = Number(store.nextNumber || 1001);
         const now = new Date().toISOString(), id = `olv-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, number = store.nextNumber++;
-        const order = { id, number, status: 'new', mode: p.mode, table: String(p.table || ''), phone: String(p.phone || ''), address: String(p.address || ''), notes: String(p.notes || ''), waiter: String(p.waiter || ''), total: verified.total, items: verified.items, text: verified.text, createdAt: now, updatedAt: now };
+        const order = { id, number, status: 'new', mode: p.mode, table: String(p.table || ''), phone: String(p.phone || ''), address: String(p.address || ''), notes: String(p.notes || ''), waiter: String(p.waiter || ''), ip, total: verified.total, items: verified.items, text: verified.text, createdAt: now, updatedAt: now };
         store.orders.push(order);
         const put = await writeStore(h, repo, branch, sha, store, `New OLV order #${number}`);
         if (put.ok) return json({ ok: true, order: summarize(order) }, 201);
