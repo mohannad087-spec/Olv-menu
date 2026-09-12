@@ -5,12 +5,16 @@ function json(data, status = 200) {
 }
 
 function safeKey(request) {
-  return request.headers.get('x-olv-admin-key') || '';
+  return request.headers.get('x-olv-staff-key') || request.headers.get('x-olv-admin-key') || '';
 }
 
+// Order management accepts either the full admin key or the staff-only key.
+// The staff key is never checked by save-menu.js, so it can view/update
+// orders but can't touch the published menu.
 function adminOK(request, env) {
-  const configured = env.OLV_ADMIN_KEY;
-  return Boolean(configured && safeKey(request) === configured);
+  const provided = safeKey(request);
+  if (!provided) return false;
+  return provided === env.OLV_ADMIN_KEY || Boolean(env.OLV_STAFF_KEY && provided === env.OLV_STAFF_KEY);
 }
 
 function headersFor(env) {
