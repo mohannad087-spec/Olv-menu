@@ -83,6 +83,22 @@ function rateLimited(store, ip) {
   return recent.length >= RATE_LIMIT_MAX;
 }
 
+// Blocks scripted/bot POSTs to this public endpoint. Requires a solved
+// Cloudflare Turnstile challenge token for any unauthenticated (non-staff)
+// order — a bot calling the API directly has no way to produce a valid one.
+async function verifyTurnstile(token, ip, env) {
+  const secret = env.TURNSTILE_SECRET_KEY;
+  if (!secret) throw new Error('Bot verification is not configured yet.');
+  if (!token) throw new Error('Missing bot verification token.');
+  const body = new URLSearchParams();
+  body.set('secret', secret);
+  body.set('response', token);
+  if (ip) body.set('remoteip', ip);
+  const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body });
+  const out = await res.json();
+  if (!out.success) throw new Error('Bot verification failed.');
+}
+
 function summarize(o) {
   return { id: o.id, number: o.number, status: o.status, mode: o.mode, table: o.table || '', phone: o.phone || '', address: o.address || '', waiter: o.waiter || '', total: o.total, items: o.items || [], text: o.text || '', notes: o.notes || '', createdAt: o.createdAt, updatedAt: o.updatedAt };
 }
@@ -124,6 +140,13 @@ export async function onRequest(context) {
       }
       const trusted = adminOK(request, env);
       const ip = request.headers.get('CF-Connecting-IP') || '';
+      if (!trusted) {
+        try {
+          await verifyTurnstile(p.turnstileToken, ip, env);
+        } catch (e) {
+          return json({ ok: false, error: e instanceof Error ? e.message : 'Bot verification failed.' }, 403);
+        }
+      }
       for (let attempt = 0; attempt < 3; attempt++) {
         const { sha, store } = await readStore(h, repo, branch);
         store.orders = Array.isArray(store.orders) ? store.orders : [];
