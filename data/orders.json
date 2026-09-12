@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1004,
+  "nextNumber": 1005,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -84,6 +84,50 @@
       "text": "برغر OLV × 1\nالمجموع: 5.50 JD",
       "createdAt": "2026-09-12T17:19:55.737Z",
       "updatedAt": "2026-09-12T17:19:55.737Z"
+    },
+    {
+      "id": "olv-1789234017815-wsc7lt",
+      "number": 1004,
+      "status": "new",
+      "mode": "hall",
+      "table": "1",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "213.139.52.24",
+      "total": 10,
+      "items": [
+        {
+          "id": "olv-burger",
+          "qty": 1,
+          "price": 5.5,
+          "label": "برغر OLV",
+          "custom": {
+            "remove": [
+              "بدون بصل"
+            ],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "برغر OLV × 1\nأجنحة دجاج × 1\nالمجموع: 10.00 JD",
+      "createdAt": "2026-09-12T17:26:57.815Z",
+      "updatedAt": "2026-09-12T17:26:57.815Z"
     }
   ]
 }
