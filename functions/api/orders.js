@@ -40,6 +40,36 @@ async function writeStore(h, repo, branch, sha, store, message) {
   return fetch(u, { method: 'PUT', headers: h, body: JSON.stringify({ message, content: encode(JSON.stringify(store, null, 2)), sha, branch }) });
 }
 
+// Reads the currently-published menu straight from this same deployment's
+// static assets (no extra GitHub call) so orders can be priced against the
+// real menu instead of trusting whatever the client sends.
+async function loadMenu(context) {
+  const url = new URL('/data/menu.json', context.request.url);
+  const res = await context.env.ASSETS.fetch(url.toString());
+  if (!res.ok) throw new Error('Unable to load menu for price verification.');
+  return res.json();
+}
+
+// Recomputes prices/labels/total from the real menu and rejects anything
+// that doesn't match a real, available item — a tampered price, total or
+// item id in the request body is simply ignored/rejected, never trusted.
+function verifyOrderItems(rawItems, menu) {
+  const byId = new Map((menu.items || []).map(i => [String(i.id), i]));
+  const items = [];
+  for (const raw of rawItems) {
+    const real = byId.get(String(raw?.id));
+    if (!real) throw new Error(`Unknown item: ${raw?.id}`);
+    if (real.available === false) throw new Error(`${real.ar} غير متوفر حالياً.`);
+    const qty = Math.max(1, Math.min(50, parseInt(raw?.qty, 10) || 0));
+    if (!qty) throw new Error(`Invalid quantity for ${real.ar}.`);
+    items.push({ id: real.id, qty, price: real.price, label: real.ar, custom: raw?.custom || undefined });
+  }
+  if (!items.length) throw new Error('Order has no items.');
+  const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
+  const text = items.map(i => `${i.label} × ${i.qty}`).join('\n') + `\nالمجموع: ${total.toFixed(2)} JD`;
+  return { items, total, text };
+}
+
 function summarize(o) {
   return { id: o.id, number: o.number, status: o.status, mode: o.mode, table: o.table || '', phone: o.phone || '', address: o.address || '', waiter: o.waiter || '', total: o.total, items: o.items || [], text: o.text || '', notes: o.notes || '', createdAt: o.createdAt, updatedAt: o.updatedAt };
 }
@@ -65,13 +95,26 @@ export async function onRequest(context) {
     }
     if (request.method === 'POST') {
       const p = await request.json();
-      if (!p?.mode || !Array.isArray(p.items) || !p.text) return json({ ok: false, error: 'Invalid order payload.' }, 400);
+      if (!p?.mode || !Array.isArray(p.items) || !p.items.length) return json({ ok: false, error: 'Invalid order payload.' }, 400);
+      if (!['hall', 'delivery'].includes(p.mode)) return json({ ok: false, error: 'Invalid order mode.' }, 400);
+      let menu;
+      try {
+        menu = await loadMenu(context);
+      } catch (e) {
+        return json({ ok: false, error: e instanceof Error ? e.message : 'Unable to load menu for price verification.' }, 503);
+      }
+      let verified;
+      try {
+        verified = verifyOrderItems(p.items, menu);
+      } catch (e) {
+        return json({ ok: false, error: e instanceof Error ? e.message : 'Unable to verify order.' }, 400);
+      }
       for (let attempt = 0; attempt < 3; attempt++) {
         const { sha, store } = await readStore(h, repo, branch);
         store.orders = Array.isArray(store.orders) ? store.orders : [];
         store.nextNumber = Number(store.nextNumber || 1001);
         const now = new Date().toISOString(), id = `olv-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, number = store.nextNumber++;
-        const order = { id, number, status: 'new', mode: p.mode, table: String(p.table || ''), phone: String(p.phone || ''), address: String(p.address || ''), notes: String(p.notes || ''), waiter: String(p.waiter || ''), total: Number(p.total || 0), items: p.items, text: String(p.text), createdAt: now, updatedAt: now };
+        const order = { id, number, status: 'new', mode: p.mode, table: String(p.table || ''), phone: String(p.phone || ''), address: String(p.address || ''), notes: String(p.notes || ''), waiter: String(p.waiter || ''), total: verified.total, items: verified.items, text: verified.text, createdAt: now, updatedAt: now };
         store.orders.push(order);
         const put = await writeStore(h, repo, branch, sha, store, `New OLV order #${number}`);
         if (put.ok) return json({ ok: true, order: summarize(order) }, 201);
