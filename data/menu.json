@@ -296,7 +296,8 @@
       "descAr": "باستا بصوص ألفريدو الكريمي والدجاج",
       "descEn": "Pasta in creamy Alfredo sauce with chicken",
       "price": 5.75,
-      "tags": []
+      "tags": [],
+      "available": false
     },
     {
       "id": "arrabbiata",
