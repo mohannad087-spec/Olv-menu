@@ -3,7 +3,16 @@
 #alertStack{position:fixed;top:10px;left:10px;right:10px;z-index:999;display:flex;flex-direction:column;gap:8px;max-width:640px;margin:auto}
 .ready-alert{background:linear-gradient(135deg,#1b562d,#267642);border:1px solid #65b47a;color:#f2fff5;border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:900;box-shadow:0 12px 30px rgba(0,0,0,.4);animation:readyIn .4s ease both}
 .ready-alert button{border:1px solid #d8ffe0;background:rgba(255,255,255,.15);color:#fff;border-radius:10px;padding:8px 12px;font-weight:900;white-space:nowrap}
-@keyframes readyIn{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}@media(max-width:520px){.steps{grid-template-columns:1fr 1fr 1fr}.step:last-child{grid-column:2}.logo{width:100px;height:100px}}</style></head><body><div class="wrap"><img class="logo" src="assets/olv-original.jpg" alt="OLV"><div class="card"><div class="kicker">OLV · ORDER TRACKING</div><div class="title">متابعة طلبك</div><div id="statusText" class="muted">جاري تحميل حالة الطلب...</div><div class="status"><span id="statusBadge" class="badge">...</span></div><div id="steps" class="steps"></div><div class="info" id="info"></div><button class="refresh" onclick="load()">تحديث الحالة</button><button class="bell" id="bellBtn" onclick="enableBell()">🔔 فعّل تنبيه لما يصير طلبك جاهز</button></div></div>
+@keyframes readyIn{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+.rating{margin-top:18px;padding:16px;border:1px solid #5f4928;border-radius:18px;background:linear-gradient(160deg,#1a150e,#0c0b0a);text-align:center}
+.rating h3{margin:0 0 10px;color:#c89a5e;font-size:15px}
+.stars{display:flex;justify-content:center;gap:6px;font-size:34px;margin-bottom:10px}
+.stars span{cursor:pointer;color:#3a3125;transition:color .15s}
+.stars span.on{color:#e6b85c}
+.rating textarea{width:100%;background:#111;border:1px solid #342f28;color:#fff;border-radius:12px;padding:11px;resize:vertical;margin-bottom:10px}
+.rating button{width:100%;padding:12px;border-radius:12px;background:linear-gradient(135deg,#7d5a34,#c89a5e);border:1px solid #c9a05f;color:#201408;font-weight:900}
+.points-chip{display:inline-block;margin-top:12px;padding:9px 14px;border-radius:999px;border:1px solid #6a532c;background:#1c150b;color:#e6c98a;font-weight:900;font-size:12px}
+@media(max-width:520px){.steps{grid-template-columns:1fr 1fr 1fr}.step:last-child{grid-column:2}.logo{width:100px;height:100px}}</style></head><body><div class="wrap"><img class="logo" src="assets/olv-original.jpg" alt="OLV"><div class="card"><div class="kicker">OLV · ORDER TRACKING</div><div class="title">متابعة طلبك</div><div id="statusText" class="muted">جاري تحميل حالة الطلب...</div><div class="status"><span id="statusBadge" class="badge">...</span></div><div id="steps" class="steps"></div><div class="info" id="info"></div><div id="pointsBox"></div><button class="refresh" onclick="load()">تحديث الحالة</button><button class="bell" id="bellBtn" onclick="enableBell()">🔔 فعّل تنبيه لما يصير طلبك جاهز</button><div id="ratingBox" style="display:none"></div></div></div>
 <div id="alertStack"></div><script>const $=id=>document.getElementById(id);const id=new URLSearchParams(location.search).get('id');const labels=[['new','تم الاستلام'],['confirmed','تم التأكيد'],['preparing','قيد التحضير'],['ready','جاهز'],['completed','مكتمل']];const texts={new:'استلمنا طلبك ونراجعه الآن.',confirmed:'تم تأكيد الطلب من OLV.',preparing:'طلبك قيد التحضير.',ready:'طلبك جاهز.',completed:'تم إكمال الطلب. شكراً لاختيار OLV.',cancelled:'تم إلغاء الطلب.'};const esc=s=>String(s??'').replace(/[&<>\"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\\':'&#92;'}[m]));function money(n){return Number(n||0).toFixed(2)+' د.أ'}
 let audioCtx=null,prevStatus=null;
 function ensureAudio(){try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}catch(e){}}
@@ -19,4 +28,34 @@ function notifyReady(o){
   el.querySelector('button').onclick=()=>el.remove();
   $('alertStack').appendChild(el);
 }
-async function load(){if(!id){$('statusText').textContent='رابط الطلب غير مكتمل.';return}try{const r=await fetch('/api/orders?id='+encodeURIComponent(id)+'&ts='+Date.now(),{cache:'no-store'});const out=await r.json();if(!r.ok)throw Error(out.error||'تعذر تحميل الطلب');const o=out.order;if(prevStatus&&prevStatus!=='ready'&&o.status==='ready')notifyReady(o);prevStatus=o.status;$('statusText').textContent=texts[o.status]||o.status;$('statusBadge').textContent=o.status==='cancelled'?'ملغى':'طلب #'+o.number;$('steps').innerHTML=labels.map(x=>{const idx=labels.findIndex(a=>a[0]===o.status),me=labels.findIndex(a=>a[0]===x[0]);return `<div class="step ${idx>=0&&me<=idx?'on':''}">${x[1]}</div>`}).join('');$('info').innerHTML=`<div class="row"><span>طريقة الطلب</span><span class="value">${o.mode==='hall'?'داخل الكافيه':'توصيل'}</span></div>${o.table?`<div class="row"><span>الطاولة</span><span class="value">${esc(o.table)}</span></div>`:''}${o.address?`<div class="row"><span>العنوان</span><span class="value">${esc(o.address)}</span></div>`:''}<div class="row"><span>عدد السطور</span><span class="value">${o.items.length}</span></div><div class="row"><span>المجموع</span><span class="value">${money(o.total)}</span></div><div class="row"><span>آخر تحديث</span><span class="value">${new Date(o.updatedAt).toLocaleString('ar-JO')}</span></div>`}catch(e){$('statusText').textContent=e.message}}load();setInterval(load,15000);</script></body></html>
+let selectedStars=0,pointsLoadedFor='';
+function renderStars(){$('stars').innerHTML=[1,2,3,4,5].map(n=>`<span data-n="${n}" class="${n<=selectedStars?'on':''}">★</span>`).join('');$('stars').querySelectorAll('span').forEach(s=>s.onclick=()=>{selectedStars=Number(s.dataset.n);renderStars()})}
+function renderRatingBox(o){
+  const box=$('ratingBox');
+  if(o.status!=='completed'){box.style.display='none';return}
+  box.style.display='block';
+  if(o.rating){box.innerHTML=`<div class="rating"><h3>شكراً لتقييمك! ⭐️ ${'★'.repeat(o.rating.stars)}${'☆'.repeat(5-o.rating.stars)}</h3></div>`;return}
+  if(!box.querySelector('.stars')){
+    box.innerHTML=`<div class="rating"><h3>كيف كانت تجربتك؟</h3><div class="stars" id="stars"></div><textarea id="ratingComment" rows="2" placeholder="أي ملاحظات؟ (اختياري)"></textarea><button onclick="submitRating('${o.id}')">إرسال التقييم</button></div>`;
+    renderStars();
+  }
+}
+async function submitRating(orderId){
+  if(!selectedStars){alert('اختَر عدد النجوم أولاً');return}
+  try{
+    const r=await fetch('/api/rate-order',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({orderId,stars:selectedStars,comment:$('ratingComment').value.trim()})});
+    const out=await r.json();
+    if(!r.ok||!out.ok)throw Error(out.error||'تعذر إرسال التقييم');
+    load();
+  }catch(e){alert(e.message)}
+}
+async function loadPoints(phone){
+  if(!phone||pointsLoadedFor===phone)return;
+  pointsLoadedFor=phone;
+  try{
+    const r=await fetch('/api/loyalty?phone='+encodeURIComponent(phone)+'&ts='+Date.now());
+    const out=await r.json();
+    if(out.ok)$('pointsBox').innerHTML=`<div class="points-chip">🎁 عندك ${out.points} نقطة (نقطة عن كل دينار)</div>`;
+  }catch(e){}
+}
+async function load(){if(!id){$('statusText').textContent='رابط الطلب غير مكتمل.';return}try{const r=await fetch('/api/orders?id='+encodeURIComponent(id)+'&ts='+Date.now(),{cache:'no-store'});const out=await r.json();if(!r.ok)throw Error(out.error||'تعذر تحميل الطلب');const o=out.order;if(prevStatus&&prevStatus!=='ready'&&o.status==='ready')notifyReady(o);prevStatus=o.status;$('statusText').textContent=texts[o.status]||o.status;$('statusBadge').textContent=o.status==='cancelled'?'ملغى':'طلب #'+o.number;$('steps').innerHTML=labels.map(x=>{const idx=labels.findIndex(a=>a[0]===o.status),me=labels.findIndex(a=>a[0]===x[0]);return `<div class="step ${idx>=0&&me<=idx?'on':''}">${x[1]}</div>`}).join('');$('info').innerHTML=`<div class="row"><span>طريقة الطلب</span><span class="value">${o.mode==='hall'?'داخل الكافيه':'توصيل'}</span></div>${o.table?`<div class="row"><span>الطاولة</span><span class="value">${esc(o.table)}</span></div>`:''}${o.address?`<div class="row"><span>العنوان</span><span class="value">${esc(o.address)}</span></div>`:''}<div class="row"><span>عدد السطور</span><span class="value">${o.items.length}</span></div><div class="row"><span>المجموع</span><span class="value">${money(o.total)}</span></div><div class="row"><span>آخر تحديث</span><span class="value">${new Date(o.updatedAt).toLocaleString('ar-JO')}</span></div>`;renderRatingBox(o);if(o.phone)loadPoints(o.phone)}catch(e){$('statusText').textContent=e.message}}load();setInterval(load,15000);</script></body></html>

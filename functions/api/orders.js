@@ -100,7 +100,45 @@ async function verifyTurnstile(token, ip, env) {
 }
 
 function summarize(o) {
-  return { id: o.id, number: o.number, status: o.status, mode: o.mode, table: o.table || '', phone: o.phone || '', address: o.address || '', waiter: o.waiter || '', total: o.total, items: o.items || [], text: o.text || '', notes: o.notes || '', createdAt: o.createdAt, updatedAt: o.updatedAt };
+  return { id: o.id, number: o.number, status: o.status, mode: o.mode, table: o.table || '', phone: o.phone || '', address: o.address || '', waiter: o.waiter || '', total: o.total, items: o.items || [], text: o.text || '', notes: o.notes || '', rating: o.rating || null, createdAt: o.createdAt, updatedAt: o.updatedAt };
+}
+
+// Loyalty points: keyed by normalized phone number, 1 point per JD spent,
+// only ever awarded once an order actually completes.
+function normalizePhone(raw) {
+  let n = String(raw || '').replace(/\D/g, '');
+  if (n.startsWith('0')) n = '962' + n.slice(1);
+  return n;
+}
+async function readLoyalty(h, repo, branch) {
+  const u = `${API}/repos/${repo}/contents/data/loyalty.json?ref=${encodeURIComponent(branch)}`;
+  const r = await fetch(u, { headers: h });
+  if (r.status === 404) return { sha: null, store: {} };
+  if (!r.ok) throw new Error(await r.text());
+  const x = await r.json();
+  const raw = atob(String(x.content || '').replace(/\s/g, ''));
+  return { sha: x.sha, store: JSON.parse(decodeURIComponent(escape(raw))) };
+}
+async function writeLoyalty(h, repo, branch, sha, store, message) {
+  const u = `${API}/repos/${repo}/contents/data/loyalty.json`;
+  const body = { message, content: encode(JSON.stringify(store, null, 2)), branch };
+  if (sha) body.sha = sha;
+  return fetch(u, { method: 'PUT', headers: h, body: JSON.stringify(body) });
+}
+async function awardPoints(h, repo, branch, phone, total) {
+  const key = normalizePhone(phone);
+  if (!key) return;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const { sha, store } = await readLoyalty(h, repo, branch);
+    const rec = store[key] || { points: 0, totalOrders: 0 };
+    rec.points += Math.floor(Number(total) || 0);
+    rec.totalOrders += 1;
+    rec.updatedAt = new Date().toISOString();
+    store[key] = rec;
+    const put = await writeLoyalty(h, repo, branch, sha, store, `Award loyalty points for ${key}`);
+    if (put.ok) return;
+    if (put.status !== 409) throw new Error('Loyalty update failed');
+  }
 }
 
 // Cloudflare Pages Function — reads GITHUB_TOKEN/GITHUB_REPO/GITHUB_BRANCH/OLV_ADMIN_KEY from context.env at request time.
@@ -170,10 +208,16 @@ export async function onRequest(context) {
       for (let attempt = 0; attempt < 3; attempt++) {
         const { sha, store } = await readStore(h, repo, branch), o = (store.orders || []).find(x => x.id === p.id);
         if (!o) return json({ ok: false, error: 'Order not found' }, 404);
+        const wasCompleted = o.status === 'completed';
         o.status = p.status;
         o.updatedAt = new Date().toISOString();
         const put = await writeStore(h, repo, branch, sha, store, `Update OLV order #${o.number} → ${o.status}`);
-        if (put.ok) return json({ ok: true, order: summarize(o) });
+        if (put.ok) {
+          if (!wasCompleted && p.status === 'completed' && o.phone) {
+            try { await awardPoints(h, repo, branch, o.phone, o.total); } catch (e) { /* status update already saved; points can retry next time */ }
+          }
+          return json({ ok: true, order: summarize(o) });
+        }
         if (put.status !== 409) return json({ ok: false, error: `GitHub update failed: ${await put.text()}` }, put.status);
       }
       return json({ ok: false, error: 'Order store busy; please retry.' }, 409);
