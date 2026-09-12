@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1008,
+  "nextNumber": 1009,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -242,6 +242,30 @@
       "text": "كريسبي تشيكن برغر × 1\nالمجموع: 4.75 JD",
       "createdAt": "2026-09-12T18:28:15.963Z",
       "updatedAt": "2026-09-12T18:30:37.201Z"
+    },
+    {
+      "id": "olv-1789237900090-c79sfa",
+      "number": 1008,
+      "status": "new",
+      "mode": "hall",
+      "table": "1",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "مهند",
+      "ip": "213.139.52.24",
+      "total": 2.5,
+      "items": [
+        {
+          "id": "fries",
+          "qty": 1,
+          "price": 2.5,
+          "label": "بطاطا OLV"
+        }
+      ],
+      "text": "بطاطا OLV × 1\nالمجموع: 2.50 JD",
+      "createdAt": "2026-09-12T18:31:40.090Z",
+      "updatedAt": "2026-09-12T18:31:40.090Z"
     }
   ]
 }
