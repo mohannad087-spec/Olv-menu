@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1005,
+  "nextNumber": 1006,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -128,6 +128,40 @@
       "text": "برغر OLV × 1\nأجنحة دجاج × 1\nالمجموع: 10.00 JD",
       "createdAt": "2026-09-12T17:26:57.815Z",
       "updatedAt": "2026-09-12T17:41:15.312Z"
+    },
+    {
+      "id": "olv-1789236306218-y5ea4b",
+      "number": 1005,
+      "status": "new",
+      "mode": "hall",
+      "table": "1",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "213.139.52.24",
+      "total": 4.75,
+      "items": [
+        {
+          "id": "crispy-burger",
+          "qty": 1,
+          "price": 4.75,
+          "label": "كريسبي تشيكن برغر",
+          "custom": {
+            "remove": [
+              "بدون بصل"
+            ],
+            "extras": [
+              "هالبينو"
+            ],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كريسبي تشيكن برغر × 1\nالمجموع: 4.75 JD",
+      "createdAt": "2026-09-12T18:05:06.218Z",
+      "updatedAt": "2026-09-12T18:05:06.218Z"
     }
   ]
 }
