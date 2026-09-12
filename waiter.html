@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0e0a06">
+<title>OLV — طلب الموظفين</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1c140f;--gold:#a97c45;--gold2:#c89a5e;--cream:#f3e8d8;--muted:#a5907a;--line:#3a2c20;--bad:#c96060;--good:#5b9a6a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#3a2a18,#20170f 30%,#160f0a 75%);color:var(--cream);font-family:"Cairo",Arial,"Noto Sans Arabic",sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+.wrap{max-width:1000px;margin:auto;padding:14px 14px 120px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.top h1{color:var(--gold2);font:700 24px "Cairo",Georgia,serif;margin:0}
+.who{font-size:12px;color:var(--muted)}
+.btn{border:1px solid #66502b;background:#17120b;color:var(--gold2);border-radius:11px;padding:9px 13px;font-weight:900;font-size:12px}
+.login{max-width:420px;margin:60px auto;border:1px solid #543f22;border-radius:20px;padding:22px;background:linear-gradient(160deg,#181513,#0c0b0a);text-align:center}
+.login h2{color:var(--gold2);margin:0 0 12px}
+.login input{width:100%;background:#111;border:1px solid #3d352b;border-radius:12px;color:#fff;padding:12px;margin-bottom:10px}
+.login button{width:100%;margin-top:6px;border-radius:12px;padding:13px;border:1px solid var(--gold2);background:linear-gradient(135deg,#7d5a34,#c89a5e);color:#201408;font-weight:900}
+.tabs{display:flex;gap:8px;margin:10px 0}
+.tab{flex:1;padding:10px;border-radius:12px;border:1px solid #3d352b;background:#11100f;color:#bdb4a7;text-align:center;font-size:13px;font-weight:900}
+.tab.active{background:linear-gradient(135deg,#c9a05f,#8a6636);border-color:#c9a05f;color:#201408}
+.cats{display:flex;gap:8px;overflow:auto;padding:4px 0 10px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{white-space:nowrap;background:#11100f;color:#bdb4a7;border:1px solid #3d352b;border-radius:999px;padding:9px 13px;font-size:12px}
+.cat.active{background:linear-gradient(135deg,#c9a05f,#8a6636);border-color:#c9a05f;color:#201408;font-weight:900}
+.search{width:100%;background:#11100f;border:1px solid #40372d;border-radius:13px;padding:11px;color:#fff;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.card{border:1px solid #3a3125;border-radius:16px;background:linear-gradient(160deg,#181715,#0b0b0a);padding:11px;display:flex;flex-direction:column;gap:6px}
+.card.unavailable{opacity:.55}
+.card h3{margin:0;font-size:14px;line-height:1.3}
+.card .price{color:var(--gold2);font-weight:900;font-size:13px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-top:4px}
+.add{border:1px solid #896635;border-radius:10px;background:linear-gradient(135deg,#251a0a,#4a3112);color:var(--gold2);font-weight:900;font-size:16px;width:38px;height:34px}
+.avail{border:1px solid #443827;background:#12100d;color:#cbbb9b;border-radius:9px;padding:6px 9px;font-size:10px}
+.avail.off{border-color:#653333;color:#efb0b0}
+.cartbar{position:fixed;z-index:300;left:14px;right:14px;bottom:14px;max-width:960px;margin:auto;display:none;align-items:center;justify-content:space-between;border:1px solid #c9a05f;border-radius:18px;padding:14px 17px;background:linear-gradient(110deg,#7d5a34,#c89a5e);color:#201408;font-weight:900}
+.cartbar.show{display:flex}
+.overlay{position:fixed;inset:0;z-index:480;background:rgba(2,2,2,.9);display:none;align-items:flex-end;justify-content:center}
+.overlay.open{display:flex}
+.sheet{width:100%;max-width:640px;max-height:92vh;overflow:auto;background:linear-gradient(#14120f,#080808);border-top:1px solid #5b4527;border-radius:22px 22px 0 0;padding:18px}
+.crow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:28px;height:28px;border-radius:9px;background:#171717;border:1px solid #444;color:#fff}
+.note{width:100%;background:#171717;border:1px solid #342f28;color:#fff;border-radius:12px;padding:11px;margin-top:8px;resize:vertical}
+.primary{width:100%;margin-top:10px;border-radius:13px;padding:13px;border:1px solid var(--gold2);background:linear-gradient(135deg,#7d5a34,#c89a5e);color:#201408;font-weight:900}
+.secondary{width:100%;margin-top:8px;border-radius:13px;padding:11px;border:1px solid #37322c;background:#171717;color:#ddd;font-weight:900}
+.myorders .oc{border:1px solid #3b3124;border-radius:14px;padding:12px;margin-bottom:9px;background:linear-gradient(160deg,#15130f,#0b0b0a)}
+.oc .head{display:flex;justify-content:space-between;font-weight:900;color:var(--gold2)}
+.badge{display:inline-block;border-radius:999px;padding:3px 9px;font-size:11px;margin-top:6px}
+.b-new{background:#4a3a25;color:#f4d47e}.b-confirmed{background:#2c4a6b;color:#bcd9f2}.b-preparing{background:#5c4a1f;color:#f2df9e}.b-ready{background:#1b562d;color:#c8f0d0}.b-completed{background:#22321f;color:#a9c19d}.b-cancelled{background:#4a1f1f;color:#f0b0b0}
+.empty{text-align:center;padding:40px;color:#777;border:1px dashed #3a3329;border-radius:16px}
+.toast{position:fixed;z-index:1000;left:50%;bottom:90px;transform:translate(-50%,12px);opacity:0;background:#f2efe7;color:#111;padding:11px 15px;border-radius:13px;font-size:12px;pointer-events:none;transition:.2s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><h1>OLV — طلب الموظفين</h1><div id="whoBar" class="who" style="display:none"></div><div style="display:flex;gap:8px"><button class="btn" onclick="logout()" id="logoutBtn" style="display:none">تسجيل خروج</button><button class="btn" onclick="location.href='orders.html'">لوحة الطلبات</button></div></div>
+
+<div id="login" class="login">
+  <h2>تسجيل دخول الموظف</h2>
+  <input id="waiterName" placeholder="اسمك">
+  <input id="staffKey" type="password" placeholder="مفتاح الموظفين">
+  <button onclick="doLogin()">دخول</button>
+</div>
+
+<div id="app" style="display:none">
+  <div class="tabs"><button class="tab active" id="tabMenu" onclick="showTab('menu')">المنيو</button><button class="tab" id="tabMine" onclick="showTab('mine')">طلباتي</button></div>
+
+  <div id="menuTab">
+    <input id="search" class="search" placeholder="ابحث عن صنف...">
+    <div id="cats" class="cats"></div>
+    <div id="grid" class="grid"></div>
+  </div>
+
+  <div id="mineTab" style="display:none" class="myorders"><div id="mineList"></div></div>
+</div>
+</div>
+
+<button id="cartbar" class="cartbar" onclick="openCart()"><span id="cartText">السلة</span><span id="cartTotal"></span></button>
+<div id="toast" class="toast"></div>
+
+<div id="cartOverlay" class="overlay"><div class="sheet">
+  <h2 style="color:var(--gold2);font:700 24px 'Cairo',Georgia,serif;margin:0 0 10px">الطلب الحالي</h2>
+  <div id="cartRows"></div>
+  <div style="display:flex;justify-content:space-between;padding:12px 0;color:var(--gold2);font-size:18px;font-weight:900"><span>المجموع</span><span id="cartTotal2"></span></div>
+  <input id="tableNum" class="note" inputmode="numeric" placeholder="رقم الطاولة" style="margin-top:0">
+  <textarea id="orderNotes" class="note" rows="2" placeholder="ملاحظات على الطلب"></textarea>
+  <button class="primary" onclick="submitOrder()">إرسال الطلب</button>
+  <button class="secondary" onclick="closeCart()">إغلاق</button>
+</div></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const money=n=>`${Number(n).toFixed(2)} JD`;
+const imgs={burgers:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=70',snacks:'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=400&q=70',sandwiches:'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=400&q=70',pasta:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=400&q=70',salads:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=70',hot:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=70',cold:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=70',juices:'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=400&q=70',shakes:'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=70',desserts:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=70',icecream:'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=400&q=70',donuts:'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=400&q=70',shisha:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=70'};
+const names={new:'جديد',confirmed:'تم التأكيد',preparing:'قيد التحضير',ready:'جاهز',completed:'مكتمل',cancelled:'ملغى'};
+let DATA=null,cart=[],active='all',waiterName='',staffKey='';
+
+function showToast(m){$('toast').textContent=m;$('toast').classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>$('toast').classList.remove('show'),1700)}
+
+function doLogin(){
+  const n=$('waiterName').value.trim(),k=$('staffKey').value.trim();
+  if(!n||!k){showToast('عبّي الاسم والمفتاح');return}
+  waiterName=n;staffKey=k;
+  localStorage.setItem('olv-waiter-name',n);
+  sessionStorage.setItem('olv-staff-key',k);
+  $('login').style.display='none';$('app').style.display='block';
+  $('whoBar').style.display='block';$('whoBar').textContent='الموظف: '+n;
+  $('logoutBtn').style.display='inline-block';
+  init();
+}
+function logout(){sessionStorage.removeItem('olv-staff-key');location.reload()}
+
+async function api(url,opt={}){
+  opt.headers=Object.assign({'x-olv-staff-key':staffKey},opt.headers||{});
+  const r=await fetch(url,opt),out=await r.json();
+  if(!r.ok)throw Error(out.error||'Request failed');
+  return out;
+}
+
+async function init(){
+  try{DATA=await fetch('data/menu.json',{cache:'no-store'}).then(r=>r.json())}catch(e){$('grid').innerHTML='<div class="empty">تعذر تحميل المنيو.</div>';return}
+  renderCats();renderGrid();loadMine();
+  $('search').oninput=renderGrid;
+  setInterval(()=>{if($('mineTab').style.display!=='none')loadMine()},15000);
+}
+
+function renderCats(){
+  $('cats').innerHTML=['<button class="cat active" data-c="all">الكل</button>'].concat(DATA.categories.map(c=>`<button class="cat" data-c="${c.id}">${c.ar}</button>`)).join('');
+  $('cats').querySelectorAll('.cat').forEach(b=>b.onclick=()=>{active=b.dataset.c;$('cats').querySelectorAll('.cat').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderGrid()});
+}
+
+function renderGrid(){
+  const q=$('search').value.trim().toLowerCase();
+  let items=DATA.items;
+  if(active!=='all')items=items.filter(i=>i.cat===active);
+  if(q)items=items.filter(i=>(i.ar+' '+i.en).toLowerCase().includes(q));
+  $('grid').innerHTML=items.length?items.map(i=>{
+    const ok=i.available!==false;
+    return `<article class="card ${ok?'':'unavailable'}"><img src="${i.image||imgs[i.cat]||imgs.hot}" style="width:100%;height:100px;object-fit:cover;border-radius:10px" loading="lazy"><h3>${i.ar}</h3><div class="price">${money(i.price)}</div><div class="row"><button class="avail ${ok?'':'off'}" onclick="toggleAvail('${i.id}',${ok})">${ok?'متوفر':'غير متوفر'}</button><button class="add" onclick="addToCart('${i.id}')" ${ok?'':'disabled'}>+</button></div></article>`;
+  }).join(''):'<div class="empty">لا توجد نتائج</div>';
+}
+
+async function toggleAvail(id,currentlyOk){
+  try{
+    await api('/api/menu-item',{method:'PATCH',headers:{'content-type':'application/json'},body:JSON.stringify({id,available:!currentlyOk})});
+    const item=DATA.items.find(x=>x.id===id);if(item)item.available=!currentlyOk;
+    showToast(currentlyOk?'تم تعليمه كغير متوفر':'تم تعليمه كمتوفر');
+    renderGrid();
+  }catch(e){showToast(e.message)}
+}
+
+function addToCart(id){
+  const i=DATA.items.find(x=>x.id===id);if(!i||i.available===false)return;
+  const f=cart.find(x=>x.id===id);
+  if(f)f.qty++;else cart.push({id,qty:1,price:i.price,label:i.ar});
+  updateCartBar();showToast('أُضيف للطلب');
+}
+function updateCartBar(){
+  const n=cart.reduce((a,x)=>a+x.qty,0),t=cart.reduce((a,x)=>a+x.price*x.qty,0);
+  $('cartbar').classList.toggle('show',n>0);
+  $('cartText').textContent=`الطلب • ${n} صنف`;$('cartTotal').textContent=money(t);
+}
+function openCart(){
+  $('cartRows').innerHTML=cart.map((x,idx)=>`<div class="crow"><span>${x.label}</span><div class="qty"><button onclick="cartQty(${idx},-1)">−</button><b>${x.qty}</b><button onclick="cartQty(${idx},1)">+</button></div><span>${money(x.price*x.qty)}</span></div>`).join('')||'<div class="empty">السلة فارغة</div>';
+  $('cartTotal2').textContent=money(cart.reduce((a,x)=>a+x.price*x.qty,0));
+  $('cartOverlay').classList.add('open');
+}
+function closeCart(){$('cartOverlay').classList.remove('open')}
+function cartQty(idx,d){cart[idx].qty+=d;if(cart[idx].qty<=0)cart.splice(idx,1);updateCartBar();openCart()}
+
+async function submitOrder(){
+  if(!cart.length){showToast('السلة فارغة');return}
+  const table=$('tableNum').value.trim();
+  if(!table){showToast('حط رقم الطاولة');return}
+  const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
+  const text=cart.map(x=>`${x.label} × ${x.qty}`).join('\n')+`\nالمجموع: ${money(total)}`;
+  try{
+    await api('/api/orders',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({mode:'hall',table,waiter:waiterName,notes:$('orderNotes').value.trim(),items:cart,total,text})});
+    cart=[];$('tableNum').value='';$('orderNotes').value='';
+    updateCartBar();closeCart();showToast('تم إرسال الطلب');
+    loadMine();
+  }catch(e){showToast(e.message)}
+}
+
+function showTab(t){
+  $('tabMenu').classList.toggle('active',t==='menu');
+  $('tabMine').classList.toggle('active',t==='mine');
+  $('menuTab').style.display=t==='menu'?'block':'none';
+  $('mineTab').style.display=t==='mine'?'block':'none';
+  if(t==='mine')loadMine();
+}
+
+async function loadMine(){
+  try{
+    const out=await api('/api/orders?ts='+Date.now());
+    const mine=(out.orders||[]).filter(o=>o.waiter===waiterName);
+    $('mineList').innerHTML=mine.length?mine.map(o=>`<div class="oc"><div class="head"><span>#${o.number}</span><span>${o.table?'طاولة '+o.table:''}</span></div><div style="font-size:11px;color:#998">${new Date(o.createdAt).toLocaleTimeString('ar-JO')}</div><span class="badge b-${o.status}">${names[o.status]||o.status}</span></div>`).join(''):'<div class="empty">ما في طلبات إلك بعد.</div>';
+  }catch(e){$('mineList').innerHTML=`<div class="empty">${e.message}</div>`}
+}
+
+(function(){
+  const n=localStorage.getItem('olv-waiter-name'),k=sessionStorage.getItem('olv-staff-key');
+  if(n&&k){waiterName=n;staffKey=k;$('waiterName').value=n;$('staffKey').value=k;doLogin()}
+})();
+</script>
+</body>
+</html>
