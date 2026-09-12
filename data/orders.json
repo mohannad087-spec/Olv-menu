@@ -1,4 +1,28 @@
 {
-  "nextNumber": 1001,
-  "orders": []
+  "nextNumber": 1002,
+  "orders": [
+    {
+      "id": "olv-1789202906861-40mtgl",
+      "number": 1001,
+      "status": "new",
+      "mode": "hall",
+      "table": "2",
+      "phone": "",
+      "address": "",
+      "notes": "متابعه",
+      "waiter": "مهند",
+      "total": 4.75,
+      "items": [
+        {
+          "id": "crispy-burger",
+          "qty": 1,
+          "price": 4.75,
+          "label": "كريسبي تشيكن برغر"
+        }
+      ],
+      "text": "كريسبي تشيكن برغر × 1\nالمجموع: 4.75 JD",
+      "createdAt": "2026-09-12T08:48:26.861Z",
+      "updatedAt": "2026-09-12T08:48:26.861Z"
+    }
+  ]
 }
