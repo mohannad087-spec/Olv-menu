@@ -54,6 +54,10 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 .empty{text-align:center;padding:40px;color:#777;border:1px dashed #3a3329;border-radius:16px}
 .toast{position:fixed;z-index:1000;left:50%;bottom:90px;transform:translate(-50%,12px);opacity:0;background:#f2efe7;color:#111;padding:11px 15px;border-radius:13px;font-size:12px;pointer-events:none;transition:.2s}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+#alertStack{position:fixed;top:10px;left:10px;right:10px;z-index:999;display:flex;flex-direction:column;gap:8px;max-width:640px;margin:auto}
+.ready-alert{background:linear-gradient(135deg,#1b562d,#267642);border:1px solid #65b47a;color:#f2fff5;border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:900;box-shadow:0 12px 30px rgba(0,0,0,.4);animation:readyIn .4s ease both}
+.ready-alert button{border:1px solid #d8ffe0;background:rgba(255,255,255,.15);color:#fff;border-radius:10px;padding:8px 12px;font-weight:900;white-space:nowrap}
+@keyframes readyIn{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -80,6 +84,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 </div>
 </div>
 
+<div id="alertStack"></div>
 <button id="cartbar" class="cartbar" onclick="openCart()"><span id="cartText">السلة</span><span id="cartTotal"></span></button>
 <div id="toast" class="toast"></div>
 
@@ -98,13 +103,29 @@ const $=id=>document.getElementById(id);
 const money=n=>`${Number(n).toFixed(2)} JD`;
 const imgs={burgers:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=70',snacks:'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=400&q=70',sandwiches:'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=400&q=70',pasta:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=400&q=70',salads:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=70',hot:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=70',cold:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=70',juices:'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=400&q=70',shakes:'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=70',desserts:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=70',icecream:'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=400&q=70',donuts:'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=400&q=70',shisha:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=70'};
 const names={new:'جديد',confirmed:'تم التأكيد',preparing:'قيد التحضير',ready:'جاهز',completed:'مكتمل',cancelled:'ملغى'};
-let DATA=null,cart=[],active='all',waiterName='',staffKey='';
+let DATA=null,cart=[],active='all',waiterName='',staffKey='',knownStatuses=null,audioCtx=null;
 
 function showToast(m){$('toast').textContent=m;$('toast').classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>$('toast').classList.remove('show'),1700)}
+
+function ensureAudio(){try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}catch(e){}}
+function beep(freq,delay,dur){setTimeout(()=>{try{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=freq;o.connect(g);g.connect(audioCtx.destination);g.gain.setValueAtTime(.0001,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.3,audioCtx.currentTime+.02);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+dur);o.start();o.stop(audioCtx.currentTime+dur+.05)}catch(e){}},delay)}
+function playReadyChime(){if(!audioCtx)return;beep(880,0,.45);beep(1046,250,.4)}
+function notifyReady(orders){
+  playReadyChime();
+  try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}
+  orders.forEach(o=>{
+    const el=document.createElement('div');
+    el.className='ready-alert';
+    el.innerHTML=`<b>🔔 طلب #${o.number} جاهز${o.table?' — طاولة '+o.table:''}</b><button>تم الاستلام ✓</button>`;
+    el.querySelector('button').onclick=()=>el.remove();
+    $('alertStack').appendChild(el);
+  });
+}
 
 function doLogin(){
   const n=$('waiterName').value.trim(),k=$('staffKey').value.trim();
   if(!n||!k){showToast('عبّي الاسم والمفتاح');return}
+  ensureAudio();
   waiterName=n;staffKey=k;
   localStorage.setItem('olv-waiter-name',n);
   sessionStorage.setItem('olv-staff-key',k);
@@ -126,7 +147,8 @@ async function init(){
   try{DATA=await fetch('data/menu.json',{cache:'no-store'}).then(r=>r.json())}catch(e){$('grid').innerHTML='<div class="empty">تعذر تحميل المنيو.</div>';return}
   renderCats();renderGrid();loadMine();
   $('search').oninput=renderGrid;
-  setInterval(()=>{if($('mineTab').style.display!=='none')loadMine()},15000);
+  setInterval(loadMine,15000);
+  document.addEventListener('click',ensureAudio);
 }
 
 function renderCats(){
@@ -199,8 +221,16 @@ async function loadMine(){
   try{
     const out=await api('/api/orders?ts='+Date.now());
     const mine=(out.orders||[]).filter(o=>o.waiter===waiterName);
+    const nextKnown={},newlyReady=[];
+    mine.forEach(o=>{
+      nextKnown[o.id]=o.status;
+      if(knownStatuses&&knownStatuses[o.id]&&knownStatuses[o.id]!=='ready'&&o.status==='ready')newlyReady.push(o);
+    });
+    knownStatuses=nextKnown;
+    if(newlyReady.length)notifyReady(newlyReady);
+    if($('mineTab').style.display==='none')return;
     $('mineList').innerHTML=mine.length?mine.map(o=>`<div class="oc"><div class="head"><span>#${o.number}</span><span>${o.table?'طاولة '+o.table:''}</span></div><div style="font-size:11px;color:#998">${new Date(o.createdAt).toLocaleTimeString('ar-JO')}</div><span class="badge b-${o.status}">${names[o.status]||o.status}</span></div>`).join(''):'<div class="empty">ما في طلبات إلك بعد.</div>';
-  }catch(e){$('mineList').innerHTML=`<div class="empty">${e.message}</div>`}
+  }catch(e){if($('mineTab').style.display!=='none')$('mineList').innerHTML=`<div class="empty">${e.message}</div>`}
 }
 
 (function(){
