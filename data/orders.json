@@ -212,7 +212,7 @@
     {
       "id": "olv-1789237695963-px0oma",
       "number": 1007,
-      "status": "confirmed",
+      "status": "preparing",
       "mode": "hall",
       "table": "1",
       "phone": "0777791414",
@@ -241,7 +241,7 @@
       ],
       "text": "كريسبي تشيكن برغر × 1\nالمجموع: 4.75 JD",
       "createdAt": "2026-09-12T18:28:15.963Z",
-      "updatedAt": "2026-09-12T18:29:41.076Z"
+      "updatedAt": "2026-09-12T18:29:48.819Z"
     }
   ]
 }
