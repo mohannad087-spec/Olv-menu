@@ -89,7 +89,8 @@
       "descEn": "Beef burger, cheese, lettuce, tomato & OLV sauce",
       "price": 5.5,
       "popular": true,
-      "tags": []
+      "tags": [],
+      "available": false
     },
     {
       "id": "crispy-burger",
