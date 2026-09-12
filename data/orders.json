@@ -88,7 +88,7 @@
     {
       "id": "olv-1789234017815-wsc7lt",
       "number": 1004,
-      "status": "new",
+      "status": "ready",
       "mode": "hall",
       "table": "1",
       "phone": "",
@@ -127,7 +127,7 @@
       ],
       "text": "برغر OLV × 1\nأجنحة دجاج × 1\nالمجموع: 10.00 JD",
       "createdAt": "2026-09-12T17:26:57.815Z",
-      "updatedAt": "2026-09-12T17:26:57.815Z"
+      "updatedAt": "2026-09-12T17:41:15.312Z"
     }
   ]
 }
