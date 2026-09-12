@@ -90,7 +90,7 @@
       "price": 5.5,
       "popular": true,
       "tags": [],
-      "available": false
+      "available": true
     },
     {
       "id": "crispy-burger",
