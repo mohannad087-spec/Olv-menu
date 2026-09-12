@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1003,
+  "nextNumber": 1004,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -52,6 +52,38 @@
       "text": "كريسبي تشيكن برغر × 1\nبرغر OLV × 1\nالمجموع: 10.25 JD",
       "createdAt": "2026-09-12T09:02:08.603Z",
       "updatedAt": "2026-09-12T09:02:08.603Z"
+    },
+    {
+      "id": "olv-1789233595737-ltrqql",
+      "number": 1003,
+      "status": "new",
+      "mode": "hall",
+      "table": "1",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "213.139.52.24",
+      "total": 5.5,
+      "items": [
+        {
+          "id": "olv-burger",
+          "qty": 1,
+          "price": 5.5,
+          "label": "برغر OLV",
+          "custom": {
+            "remove": [
+              "بدون بصل"
+            ],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "برغر OLV × 1\nالمجموع: 5.50 JD",
+      "createdAt": "2026-09-12T17:19:55.737Z",
+      "updatedAt": "2026-09-12T17:19:55.737Z"
     }
   ]
 }
