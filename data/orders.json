@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1014,
+  "nextNumber": 1015,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -490,6 +490,53 @@
       "text": "أجنحة دجاج × 1\nكابتشينو × 1\nالمجموع: 7.50 JD",
       "createdAt": "2026-09-17T23:13:35.465Z",
       "updatedAt": "2026-09-17T23:13:35.465Z"
+    },
+    {
+      "id": "olv-1789686829202-7iz7ju",
+      "number": 1014,
+      "status": "new",
+      "mode": "hall",
+      "table": "2",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "149.200.255.239",
+      "total": 7.5,
+      "items": [
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [
+              "بدون بصل",
+              "بدون صوص"
+            ],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "cappuccino",
+          "qty": 1,
+          "price": 3,
+          "label": "كابتشينو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "عادي"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أجنحة دجاج × 1\nكابتشينو × 1\nالمجموع: 7.50 JD",
+      "createdAt": "2026-09-17T23:13:49.202Z",
+      "updatedAt": "2026-09-17T23:13:49.202Z"
     }
   ]
 }
