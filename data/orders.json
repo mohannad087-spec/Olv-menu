@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1015,
+  "nextNumber": 1016,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -537,6 +537,51 @@
       "text": "أجنحة دجاج × 1\nكابتشينو × 1\nالمجموع: 7.50 JD",
       "createdAt": "2026-09-17T23:13:49.202Z",
       "updatedAt": "2026-09-17T23:14:28.751Z"
+    },
+    {
+      "id": "olv-1789687249517-d5vbk8",
+      "number": 1015,
+      "status": "new",
+      "mode": "hall",
+      "table": "5",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "80.79.7.97",
+      "total": 6.5,
+      "items": [
+        {
+          "id": "iced-mocha",
+          "qty": 1,
+          "price": 3.75,
+          "label": "آيس موكا",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "حليب قليل الدسم",
+              "بدون سكر"
+            ],
+            "note": ""
+          }
+        },
+        {
+          "id": "brownie",
+          "qty": 1,
+          "price": 2.75,
+          "label": "براوني",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "آيس موكا × 1\nبراوني × 1\nالمجموع: 6.50 JD",
+      "createdAt": "2026-09-17T23:20:49.517Z",
+      "updatedAt": "2026-09-17T23:20:49.517Z"
     }
   ]
 }
