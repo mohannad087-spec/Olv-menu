@@ -494,7 +494,7 @@
     {
       "id": "olv-1789686829202-7iz7ju",
       "number": 1014,
-      "status": "new",
+      "status": "cancelled",
       "mode": "hall",
       "table": "2",
       "phone": "",
@@ -536,7 +536,7 @@
       ],
       "text": "أجنحة دجاج × 1\nكابتشينو × 1\nالمجموع: 7.50 JD",
       "createdAt": "2026-09-17T23:13:49.202Z",
-      "updatedAt": "2026-09-17T23:13:49.202Z"
+      "updatedAt": "2026-09-17T23:14:28.751Z"
     }
   ]
 }
