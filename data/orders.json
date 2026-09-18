@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1018,
+  "nextNumber": 1027,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -675,6 +675,323 @@
       "text": "كريسبي تشيكن برغر × 1\nالمجموع: 4.75 JD",
       "createdAt": "2026-09-18T15:06:09.321Z",
       "updatedAt": "2026-09-18T15:06:49.320Z"
+    },
+    {
+      "id": "olv-1789750121641-zn9leh",
+      "number": 1018,
+      "status": "preparing",
+      "mode": "hall",
+      "table": "2",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "212.34.19.203",
+      "total": 5,
+      "items": [
+        {
+          "id": "shisha",
+          "qty": 1,
+          "price": 5,
+          "label": "أرجيلة عادية",
+          "custom": {
+            "options": [
+              "تفاحتين"
+            ],
+            "remove": [],
+            "extras": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أرجيلة عادية × 1\nالمجموع: 5.00 JD",
+      "createdAt": "2026-09-18T16:48:41.641Z",
+      "updatedAt": "2026-09-18T16:49:57.752Z"
+    },
+    {
+      "id": "olv-1789750151253-opvjs5",
+      "number": 1019,
+      "status": "new",
+      "mode": "delivery",
+      "table": "",
+      "phone": "0790126360",
+      "address": "كفرنجه",
+      "notes": "",
+      "waiter": "",
+      "ip": "2a01:9700:8005:4600:1d4:8f5d:eb51:7394",
+      "total": 3,
+      "items": [
+        {
+          "id": "cappuccino",
+          "qty": 1,
+          "price": 3,
+          "label": "كابتشينو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "قليل سكر"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
+      "createdAt": "2026-09-18T16:49:11.253Z",
+      "updatedAt": "2026-09-18T16:49:11.253Z"
+    },
+    {
+      "id": "olv-1789750161707-dctb3d",
+      "number": 1020,
+      "status": "preparing",
+      "mode": "delivery",
+      "table": "",
+      "phone": "0790126360",
+      "address": "كفرنجه",
+      "notes": "",
+      "waiter": "",
+      "ip": "2a01:9700:8005:4600:1d4:8f5d:eb51:7394",
+      "total": 3,
+      "items": [
+        {
+          "id": "cappuccino",
+          "qty": 1,
+          "price": 3,
+          "label": "كابتشينو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "قليل سكر"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
+      "createdAt": "2026-09-18T16:49:21.707Z",
+      "updatedAt": "2026-09-18T16:49:46.185Z"
+    },
+    {
+      "id": "olv-1789750171292-pdw2ds",
+      "number": 1021,
+      "status": "preparing",
+      "mode": "delivery",
+      "table": "",
+      "phone": "0790126360",
+      "address": "كفرنجه",
+      "notes": "",
+      "waiter": "",
+      "ip": "2a01:9700:8005:4600:1d4:8f5d:eb51:7394",
+      "total": 3,
+      "items": [
+        {
+          "id": "cappuccino",
+          "qty": 1,
+          "price": 3,
+          "label": "كابتشينو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "قليل سكر"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
+      "createdAt": "2026-09-18T16:49:31.292Z",
+      "updatedAt": "2026-09-18T16:49:44.434Z"
+    },
+    {
+      "id": "olv-1789750224073-zee94f",
+      "number": 1022,
+      "status": "preparing",
+      "mode": "delivery",
+      "table": "",
+      "phone": "0799116999",
+      "address": "كفرنجة",
+      "notes": "",
+      "waiter": "",
+      "ip": "176.29.165.140",
+      "total": 4.75,
+      "items": [
+        {
+          "id": "crispy-burger",
+          "qty": 1,
+          "price": 4.75,
+          "label": "كريسبي تشيكن برغر",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كريسبي تشيكن برغر × 1\nالمجموع: 4.75 JD",
+      "createdAt": "2026-09-18T16:50:24.073Z",
+      "updatedAt": "2026-09-18T16:50:49.206Z"
+    },
+    {
+      "id": "olv-1789750254975-85566k",
+      "number": 1023,
+      "status": "preparing",
+      "mode": "hall",
+      "table": "6",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "2a01:9700:8000:b900:3d15:a19e:1adb:b08d",
+      "total": 4.5,
+      "items": [
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [
+              "بدون بصل"
+            ],
+            "extras": [
+              "جبنة إضافية"
+            ],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أجنحة دجاج × 1\nالمجموع: 4.50 JD",
+      "createdAt": "2026-09-18T16:50:54.975Z",
+      "updatedAt": "2026-09-18T16:53:26.275Z"
+    },
+    {
+      "id": "olv-1789750300322-8judhe",
+      "number": 1024,
+      "status": "preparing",
+      "mode": "delivery",
+      "table": "",
+      "phone": "0770240026",
+      "address": "كفرنجة",
+      "notes": "",
+      "waiter": "",
+      "ip": "212.34.12.235",
+      "total": 3,
+      "items": [
+        {
+          "id": "cappuccino",
+          "qty": 1,
+          "price": 3,
+          "label": "كابتشينو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "عادي"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
+      "createdAt": "2026-09-18T16:51:40.322Z",
+      "updatedAt": "2026-09-18T16:53:16.042Z"
+    },
+    {
+      "id": "olv-1789750594939-anpb5c",
+      "number": 1025,
+      "status": "new",
+      "mode": "delivery",
+      "table": "",
+      "phone": "0770240026",
+      "address": "كفرنجة",
+      "notes": "",
+      "waiter": "",
+      "ip": "2a01:9700:8019:3601:15f7:9bdb:539b:7d39",
+      "total": 9.25,
+      "items": [
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [],
+            "extras": [
+              "جبنة إضافية"
+            ],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "crispy-burger",
+          "qty": 1,
+          "price": 4.75,
+          "label": "كريسبي تشيكن برغر",
+          "custom": {
+            "remove": [],
+            "extras": [
+              "هالبينو"
+            ],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أجنحة دجاج × 1\nكريسبي تشيكن برغر × 1\nالمجموع: 9.25 JD",
+      "createdAt": "2026-09-18T16:56:34.939Z",
+      "updatedAt": "2026-09-18T16:56:34.939Z"
+    },
+    {
+      "id": "olv-1789759256367-2usyau",
+      "number": 1026,
+      "status": "new",
+      "mode": "hall",
+      "table": "1",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "94.129.229.108",
+      "total": 7.5,
+      "items": [
+        {
+          "id": "shisha",
+          "qty": 1,
+          "price": 5,
+          "label": "أرجيلة عادية",
+          "custom": {
+            "options": [
+              "تفاحتين"
+            ],
+            "remove": [],
+            "extras": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "fries",
+          "qty": 1,
+          "price": 2.5,
+          "label": "بطاطا OLV",
+          "custom": {
+            "remove": [],
+            "extras": [
+              "جبنة إضافية",
+              "صوص إضافي"
+            ],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أرجيلة عادية × 1\nبطاطا OLV × 1\nالمجموع: 7.50 JD",
+      "createdAt": "2026-09-18T19:20:56.367Z",
+      "updatedAt": "2026-09-18T19:20:56.367Z"
     }
   ]
 }
