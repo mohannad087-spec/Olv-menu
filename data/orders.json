@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1024,
+  "nextNumber": 1025,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -867,6 +867,38 @@
       "text": "أجنحة دجاج × 1\nالمجموع: 4.50 JD",
       "createdAt": "2026-09-18T16:50:54.975Z",
       "updatedAt": "2026-09-18T16:50:54.975Z"
+    },
+    {
+      "id": "olv-1789750300322-8judhe",
+      "number": 1024,
+      "status": "new",
+      "mode": "delivery",
+      "table": "",
+      "phone": "0770240026",
+      "address": "كفرنجة",
+      "notes": "",
+      "waiter": "",
+      "ip": "212.34.12.235",
+      "total": 3,
+      "items": [
+        {
+          "id": "cappuccino",
+          "qty": 1,
+          "price": 3,
+          "label": "كابتشينو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "عادي"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
+      "createdAt": "2026-09-18T16:51:40.322Z",
+      "updatedAt": "2026-09-18T16:51:40.322Z"
     }
   ]
 }
