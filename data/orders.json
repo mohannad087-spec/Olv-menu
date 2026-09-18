@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1018,
+  "nextNumber": 1019,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -675,6 +675,38 @@
       "text": "كريسبي تشيكن برغر × 1\nالمجموع: 4.75 JD",
       "createdAt": "2026-09-18T15:06:09.321Z",
       "updatedAt": "2026-09-18T15:06:49.320Z"
+    },
+    {
+      "id": "olv-1789750121641-zn9leh",
+      "number": 1018,
+      "status": "new",
+      "mode": "hall",
+      "table": "2",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "212.34.19.203",
+      "total": 5,
+      "items": [
+        {
+          "id": "shisha",
+          "qty": 1,
+          "price": 5,
+          "label": "أرجيلة عادية",
+          "custom": {
+            "options": [
+              "تفاحتين"
+            ],
+            "remove": [],
+            "extras": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أرجيلة عادية × 1\nالمجموع: 5.00 JD",
+      "createdAt": "2026-09-18T16:48:41.641Z",
+      "updatedAt": "2026-09-18T16:48:41.641Z"
     }
   ]
 }
