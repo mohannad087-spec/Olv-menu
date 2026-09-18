@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1019,
+  "nextNumber": 1020,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -707,6 +707,38 @@
       "text": "أرجيلة عادية × 1\nالمجموع: 5.00 JD",
       "createdAt": "2026-09-18T16:48:41.641Z",
       "updatedAt": "2026-09-18T16:48:41.641Z"
+    },
+    {
+      "id": "olv-1789750151253-opvjs5",
+      "number": 1019,
+      "status": "new",
+      "mode": "delivery",
+      "table": "",
+      "phone": "0790126360",
+      "address": "كفرنجه",
+      "notes": "",
+      "waiter": "",
+      "ip": "2a01:9700:8005:4600:1d4:8f5d:eb51:7394",
+      "total": 3,
+      "items": [
+        {
+          "id": "cappuccino",
+          "qty": 1,
+          "price": 3,
+          "label": "كابتشينو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "قليل سكر"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
+      "createdAt": "2026-09-18T16:49:11.253Z",
+      "updatedAt": "2026-09-18T16:49:11.253Z"
     }
   ]
 }
