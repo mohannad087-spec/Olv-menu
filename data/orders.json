@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1031,
+  "nextNumber": 1032,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -1112,6 +1112,60 @@
       "text": "أجنحة دجاج × 1\nالمجموع: 4.50 JD",
       "createdAt": "2026-09-18T20:40:13.822Z",
       "updatedAt": "2026-09-18T20:41:53.724Z"
+    },
+    {
+      "id": "olv-1789764183571-pju15b",
+      "number": 1031,
+      "status": "new",
+      "mode": "hall",
+      "table": "3",
+      "phone": "1",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "212.34.20.222",
+      "total": 13.75,
+      "items": [
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "chicken-pesto",
+          "qty": 1,
+          "price": 5.75,
+          "label": "باستا دجاج بيستو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "garden-salad",
+          "qty": 1,
+          "price": 3.5,
+          "label": "سلطة خضراء",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أجنحة دجاج × 1\nباستا دجاج بيستو × 1\nسلطة خضراء × 1\nالمجموع: 13.75 JD",
+      "createdAt": "2026-09-18T20:43:03.571Z",
+      "updatedAt": "2026-09-18T20:43:03.571Z"
     }
   ]
 }
