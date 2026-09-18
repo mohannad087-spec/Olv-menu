@@ -949,7 +949,7 @@
     {
       "id": "olv-1789759256367-2usyau",
       "number": 1026,
-      "status": "new",
+      "status": "cancelled",
       "mode": "hall",
       "table": "1",
       "phone": "",
@@ -991,7 +991,7 @@
       ],
       "text": "أرجيلة عادية × 1\nبطاطا OLV × 1\nالمجموع: 7.50 JD",
       "createdAt": "2026-09-18T19:20:56.367Z",
-      "updatedAt": "2026-09-18T19:20:56.367Z"
+      "updatedAt": "2026-09-18T20:46:31.446Z"
     },
     {
       "id": "olv-1789763803320-i9edjn",
