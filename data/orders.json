@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1033,
+  "nextNumber": 1034,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -1196,6 +1196,36 @@
       "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
       "createdAt": "2026-09-18T20:44:42.856Z",
       "updatedAt": "2026-09-18T20:45:20.591Z"
+    },
+    {
+      "id": "olv-1789775833059-lysvwm",
+      "number": 1033,
+      "status": "new",
+      "mode": "delivery",
+      "table": "",
+      "phone": "0411743955",
+      "address": "Melbour e  -daybfeak vista",
+      "notes": "",
+      "waiter": "",
+      "ip": "203.219.151.97",
+      "total": 4.75,
+      "items": [
+        {
+          "id": "crispy-burger",
+          "qty": 1,
+          "price": 4.75,
+          "label": "كريسبي تشيكن برغر",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كريسبي تشيكن برغر × 1\nالمجموع: 4.75 JD",
+      "createdAt": "2026-09-18T23:57:13.059Z",
+      "updatedAt": "2026-09-18T23:57:13.059Z"
     }
   ]
 }
