@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1025,
+  "nextNumber": 1026,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -899,6 +899,52 @@
       "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
       "createdAt": "2026-09-18T16:51:40.322Z",
       "updatedAt": "2026-09-18T16:53:16.042Z"
+    },
+    {
+      "id": "olv-1789750594939-anpb5c",
+      "number": 1025,
+      "status": "new",
+      "mode": "delivery",
+      "table": "",
+      "phone": "0770240026",
+      "address": "كفرنجة",
+      "notes": "",
+      "waiter": "",
+      "ip": "2a01:9700:8019:3601:15f7:9bdb:539b:7d39",
+      "total": 9.25,
+      "items": [
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [],
+            "extras": [
+              "جبنة إضافية"
+            ],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "crispy-burger",
+          "qty": 1,
+          "price": 4.75,
+          "label": "كريسبي تشيكن برغر",
+          "custom": {
+            "remove": [],
+            "extras": [
+              "هالبينو"
+            ],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أجنحة دجاج × 1\nكريسبي تشيكن برغر × 1\nالمجموع: 9.25 JD",
+      "createdAt": "2026-09-18T16:56:34.939Z",
+      "updatedAt": "2026-09-18T16:56:34.939Z"
     }
   ]
 }
