@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1026,
+  "nextNumber": 1027,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -945,6 +945,53 @@
       "text": "أجنحة دجاج × 1\nكريسبي تشيكن برغر × 1\nالمجموع: 9.25 JD",
       "createdAt": "2026-09-18T16:56:34.939Z",
       "updatedAt": "2026-09-18T16:56:34.939Z"
+    },
+    {
+      "id": "olv-1789759256367-2usyau",
+      "number": 1026,
+      "status": "new",
+      "mode": "hall",
+      "table": "1",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "94.129.229.108",
+      "total": 7.5,
+      "items": [
+        {
+          "id": "shisha",
+          "qty": 1,
+          "price": 5,
+          "label": "أرجيلة عادية",
+          "custom": {
+            "options": [
+              "تفاحتين"
+            ],
+            "remove": [],
+            "extras": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "fries",
+          "qty": 1,
+          "price": 2.5,
+          "label": "بطاطا OLV",
+          "custom": {
+            "remove": [],
+            "extras": [
+              "جبنة إضافية",
+              "صوص إضافي"
+            ],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أرجيلة عادية × 1\nبطاطا OLV × 1\nالمجموع: 7.50 JD",
+      "createdAt": "2026-09-18T19:20:56.367Z",
+      "updatedAt": "2026-09-18T19:20:56.367Z"
     }
   ]
 }
