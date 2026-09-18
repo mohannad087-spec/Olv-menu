@@ -5,27 +5,27 @@
 <meta name="theme-color" content="#0e0a06">
 <title>OLV — طلب الموظفين</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#1c140f;--gold:#a97c45;--gold2:#c89a5e;--cream:#f3e8d8;--muted:#a5907a;--line:#3a2c20;--bad:#c96060;--good:#5b9a6a}
+:root{--bg:#1c140f;--gold:#d4972f;--gold2:#f0bd5c;--cream:#faf1de;--muted:#a5907a;--line:#3a2c20;--bad:#c96060;--good:#5b9a6a}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#3a2a18,#20170f 30%,#160f0a 75%);color:var(--cream);font-family:"Cairo",Arial,"Noto Sans Arabic",sans-serif}
 button,input,textarea,select{font:inherit}button{cursor:pointer}
 .wrap{max-width:1000px;margin:auto;padding:14px 14px 120px}
 .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
-.top h1{color:var(--gold2);font:700 24px "Cairo",Georgia,serif;margin:0}
+.top h1{color:var(--gold2);font:700 24px "Amiri","Cairo",Georgia,serif;margin:0}
 .who{font-size:12px;color:var(--muted)}
 .btn{border:1px solid #66502b;background:#17120b;color:var(--gold2);border-radius:11px;padding:9px 13px;font-weight:900;font-size:12px}
 .login{max-width:420px;margin:60px auto;border:1px solid #543f22;border-radius:20px;padding:22px;background:linear-gradient(160deg,#181513,#0c0b0a);text-align:center}
-.login h2{color:var(--gold2);margin:0 0 12px}
+.login h2{color:var(--gold2);margin:0 0 12px;font-family:"Amiri","Cairo",Georgia,serif}
 .login input{width:100%;background:#111;border:1px solid #3d352b;border-radius:12px;color:#fff;padding:12px;margin-bottom:10px}
-.login button{width:100%;margin-top:6px;border-radius:12px;padding:13px;border:1px solid var(--gold2);background:linear-gradient(135deg,#7d5a34,#c89a5e);color:#201408;font-weight:900}
+.login button{width:100%;margin-top:6px;border-radius:12px;padding:13px;border:1px solid var(--gold2);background:linear-gradient(135deg,#7d5a34,#f0bd5c);color:#201408;font-weight:900}
 .tabs{display:flex;gap:8px;margin:10px 0}
 .tab{flex:1;padding:10px;border-radius:12px;border:1px solid #3d352b;background:#11100f;color:#bdb4a7;text-align:center;font-size:13px;font-weight:900}
-.tab.active{background:linear-gradient(135deg,#c9a05f,#8a6636);border-color:#c9a05f;color:#201408}
+.tab.active{background:linear-gradient(135deg,#e0a83f,#8a6636);border-color:#e0a83f;color:#201408}
 .cats{display:flex;gap:8px;overflow:auto;padding:4px 0 10px;scrollbar-width:none}
 .cats::-webkit-scrollbar{display:none}
 .cat{white-space:nowrap;background:#11100f;color:#bdb4a7;border:1px solid #3d352b;border-radius:999px;padding:9px 13px;font-size:12px}
-.cat.active{background:linear-gradient(135deg,#c9a05f,#8a6636);border-color:#c9a05f;color:#201408;font-weight:900}
+.cat.active{background:linear-gradient(135deg,#e0a83f,#8a6636);border-color:#e0a83f;color:#201408;font-weight:900}
 .search{width:100%;background:#11100f;border:1px solid #40372d;border-radius:13px;padding:11px;color:#fff;margin-bottom:10px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
 .card{border:1px solid #3a3125;border-radius:16px;background:linear-gradient(160deg,#181715,#0b0b0a);padding:11px;display:flex;flex-direction:column;gap:6px}
@@ -36,7 +36,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 .add{border:1px solid #896635;border-radius:10px;background:linear-gradient(135deg,#251a0a,#4a3112);color:var(--gold2);font-weight:900;font-size:16px;width:38px;height:34px}
 .avail{border:1px solid #443827;background:#12100d;color:#cbbb9b;border-radius:9px;padding:6px 9px;font-size:10px}
 .avail.off{border-color:#653333;color:#efb0b0}
-.cartbar{position:fixed;z-index:300;left:14px;right:14px;bottom:14px;max-width:960px;margin:auto;display:none;align-items:center;justify-content:space-between;border:1px solid #c9a05f;border-radius:18px;padding:14px 17px;background:linear-gradient(110deg,#7d5a34,#c89a5e);color:#201408;font-weight:900}
+.cartbar{position:fixed;z-index:300;left:14px;right:14px;bottom:14px;max-width:960px;margin:auto;display:none;align-items:center;justify-content:space-between;border:1px solid #e0a83f;border-radius:18px;padding:14px 17px;background:linear-gradient(110deg,#7d5a34,#f0bd5c);color:#201408;font-weight:900}
 .cartbar.show{display:flex}
 .overlay{position:fixed;inset:0;z-index:480;background:rgba(2,2,2,.9);display:none;align-items:flex-end;justify-content:center}
 .overlay.open{display:flex}
@@ -45,7 +45,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 .qty{display:flex;align-items:center;gap:8px}
 .qty button{width:28px;height:28px;border-radius:9px;background:#171717;border:1px solid #444;color:#fff}
 .note{width:100%;background:#171717;border:1px solid #342f28;color:#fff;border-radius:12px;padding:11px;margin-top:8px;resize:vertical}
-.primary{width:100%;margin-top:10px;border-radius:13px;padding:13px;border:1px solid var(--gold2);background:linear-gradient(135deg,#7d5a34,#c89a5e);color:#201408;font-weight:900}
+.primary{width:100%;margin-top:10px;border-radius:13px;padding:13px;border:1px solid var(--gold2);background:linear-gradient(135deg,#7d5a34,#f0bd5c);color:#201408;font-weight:900}
 .secondary{width:100%;margin-top:8px;border-radius:13px;padding:11px;border:1px solid #37322c;background:#171717;color:#ddd;font-weight:900}
 .myorders .oc{border:1px solid #3b3124;border-radius:14px;padding:12px;margin-bottom:9px;background:linear-gradient(160deg,#15130f,#0b0b0a)}
 .oc .head{display:flex;justify-content:space-between;font-weight:900;color:var(--gold2)}
@@ -89,7 +89,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 <div id="toast" class="toast"></div>
 
 <div id="cartOverlay" class="overlay"><div class="sheet">
-  <h2 style="color:var(--gold2);font:700 24px 'Cairo',Georgia,serif;margin:0 0 10px">الطلب الحالي</h2>
+  <h2 style="color:var(--gold2);font:700 24px 'Amiri','Cairo',Georgia,serif;margin:0 0 10px">الطلب الحالي</h2>
   <div id="cartRows"></div>
   <div style="display:flex;justify-content:space-between;padding:12px 0;color:var(--gold2);font-size:18px;font-weight:900"><span>المجموع</span><span id="cartTotal2"></span></div>
   <input id="tableNum" class="note" inputmode="numeric" placeholder="رقم الطاولة" style="margin-top:0">
