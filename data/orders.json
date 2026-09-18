@@ -1170,7 +1170,7 @@
     {
       "id": "olv-1789764282856-6lhi84",
       "number": 1032,
-      "status": "new",
+      "status": "preparing",
       "mode": "hall",
       "table": "5",
       "phone": "",
@@ -1195,7 +1195,7 @@
       ],
       "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
       "createdAt": "2026-09-18T20:44:42.856Z",
-      "updatedAt": "2026-09-18T20:44:42.856Z"
+      "updatedAt": "2026-09-18T20:45:20.591Z"
     }
   ]
 }
