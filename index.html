@@ -65,12 +65,48 @@ body.olv-light{background:radial-gradient(circle at 50% -10%,#fffdf7,#f5eee1 42%
 <div id="shishaOverlay" class="overlay"><div class="sheet"><button class="closex" onclick="closeShisha()">×</button><div class="sheet-inner"><h2 style="color:var(--gold2);font:700 30px Georgia,serif">OLV SHISHA EXPERIENCE</h2><div class="shisha-grid" id="types"></div><div class="flavors" id="flavors"></div><button id="addShisha" class="primary">إضافة للسلة</button></div></div></div>
 <script>
 let DATA=null,lang='ar',active='all',cartItems=[],orderMode=localStorage.getItem('olv-order-mode')||null,favorites=JSON.parse(localStorage.getItem('olv-favorites')||'[]'),selectedType=null,selectedFlavor=null,shishaItem=null,currentCustomItem=null,currentCustom={remove:[],extras:[],options:[],note:''},mood=null,turnstileToken='',audioCtx=null;
-function ensureAudio(){try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}catch(e){}}
-function beep(freq,delay,dur,type){setTimeout(()=>{try{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type||'sine';o.frequency.value=freq;o.connect(g);g.connect(audioCtx.destination);g.gain.setValueAtTime(.0001,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.22,audioCtx.currentTime+.01);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+dur);o.start();o.stop(audioCtx.currentTime+dur+.05)}catch(e){}},delay)}
-function playTapSound(){if(!audioCtx)return;beep(600,0,.08)}
-function playAddSound(){if(!audioCtx)return;beep(720,0,.1);beep(980,70,.14)}
-function playCartSound(){if(!audioCtx)return;beep(520,0,.08)}
-function playConfirmSound(){if(!audioCtx)return;beep(660,0,.12);beep(880,110,.12);beep(1100,220,.22)}
+let masterGain=null,reverbNode=null,reverbGain=null;
+function makeImpulse(ctx,duration,decay){const rate=ctx.sampleRate,len=Math.max(1,Math.floor(rate*duration)),imp=ctx.createBuffer(2,len,rate);for(let c=0;c<2;c++){const d=imp.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,decay)}return imp}
+function ensureAudio(){
+  try{
+    if(!audioCtx){
+      audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+      masterGain=audioCtx.createGain();masterGain.gain.value=.5;
+      reverbNode=audioCtx.createConvolver();reverbNode.buffer=makeImpulse(audioCtx,1.5,2.4);
+      reverbGain=audioCtx.createGain();reverbGain.gain.value=.16;
+      masterGain.connect(audioCtx.destination);
+      masterGain.connect(reverbNode);reverbNode.connect(reverbGain);reverbGain.connect(audioCtx.destination);
+    }
+    if(audioCtx.state==='suspended')audioCtx.resume();
+  }catch(e){}
+}
+function tone(freq,start,dur,peak,type){
+  if(!audioCtx||!masterGain)return;
+  const t0=audioCtx.currentTime+start;
+  const o1=audioCtx.createOscillator(),g1=audioCtx.createGain();
+  o1.type=type||'sine';o1.frequency.setValueAtTime(freq,t0);
+  g1.gain.setValueAtTime(.0001,t0);g1.gain.linearRampToValueAtTime(peak,t0+.012);g1.gain.exponentialRampToValueAtTime(.0001,t0+dur);
+  o1.connect(g1);g1.connect(masterGain);o1.start(t0);o1.stop(t0+dur+.05);
+  const o2=audioCtx.createOscillator(),g2=audioCtx.createGain();
+  o2.type='sine';o2.frequency.setValueAtTime(freq*2.01,t0);
+  g2.gain.setValueAtTime(.0001,t0);g2.gain.linearRampToValueAtTime(peak*.16,t0+.008);g2.gain.exponentialRampToValueAtTime(.0001,t0+dur*.55);
+  o2.connect(g2);g2.connect(masterGain);o2.start(t0);o2.stop(t0+dur*.55+.05);
+}
+function whoosh(start,dur,peak,rise){
+  if(!audioCtx||!masterGain)return;
+  const t0=audioCtx.currentTime+start,n=Math.floor(audioCtx.sampleRate*dur),buf=audioCtx.createBuffer(1,n,audioCtx.sampleRate),d=buf.getChannelData(0);
+  for(let i=0;i<n;i++)d[i]=Math.random()*2-1;
+  const src=audioCtx.createBufferSource();src.buffer=buf;
+  const filt=audioCtx.createBiquadFilter();filt.type='bandpass';filt.Q.value=.9;
+  filt.frequency.setValueAtTime(rise?260:1800,t0);filt.frequency.exponentialRampToValueAtTime(rise?1800:260,t0+dur);
+  const g=audioCtx.createGain();g.gain.setValueAtTime(.0001,t0);g.gain.linearRampToValueAtTime(peak,t0+dur*.3);g.gain.exponentialRampToValueAtTime(.0001,t0+dur);
+  src.connect(filt);filt.connect(g);g.connect(masterGain);src.start(t0);src.stop(t0+dur+.02);
+}
+function playTapSound(){tone(880,0,.09,.1,'triangle')}
+function playAddSound(){tone(784,0,.2,.15,'sine');tone(1046.5,.09,.26,.17,'sine')}
+function playCartSound(){whoosh(0,.16,.06,true)}
+function playTickSound(){tone(659.25,0,.07,.09,'triangle')}
+function playConfirmSound(){tone(523.25,0,.22,.13,'sine');tone(659.25,.1,.22,.13,'sine');tone(784,.2,.22,.13,'sine');tone(1046.5,.32,.4,.16,'sine')}
 document.addEventListener('click',ensureAudio);
 function onTurnstileToken(t){turnstileToken=t}
 function onTurnstileExpired(){turnstileToken=''}
@@ -129,7 +165,7 @@ function addItem(id){const i=DATA.items.find(x=>x.id===id);if(!i||i.available===
 function customText(c){if(!c)return '';const a=[...(c.remove||[]).map(x=>'إزالة: '+x),...(c.extras||[]).map(x=>'إضافة: '+x),...(c.options||[])];if(c.note)a.push('طلب خاص: '+c.note);return a.join(' · ')}
 function updateCart(){const n=cartItems.reduce((a,x)=>a+x.qty,0),t=cartItems.reduce((a,x)=>a+x.price*x.qty,0);$('cart').classList.toggle('show',n>0);$('cartText').textContent=`السلة • ${n} صنف`;$('cartTotal').textContent=money(t);if(n>0){$('cart').classList.remove('bump');void $('cart').offsetWidth;$('cart').classList.add('bump')}}
 function renderCart(){let total=0;$('cartItems').innerHTML=cartItems.length?cartItems.map((x,i)=>{const it=DATA.items.find(a=>a.id===x.id);total+=x.price*x.qty;return `<div class="cart-row"><img class="cart-thumb" src="${it?.image||imgs[it?.cat]||imgs.hot}" alt=""><div><b>${x.label||tx(it)}</b><small>${money(x.price)} × ${x.qty}</small>${customText(x.custom)?`<small>${customText(x.custom)}</small>`:''}</div><div class="qty"><button onclick="changeQty(${i},-1)">−</button><b>${x.qty}</b><button onclick="changeQty(${i},1)">+</button></div></div>`}).join(''):`<div class="notice">السلة فارغة</div>`;$('total').textContent=money(total);renderRecommendations()}
-function changeQty(i,d){cartItems[i].qty+=d;if(cartItems[i].qty<=0)cartItems.splice(i,1);renderCart();updateCart();playCartSound()}
+function changeQty(i,d){cartItems[i].qty+=d;if(cartItems[i].qty<=0)cartItems.splice(i,1);renderCart();updateCart();playTickSound()}
 function renderRecommendations(){
 const ids=new Set(cartItems.map(x=>String(x.id)));
 const cats=new Set();cartItems.forEach(x=>{const m=DATA.items.find(i=>String(i.id)===String(x.id));if(m)cats.add(m.cat)});
