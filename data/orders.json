@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1023,
+  "nextNumber": 1024,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -833,6 +833,40 @@
       "text": "كريسبي تشيكن برغر × 1\nالمجموع: 4.75 JD",
       "createdAt": "2026-09-18T16:50:24.073Z",
       "updatedAt": "2026-09-18T16:50:49.206Z"
+    },
+    {
+      "id": "olv-1789750254975-85566k",
+      "number": 1023,
+      "status": "new",
+      "mode": "hall",
+      "table": "6",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "2a01:9700:8000:b900:3d15:a19e:1adb:b08d",
+      "total": 4.5,
+      "items": [
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [
+              "بدون بصل"
+            ],
+            "extras": [
+              "جبنة إضافية"
+            ],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أجنحة دجاج × 1\nالمجموع: 4.50 JD",
+      "createdAt": "2026-09-18T16:50:54.975Z",
+      "updatedAt": "2026-09-18T16:50:54.975Z"
     }
   ]
 }
