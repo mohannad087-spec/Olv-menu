@@ -775,7 +775,7 @@
     {
       "id": "olv-1789750171292-pdw2ds",
       "number": 1021,
-      "status": "new",
+      "status": "preparing",
       "mode": "delivery",
       "table": "",
       "phone": "0790126360",
@@ -802,7 +802,7 @@
       ],
       "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
       "createdAt": "2026-09-18T16:49:31.292Z",
-      "updatedAt": "2026-09-18T16:49:31.292Z"
+      "updatedAt": "2026-09-18T16:49:44.434Z"
     }
   ]
 }
