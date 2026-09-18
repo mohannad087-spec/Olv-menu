@@ -711,7 +711,7 @@
     {
       "id": "olv-1789750151253-opvjs5",
       "number": 1019,
-      "status": "new",
+      "status": "cancelled",
       "mode": "delivery",
       "table": "",
       "phone": "0790126360",
@@ -738,7 +738,7 @@
       ],
       "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
       "createdAt": "2026-09-18T16:49:11.253Z",
-      "updatedAt": "2026-09-18T16:49:11.253Z"
+      "updatedAt": "2026-09-18T20:47:24.672Z"
     },
     {
       "id": "olv-1789750161707-dctb3d",
