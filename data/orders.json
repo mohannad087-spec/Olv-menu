@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1032,
+  "nextNumber": 1033,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -1166,6 +1166,36 @@
       "text": "أجنحة دجاج × 1\nباستا دجاج بيستو × 1\nسلطة خضراء × 1\nالمجموع: 13.75 JD",
       "createdAt": "2026-09-18T20:43:03.571Z",
       "updatedAt": "2026-09-18T20:43:39.408Z"
+    },
+    {
+      "id": "olv-1789764282856-6lhi84",
+      "number": 1032,
+      "status": "new",
+      "mode": "hall",
+      "table": "5",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "212.34.20.222",
+      "total": 3,
+      "items": [
+        {
+          "id": "cappuccino",
+          "qty": 1,
+          "price": 3,
+          "label": "كابتشينو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
+      "createdAt": "2026-09-18T20:44:42.856Z",
+      "updatedAt": "2026-09-18T20:44:42.856Z"
     }
   ]
 }
