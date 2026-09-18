@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1028,
+  "nextNumber": 1029,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -1022,6 +1022,36 @@
       "text": "أجنحة دجاج × 1\nالمجموع: 4.50 JD",
       "createdAt": "2026-09-18T20:36:43.320Z",
       "updatedAt": "2026-09-18T20:36:43.320Z"
+    },
+    {
+      "id": "olv-1789763990073-zg1hl3",
+      "number": 1028,
+      "status": "new",
+      "mode": "hall",
+      "table": "1",
+      "phone": "1",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "212.34.20.222",
+      "total": 4.5,
+      "items": [
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أجنحة دجاج × 1\nالمجموع: 4.50 JD",
+      "createdAt": "2026-09-18T20:39:50.073Z",
+      "updatedAt": "2026-09-18T20:39:50.073Z"
     }
   ]
 }
