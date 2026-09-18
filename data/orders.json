@@ -679,7 +679,7 @@
     {
       "id": "olv-1789750121641-zn9leh",
       "number": 1018,
-      "status": "new",
+      "status": "preparing",
       "mode": "hall",
       "table": "2",
       "phone": "",
@@ -706,7 +706,7 @@
       ],
       "text": "أرجيلة عادية × 1\nالمجموع: 5.00 JD",
       "createdAt": "2026-09-18T16:48:41.641Z",
-      "updatedAt": "2026-09-18T16:48:41.641Z"
+      "updatedAt": "2026-09-18T16:49:57.752Z"
     },
     {
       "id": "olv-1789750151253-opvjs5",
