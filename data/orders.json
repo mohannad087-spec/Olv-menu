@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1010,
+  "nextNumber": 1018,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -27,7 +27,7 @@
     {
       "id": "olv-1789203728603-wn3oev",
       "number": 1002,
-      "status": "new",
+      "status": "cancelled",
       "mode": "hall",
       "table": "5",
       "phone": "",
@@ -51,7 +51,7 @@
       ],
       "text": "كريسبي تشيكن برغر × 1\nبرغر OLV × 1\nالمجموع: 10.25 JD",
       "createdAt": "2026-09-12T09:02:08.603Z",
-      "updatedAt": "2026-09-12T09:02:08.603Z"
+      "updatedAt": "2026-09-17T23:14:55.855Z"
     },
     {
       "id": "olv-1789233595737-ltrqql",
@@ -88,7 +88,7 @@
     {
       "id": "olv-1789234017815-wsc7lt",
       "number": 1004,
-      "status": "ready",
+      "status": "completed",
       "mode": "hall",
       "table": "1",
       "phone": "",
@@ -127,7 +127,7 @@
       ],
       "text": "برغر OLV × 1\nأجنحة دجاج × 1\nالمجموع: 10.00 JD",
       "createdAt": "2026-09-12T17:26:57.815Z",
-      "updatedAt": "2026-09-12T17:41:15.312Z"
+      "updatedAt": "2026-09-18T15:36:42.538Z"
     },
     {
       "id": "olv-1789236306218-y5ea4b",
@@ -270,7 +270,7 @@
     {
       "id": "olv-1789240994672-6tfq4x",
       "number": 1009,
-      "status": "new",
+      "status": "cancelled",
       "mode": "delivery",
       "table": "",
       "phone": "0779617277",
@@ -342,7 +342,339 @@
       ],
       "text": "أجنحة دجاج × 1\nكابتشينو × 1\nآيس سبانش لاتيه × 1\nميلك شيك لوتس × 1\nالمجموع: 15.00 JD",
       "createdAt": "2026-09-12T19:23:14.672Z",
-      "updatedAt": "2026-09-12T19:23:14.672Z"
+      "updatedAt": "2026-09-17T23:19:20.939Z"
+    },
+    {
+      "id": "olv-1789685457377-hifaqm",
+      "number": 1010,
+      "status": "cancelled",
+      "mode": "hall",
+      "table": "2",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "149.200.255.239",
+      "total": 4.75,
+      "items": [
+        {
+          "id": "crispy-burger",
+          "qty": 1,
+          "price": 4.75,
+          "label": "كريسبي تشيكن برغر",
+          "custom": {
+            "remove": [
+              "بدون بصل"
+            ],
+            "extras": [
+              "جبنة إضافية"
+            ],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كريسبي تشيكن برغر × 1\nالمجموع: 4.75 JD",
+      "createdAt": "2026-09-17T22:50:57.377Z",
+      "updatedAt": "2026-09-17T23:19:06.569Z"
+    },
+    {
+      "id": "olv-1789685731648-i0n82z",
+      "number": 1011,
+      "status": "cancelled",
+      "mode": "hall",
+      "table": "2",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "149.200.255.239",
+      "total": 4.5,
+      "items": [
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [
+              "بدون بصل",
+              "بدون صوص"
+            ],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أجنحة دجاج × 1\nالمجموع: 4.50 JD",
+      "createdAt": "2026-09-17T22:55:31.648Z",
+      "updatedAt": "2026-09-17T23:18:57.841Z"
+    },
+    {
+      "id": "olv-1789686515098-4wliub",
+      "number": 1012,
+      "status": "cancelled",
+      "mode": "hall",
+      "table": "2",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "149.200.255.239",
+      "total": 4.5,
+      "items": [
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [
+              "بدون بصل",
+              "بدون صوص"
+            ],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أجنحة دجاج × 1\nالمجموع: 4.50 JD",
+      "createdAt": "2026-09-17T23:08:35.098Z",
+      "updatedAt": "2026-09-17T23:15:12.408Z"
+    },
+    {
+      "id": "olv-1789686815465-hnkexm",
+      "number": 1013,
+      "status": "cancelled",
+      "mode": "hall",
+      "table": "2",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "149.200.255.239",
+      "total": 7.5,
+      "items": [
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [
+              "بدون بصل",
+              "بدون صوص"
+            ],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "cappuccino",
+          "qty": 1,
+          "price": 3,
+          "label": "كابتشينو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "عادي"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أجنحة دجاج × 1\nكابتشينو × 1\nالمجموع: 7.50 JD",
+      "createdAt": "2026-09-17T23:13:35.465Z",
+      "updatedAt": "2026-09-17T23:18:55.072Z"
+    },
+    {
+      "id": "olv-1789686829202-7iz7ju",
+      "number": 1014,
+      "status": "cancelled",
+      "mode": "hall",
+      "table": "2",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "149.200.255.239",
+      "total": 7.5,
+      "items": [
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [
+              "بدون بصل",
+              "بدون صوص"
+            ],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "cappuccino",
+          "qty": 1,
+          "price": 3,
+          "label": "كابتشينو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "عادي"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أجنحة دجاج × 1\nكابتشينو × 1\nالمجموع: 7.50 JD",
+      "createdAt": "2026-09-17T23:13:49.202Z",
+      "updatedAt": "2026-09-17T23:14:28.751Z"
+    },
+    {
+      "id": "olv-1789687249517-d5vbk8",
+      "number": 1015,
+      "status": "cancelled",
+      "mode": "hall",
+      "table": "5",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "80.79.7.97",
+      "total": 6.5,
+      "items": [
+        {
+          "id": "iced-mocha",
+          "qty": 1,
+          "price": 3.75,
+          "label": "آيس موكا",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "حليب قليل الدسم",
+              "بدون سكر"
+            ],
+            "note": ""
+          }
+        },
+        {
+          "id": "brownie",
+          "qty": 1,
+          "price": 2.75,
+          "label": "براوني",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "آيس موكا × 1\nبراوني × 1\nالمجموع: 6.50 JD",
+      "createdAt": "2026-09-17T23:20:49.517Z",
+      "updatedAt": "2026-09-17T23:30:20.089Z"
+    },
+    {
+      "id": "olv-1789732395471-nyudd2",
+      "number": 1016,
+      "status": "cancelled",
+      "mode": "hall",
+      "table": "10",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "212.34.14.152",
+      "total": 12.5,
+      "items": [
+        {
+          "id": "wings",
+          "qty": 1,
+          "price": 4.5,
+          "label": "أجنحة دجاج",
+          "custom": {
+            "remove": [],
+            "extras": [
+              "جبنة إضافية",
+              "هالبينو"
+            ],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "classic-burger",
+          "qty": 1,
+          "price": 5.25,
+          "label": "كلاسيك برغر",
+          "custom": {
+            "remove": [
+              "بدون مخلل"
+            ],
+            "extras": [
+              "صوص إضافي"
+            ],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "lemon-mint",
+          "qty": 1,
+          "price": 2.75,
+          "label": "ليمون ونعنع",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "ثلج عادي"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أجنحة دجاج × 1\nكلاسيك برغر × 1\nليمون ونعنع × 1\nالمجموع: 12.50 JD",
+      "createdAt": "2026-09-18T11:53:15.471Z",
+      "updatedAt": "2026-09-18T15:06:51.795Z"
+    },
+    {
+      "id": "olv-1789743969321-j74uzn",
+      "number": 1017,
+      "status": "cancelled",
+      "mode": "hall",
+      "table": "2",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "212.34.20.222",
+      "total": 4.75,
+      "items": [
+        {
+          "id": "crispy-burger",
+          "qty": 1,
+          "price": 4.75,
+          "label": "كريسبي تشيكن برغر",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كريسبي تشيكن برغر × 1\nالمجموع: 4.75 JD",
+      "createdAt": "2026-09-18T15:06:09.321Z",
+      "updatedAt": "2026-09-18T15:06:49.320Z"
     }
   ]
 }
