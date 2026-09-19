@@ -247,7 +247,8 @@ $('enterBtn').onclick=()=>{ensureAudio();playWelcomeSound();$('entry').classList
     }).catch(()=>{});
   }
 }
-$('whatsapp').onclick=async()=>{const o=getOrder();if(!o)return;const rec=await recordOrder(o);let n=(DATA.settings.whatsappNumber||'').replace(/\D/g,'');if(n.startsWith('0'))n='962'+n.slice(1);if(!n){copyText(o.text);showToast('رقم واتساب غير مضبوط — تم نسخ الطلب');return}window.open(`https://wa.me/${n}?text=${encodeURIComponent(o.text)}`,'_blank');playConfirmSound();if(rec){showToast('تم تسجيل الطلب رقم #'+rec.number);showTrackingLink(rec)}};$('copy').onclick=async()=>{const o=getOrder();if(!o)return;const rec=await recordOrder(o);await copyText(o.text);playConfirmSound();showToast(rec?'تم تأكيد الطلب — رقم الطلب #'+rec.number:'تم تأكيد الطلب');showTrackingLink(rec)};init();
+function clearCart(){cartItems=[];renderCart();updateCart()}
+$('whatsapp').onclick=async()=>{const o=getOrder();if(!o)return;const rec=await recordOrder(o);let n=(DATA.settings.whatsappNumber||'').replace(/\D/g,'');if(n.startsWith('0'))n='962'+n.slice(1);if(!n){copyText(o.text);showToast('رقم واتساب غير مضبوط — تم نسخ الطلب');return}window.open(`https://wa.me/${n}?text=${encodeURIComponent(o.text)}`,'_blank');playConfirmSound();clearCart();if(rec){showToast('تم تسجيل الطلب رقم #'+rec.number);showTrackingLink(rec)}};$('copy').onclick=async()=>{const o=getOrder();if(!o)return;const rec=await recordOrder(o);await copyText(o.text);playConfirmSound();clearCart();showToast(rec?'تم تأكيد الطلب — رقم الطلب #'+rec.number:'تم تأكيد الطلب');showTrackingLink(rec)};init();
 </script>
 <script src="assets/phase2.js"></script>
 </body></html>
