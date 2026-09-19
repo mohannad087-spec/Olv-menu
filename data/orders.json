@@ -1262,7 +1262,7 @@
     {
       "id": "olv-1789849032132-u6nri2",
       "number": 1035,
-      "status": "new",
+      "status": "cancelled",
       "mode": "hall",
       "table": "1",
       "name": "",
@@ -1290,7 +1290,7 @@
       ],
       "text": "تشيزكيك × 1\nالمجموع: 3.25 JD",
       "createdAt": "2026-09-19T20:17:12.132Z",
-      "updatedAt": "2026-09-19T20:17:12.132Z"
+      "updatedAt": "2026-09-19T20:27:25.325Z"
     },
     {
       "id": "olv-1789849458038-9snh5b",
