@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1037,
+  "nextNumber": 1039,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -1322,6 +1322,88 @@
       "text": "ميلك شيك لوتس × 1\nالمجموع: 3.75 JD",
       "createdAt": "2026-09-19T20:24:18.038Z",
       "updatedAt": "2026-09-19T20:27:23.693Z"
+    },
+    {
+      "id": "olv-1789850676673-c3ky39",
+      "number": 1037,
+      "status": "cancelled",
+      "mode": "hall",
+      "table": "1",
+      "name": "مهند",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "2a01:9700:8019:3601:dfba:62dd:9654:bac2",
+      "total": 7.75,
+      "items": [
+        {
+          "id": "crispy-burger",
+          "qty": 1,
+          "price": 4.75,
+          "label": "كريسبي تشيكن برغر",
+          "custom": {
+            "remove": [
+              "بدون بصل"
+            ],
+            "extras": [
+              "جبنة إضافية"
+            ],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "cappuccino",
+          "qty": 1,
+          "price": 3,
+          "label": "كابتشينو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "عادي"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كريسبي تشيكن برغر × 1\nكابتشينو × 1\nالمجموع: 7.75 JD",
+      "createdAt": "2026-09-19T20:44:36.673Z",
+      "updatedAt": "2026-09-19T20:45:33.370Z"
+    },
+    {
+      "id": "olv-1789852353159-czevwx",
+      "number": 1038,
+      "status": "new",
+      "mode": "hall",
+      "table": "1",
+      "name": "غ",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "2a01:9700:8019:3601:dfba:62dd:9654:bac2",
+      "total": 3.75,
+      "items": [
+        {
+          "id": "iced-spanish",
+          "qty": 1,
+          "price": 3.75,
+          "label": "آيس سبانش لاتيه",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "بدون سكر"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "آيس سبانش لاتيه × 1\nالمجموع: 3.75 JD",
+      "createdAt": "2026-09-19T21:12:33.159Z",
+      "updatedAt": "2026-09-19T21:12:33.159Z"
     }
   ]
 }
