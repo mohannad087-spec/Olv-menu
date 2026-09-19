@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1034,
+  "nextNumber": 1035,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -1226,6 +1226,38 @@
       "text": "كريسبي تشيكن برغر × 1\nالمجموع: 4.75 JD",
       "createdAt": "2026-09-18T23:57:13.059Z",
       "updatedAt": "2026-09-19T12:19:34.449Z"
+    },
+    {
+      "id": "olv-1789839366391-4yd2mq",
+      "number": 1034,
+      "status": "new",
+      "mode": "hall",
+      "table": "1",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "213.139.49.25",
+      "total": 3,
+      "items": [
+        {
+          "id": "cappuccino",
+          "qty": 1,
+          "price": 3,
+          "label": "كابتشينو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "حليب عادي"
+            ],
+            "note": ""
+          }
+        }
+      ],
+      "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
+      "createdAt": "2026-09-19T17:36:06.391Z",
+      "updatedAt": "2026-09-19T17:36:06.391Z"
     }
   ]
 }
