@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1036,
+  "nextNumber": 1037,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -1230,7 +1230,7 @@
     {
       "id": "olv-1789839366391-4yd2mq",
       "number": 1034,
-      "status": "new",
+      "status": "preparing",
       "mode": "hall",
       "table": "1",
       "phone": "",
@@ -1257,12 +1257,12 @@
       ],
       "text": "كابتشينو × 1\nالمجموع: 3.00 JD",
       "createdAt": "2026-09-19T17:36:06.391Z",
-      "updatedAt": "2026-09-19T17:36:06.391Z"
+      "updatedAt": "2026-09-19T20:27:29.773Z"
     },
     {
       "id": "olv-1789849032132-u6nri2",
       "number": 1035,
-      "status": "new",
+      "status": "cancelled",
       "mode": "hall",
       "table": "1",
       "name": "",
@@ -1290,7 +1290,38 @@
       ],
       "text": "تشيزكيك × 1\nالمجموع: 3.25 JD",
       "createdAt": "2026-09-19T20:17:12.132Z",
-      "updatedAt": "2026-09-19T20:17:12.132Z"
+      "updatedAt": "2026-09-19T20:27:25.325Z"
+    },
+    {
+      "id": "olv-1789849458038-9snh5b",
+      "number": 1036,
+      "status": "cancelled",
+      "mode": "hall",
+      "table": "1",
+      "name": "مهند",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "2a01:9700:8019:3601:dfba:62dd:9654:bac2",
+      "total": 3.75,
+      "items": [
+        {
+          "id": "lotus-shake",
+          "qty": 1,
+          "price": 3.75,
+          "label": "ميلك شيك لوتس",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "ميلك شيك لوتس × 1\nالمجموع: 3.75 JD",
+      "createdAt": "2026-09-19T20:24:18.038Z",
+      "updatedAt": "2026-09-19T20:27:23.693Z"
     }
   ]
 }
