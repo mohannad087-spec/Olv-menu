@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1039,
+  "nextNumber": 1040,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -1404,6 +1404,41 @@
       "text": "آيس سبانش لاتيه × 1\nالمجموع: 3.75 JD",
       "createdAt": "2026-09-19T21:12:33.159Z",
       "updatedAt": "2026-09-19T21:13:21.051Z"
+    },
+    {
+      "id": "olv-1789852566921-0mqj9m",
+      "number": 1039,
+      "status": "new",
+      "mode": "hall",
+      "table": "1",
+      "name": "غ",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "2a01:9700:8019:3601:dfba:62dd:9654:bac2",
+      "total": 3.5,
+      "items": [
+        {
+          "id": "mozzarella",
+          "qty": 1,
+          "price": 3.5,
+          "label": "أصابع موزاريلا",
+          "custom": {
+            "remove": [
+              "بدون بصل"
+            ],
+            "extras": [
+              "صوص إضافي"
+            ],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أصابع موزاريلا × 1\nالمجموع: 3.50 JD",
+      "createdAt": "2026-09-19T21:16:06.921Z",
+      "updatedAt": "2026-09-19T21:16:06.921Z"
     }
   ]
 }
