@@ -100,7 +100,7 @@ async function verifyTurnstile(token, ip, env) {
 }
 
 function summarize(o) {
-  return { id: o.id, number: o.number, status: o.status, mode: o.mode, table: o.table || '', phone: o.phone || '', address: o.address || '', waiter: o.waiter || '', total: o.total, items: o.items || [], text: o.text || '', notes: o.notes || '', rating: o.rating || null, createdAt: o.createdAt, updatedAt: o.updatedAt };
+  return { id: o.id, number: o.number, status: o.status, mode: o.mode, table: o.table || '', name: o.name || '', phone: o.phone || '', address: o.address || '', waiter: o.waiter || '', total: o.total, items: o.items || [], text: o.text || '', notes: o.notes || '', rating: o.rating || null, createdAt: o.createdAt, updatedAt: o.updatedAt };
 }
 
 // Loyalty points: keyed by normalized phone number, 1 point per JD spent,
@@ -193,7 +193,7 @@ export async function onRequest(context) {
         }
         store.nextNumber = Number(store.nextNumber || 1001);
         const now = new Date().toISOString(), id = `olv-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, number = store.nextNumber++;
-        const order = { id, number, status: 'new', mode: p.mode, table: String(p.table || ''), phone: String(p.phone || ''), address: String(p.address || ''), notes: String(p.notes || ''), waiter: String(p.waiter || ''), ip, total: verified.total, items: verified.items, text: verified.text, createdAt: now, updatedAt: now };
+        const order = { id, number, status: 'new', mode: p.mode, table: String(p.table || ''), name: String(p.name || ''), phone: String(p.phone || ''), address: String(p.address || ''), notes: String(p.notes || ''), waiter: String(p.waiter || ''), ip, total: verified.total, items: verified.items, text: verified.text, createdAt: now, updatedAt: now };
         store.orders.push(order);
         const put = await writeStore(h, repo, branch, sha, store, `New OLV order #${number}`);
         if (put.ok) return json({ ok: true, order: summarize(order) }, 201);
