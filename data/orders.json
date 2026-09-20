@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1040,
+  "nextNumber": 1041,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -1439,6 +1439,42 @@
       "text": "أصابع موزاريلا × 1\nالمجموع: 3.50 JD",
       "createdAt": "2026-09-19T21:16:06.921Z",
       "updatedAt": "2026-09-19T21:20:41.098Z"
+    },
+    {
+      "id": "olv-1789920755762-m1gu5t",
+      "number": 1040,
+      "status": "new",
+      "mode": "hall",
+      "table": "1",
+      "name": "مهند",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "213.139.41.199",
+      "total": 6,
+      "items": [
+        {
+          "id": "spicy-burger",
+          "qty": 1,
+          "price": 6,
+          "label": "سبايسي برغر",
+          "custom": {
+            "remove": [
+              "بدون مخلل"
+            ],
+            "extras": [
+              "جبنة إضافية",
+              "صوص إضافي"
+            ],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "سبايسي برغر × 1\nالمجموع: 6.00 JD",
+      "createdAt": "2026-09-20T16:12:35.762Z",
+      "updatedAt": "2026-09-20T16:12:35.762Z"
     }
   ]
 }
