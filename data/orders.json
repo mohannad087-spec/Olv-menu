@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1039,
+  "nextNumber": 1042,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -1375,7 +1375,7 @@
     {
       "id": "olv-1789852353159-czevwx",
       "number": 1038,
-      "status": "new",
+      "status": "cancelled",
       "mode": "hall",
       "table": "1",
       "name": "غ",
@@ -1403,7 +1403,123 @@
       ],
       "text": "آيس سبانش لاتيه × 1\nالمجموع: 3.75 JD",
       "createdAt": "2026-09-19T21:12:33.159Z",
-      "updatedAt": "2026-09-19T21:12:33.159Z"
+      "updatedAt": "2026-09-19T21:13:21.051Z"
+    },
+    {
+      "id": "olv-1789852566921-0mqj9m",
+      "number": 1039,
+      "status": "preparing",
+      "mode": "hall",
+      "table": "1",
+      "name": "غ",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "2a01:9700:8019:3601:dfba:62dd:9654:bac2",
+      "total": 3.5,
+      "items": [
+        {
+          "id": "mozzarella",
+          "qty": 1,
+          "price": 3.5,
+          "label": "أصابع موزاريلا",
+          "custom": {
+            "remove": [
+              "بدون بصل"
+            ],
+            "extras": [
+              "صوص إضافي"
+            ],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أصابع موزاريلا × 1\nالمجموع: 3.50 JD",
+      "createdAt": "2026-09-19T21:16:06.921Z",
+      "updatedAt": "2026-09-19T21:20:41.098Z"
+    },
+    {
+      "id": "olv-1789920755762-m1gu5t",
+      "number": 1040,
+      "status": "preparing",
+      "mode": "hall",
+      "table": "1",
+      "name": "مهند",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "213.139.41.199",
+      "total": 6,
+      "items": [
+        {
+          "id": "spicy-burger",
+          "qty": 1,
+          "price": 6,
+          "label": "سبايسي برغر",
+          "custom": {
+            "remove": [
+              "بدون مخلل"
+            ],
+            "extras": [
+              "جبنة إضافية",
+              "صوص إضافي"
+            ],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "سبايسي برغر × 1\nالمجموع: 6.00 JD",
+      "createdAt": "2026-09-20T16:12:35.762Z",
+      "updatedAt": "2026-09-20T16:13:12.144Z"
+    },
+    {
+      "id": "olv-1790016550371-rdw5t0",
+      "number": 1041,
+      "status": "preparing",
+      "mode": "hall",
+      "table": "6",
+      "name": "رانيا",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "212.34.3.206",
+      "total": 4.5,
+      "items": [
+        {
+          "id": "espresso",
+          "qty": 1,
+          "price": 1.75,
+          "label": "إسبريسو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [
+              "قليل سكر"
+            ],
+            "note": ""
+          }
+        },
+        {
+          "id": "brownie",
+          "qty": 1,
+          "price": 2.75,
+          "label": "براوني",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "إسبريسو × 1\nبراوني × 1\nالمجموع: 4.50 JD",
+      "createdAt": "2026-09-21T18:49:10.371Z",
+      "updatedAt": "2026-09-21T18:50:34.999Z"
     }
   ]
 }
