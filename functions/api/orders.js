@@ -40,6 +40,23 @@ async function writeStore(h, repo, branch, sha, store, message) {
   return fetch(u, { method: 'PUT', headers: h, body: JSON.stringify({ message, content: encode(JSON.stringify(store, null, 2)), sha, branch }) });
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Every write here (new order, status change, ...) reads-modifies-writes the
+// same shared orders.json file through the GitHub Contents API, keyed by its
+// current sha. Two requests landing close together (a burst of new orders
+// while staff is also updating statuses) race for that sha and one gets a
+// 409. A short, growing, jittered backoff between attempts gives the other
+// writer time to finish so the retry actually lands instead of colliding
+// again immediately.
+const CONFLICT_RETRIES = 6;
+async function backoffBeforeRetry(attempt) {
+  const base = Math.min(1600, 120 * 2 ** attempt);
+  await sleep(base / 2 + Math.random() * (base / 2));
+}
+
 // Reads the currently-published menu straight from this same deployment's
 // static assets (no extra GitHub call) so orders can be priced against the
 // real menu instead of trusting whatever the client sends.
@@ -185,7 +202,8 @@ export async function onRequest(context) {
           return json({ ok: false, error: e instanceof Error ? e.message : 'Bot verification failed.' }, 403);
         }
       }
-      for (let attempt = 0; attempt < 3; attempt++) {
+      for (let attempt = 0; attempt < CONFLICT_RETRIES; attempt++) {
+        if (attempt > 0) await backoffBeforeRetry(attempt);
         const { sha, store } = await readStore(h, repo, branch);
         store.orders = Array.isArray(store.orders) ? store.orders : [];
         if (!trusted && rateLimited(store, ip)) {
@@ -205,7 +223,8 @@ export async function onRequest(context) {
       if (!adminOK(request, env)) return json({ ok: false, error: 'Admin access required.' }, 403);
       const p = await request.json(), allowed = ['new', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'];
       if (!p?.id || !allowed.includes(p.status)) return json({ ok: false, error: 'Invalid status update.' }, 400);
-      for (let attempt = 0; attempt < 3; attempt++) {
+      for (let attempt = 0; attempt < CONFLICT_RETRIES; attempt++) {
+        if (attempt > 0) await backoffBeforeRetry(attempt);
         const { sha, store } = await readStore(h, repo, branch), o = (store.orders || []).find(x => x.id === p.id);
         if (!o) return json({ ok: false, error: 'Order not found' }, 404);
         const wasCompleted = o.status === 'completed';
