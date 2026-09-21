@@ -17,11 +17,29 @@
 let audioCtx=null,prevStatus=null;
 function ensureAudio(){try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}catch(e){}}
 function beep(freq,delay,dur){setTimeout(()=>{try{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=freq;o.connect(g);g.connect(audioCtx.destination);g.gain.setValueAtTime(.0001,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.3,audioCtx.currentTime+.02);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+dur);o.start();o.stop(audioCtx.currentTime+dur+.05)}catch(e){}},delay)}
-function enableBell(){ensureAudio();beep(880,0,.3);$('bellBtn').textContent='🔔 التنبيه مفعّل';$('bellBtn').disabled=true}
+function syncBellButton(){
+  const supported='Notification' in window,perm=supported?Notification.permission:'unsupported';
+  if(perm==='granted'){$('bellBtn').textContent='🔔 التنبيه مفعّل';$('bellBtn').disabled=true}
+  else if(perm==='denied'){$('bellBtn').textContent='🔕 التنبيهات موقوفة من إعدادات المتصفح';$('bellBtn').disabled=true}
+  else{$('bellBtn').textContent='🔔 فعّل تنبيه لما يصير طلبك جاهز';$('bellBtn').disabled=false}
+}
+function enableBell(){
+  ensureAudio();beep(880,0,.3);
+  try{if('Notification' in window && Notification.permission==='default')Notification.requestPermission().then(syncBellButton)}catch(e){}
+  syncBellButton();
+}
 document.addEventListener('click',ensureAudio);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){ensureAudio();load()}});
+window.addEventListener('focus',load);
 function notifyReady(o){
   if(audioCtx){beep(880,0,.45);beep(1046,250,.4)}
   try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}
+  try{
+    if('Notification' in window && Notification.permission==='granted'){
+      const n=new Notification('OLV — طلبك جاهز 🔔',{body:'طلب #'+o.number+' جاهز، تفضل لاستلامه.',icon:'assets/olv-original.jpg'});
+      n.onclick=()=>{try{window.focus()}catch(e){}n.close()};
+    }
+  }catch(e){}
   const el=document.createElement('div');
   el.className='ready-alert';
   el.innerHTML=`<b>🔔 طلبك #${o.number} جاهز — تفضل استلمه!</b><button>تمام ✓</button>`;
@@ -58,4 +76,44 @@ async function loadPoints(phone){
     if(out.ok)$('pointsBox').innerHTML=`<div class="points-chip">🎁 عندك ${out.points} نقطة (نقطة عن كل دينار)</div>`;
   }catch(e){}
 }
-async function load(){if(!id){$('statusText').textContent='رابط الطلب غير مكتمل.';return}try{const r=await fetch('/api/orders?id='+encodeURIComponent(id)+'&ts='+Date.now(),{cache:'no-store'});const out=await r.json();if(!r.ok)throw Error(out.error||'تعذر تحميل الطلب');const o=out.order;if(prevStatus&&prevStatus!=='ready'&&o.status==='ready')notifyReady(o);prevStatus=o.status;$('statusText').textContent=texts[o.status]||o.status;$('statusBadge').textContent=o.status==='cancelled'?'ملغى':'طلب #'+o.number;$('steps').innerHTML=labels.map(x=>{const idx=labels.findIndex(a=>a[0]===o.status),me=labels.findIndex(a=>a[0]===x[0]);return `<div class="step ${idx>=0&&me<=idx?'on':''}">${x[1]}</div>`}).join('');$('info').innerHTML=`<div class="row"><span>طريقة الطلب</span><span class="value">${o.mode==='hall'?'داخل الكافيه':'توصيل'}</span></div>${o.name?`<div class="row"><span>الاسم</span><span class="value">${esc(o.name)}</span></div>`:''}${o.table?`<div class="row"><span>الطاولة</span><span class="value">${esc(o.table)}</span></div>`:''}${o.address?`<div class="row"><span>العنوان</span><span class="value">${esc(o.address)}</span></div>`:''}<div class="row"><span>عدد السطور</span><span class="value">${o.items.length}</span></div><div class="row"><span>المجموع</span><span class="value">${money(o.total)}</span></div><div class="row"><span>آخر تحديث</span><span class="value">${new Date(o.updatedAt).toLocaleString('ar-JO')}</span></div>`;renderRatingBox(o);if(o.phone)loadPoints(o.phone)}catch(e){$('statusText').textContent=e.message}}load();setInterval(load,15000);</script></body></html>
+let loadSeq=0,loadInFlight=false,retryTimer=null;
+function showRefreshErr(msg){
+  let el=document.getElementById('refreshErr');
+  if(!el){el=document.createElement('div');el.id='refreshErr';el.style.cssText='margin-top:9px;padding:10px 13px;border:1px solid #653333;background:#1d1010;color:#efb0b0;border-radius:12px;font-size:11px;text-align:center;line-height:1.7';document.querySelector('.refresh').insertAdjacentElement('afterend',el)}
+  el.textContent='تعذر تحديث الحالة الآن'+(msg?' — '+msg:'')+'. عم نعيد المحاولة تلقائياً...';
+}
+function hideRefreshErr(){const el=document.getElementById('refreshErr');if(el)el.remove()}
+async function load(){
+  if(!id){$('statusText').textContent='رابط الطلب غير مكتمل.';return}
+  if(loadInFlight)return;
+  loadInFlight=true;
+  const seq=++loadSeq,btn=document.querySelector('.refresh');
+  if(btn){btn.disabled=true;btn.textContent='جاري التحديث...'}
+  try{
+    const r=await fetch('/api/orders?id='+encodeURIComponent(id)+'&ts='+Date.now(),{cache:'no-store'});
+    const out=await r.json();
+    if(!r.ok)throw Error(out.error||'تعذر تحميل الطلب');
+    if(seq!==loadSeq)return;
+    const o=out.order;
+    if(prevStatus&&prevStatus!=='ready'&&o.status==='ready')notifyReady(o);
+    prevStatus=o.status;
+    $('statusText').textContent=texts[o.status]||o.status;
+    $('statusBadge').textContent=o.status==='cancelled'?'ملغى':'طلب #'+o.number;
+    $('steps').innerHTML=labels.map(x=>{const idx=labels.findIndex(a=>a[0]===o.status),me=labels.findIndex(a=>a[0]===x[0]);return `<div class="step ${idx>=0&&me<=idx?'on':''}">${x[1]}</div>`}).join('');
+    $('info').innerHTML=`<div class="row"><span>طريقة الطلب</span><span class="value">${o.mode==='hall'?'داخل الكافيه':'توصيل'}</span></div>${o.name?`<div class="row"><span>الاسم</span><span class="value">${esc(o.name)}</span></div>`:''}${o.table?`<div class="row"><span>الطاولة</span><span class="value">${esc(o.table)}</span></div>`:''}${o.address?`<div class="row"><span>العنوان</span><span class="value">${esc(o.address)}</span></div>`:''}<div class="row"><span>عدد السطور</span><span class="value">${o.items.length}</span></div><div class="row"><span>المجموع</span><span class="value">${money(o.total)}</span></div><div class="row"><span>آخر تحديث</span><span class="value">${new Date(o.updatedAt).toLocaleString('ar-JO')}</span></div>`;
+    renderRatingBox(o);
+    if(o.phone)loadPoints(o.phone);
+    hideRefreshErr();
+    if(retryTimer){clearTimeout(retryTimer);retryTimer=null}
+  }catch(e){
+    if(seq===loadSeq){
+      showRefreshErr(e.message);
+      if(retryTimer)clearTimeout(retryTimer);
+      retryTimer=setTimeout(load,4000);
+    }
+  }finally{
+    if(seq===loadSeq&&btn){btn.disabled=false;btn.textContent='تحديث الحالة'}
+    loadInFlight=false;
+  }
+}
+syncBellButton();load();setInterval(load,10000);</script></body></html>
