@@ -1524,7 +1524,7 @@
     {
       "id": "olv-1790017818046-51psxf",
       "number": 1042,
-      "status": "new",
+      "status": "preparing",
       "mode": "hall",
       "table": "1",
       "name": "1",
@@ -1552,7 +1552,7 @@
       ],
       "text": "أجنحة دجاج × 1\nالمجموع: 4.50 JD",
       "createdAt": "2026-09-21T19:10:18.046Z",
-      "updatedAt": "2026-09-21T19:10:18.046Z"
+      "updatedAt": "2026-09-21T19:10:45.008Z"
     }
   ]
 }
