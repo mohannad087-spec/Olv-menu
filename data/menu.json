@@ -90,7 +90,7 @@
       "price": 5.5,
       "popular": true,
       "tags": [],
-      "available": false
+      "available": true
     },
     {
       "id": "crispy-burger",
@@ -806,6 +806,22 @@
         "watermelon",
         "olv-mix"
       ],
+      "tags": []
+    },
+    {
+      "id": "item-1790288943246",
+      "cat": "icecream",
+      "ar": "سكوب صغير",
+      "en": "سكوب صغير",
+      "price": 0,
+      "subcatAr": "سكوب صغير",
+      "subcatEn": "سكوب صغير",
+      "subcat": "سكوب صغير",
+      "image": "0.5",
+      "descAr": "",
+      "descEn": "",
+      "available": true,
+      "popular": false,
       "tags": []
     }
   ],
