@@ -94,6 +94,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
   <div id="cartRows"></div>
   <div style="display:flex;justify-content:space-between;padding:12px 0;color:var(--gold2);font-size:18px;font-weight:900"><span>المجموع</span><span id="cartTotal2"></span></div>
   <input id="tableNum" class="note" inputmode="numeric" placeholder="رقم الطاولة" style="margin-top:0">
+  <input id="tablePhone" class="note" type="tel" placeholder="رقم هاتف الزبون (اختياري — لبرنامج الولاء)">
   <textarea id="orderNotes" class="note" rows="2" placeholder="ملاحظات على الطلب"></textarea>
   <button class="primary" onclick="submitOrder()">إرسال الطلب</button>
   <button class="secondary" onclick="closeCart()">إغلاق</button>
@@ -202,9 +203,10 @@ async function submitOrder(){
   if(!table){showToast('حط رقم الطاولة');return}
   const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
   const text=cart.map(x=>`${x.label} × ${x.qty}`).join('\n')+`\nالمجموع: ${money(total)}`;
+  const phone=$('tablePhone').value.trim();
   try{
-    await api('/api/orders',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({mode:'hall',table,waiter:waiterName,notes:$('orderNotes').value.trim(),items:cart,total,text})});
-    cart=[];$('tableNum').value='';$('orderNotes').value='';
+    await api('/api/orders',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({mode:'hall',table,phone,waiter:waiterName,notes:$('orderNotes').value.trim(),items:cart,total,text})});
+    cart=[];$('tableNum').value='';$('tablePhone').value='';$('orderNotes').value='';
     updateCartBar();closeCart();showToast('تم إرسال الطلب');
     loadMine();
   }catch(e){showToast(e.message)}
