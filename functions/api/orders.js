@@ -142,10 +142,18 @@ async function writeLoyalty(h, repo, branch, sha, store, message) {
   if (sha) body.sha = sha;
   return fetch(u, { method: 'PUT', headers: h, body: JSON.stringify(body) });
 }
+// Same optimistic-concurrency retry budget/backoff as the orders.json writes
+// above (CONFLICT_RETRIES + backoffBeforeRetry) — this used to retry only 3
+// times with no delay at all, so it collided (and gave up) far more easily
+// under the exact conditions it matters most: several staff completing
+// orders back to back during a rush. Points lost this way were silent and
+// unrecoverable, since the order stays "completed" and never re-triggers
+// the award.
 async function awardPoints(h, repo, branch, phone, total) {
   const key = normalizePhone(phone);
   if (!key) return;
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (let attempt = 0; attempt < CONFLICT_RETRIES; attempt++) {
+    if (attempt > 0) await backoffBeforeRetry(attempt);
     const { sha, store } = await readLoyalty(h, repo, branch);
     const rec = store[key] || { points: 0, totalOrders: 0 };
     rec.points += Math.floor(Number(total) || 0);
@@ -156,6 +164,7 @@ async function awardPoints(h, repo, branch, phone, total) {
     if (put.ok) return;
     if (put.status !== 409) throw new Error('Loyalty update failed');
   }
+  throw new Error('Loyalty store busy; points not awarded.');
 }
 
 // Cloudflare Pages Function — reads GITHUB_TOKEN/GITHUB_REPO/GITHUB_BRANCH/OLV_ADMIN_KEY from context.env at request time.
@@ -233,7 +242,12 @@ export async function onRequest(context) {
         const put = await writeStore(h, repo, branch, sha, store, `Update OLV order #${o.number} → ${o.status}`);
         if (put.ok) {
           if (!wasCompleted && p.status === 'completed' && o.phone) {
-            try { await awardPoints(h, repo, branch, o.phone, o.total); } catch (e) { /* status update already saved; points can retry next time */ }
+            // الطلب اتحفظ "مكتمل" أصلًا (أهم إشي)، فلو فشلت النقاط ما بنفشل الطلب —
+            // بس نسجّل الخطأ بسجلات Cloudflare Functions حتى يصير أثر يُكتشف،
+            // بدل ما يضيع بصمت تمامًا زي قبل
+            try { await awardPoints(h, repo, branch, o.phone, o.total); } catch (e) {
+              console.error(`Loyalty award failed for order #${o.number} (${o.phone}):`, e instanceof Error ? e.message : e);
+            }
           }
           return json({ ok: true, order: summarize(o) });
         }
