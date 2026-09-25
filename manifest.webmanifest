@@ -1,0 +1,17 @@
+{
+  "name": "OLV — Luxury Café & Restaurant",
+  "short_name": "OLV",
+  "description": "المنيو الرقمي والطلب المباشر من OLV",
+  "start_url": "index.html",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1c140f",
+  "theme_color": "#1c140f",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    { "src": "assets/olv-original.jpg", "sizes": "192x192", "type": "image/jpeg", "purpose": "any" },
+    { "src": "assets/olv-original.jpg", "sizes": "512x512", "type": "image/jpeg", "purpose": "any" }
+  ]
+}
