@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1043,
+  "nextNumber": 1044,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -1553,6 +1553,73 @@
       "text": "أجنحة دجاج × 1\nالمجموع: 4.50 JD",
       "createdAt": "2026-09-21T19:10:18.046Z",
       "updatedAt": "2026-09-21T19:10:45.008Z"
+    },
+    {
+      "id": "olv-1790441717442-vswsq0",
+      "number": 1043,
+      "status": "new",
+      "mode": "hall",
+      "table": "٤",
+      "name": "علي الصمادي",
+      "phone": "0777208194",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "213.139.45.205",
+      "total": 15.5,
+      "items": [
+        {
+          "id": "olv-burger",
+          "qty": 1,
+          "price": 5.5,
+          "label": "برغر OLV",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "arrabbiata",
+          "qty": 1,
+          "price": 4.75,
+          "label": "باستا أرابياتا",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "brownie",
+          "qty": 1,
+          "price": 2.75,
+          "label": "براوني",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "iced-americano",
+          "qty": 1,
+          "price": 2.5,
+          "label": "آيس أمريكانو",
+          "custom": {
+            "remove": [],
+            "extras": [],
+            "options": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "برغر OLV × 1\nباستا أرابياتا × 1\nبراوني × 1\nآيس أمريكانو × 1\nالمجموع: 15.50 JD",
+      "createdAt": "2026-09-26T16:55:17.442Z",
+      "updatedAt": "2026-09-26T16:55:17.442Z"
     }
   ]
 }
