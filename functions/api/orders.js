@@ -67,10 +67,22 @@ async function loadMenu(context) {
   return res.json();
 }
 
+// Dine-in ("hall") orders carry a flat percentage surcharge over the base
+// menu price (which takeaway and delivery pay as-is), set once in admin
+// instead of maintaining a separate price per item per order mode.
+function roundMoney(n) {
+  return Math.round(n * 100) / 100;
+}
+function priceForMode(basePrice, mode, menu) {
+  if (mode !== 'hall') return basePrice;
+  const pct = Number(menu.settings?.hallSurchargePercent) || 0;
+  return roundMoney(basePrice * (1 + pct / 100));
+}
+
 // Recomputes prices/labels/total from the real menu and rejects anything
 // that doesn't match a real, available item — a tampered price, total or
 // item id in the request body is simply ignored/rejected, never trusted.
-function verifyOrderItems(rawItems, menu) {
+function verifyOrderItems(rawItems, menu, mode) {
   const byId = new Map((menu.items || []).map(i => [String(i.id), i]));
   const items = [];
   for (const raw of rawItems) {
@@ -79,7 +91,7 @@ function verifyOrderItems(rawItems, menu) {
     if (real.available === false) throw new Error(`${real.ar} غير متوفر حالياً.`);
     const qty = Math.max(1, Math.min(50, parseInt(raw?.qty, 10) || 0));
     if (!qty) throw new Error(`Invalid quantity for ${real.ar}.`);
-    items.push({ id: real.id, qty, price: real.price, label: real.ar, custom: raw?.custom || undefined });
+    items.push({ id: real.id, qty, price: priceForMode(real.price, mode, menu), label: real.ar, custom: raw?.custom || undefined });
   }
   if (!items.length) throw new Error('Order has no items.');
   const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
@@ -189,7 +201,7 @@ export async function onRequest(context) {
     if (request.method === 'POST') {
       const p = await request.json();
       if (!p?.mode || !Array.isArray(p.items) || !p.items.length) return json({ ok: false, error: 'Invalid order payload.' }, 400);
-      if (!['hall', 'delivery'].includes(p.mode)) return json({ ok: false, error: 'Invalid order mode.' }, 400);
+      if (!['hall', 'takeaway', 'delivery'].includes(p.mode)) return json({ ok: false, error: 'Invalid order mode.' }, 400);
       let menu;
       try {
         menu = await loadMenu(context);
@@ -198,7 +210,7 @@ export async function onRequest(context) {
       }
       let verified;
       try {
-        verified = verifyOrderItems(p.items, menu);
+        verified = verifyOrderItems(p.items, menu, p.mode);
       } catch (e) {
         return json({ ok: false, error: e instanceof Error ? e.message : 'Unable to verify order.' }, 400);
       }
