@@ -91,7 +91,13 @@ function verifyOrderItems(rawItems, menu, mode) {
     if (real.available === false) throw new Error(`${real.ar} غير متوفر حالياً.`);
     const qty = Math.max(1, Math.min(50, parseInt(raw?.qty, 10) || 0));
     if (!qty) throw new Error(`Invalid quantity for ${real.ar}.`);
-    items.push({ id: real.id, qty, price: priceForMode(real.price, mode, menu), label: real.ar, custom: raw?.custom || undefined });
+    // "Meal" is a flat replacement price configured per item in admin, never
+    // trusted from the client beyond the yes/no flag — the real price still
+    // comes from the menu itself, same as the base price.
+    const wantsMeal = raw?.custom?.meal === true && real.meal && Number(real.meal.price) > 0;
+    const basePrice = wantsMeal ? Number(real.meal.price) : real.price;
+    const label = wantsMeal ? `${real.ar} (وجبة)` : real.ar;
+    items.push({ id: real.id, qty, price: priceForMode(basePrice, mode, menu), label, custom: raw?.custom || undefined });
   }
   if (!items.length) throw new Error('Order has no items.');
   const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
