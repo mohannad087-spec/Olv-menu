@@ -27,6 +27,20 @@
 </div>
 <div id="status" class="status"></div>
 </section>
+<section class="head" style="margin-top:16px">
+<h1 style="font-size:22px">QR عام للمنيو</h1>
+<div class="sub">يفتح المنيو عادي بدون رقم طاولة — للبوستر، السوشال ميديا، أو بطاقة العمل.</div>
+<div style="max-width:260px;margin:auto">
+<div class="table" style="padding:15px">
+<div class="qr" id="generalQr"></div>
+<div class="url" id="generalUrl"></div>
+</div>
+</div>
+<div class="controls" style="margin-top:12px;max-width:400px">
+<button class="btn secondary" onclick="printGeneral()">طباعة</button>
+<button class="btn secondary" onclick="downloadGeneral()">تحميل الصورة</button>
+</div>
+</section>
 <div id="grid" class="grid"></div>
 <div style="text-align:center;padding:16px 0 6px;font-size:10px;color:#aaa;opacity:.7">© 2026 OLV. جميع الحقوق محفوظة.</div>
 </div>
@@ -58,7 +72,26 @@ function downloadAllLinks(){
  const lines=[];for(let i=0;i<count;i++){const n=start+i;lines.push('طاولة '+n+' — '+tableUrl(n))}
  navigator.clipboard?.writeText(lines.join('\n')).then(()=>document.getElementById('status').textContent='تم نسخ روابط جميع الطاولات.').catch(()=>prompt('انسخ الروابط:',lines.join('\n')));
 }
+function generateGeneral(){
+ const qr=document.getElementById('generalQr');qr.innerHTML='';
+ new QRCode(qr,{text:base,width:200,height:200,colorDark:'#111111',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
+ document.getElementById('generalUrl').textContent=base;
+}
+function generalImgSrc(){
+ const qr=document.getElementById('generalQr');
+ return qr.querySelector('img')?.src||qr.querySelector('canvas')?.toDataURL('image/png')||'';
+}
+function printGeneral(){
+ const img=generalImgSrc();
+ const w=window.open('','_blank');if(!w)return;
+ w.document.write('<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>OLV — QR عام</title><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet"><style>body{text-align:center;font-family:"Cairo",Arial,sans-serif;margin:40px}h1{font-size:32px}img{width:280px;height:280px}.url{font-size:10px;color:#777}</style></head><body><h1>OLV</h1><img src="'+img+'"><div class="url">'+base+'</div><script>window.onload=()=>window.print()<\\/script></body></html>');w.document.close();
+}
+function downloadGeneral(){
+ const img=generalImgSrc();
+ const a=document.createElement('a');a.href=img;a.download='olv-menu-qr.png';document.body.appendChild(a);a.click();a.remove();
+}
 generate();
+generateGeneral();
 </script>
 </body>
 </html>
