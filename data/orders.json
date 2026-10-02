@@ -1,5 +1,5 @@
 {
-  "nextNumber": 1044,
+  "nextNumber": 1045,
   "orders": [
     {
       "id": "olv-1789202906861-40mtgl",
@@ -1620,6 +1620,39 @@
       "text": "برغر OLV × 1\nباستا أرابياتا × 1\nبراوني × 1\nآيس أمريكانو × 1\nالمجموع: 15.50 JD",
       "createdAt": "2026-09-26T16:55:17.442Z",
       "updatedAt": "2026-09-27T10:53:57.749Z"
+    },
+    {
+      "id": "olv-1790944030093-qcfrs7",
+      "number": 1044,
+      "status": "new",
+      "mode": "hall",
+      "table": "1",
+      "name": "مهند",
+      "phone": "",
+      "address": "",
+      "notes": "",
+      "waiter": "",
+      "ip": "213.139.45.242",
+      "total": 5,
+      "items": [
+        {
+          "id": "shisha",
+          "qty": 1,
+          "price": 5,
+          "label": "أرجيلة عادية",
+          "custom": {
+            "options": [
+              "فراولة"
+            ],
+            "remove": [],
+            "extras": [],
+            "note": ""
+          }
+        }
+      ],
+      "text": "أرجيلة عادية × 1\nالمجموع: 5.00 JD",
+      "createdAt": "2026-10-02T12:27:10.093Z",
+      "updatedAt": "2026-10-02T12:27:10.093Z"
     }
   ]
 }
