@@ -1624,7 +1624,7 @@
     {
       "id": "olv-1790944030093-qcfrs7",
       "number": 1044,
-      "status": "new",
+      "status": "cancelled",
       "mode": "hall",
       "table": "1",
       "name": "مهند",
@@ -1652,7 +1652,7 @@
       ],
       "text": "أرجيلة عادية × 1\nالمجموع: 5.00 JD",
       "createdAt": "2026-10-02T12:27:10.093Z",
-      "updatedAt": "2026-10-02T12:27:10.093Z"
+      "updatedAt": "2026-10-02T12:46:31.272Z"
     }
   ]
 }
