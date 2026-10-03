@@ -85,8 +85,8 @@ body{margin:0;background:#e9e2d0;color:var(--ink);font-family:"Cairo",Arial,"Not
 </head>
 <body>
 <div class="toolbar">
+<button class="ghost" onclick="olvPageBack('admin.html')">→ رجوع</button>
 <button onclick="window.print()">🖨️ طباعة</button>
-<button class="ghost" onclick="location.href='admin.html'">رجوع للإدارة</button>
 </div>
 
 <div class="page">
@@ -113,6 +113,7 @@ body{margin:0;background:#e9e2d0;color:var(--ink);font-family:"Cairo",Arial,"Not
 </div>
 </div>
 
+<script src="assets/back-nav.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 function tagBadges(i){const t=i.tags||[];let h='';if(t.includes('veg'))h+='<span class="dtag" title="نباتي">🌱</span>';if(t.includes('spicy'))h+='<span class="dtag" title="حار">🌶️</span>';return h}
