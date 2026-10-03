@@ -36,6 +36,31 @@
       "en": "Salads"
     },
     {
+      "id": "hot",
+      "ar": "مشروبات ساخنة",
+      "en": "Hot Drinks"
+    },
+    {
+      "id": "cold",
+      "ar": "مشروبات باردة",
+      "en": "Cold Drinks"
+    },
+    {
+      "id": "cocktails",
+      "ar": "كوكتيل",
+      "en": "Cocktails"
+    },
+    {
+      "id": "juices",
+      "ar": "عصائر",
+      "en": "Juices"
+    },
+    {
+      "id": "shakes",
+      "ar": "ميلك شيك",
+      "en": "Milkshakes"
+    },
+    {
       "id": "desserts",
       "ar": "حلويات",
       "en": "Desserts"
@@ -350,6 +375,1318 @@
       "tags": [
         "veg"
       ]
+    },
+    {
+      "id": "espresso-single",
+      "cat": "hot",
+      "subcat": "coffee",
+      "subcatAr": "قهوة",
+      "subcatEn": "Coffee",
+      "ar": "اسبرسو سنجل",
+      "en": "Single Espresso",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "espresso-double",
+      "cat": "hot",
+      "subcat": "coffee",
+      "subcatAr": "قهوة",
+      "subcatEn": "Coffee",
+      "ar": "اسبرسو دبل",
+      "en": "Double Espresso",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "spanish-latte",
+      "cat": "hot",
+      "subcat": "coffee",
+      "subcatAr": "قهوة",
+      "subcatEn": "Coffee",
+      "ar": "سبانش لاتيه",
+      "en": "Spanish Latte",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "cappuccino",
+      "cat": "hot",
+      "subcat": "coffee",
+      "subcatAr": "قهوة",
+      "subcatEn": "Coffee",
+      "ar": "كابتشينو",
+      "en": "Cappuccino",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "nescafe",
+      "cat": "hot",
+      "subcat": "coffee",
+      "subcatAr": "قهوة",
+      "subcatEn": "Coffee",
+      "ar": "نسكافيه",
+      "en": "Nescafé",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "hot-chocolate",
+      "cat": "hot",
+      "subcat": "choc",
+      "subcatAr": "شوكولاتة",
+      "subcatEn": "Chocolate",
+      "ar": "هوت شوكليت",
+      "en": "Hot Chocolate",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "americano",
+      "cat": "hot",
+      "subcat": "coffee",
+      "subcatAr": "قهوة",
+      "subcatEn": "Coffee",
+      "ar": "أمريكانو",
+      "en": "Americano",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "caffe-latte",
+      "cat": "hot",
+      "subcat": "coffee",
+      "subcatAr": "قهوة",
+      "subcatEn": "Coffee",
+      "ar": "كافيه لاتيه",
+      "en": "Caffè Latte",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "turkish-coffee",
+      "cat": "hot",
+      "subcat": "coffee",
+      "subcatAr": "قهوة",
+      "subcatEn": "Coffee",
+      "ar": "قهوة تركية",
+      "en": "Turkish Coffee",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "mocha",
+      "cat": "hot",
+      "subcat": "choc",
+      "subcatAr": "شوكولاتة",
+      "subcatEn": "Chocolate",
+      "ar": "موكا",
+      "en": "Mocha",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "karak",
+      "cat": "hot",
+      "subcat": "tea",
+      "subcatAr": "شاي وزهورات",
+      "subcatEn": "Tea & Herbal",
+      "ar": "شاي كرك",
+      "en": "Karak Tea",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "herbal",
+      "cat": "hot",
+      "subcat": "tea",
+      "subcatAr": "شاي وزهورات",
+      "subcatEn": "Tea & Herbal",
+      "ar": "زهورات",
+      "en": "Herbal Tea",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "iced-spanish-latte",
+      "cat": "cold",
+      "subcat": "icecoffee",
+      "subcatAr": "قهوة باردة",
+      "subcatEn": "Iced Coffee",
+      "ar": "سبانش لاتيه بارد",
+      "en": "Iced Spanish Latte",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "frappuccino",
+      "cat": "cold",
+      "subcat": "icecoffee",
+      "subcatAr": "قهوة باردة",
+      "subcatEn": "Iced Coffee",
+      "ar": "فرابتشينو",
+      "en": "Frappuccino",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "caramel-macchiato",
+      "cat": "cold",
+      "subcat": "icecoffee",
+      "subcatAr": "قهوة باردة",
+      "subcatEn": "Iced Coffee",
+      "ar": "كراميل ميكاتو",
+      "en": "Caramel Macchiato",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "iced-mocha",
+      "cat": "cold",
+      "subcat": "icecoffee",
+      "subcatAr": "قهوة باردة",
+      "subcatEn": "Iced Coffee",
+      "ar": "موكا باردة",
+      "en": "Iced Mocha",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "white-mocha",
+      "cat": "cold",
+      "subcat": "icecoffee",
+      "subcatAr": "قهوة باردة",
+      "subcatEn": "Iced Coffee",
+      "ar": "وايت موكا",
+      "en": "White Mocha",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "ice-coffee",
+      "cat": "cold",
+      "subcat": "icecoffee",
+      "subcatAr": "قهوة باردة",
+      "subcatEn": "Iced Coffee",
+      "ar": "آيس كوفي",
+      "en": "Iced Coffee",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "smoothie",
+      "cat": "cold",
+      "subcat": "blend",
+      "subcatAr": "سموذي وميلك شيك",
+      "subcatEn": "Smoothies & Shakes",
+      "ar": "سموذي",
+      "en": "Smoothie",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "milkshake-cold",
+      "cat": "cold",
+      "subcat": "blend",
+      "subcatAr": "سموذي وميلك شيك",
+      "subcatEn": "Smoothies & Shakes",
+      "ar": "ملك شيك",
+      "en": "Milkshake",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "soft-drink",
+      "cat": "cold",
+      "subcat": "soft",
+      "subcatAr": "غازي وطاقة",
+      "subcatEn": "Soft & Energy",
+      "ar": "مشروب غازي",
+      "en": "Soft Drink",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "energy-drink",
+      "cat": "cold",
+      "subcat": "soft",
+      "subcatAr": "غازي وطاقة",
+      "subcatEn": "Soft & Energy",
+      "ar": "مشروب طاقة",
+      "en": "Energy Drink",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "cocktail-plain",
+      "cat": "cocktails",
+      "subcat": "cocktail",
+      "subcatAr": "كوكتيل",
+      "subcatEn": "Cocktail",
+      "ar": "كوكتيل سادة",
+      "en": "Plain Cocktail",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "cocktail-pieces",
+      "cat": "cocktails",
+      "subcat": "cocktail",
+      "subcatAr": "كوكتيل",
+      "subcatEn": "Cocktail",
+      "ar": "كوكتيل قطع",
+      "en": "Fruit Pieces Cocktail",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 3
+      }
+    },
+    {
+      "id": "cocktail-cream-honey",
+      "cat": "cocktails",
+      "subcat": "cocktail",
+      "subcatAr": "كوكتيل",
+      "subcatEn": "Cocktail",
+      "ar": "كوكتيل قطع مع قشطة وعسل",
+      "en": "Cocktail with Cream & Honey",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 3.5
+      }
+    },
+    {
+      "id": "cocktail-icecream",
+      "cat": "cocktails",
+      "subcat": "cocktail",
+      "subcatAr": "كوكتيل",
+      "subcatEn": "Cocktail",
+      "ar": "كوكتيل مع قطع وآيس كريم",
+      "en": "Cocktail with Pieces & Ice Cream",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.5
+      }
+    },
+    {
+      "id": "emperor",
+      "cat": "cocktails",
+      "subcat": "mango",
+      "subcatAr": "مانجا",
+      "subcatEn": "Mango",
+      "ar": "الإمبراطور موز ومانجا",
+      "en": "The Emperor (Banana & Mango)",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 3
+      }
+    },
+    {
+      "id": "mango-farghali",
+      "cat": "cocktails",
+      "subcat": "mango",
+      "subcatAr": "مانجا",
+      "subcatEn": "Mango",
+      "ar": "مانجا فرغلي",
+      "en": "Mango Farghali",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2
+      }
+    },
+    {
+      "id": "mango-strawberry",
+      "cat": "cocktails",
+      "subcat": "mango",
+      "subcatAr": "مانجا",
+      "subcatEn": "Mango",
+      "ar": "مانجا مع فراولة",
+      "en": "Mango & Strawberry",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.5
+      }
+    },
+    {
+      "id": "mango-vanilla",
+      "cat": "cocktails",
+      "subcat": "mango",
+      "subcatAr": "مانجا",
+      "subcatEn": "Mango",
+      "ar": "مانجا مع فانيلا",
+      "en": "Mango & Vanilla",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 3
+      }
+    },
+    {
+      "id": "galaxy-plain",
+      "cat": "cocktails",
+      "subcat": "galaxy",
+      "subcatAr": "جالاكسي",
+      "subcatEn": "Galaxy",
+      "ar": "جالاكسي سادة",
+      "en": "Plain Galaxy",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.5
+      }
+    },
+    {
+      "id": "galaxy-cream",
+      "cat": "cocktails",
+      "subcat": "galaxy",
+      "subcatAr": "جالاكسي",
+      "subcatEn": "Galaxy",
+      "ar": "جالاكسي مع قشطة وعسل ومكسرات",
+      "en": "Galaxy with Cream, Honey & Nuts",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 3
+      }
+    },
+    {
+      "id": "orange",
+      "cat": "juices",
+      "subcat": "citrus",
+      "subcatAr": "برتقال وليمون",
+      "subcatEn": "Orange & Lemon",
+      "ar": "برتقال",
+      "en": "Orange",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "orange-lemon",
+      "cat": "juices",
+      "subcat": "citrus",
+      "subcatAr": "برتقال وليمون",
+      "subcatEn": "Orange & Lemon",
+      "ar": "برتقال مع ليمون",
+      "en": "Orange & Lemon",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "lemon",
+      "cat": "juices",
+      "subcat": "citrus",
+      "subcatAr": "برتقال وليمون",
+      "subcatEn": "Orange & Lemon",
+      "ar": "ليمون",
+      "en": "Lemon",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "lemon-mint",
+      "cat": "juices",
+      "subcat": "citrus",
+      "subcatAr": "برتقال وليمون",
+      "subcatEn": "Orange & Lemon",
+      "ar": "ليمون ونعنع",
+      "en": "Lemon & Mint",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "banana-milk",
+      "cat": "juices",
+      "subcat": "banana",
+      "subcatAr": "موز وحليب",
+      "subcatEn": "Banana & Milk",
+      "ar": "موز بالحليب",
+      "en": "Banana Milk",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "banana-milk-dates",
+      "cat": "juices",
+      "subcat": "banana",
+      "subcatAr": "موز وحليب",
+      "subcatEn": "Banana & Milk",
+      "ar": "موز وحليب وتمر",
+      "en": "Banana, Milk & Dates",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "pineapple",
+      "cat": "juices",
+      "subcat": "pine",
+      "subcatAr": "أناناس",
+      "subcatEn": "Pineapple",
+      "ar": "أناناس",
+      "en": "Pineapple",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2
+      }
+    },
+    {
+      "id": "pineapple-strawberry",
+      "cat": "juices",
+      "subcat": "pine",
+      "subcatAr": "أناناس",
+      "subcatEn": "Pineapple",
+      "ar": "أناناس مع فراولة",
+      "en": "Pineapple & Strawberry",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2
+      }
+    },
+    {
+      "id": "pineapple-kiwi",
+      "cat": "juices",
+      "subcat": "pine",
+      "subcatAr": "أناناس",
+      "subcatEn": "Pineapple",
+      "ar": "أناناس مع كيوي",
+      "en": "Pineapple & Kiwi",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2
+      }
+    },
+    {
+      "id": "avocado-plain",
+      "cat": "juices",
+      "subcat": "avocado",
+      "subcatAr": "أفوكادو",
+      "subcatEn": "Avocado",
+      "ar": "أفوكادو سادة",
+      "en": "Plain Avocado",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2
+      }
+    },
+    {
+      "id": "avocado-cream-honey",
+      "cat": "juices",
+      "subcat": "avocado",
+      "subcatAr": "أفوكادو",
+      "subcatEn": "Avocado",
+      "ar": "أفوكادو قشطة وعسل ومكسرات",
+      "en": "Avocado with Cream, Honey & Nuts",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 3
+      }
+    },
+    {
+      "id": "avocado-pieces-cream",
+      "cat": "juices",
+      "subcat": "avocado",
+      "subcatAr": "أفوكادو",
+      "subcatEn": "Avocado",
+      "ar": "أفوكادو مع قطع وقشطة",
+      "en": "Avocado with Pieces & Cream",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 3.25
+      }
+    },
+    {
+      "id": "khamis-plain",
+      "cat": "juices",
+      "subcat": "khamis",
+      "subcatAr": "ليلة الخميس",
+      "subcatEn": "Laylet El Khamis",
+      "ar": "ليلة الخميس سادة",
+      "en": "Plain Laylet El Khamis",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 3
+      }
+    },
+    {
+      "id": "khamis-cream",
+      "cat": "juices",
+      "subcat": "khamis",
+      "subcatAr": "ليلة الخميس",
+      "subcatEn": "Laylet El Khamis",
+      "ar": "ليلة الخميس مع قشطة وعسل ومكسرات",
+      "en": "Laylet El Khamis with Cream, Honey & Nuts",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 3.5
+      }
+    },
+    {
+      "id": "fruit-salad",
+      "cat": "juices",
+      "subcat": "fsalad",
+      "subcatAr": "سلطة فواكه",
+      "subcatEn": "Fruit Salad",
+      "ar": "سلطة فواكه",
+      "en": "Fruit Salad",
+      "descAr": "",
+      "descEn": "",
+      "price": 3,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "fruit-salad-cream",
+      "cat": "juices",
+      "subcat": "fsalad",
+      "subcatAr": "سلطة فواكه",
+      "subcatEn": "Fruit Salad",
+      "ar": "سلطة فواكه مع قشطة",
+      "en": "Fruit Salad with Cream",
+      "descAr": "",
+      "descEn": "",
+      "price": 3.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "fakhfakhina",
+      "cat": "juices",
+      "subcat": "fsalad",
+      "subcatAr": "سلطة فواكه",
+      "subcatEn": "Fruit Salad",
+      "ar": "سلطة فخفخينا آيس كريم",
+      "en": "Fakhfakhina with Ice Cream",
+      "descAr": "",
+      "descEn": "",
+      "price": 3.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "pomegranate",
+      "cat": "juices",
+      "subcat": "pom",
+      "subcatAr": "رمان",
+      "subcatEn": "Pomegranate",
+      "ar": "رمان",
+      "en": "Pomegranate",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "pomegranate-pineapple",
+      "cat": "juices",
+      "subcat": "pom",
+      "subcatAr": "رمان",
+      "subcatEn": "Pomegranate",
+      "ar": "رمان وأناناس",
+      "en": "Pomegranate & Pineapple",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.25
+      }
+    },
+    {
+      "id": "pomegranate-grape",
+      "cat": "juices",
+      "subcat": "pom",
+      "subcatAr": "رمان",
+      "subcatEn": "Pomegranate",
+      "ar": "رمان وعنب",
+      "en": "Pomegranate & Grape",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.25
+      }
+    },
+    {
+      "id": "pomegranate-pine-orange",
+      "cat": "juices",
+      "subcat": "pom",
+      "subcatAr": "رمان",
+      "subcatEn": "Pomegranate",
+      "ar": "رمان أناناس وبرتقال",
+      "en": "Pomegranate, Pineapple & Orange",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.25
+      }
+    },
+    {
+      "id": "pomegranate-strawberry",
+      "cat": "juices",
+      "subcat": "pom",
+      "subcatAr": "رمان",
+      "subcatEn": "Pomegranate",
+      "ar": "رمان وفراولة",
+      "en": "Pomegranate & Strawberry",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.25
+      }
+    },
+    {
+      "id": "vitamin-c",
+      "cat": "juices",
+      "subcat": "kiwi",
+      "subcatAr": "كيوي",
+      "subcatEn": "Kiwi",
+      "ar": "فيتامين سي (أناناس كيوي برتقال)",
+      "en": "Vitamin C (Pineapple, Kiwi & Orange)",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.25
+      }
+    },
+    {
+      "id": "cantaloupe",
+      "cat": "juices",
+      "subcat": "melon",
+      "subcatAr": "شمام وبطيخ",
+      "subcatEn": "Melon & Watermelon",
+      "ar": "شمام",
+      "en": "Cantaloupe",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "cantaloupe-strawberry",
+      "cat": "juices",
+      "subcat": "melon",
+      "subcatAr": "شمام وبطيخ",
+      "subcatEn": "Melon & Watermelon",
+      "ar": "شمام وفراولة",
+      "en": "Cantaloupe & Strawberry",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "watermelon",
+      "cat": "juices",
+      "subcat": "melon",
+      "subcatAr": "شمام وبطيخ",
+      "subcatEn": "Melon & Watermelon",
+      "ar": "بطيخ",
+      "en": "Watermelon",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "watermelon-strawberry",
+      "cat": "juices",
+      "subcat": "melon",
+      "subcatAr": "شمام وبطيخ",
+      "subcatEn": "Melon & Watermelon",
+      "ar": "بطيخ وفراولة",
+      "en": "Watermelon & Strawberry",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "carrot",
+      "cat": "juices",
+      "subcat": "carrot",
+      "subcatAr": "جزر",
+      "subcatEn": "Carrot",
+      "ar": "جزر",
+      "en": "Carrot",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "carrot-orange",
+      "cat": "juices",
+      "subcat": "carrot",
+      "subcatAr": "جزر",
+      "subcatEn": "Carrot",
+      "ar": "جزر برتقال",
+      "en": "Carrot & Orange",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "strawberry",
+      "cat": "juices",
+      "subcat": "straw",
+      "subcatAr": "فراولة",
+      "subcatEn": "Strawberry",
+      "ar": "فراولة",
+      "en": "Strawberry",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "strawberry-milk",
+      "cat": "juices",
+      "subcat": "straw",
+      "subcatAr": "فراولة",
+      "subcatEn": "Strawberry",
+      "ar": "فراولة بالحليب",
+      "en": "Strawberry Milk",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "strawberry-banana-milk",
+      "cat": "juices",
+      "subcat": "straw",
+      "subcatAr": "فراولة",
+      "subcatEn": "Strawberry",
+      "ar": "فراولة وموز بالحليب",
+      "en": "Strawberry & Banana Milk",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "kiwi",
+      "cat": "juices",
+      "subcat": "kiwi",
+      "subcatAr": "كيوي",
+      "subcatEn": "Kiwi",
+      "ar": "كيوي",
+      "en": "Kiwi",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "kiwi-lemon",
+      "cat": "juices",
+      "subcat": "kiwi",
+      "subcatAr": "كيوي",
+      "subcatEn": "Kiwi",
+      "ar": "كيوي مع ليمون",
+      "en": "Kiwi & Lemon",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "kiwi-strawberry",
+      "cat": "juices",
+      "subcat": "kiwi",
+      "subcatAr": "كيوي",
+      "subcatEn": "Kiwi",
+      "ar": "كيوي مع فراولة",
+      "en": "Kiwi & Strawberry",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      }
+    },
+    {
+      "id": "shake-oreo",
+      "cat": "shakes",
+      "subcat": "shake",
+      "subcatAr": "ميلك شيك",
+      "subcatEn": "Milkshake",
+      "ar": "ميلك شيك أوريو",
+      "en": "Oreo Milkshake",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.5
+      }
+    },
+    {
+      "id": "shake-snickers",
+      "cat": "shakes",
+      "subcat": "shake",
+      "subcatAr": "ميلك شيك",
+      "subcatEn": "Milkshake",
+      "ar": "ميلك شيك سنكرز",
+      "en": "Snickers Milkshake",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.5
+      }
+    },
+    {
+      "id": "shake-chocolate",
+      "cat": "shakes",
+      "subcat": "shake",
+      "subcatAr": "ميلك شيك",
+      "subcatEn": "Milkshake",
+      "ar": "ميلك شيك شوكولاتة",
+      "en": "Chocolate Milkshake",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.5
+      }
+    },
+    {
+      "id": "shake-pistachio",
+      "cat": "shakes",
+      "subcat": "shake",
+      "subcatAr": "ميلك شيك",
+      "subcatEn": "Milkshake",
+      "ar": "ميلك شيك بستاشيو",
+      "en": "Pistachio Milkshake",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.5
+      }
+    },
+    {
+      "id": "shake-strawberry",
+      "cat": "shakes",
+      "subcat": "shake",
+      "subcatAr": "ميلك شيك",
+      "subcatEn": "Milkshake",
+      "ar": "ميلك شيك فراولة",
+      "en": "Strawberry Milkshake",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.5
+      }
+    },
+    {
+      "id": "shake-cheesecake",
+      "cat": "shakes",
+      "subcat": "shake",
+      "subcatAr": "ميلك شيك",
+      "subcatEn": "Milkshake",
+      "ar": "ميلك شيك تشيزكيك",
+      "en": "Cheesecake Milkshake",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.5
+      }
     },
     {
       "id": "cheesecake",

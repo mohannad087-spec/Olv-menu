@@ -119,12 +119,13 @@ const $=id=>document.getElementById(id);
 function tagBadges(i){const t=i.tags||[];let h='';if(t.includes('veg'))h+='<span class="dtag" title="نباتي">🌱</span>';if(t.includes('spicy'))h+='<span class="dtag" title="حار">🌶️</span>';return h}
 const GROUPS=[
   {title:'المقبلات والأطباق الرئيسية',cats:['burgers','snacks','sandwiches','pasta','salads']},
-  {title:'المشروبات',cats:['hot','cold','juices','shakes']},
+  {title:'المشروبات',cats:['hot','cold','cocktails','juices','shakes']},
   {title:'الحلويات',cats:['desserts','icecream','donuts']},
   {title:'الأرجيلة',cats:['shisha']}
 ];
 function row(i){
-  const price=Number(i.price).toFixed(2);
+  // صنف بحجمين: صغير / كبير
+  const price=i.large&&i.large.price?`${Number(i.price).toFixed(2)} / ${Number(i.large.price).toFixed(2)}`:Number(i.price).toFixed(2);
   return `<div class="row">
     <div class="row-top">
       <span class="name">${i.popular?'<span class="star">★</span>':''}${i.ar}${tagBadges(i)}</span>
