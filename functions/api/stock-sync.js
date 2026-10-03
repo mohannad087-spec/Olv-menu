@@ -41,11 +41,62 @@ function cleanItem(raw) {
   return item;
 }
 
+function cleanFlavor(raw) {
+  const id = String(raw?.id || '').trim();
+  const ar = String(raw?.ar || '').trim().slice(0, 120);
+  if (!/^stk-[a-z0-9]{6,40}$/.test(id) || !ar) return null;
+  return { id, ar, en: String(raw.en || ar).trim().slice(0, 120), available: raw.available !== false, source: 'stock' };
+}
+
+// Shisha flavors tracked in stock (one molasses ingredient = one flavor). They live in
+// shishaOptions.flavors tagged source:"stock" and are the ONLY flavors the shisha items offer
+// while at least one stock flavor is on the menu (the hand-made list is remembered per item in
+// `manualFlavors` and restored if stock flavors are all removed). The public page hides flavors
+// with available:false, and if none is available the shisha item itself is hidden (stockHidden).
+function mergeShishaFlavors(menu, incomingFlavors) {
+  const opts = menu.shishaOptions;
+  if (!opts || !Array.isArray(opts.flavors)) return { added: 0, updated: 0, removed: 0 };
+  const wanted = new Map();
+  for (const raw of incomingFlavors) { const f = cleanFlavor(raw); if (f) wanted.set(f.id, f); }
+  let added = 0, updated = 0, removed = 0;
+  const next = [];
+  for (const old of opts.flavors) {
+    if (old && old.source === 'stock') {
+      const w = wanted.get(old.id);
+      if (!w) { removed++; continue; }
+      if (JSON.stringify({ ...old, ...w }) !== JSON.stringify(old)) updated++;
+      next.push({ ...old, ...w });
+      wanted.delete(old.id);
+    } else next.push(old);
+  }
+  for (const w of wanted.values()) { next.push(w); added++; }
+  opts.flavors = next;
+
+  const stockIds = next.filter(f => f.source === 'stock').map(f => f.id);
+  const anyAvailable = next.some(f => f.source === 'stock' && f.available !== false);
+  for (const item of menu.items || []) {
+    if (!item || item.cat !== 'shisha') continue;
+    const current = Array.isArray(item.flavors) ? item.flavors : (opts.flavors.filter(f => f.source !== 'stock').map(f => f.id));
+    if (!stockIds.length) {
+      if (item.manualFlavors) { item.flavors = item.manualFlavors; delete item.manualFlavors; }
+      if (item.stockHidden) { delete item.stockHidden; item.available = true; }
+      continue;
+    }
+    if (!item.manualFlavors) item.manualFlavors = current.filter(id => !String(id).startsWith('stk-'));
+    item.flavors = stockIds.slice();
+    if (!anyAvailable) { if (item.available !== false) { item.available = false; item.stockHidden = true; } }
+    else if (item.stockHidden) { delete item.stockHidden; item.available = true; }
+  }
+  return { added, updated, removed };
+}
+
 function mergeStockItems(menu, incoming) {
+  const flavorsIn = incoming.filter(x => x && x.kind === 'shisha_flavor');
+  const itemsIn = incoming.filter(x => !(x && x.kind === 'shisha_flavor'));
   const items = Array.isArray(menu.items) ? menu.items : [];
   const catIds = new Set((menu.categories || []).map(c => c.id));
   const wanted = new Map();
-  for (const raw of incoming) {
+  for (const raw of itemsIn) {
     const it = cleanItem(raw);
     if (it && catIds.has(it.cat)) wanted.set(it.id, it);
   }
@@ -66,7 +117,14 @@ function mergeStockItems(menu, incoming) {
     }
   }
   for (const w of wanted.values()) { next.push(w); added++; }
-  return { menu: { ...menu, items: next }, added, updated, removed };
+  const out = { ...menu, items: next };
+  const before = JSON.stringify(menu.shishaOptions || null) + JSON.stringify(next.filter(i => i && i.cat === 'shisha'));
+  const fl = mergeShishaFlavors(out, flavorsIn);
+  const after = JSON.stringify(out.shishaOptions || null) + JSON.stringify(out.items.filter(i => i && i.cat === 'shisha'));
+  added += fl.added; updated += fl.updated; removed += fl.removed;
+  // shisha items may flip (hidden/flavor list) even when no flavor row changed
+  if (before !== after && !fl.added && !fl.updated && !fl.removed) updated++;
+  return { menu: out, added, updated, removed };
 }
 
 // Cloudflare Pages Function — reads GITHUB_TOKEN/GITHUB_REPO/GITHUB_BRANCH/OLV_ADMIN_KEY from context.env.
