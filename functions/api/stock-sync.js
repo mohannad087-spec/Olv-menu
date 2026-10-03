@@ -38,6 +38,8 @@ function cleanItem(raw) {
     available: raw.available !== false,
     source: 'stock'
   };
+  const group = String(raw.group || '').trim().slice(0, 80);
+  if (group) { item._group = group; item._variant = String(raw.variant || '').trim().slice(0, 80); item._venEn = String(raw.en || '').trim().slice(0, 80); }
   return item;
 }
 
@@ -53,6 +55,41 @@ function cleanFlavor(raw) {
 // while at least one stock flavor is on the menu (the hand-made list is remembered per item in
 // `manualFlavors` and restored if stock flavors are all removed). The public page hides flavors
 // with available:false, and if none is available the shisha item itself is hidden (stockHidden).
+// Item cards: stock items that share a group (e.g. all 330 ml cans) are shown as ONE card with a
+// "choose the type" list. Members stay real menu items (orders are verified/priced against them) but are
+// tagged inGroup so the public page lists only the card. A group with a single member stays a plain item.
+function cardId(group) {
+  let h = 5381;
+  for (const ch of group) h = ((h * 33) ^ ch.codePointAt(0)) >>> 0;
+  return 'grp-' + h.toString(36);
+}
+
+function buildCards(wanted) {
+  const byGroup = new Map();
+  for (const w of wanted.values()) {
+    if (!w._group) continue;
+    if (!byGroup.has(w._group)) byGroup.set(w._group, []);
+    byGroup.get(w._group).push(w);
+  }
+  const cards = new Map();
+  for (const [group, all] of byGroup) {
+    const cat = all[0].cat;
+    const list = all.filter(w => w.cat === cat);
+    if (list.length < 2) continue;
+    const id = cardId(group);
+    const variants = list
+      .map(w => ({ id: w.id, ar: w._variant || w.ar, en: w._venEn || w._variant || w.ar, price: w.price, available: w.available }))
+      .sort((a, b) => a.ar.localeCompare(b.ar, 'ar'));
+    cards.set(id, {
+      id, cat, subcat: id, subcatAr: group, subcatEn: group, ar: group, en: group, descAr: '', descEn: '',
+      price: Math.min(...variants.map(v => v.price)), tags: [], available: variants.some(v => v.available),
+      source: 'stock-group', variants
+    });
+    list.forEach(w => { w.inGroup = id; });
+  }
+  return cards;
+}
+
 function mergeShishaFlavors(menu, incomingFlavors) {
   const opts = menu.shishaOptions;
   if (!opts || !Array.isArray(opts.flavors)) return { added: 0, updated: 0, removed: 0 };
@@ -100,6 +137,8 @@ function mergeStockItems(menu, incoming) {
     const it = cleanItem(raw);
     if (it && catIds.has(it.cat)) wanted.set(it.id, it);
   }
+  const cards = buildCards(wanted);
+  for (const w of wanted.values()) { delete w._group; delete w._variant; delete w._venEn; }
   let added = 0, updated = 0, removed = 0;
   const next = [];
   for (const old of items) {
@@ -107,16 +146,25 @@ function mergeStockItems(menu, incoming) {
       const w = wanted.get(old.id);
       if (!w) { removed++; continue; }
       // keep fields the owner may have edited by hand (image, description, popular flag)
-      const merged = { ...old, ...w, image: old.image, descAr: old.descAr || '', descEn: old.descEn || '', popular: old.popular, tags: old.tags || [] };
+      const merged = { ...old, ...w, inGroup: w.inGroup, image: old.image, descAr: old.descAr || '', descEn: old.descEn || '', popular: old.popular, tags: old.tags || [] };
       Object.keys(merged).forEach(k => merged[k] === undefined && delete merged[k]);
       if (JSON.stringify(merged) !== JSON.stringify(old)) updated++;
       next.push(merged);
       wanted.delete(old.id);
+    } else if (old && old.source === 'stock-group') {
+      const c = cards.get(old.id);
+      if (!c) { removed++; continue; }
+      const merged = { ...old, ...c, image: old.image, descAr: old.descAr || '', descEn: old.descEn || '', popular: old.popular };
+      Object.keys(merged).forEach(k => merged[k] === undefined && delete merged[k]);
+      if (JSON.stringify(merged) !== JSON.stringify(old)) updated++;
+      next.push(merged);
+      cards.delete(old.id);
     } else {
       next.push(old);
     }
   }
   for (const w of wanted.values()) { next.push(w); added++; }
+  for (const c of cards.values()) { next.push(c); added++; }
   const out = { ...menu, items: next };
   const before = JSON.stringify(menu.shishaOptions || null) + JSON.stringify(next.filter(i => i && i.cat === 'shisha'));
   const fl = mergeShishaFlavors(out, flavorsIn);
