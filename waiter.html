@@ -104,7 +104,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 <script>
 const $=id=>document.getElementById(id);
 const money=n=>`${Number(n).toFixed(2)} JD`;
-const imgs={burgers:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=70',snacks:'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=400&q=70',sandwiches:'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=400&q=70',pasta:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=400&q=70',salads:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=70',hot:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=70',cold:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=70',juices:'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=400&q=70',shakes:'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=70',desserts:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=70',icecream:'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=400&q=70',donuts:'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=400&q=70',shisha:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=70'};
+const imgs={burgers:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=70',snacks:'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=400&q=70',sandwiches:'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=400&q=70',pasta:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=400&q=70',salads:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=70',hot:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=70',cold:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=70',juices:'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=400&q=70',shakes:'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=70',desserts:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=70',icecream:'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=400&q=70',donuts:'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=400&q=70',shisha:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=70'};imgs.cocktails=imgs.juices;
 const names={new:'جديد',confirmed:'تم التأكيد',preparing:'قيد التحضير',ready:'جاهز',completed:'مكتمل',cancelled:'ملغى'};
 let DATA=null,cart=[],active='all',waiterName='',staffKey='',knownStatuses=null,audioCtx=null;
 
@@ -175,7 +175,7 @@ function renderGrid(){
   if(q)items=items.filter(i=>(i.ar+' '+i.en).toLowerCase().includes(q));
   $('grid').innerHTML=items.length?items.map(i=>{
     const ok=i.available!==false;
-    return `<article class="card ${ok?'':'unavailable'}"><img src="${i.image||imgs[i.cat]||imgs.hot}" style="width:100%;height:100px;object-fit:cover;border-radius:10px" loading="lazy"><h3>${i.ar}</h3><div class="price">${money(i.price)}</div><div class="row"><button class="avail ${ok?'':'off'}" onclick="toggleAvail('${i.id}',${ok})">${ok?'متوفر':'غير متوفر'}</button><button class="add" onclick="addToCart('${i.id}')" ${ok?'':'disabled'}>+</button></div></article>`;
+    return `<article class="card ${ok?'':'unavailable'}"><img src="${i.image||imgs[i.cat]||imgs.hot}" style="width:100%;height:100px;object-fit:cover;border-radius:10px" loading="lazy"><h3>${i.ar}</h3><div class="price">${i.large&&i.large.price?`صغير ${money(i.price)} · كبير ${money(i.large.price)}`:money(i.price)}</div><div class="row"><button class="avail ${ok?'':'off'}" onclick="toggleAvail('${i.id}',${ok})">${ok?'متوفر':'غير متوفر'}</button>${i.large&&i.large.price?`<button class="add" style="width:auto;padding:0 8px;font-size:12px" onclick="addToCart('${i.id}','small')" ${ok?'':'disabled'}>+ صغير</button><button class="add" style="width:auto;padding:0 8px;font-size:12px" onclick="addToCart('${i.id}','large')" ${ok?'':'disabled'}>+ كبير</button>`:`<button class="add" onclick="addToCart('${i.id}')" ${ok?'':'disabled'}>+</button>`}</div></article>`;
   }).join(''):'<div class="empty">لا توجد نتائج</div>';
 }
 
@@ -188,10 +188,12 @@ async function toggleAvail(id,currentlyOk){
   }catch(e){showToast(e.message)}
 }
 
-function addToCart(id){
+function addToCart(id,size){
   const i=DATA.items.find(x=>x.id===id);if(!i||i.available===false)return;
-  const f=cart.find(x=>x.id===id);
-  if(f)f.qty++;else cart.push({id,qty:1,price:i.price,label:i.ar});
+  // الأصناف اللي إلها حجمين بتنضاف كسطر منفصل لكل حجم
+  const sized=!!(i.large&&i.large.price);if(sized&&size!=='large')size='small';
+  const f=cart.find(x=>x.id===id&&(x.custom?.size||null)===(sized?size:null));
+  if(f)f.qty++;else cart.push(sized?{id,qty:1,price:size==='large'?i.large.price:i.price,label:`${i.ar} (${size==='large'?'كبير':'صغير'})`,custom:{size}}:{id,qty:1,price:i.price,label:i.ar});
   updateCartBar();showToast('أُضيف للطلب');
 }
 function updateCartBar(){

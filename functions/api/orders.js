@@ -95,8 +95,12 @@ function verifyOrderItems(rawItems, menu, mode) {
     // trusted from the client beyond the yes/no flag — the real price still
     // comes from the menu itself, same as the base price.
     const wantsMeal = raw?.custom?.meal === true && real.meal && Number(real.meal.price) > 0;
-    const basePrice = wantsMeal ? Number(real.meal.price) : real.price;
-    const label = wantsMeal ? `${real.ar} (وجبة)` : real.ar;
+    // Sized drinks: `price` is the small size, `large.price` the large one.
+    // Only the size name is taken from the client, never the price.
+    const sized = !wantsMeal && real.large && Number(real.large.price) > 0;
+    const large = sized && raw?.custom?.size === 'large';
+    const basePrice = wantsMeal ? Number(real.meal.price) : large ? Number(real.large.price) : real.price;
+    const label = wantsMeal ? `${real.ar} (وجبة)` : sized ? `${real.ar} (${large ? 'كبير' : 'صغير'})` : real.ar;
     items.push({ id: real.id, qty, price: priceForMode(basePrice, mode, menu), label, custom: raw?.custom || undefined });
   }
   if (!items.length) throw new Error('Order has no items.');
