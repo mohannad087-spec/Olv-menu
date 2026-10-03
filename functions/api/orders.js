@@ -89,6 +89,8 @@ function verifyOrderItems(rawItems, menu, mode) {
     const real = byId.get(String(raw?.id));
     if (!real) throw new Error(`Unknown item: ${raw?.id}`);
     if (real.available === false) throw new Error(`${real.ar} غير متوفر حالياً.`);
+    // A stock "card" only groups real items for display — the order must name the chosen type (variant).
+    if (Array.isArray(real.variants) && real.variants.length) throw new Error(`اختر نوع ${real.ar}.`);
     const qty = Math.max(1, Math.min(50, parseInt(raw?.qty, 10) || 0));
     if (!qty) throw new Error(`Invalid quantity for ${real.ar}.`);
     // "Meal" is a flat replacement price configured per item in admin, never

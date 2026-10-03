@@ -148,7 +148,7 @@ async function init(){
       g.cats.forEach(catId=>{
         const cat=catMap.get(catId);
         if(!cat)return;
-        const items=DATA.items.filter(i=>i.cat===catId&&i.available!==false);
+        const items=DATA.items.filter(i=>i.cat===catId&&i.available!==false&&!i.variants);
         if(!items.length)return;
         catsHtml+=`<div class="cat"><h3>${cat.ar}</h3>${items.map(row).join('')}</div>`;
       });

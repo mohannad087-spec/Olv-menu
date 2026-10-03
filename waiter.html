@@ -170,7 +170,7 @@ function setCat(c,fromBack){
 
 function renderGrid(){
   const q=$('search').value.trim().toLowerCase();
-  let items=DATA.items;
+  let items=DATA.items.filter(i=>!i.variants);
   if(active!=='all')items=items.filter(i=>i.cat===active);
   if(q)items=items.filter(i=>(i.ar+' '+i.en).toLowerCase().includes(q));
   $('grid').innerHTML=items.length?items.map(i=>{
