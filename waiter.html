@@ -62,7 +62,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 </head>
 <body>
 <div class="wrap">
-<div class="top"><h1>OLV — طلب الموظفين</h1><div id="whoBar" class="who" style="display:none"></div><div style="display:flex;gap:8px"><button class="btn" onclick="logout()" id="logoutBtn" style="display:none">تسجيل خروج</button><button class="btn" onclick="location.href='orders.html'">لوحة الطلبات</button></div></div>
+<div class="top"><div style="display:flex;align-items:center;gap:10px"><button class="olv-back" data-back="index.html"></button><h1>OLV — طلب الموظفين</h1></div><div id="whoBar" class="who" style="display:none"></div><div style="display:flex;gap:8px"><button class="btn" onclick="logout()" id="logoutBtn" style="display:none">تسجيل خروج</button><button class="btn" onclick="location.href='orders.html'">لوحة الطلبات</button></div></div>
 
 <div id="login" class="login">
   <h2>تسجيل دخول الموظف</h2>
@@ -89,7 +89,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 <button id="cartbar" class="cartbar" onclick="openCart()"><span id="cartText">السلة</span><span id="cartTotal"></span></button>
 <div id="toast" class="toast"></div>
 
-<div id="cartOverlay" class="overlay"><div class="sheet">
+<div id="cartOverlay" class="overlay"><div class="sheet"><div style="margin:-4px 0 10px"><button class="olv-back" data-layer></button></div>
   <h2 style="color:var(--gold2);font:700 24px 'Amiri','Cairo',Georgia,serif;margin:0 0 10px">الطلب الحالي</h2>
   <div id="cartRows"></div>
   <div style="display:flex;justify-content:space-between;padding:12px 0;color:var(--gold2);font-size:18px;font-weight:900"><span>المجموع</span><span id="cartTotal2"></span></div>
@@ -100,6 +100,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
   <button class="secondary" onclick="closeCart()">إغلاق</button>
 </div></div>
 
+<script src="assets/back-nav.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const money=n=>`${Number(n).toFixed(2)} JD`;
@@ -155,7 +156,16 @@ async function init(){
 
 function renderCats(){
   $('cats').innerHTML=['<button class="cat active" data-c="all">الكل</button>'].concat(DATA.categories.map(c=>`<button class="cat" data-c="${c.id}">${c.ar}</button>`)).join('');
-  $('cats').querySelectorAll('.cat').forEach(b=>b.onclick=()=>{active=b.dataset.c;$('cats').querySelectorAll('.cat').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderGrid()});
+  $('cats').querySelectorAll('.cat').forEach(b=>b.onclick=()=>setCat(b.dataset.c));
+}
+// اختيار قسم = خطوة؛ زر الرجوع بيرجّع لـ«الكل»
+function setCat(c,fromBack){
+  const was=active;active=c;
+  $('cats').querySelectorAll('.cat').forEach(x=>x.classList.toggle('active',x.dataset.c===c));
+  renderGrid();
+  if(fromBack)return;
+  if(was==='all'&&c!=='all')olvLayerOpen(()=>setCat('all',true));
+  else if(was!=='all'&&c==='all')olvLayerBack();
 }
 
 function renderGrid(){
@@ -192,9 +202,10 @@ function updateCartBar(){
 function openCart(){
   $('cartRows').innerHTML=cart.map((x,idx)=>`<div class="crow"><span>${x.label}</span><div class="qty"><button onclick="cartQty(${idx},-1)">−</button><b>${x.qty}</b><button onclick="cartQty(${idx},1)">+</button></div><span>${money(x.price*x.qty)}</span></div>`).join('')||'<div class="empty">السلة فارغة</div>';
   $('cartTotal2').textContent=money(cart.reduce((a,x)=>a+x.price*x.qty,0));
-  $('cartOverlay').classList.add('open');
+  if(!$('cartOverlay').classList.contains('open')){$('cartOverlay').classList.add('open');olvLayerOpen(hideCart)}
 }
-function closeCart(){$('cartOverlay').classList.remove('open')}
+function hideCart(){$('cartOverlay').classList.remove('open')}
+function closeCart(){if($('cartOverlay').classList.contains('open')&&!olvLayerBack())hideCart()}
 function cartQty(idx,d){cart[idx].qty+=d;if(cart[idx].qty<=0)cart.splice(idx,1);updateCartBar();openCart()}
 
 async function submitOrder(){
@@ -212,7 +223,9 @@ async function submitOrder(){
   }catch(e){showToast(e.message)}
 }
 
-function showTab(t){
+function showTab(t,fromBack){
+  const was=$('mineTab').style.display==='none'?'menu':'mine';
+  if(!fromBack&&was!==t){if(t==='mine')olvLayerOpen(()=>showTab('menu',true));else if(olvLayerBack())return}
   $('tabMenu').classList.toggle('active',t==='menu');
   $('tabMine').classList.toggle('active',t==='mine');
   $('menuTab').style.display=t==='menu'?'block':'none';

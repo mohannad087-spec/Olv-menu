@@ -13,6 +13,7 @@
 <body>
 <div class="wrap">
 <section class="head">
+<div style="margin-bottom:10px"><button class="olv-back" data-back="admin.html"></button></div>
 <h1>OLV — QR الطاولات</h1>
 <div class="sub">أنشئ QR مستقل لكل طاولة. عند المسح يفتح منيو OLV ويُثبت رقم الطاولة تلقائياً داخل الطلب.</div>
 <div class="controls">
@@ -44,6 +45,7 @@
 <div id="grid" class="grid"></div>
 <div style="text-align:center;padding:16px 0 6px;font-size:10px;color:#aaa;opacity:.7">© 2026 OLV. جميع الحقوق محفوظة.</div>
 </div>
+<script src="assets/back-nav.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 const base=location.origin+location.pathname.replace(/qr\.html$/,'');
