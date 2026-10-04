@@ -281,3 +281,8 @@ h1,h2,h3{font-family:var(--display);font-weight:500;letter-spacing:0}
 #detailOverlay .sheet-inner{padding-top:46px}
 .item-open{display:inline-block;padding:10px 0;margin:-10px 0}
 .page-foot a{display:inline-block;min-height:44px;line-height:44px;padding:0 10px}
+
+.category-overlay{align-items:flex-start}
+.media img,.subitem-media img,.recommend img,.detail-media img{font-size:0;color:transparent}
+.overlay:focus,.category-overlay:focus,.sheet:focus{outline:none}
+img{font-size:0;color:transparent}
