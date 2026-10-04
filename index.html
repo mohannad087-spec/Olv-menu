@@ -15,7 +15,7 @@
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <link rel="preload" href="assets/fonts/readex-pro-arabic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/reem-kufi-arabic-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/olv-theme.css?v=a4">
+<link rel="stylesheet" href="assets/olv-theme.css?v=a5">
 </head>
 <body>
 <div id="installBanner" class="install-banner"><img src="assets/olv-original.jpg" alt="OLV"><div class="install-copy"><b data-t>ثبّت تطبيق OLV</b><span data-t>اطلب بسرعة من شاشتك الرئيسية</span></div><button id="installBtn" data-t>تثبيت</button><button id="installClose" aria-label="إغلاق">×</button></div>
@@ -222,6 +222,7 @@ const FLORA=['<path d="M12 29V14"/><path class="bl" d="M7 5.5C7 11 9 14.5 12 14.
 const BUD='<path d="M12 29V17"/><circle cx="12" cy="12" r="4"/>';
 const HEART='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.600-7.500 10.200-7.500 10.200Z"/></svg>';
 const PLUS='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+const OLIVE='<svg class="olive" viewBox="0 0 96 56" aria-hidden="true"><path class="tw" d="M6 40C26 38 52 30 90 12"/><g class="lf"><path d="M20 38C16 29 20 22 29 21C31 29 27 36 20 38Z"/><path d="M22 40C24 49 32 52 40 48C37 41 30 38 22 40Z"/><path d="M41 34C38 25 43 18 52 18C53 26 49 32 41 34Z"/><path d="M43 36C47 44 55 46 62 42C58 36 51 33 43 36Z"/><path d="M62 27C60 19 65 12 74 12C75 20 70 25 62 27Z"/><path d="M64 29C69 36 77 37 83 32C78 27 71 25 64 29Z"/></g><g class="ol"><ellipse cx="33" cy="41" rx="3.4" ry="4.6" transform="rotate(-18 33 41)"/><ellipse cx="55" cy="34" rx="3.4" ry="4.6" transform="rotate(-18 55 34)"/></g></svg>';
 function flower(i,cls){const m=i<0?BUD:FLORA[i%FLORA.length];return `<svg class="fl ${cls||''}" viewBox="0 0 24 32" aria-hidden="true">${m}</svg>`}
 function fcol(i){return i<0?'var(--ink2)':`var(--f${i%6})`}
 function catIdx(id){return DATA.categories.findIndex(c=>c.id===id)}
@@ -307,9 +308,8 @@ function showToast(m){$('toast').textContent=tr(m);$('toast').classList.add('sho
 $('enterBtn').onclick=()=>{ensureAudio();playWelcomeSound();$('entry').classList.add('hide');setTimeout(()=>{$('entry').style.display='none';$('choice').classList.add('open');choiceFromEntry=true;navOpen('choice')},320)};let searchDebounce;$('search').oninput=()=>{clearTimeout(searchDebounce);searchDebounce=setTimeout(render,180)};$('surpriseBtn').onclick=()=>{playMagicSound();pickSurprise()};$('lang').onclick=()=>{playToggleOnSound();lang=lang==='ar'?'en':'ar';try{localStorage.setItem('olv-lang',lang)}catch(e){}applyLang();renderCats();render();renderCart()};$('cart').onclick=()=>{playCartSound();if(!orderMode){$('choice').classList.add('open');choiceFromEntry=false;navOpen('choice');return}navOpen('order');$('orderOverlay').classList.add('open');selectMode(orderMode);renderCart()};$('homeFab').onclick=()=>{if(navStack.length){goingHome=true;history.go(-navStack.length);return}document.querySelectorAll('.overlay,.category-overlay').forEach(o=>o.classList.remove('open'));$('search').value='';setCat('all')};document.querySelectorAll('.mood').forEach(b=>b.onclick=()=>{playTapSound();if(navStack[navStack.length-1]!=='filter')navOpen('filter');mood=b.dataset.mood;document.querySelectorAll('.mood').forEach(x=>x.classList.toggle('active',x===b));active='all';renderCats();render()});$('orderOverlay').onclick=e=>{if(e.target===$('orderOverlay'))closeOrder()};$('detailOverlay').onclick=e=>{if(e.target===$('detailOverlay'))closeDetail()};$('categoryOverlay').onclick=e=>{if(e.target===$('categoryOverlay'))closeCategory()};$('shishaOverlay').onclick=e=>{if(e.target===$('shishaOverlay'))closeShisha()};function showTrackingLink(rec){
   if(!rec)return;
   try{localStorage.setItem('olv-last-order',JSON.stringify({id:rec.id,number:rec.number}))}catch(e){}
-  const bk=(()=>{try{const it=cartItems[0]&&DATA.items.find(x=>x.id===cartItems[0].id);const k=it?catIdx(it.cat):-1;return k>=0?k:Number(rec.number||0)%15}catch(e){return 0}})();
-  $('notice').innerHTML=`<div class="bloom" style="--fc:${fcol(bk)}">${flower(bk,'draw')}</div>${L('تم استلام طلبك رقم','We received your order')} <b>#${rec.number}</b> — <a href="order.html?id=${encodeURIComponent(rec.id)}" target="_blank" style="color:var(--wa);font-weight:700">${L('تابع حالة طلبك من هون','Track your order status here')}</a>`;
-  $('notice').querySelectorAll('.bloom path,.bloom circle').forEach(e=>e.setAttribute('pathLength','1'));
+  $('notice').innerHTML=`<div class="bloom">${OLIVE}</div>${L('تم استلام طلبك رقم','We received your order')} <b>#${rec.number}</b> — <a href="order.html?id=${encodeURIComponent(rec.id)}" target="_blank" style="color:var(--wa);font-weight:700">${L('تابع حالة طلبك من هون','Track your order status here')}</a>`;
+  $('notice').querySelectorAll('.bloom .tw').forEach(e=>e.setAttribute('pathLength','1'));
   if(rec.phone){
     fetch('/api/loyalty?phone='+encodeURIComponent(rec.phone)+'&ts='+Date.now()).then(r=>r.json()).then(out=>{
       if(out.ok)$('notice').innerHTML+=`<div style="margin-top:8px">${L(`عندك ${out.points} نقطة (نقطة عن كل دينار)`,`You have ${out.points} points (1 point per dinar)`)}</div>`;
