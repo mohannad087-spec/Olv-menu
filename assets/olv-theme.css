@@ -317,3 +317,11 @@ img{font-size:0;color:transparent}
 .entry-social a.wa svg,.entry-social a.fb svg{fill:currentColor}
 .entry-social a.ig svg{fill:none;stroke:currentColor}
 .entry-social a.ig svg circle:last-child{fill:currentColor;stroke:currentColor}
+
+/* Welcome screen final polish: keep the olive luxury treatment above later legacy rules. */
+.entry-bg{background:radial-gradient(70% 38% at 50% 0%,color-mix(in srgb,var(--primary) 12%,transparent),transparent 72%),radial-gradient(42% 55% at 8% 58%,rgba(127,139,82,.18),transparent 70%),radial-gradient(42% 55% at 92% 58%,rgba(180,154,98,.14),transparent 70%),linear-gradient(145deg,#26321f 0%,#1c2418 46%,#151713 100%)!important}
+:root[data-olv-theme="light"] .entry-bg{background:radial-gradient(70% 38% at 50% 0%,rgba(255,255,255,.9),transparent 72%),radial-gradient(42% 55% at 8% 58%,rgba(126,143,82,.18),transparent 70%),radial-gradient(42% 55% at 92% 58%,rgba(180,154,98,.15),transparent 70%),linear-gradient(145deg,#eee8da 0%,#ddd5c4 48%,#c9c0ae 100%)!important}
+.entry-card{padding:clamp(28px,6vh,64px) 20px 34px;min-height:min(86vh,820px);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.entry-logo{width:min(76vw,390px)!important;max-height:30vh!important;height:auto!important;object-fit:contain}
+.entry-text{margin:22px auto 0;max-width:30ch}
+.entry-btn{min-width:190px}
