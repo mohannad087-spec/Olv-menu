@@ -1,65 +1,26 @@
 const API = 'https://api.github.com';
 
 function json(data, status = 200) {
-  return new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: { 'content-type': 'application/json', 'cache-control': 'no-store' }
+  });
 }
 
 function safeKey(request) {
   return request.headers.get('x-olv-staff-key') || request.headers.get('x-olv-admin-key') || '';
 }
 
-// Order management accepts either the full admin key or the staff-only key.
-// The staff key is never checked by save-menu.js, so it can view/update
-// orders but can't touch the published menu.
 function adminOK(request, env) {
   const provided = safeKey(request);
   if (!provided) return false;
   return provided === env.OLV_ADMIN_KEY || Boolean(env.OLV_STAFF_KEY && provided === env.OLV_STAFF_KEY);
 }
 
-function headersFor(env) {
-  const token = env.GITHUB_TOKEN;
-  return token ? { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json', 'User-Agent': 'olv-menu-cloudflare-pages' } : null;
+function getDB(env) {
+  return env.OLV_DB || null;
 }
 
-async function readStore(h, repo, branch) {
-  const u = `${API}/repos/${repo}/contents/data/orders.json?ref=${encodeURIComponent(branch)}`;
-  const r = await fetch(u, { headers: h });
-  if (!r.ok) throw new Error(await r.text());
-  const x = await r.json();
-  const raw = atob(String(x.content || '').replace(/\s/g, ''));
-  return { sha: x.sha, store: JSON.parse(decodeURIComponent(escape(raw))) };
-}
-
-function encode(text) {
-  return btoa(unescape(encodeURIComponent(text)));
-}
-
-async function writeStore(h, repo, branch, sha, store, message) {
-  const u = `${API}/repos/${repo}/contents/data/orders.json`;
-  return fetch(u, { method: 'PUT', headers: h, body: JSON.stringify({ message, content: encode(JSON.stringify(store, null, 2)), sha, branch }) });
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// Every write here (new order, status change, ...) reads-modifies-writes the
-// same shared orders.json file through the GitHub Contents API, keyed by its
-// current sha. Two requests landing close together (a burst of new orders
-// while staff is also updating statuses) race for that sha and one gets a
-// 409. A short, growing, jittered backoff between attempts gives the other
-// writer time to finish so the retry actually lands instead of colliding
-// again immediately.
-const CONFLICT_RETRIES = 6;
-async function backoffBeforeRetry(attempt) {
-  const base = Math.min(1600, 120 * 2 ** attempt);
-  await sleep(base / 2 + Math.random() * (base / 2));
-}
-
-// Reads the currently-published menu straight from this same deployment's
-// static assets (no extra GitHub call) so orders can be priced against the
-// real menu instead of trusting whatever the client sends.
 async function loadMenu(context) {
   const url = new URL('/data/menu.json', context.request.url);
   const res = await context.env.ASSETS.fetch(url.toString());
@@ -67,66 +28,49 @@ async function loadMenu(context) {
   return res.json();
 }
 
-// Dine-in ("hall") orders carry a flat percentage surcharge over the base
-// menu price (which takeaway and delivery pay as-is), set once in admin
-// instead of maintaining a separate price per item per order mode.
 function roundMoney(n) {
   return Math.round(n * 100) / 100;
 }
+
 function priceForMode(basePrice, mode, menu) {
   if (mode !== 'hall') return basePrice;
   const pct = Number(menu.settings?.hallSurchargePercent) || 0;
   return roundMoney(basePrice * (1 + pct / 100));
 }
 
-// Recomputes prices/labels/total from the real menu and rejects anything
-// that doesn't match a real, available item — a tampered price, total or
-// item id in the request body is simply ignored/rejected, never trusted.
 function verifyOrderItems(rawItems, menu, mode) {
+  if (rawItems.length > 50) throw new Error('Too many items in order.');
   const byId = new Map((menu.items || []).map(i => [String(i.id), i]));
   const items = [];
   for (const raw of rawItems) {
     const real = byId.get(String(raw?.id));
     if (!real) throw new Error(`Unknown item: ${raw?.id}`);
     if (real.available === false) throw new Error(`${real.ar} غير متوفر حالياً.`);
-    // A stock "card" only groups real items for display — the order must name the chosen type (variant).
     if (Array.isArray(real.variants) && real.variants.length) throw new Error(`اختر نوع ${real.ar}.`);
     const qty = Math.max(1, Math.min(50, parseInt(raw?.qty, 10) || 0));
     if (!qty) throw new Error(`Invalid quantity for ${real.ar}.`);
-    // "Meal" is a flat replacement price configured per item in admin, never
-    // trusted from the client beyond the yes/no flag — the real price still
-    // comes from the menu itself, same as the base price.
     const wantsMeal = raw?.custom?.meal === true && real.meal && Number(real.meal.price) > 0;
-    // Sized drinks: `price` is the small size, `large.price` the large one.
-    // Only the size name is taken from the client, never the price.
     const sized = !wantsMeal && real.large && Number(real.large.price) > 0;
     const large = sized && raw?.custom?.size === 'large';
     const basePrice = wantsMeal ? Number(real.meal.price) : large ? Number(real.large.price) : real.price;
     const label = wantsMeal ? `${real.ar} (وجبة)` : sized ? `${real.ar} (${large ? 'كبير' : 'صغير'})` : real.ar;
-    items.push({ id: real.id, qty, price: priceForMode(basePrice, mode, menu), label, custom: raw?.custom || undefined });
+    const custom = raw?.custom;
+    const customText = custom == null ? '' : JSON.stringify(custom);
+    if (customText.length > 2000) throw new Error('Order customization is too large.');
+    items.push({
+      id: real.id,
+      qty,
+      price: priceForMode(basePrice, mode, menu),
+      label,
+      custom: custom || undefined
+    });
   }
   if (!items.length) throw new Error('Order has no items.');
-  const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
-  const text = items.map(i => `${i.label} × ${i.qty}`).join('\n') + `\nالمجموع: ${total.toFixed(2)} JD`;
+  const total = roundMoney(items.reduce((sum, i) => sum + i.price * i.qty, 0));
+  const text = items.map(i => `${i.label} × ${i.qty}`).join('\\n') + `\\nالمجموع: ${total.toFixed(2)} JD`;
   return { items, total, text };
 }
 
-// Simple abuse guard for public (unauthenticated) order submissions: a given
-// device/IP can only place a few orders within a short window. Staff placing
-// orders through waiter.html carry the staff/admin key and are exempt —
-// one waiter tablet legitimately places many orders back to back.
-const RATE_LIMIT_WINDOW_MS = 3 * 60 * 1000;
-const RATE_LIMIT_MAX = 3;
-function rateLimited(store, ip) {
-  if (!ip) return false;
-  const cutoff = Date.now() - RATE_LIMIT_WINDOW_MS;
-  const recent = (store.orders || []).filter(o => o.ip === ip && new Date(o.createdAt).getTime() > cutoff);
-  return recent.length >= RATE_LIMIT_MAX;
-}
-
-// Blocks scripted/bot POSTs to this public endpoint. Requires a solved
-// Cloudflare Turnstile challenge token for any unauthenticated (non-staff)
-// order — a bot calling the API directly has no way to produce a valid one.
 async function verifyTurnstile(token, ip, env) {
   const secret = env.TURNSTILE_SECRET_KEY;
   if (!secret) throw new Error('Bot verification is not configured yet.');
@@ -140,147 +84,270 @@ async function verifyTurnstile(token, ip, env) {
   if (!out.success) throw new Error('Bot verification failed.');
 }
 
-function summarize(o) {
-  return { id: o.id, number: o.number, status: o.status, mode: o.mode, table: o.table || '', name: o.name || '', phone: o.phone || '', address: o.address || '', waiter: o.waiter || '', total: o.total, items: o.items || [], text: o.text || '', notes: o.notes || '', rating: o.rating || null, createdAt: o.createdAt, updatedAt: o.updatedAt };
-}
-
-// Loyalty points: keyed by normalized phone number, 1 point per JD spent,
-// only ever awarded once an order actually completes.
 function normalizePhone(raw) {
-  let n = String(raw || '').replace(/\D/g, '');
+  let n = String(raw || '').replace(/\\D/g, '');
   if (n.startsWith('0')) n = '962' + n.slice(1);
   return n;
 }
-async function readLoyalty(h, repo, branch) {
-  const u = `${API}/repos/${repo}/contents/data/loyalty.json?ref=${encodeURIComponent(branch)}`;
-  const r = await fetch(u, { headers: h });
-  if (r.status === 404) return { sha: null, store: {} };
-  if (!r.ok) throw new Error(await r.text());
-  const x = await r.json();
-  const raw = atob(String(x.content || '').replace(/\s/g, ''));
-  return { sha: x.sha, store: JSON.parse(decodeURIComponent(escape(raw))) };
-}
-async function writeLoyalty(h, repo, branch, sha, store, message) {
-  const u = `${API}/repos/${repo}/contents/data/loyalty.json`;
-  const body = { message, content: encode(JSON.stringify(store, null, 2)), branch };
-  if (sha) body.sha = sha;
-  return fetch(u, { method: 'PUT', headers: h, body: JSON.stringify(body) });
-}
-// Same optimistic-concurrency retry budget/backoff as the orders.json writes
-// above (CONFLICT_RETRIES + backoffBeforeRetry) — this used to retry only 3
-// times with no delay at all, so it collided (and gave up) far more easily
-// under the exact conditions it matters most: several staff completing
-// orders back to back during a rush. Points lost this way were silent and
-// unrecoverable, since the order stays "completed" and never re-triggers
-// the award.
-async function awardPoints(h, repo, branch, phone, total) {
-  const key = normalizePhone(phone);
-  if (!key) return;
-  for (let attempt = 0; attempt < CONFLICT_RETRIES; attempt++) {
-    if (attempt > 0) await backoffBeforeRetry(attempt);
-    const { sha, store } = await readLoyalty(h, repo, branch);
-    const rec = store[key] || { points: 0, totalOrders: 0 };
-    rec.points += Math.floor(Number(total) || 0);
-    rec.totalOrders += 1;
-    rec.updatedAt = new Date().toISOString();
-    store[key] = rec;
-    const put = await writeLoyalty(h, repo, branch, sha, store, `Award loyalty points for ${key}`);
-    if (put.ok) return;
-    if (put.status !== 409) throw new Error('Loyalty update failed');
-  }
-  throw new Error('Loyalty store busy; points not awarded.');
+
+function normalizeIdempotencyKey(raw) {
+  const key = String(raw || '').trim();
+  if (!key || key.length > 120) return '';
+  return key;
 }
 
-// Cloudflare Pages Function — reads GITHUB_TOKEN/GITHUB_REPO/GITHUB_BRANCH/OLV_ADMIN_KEY from context.env at request time.
+function summarize(row) {
+  return {
+    id: row.id,
+    number: row.number,
+    status: row.status,
+    mode: row.mode,
+    table: row.table_no || '',
+    name: row.name || '',
+    phone: row.phone || '',
+    address: row.address || '',
+    waiter: row.waiter || '',
+    total: Number(row.total || 0),
+    items: JSON.parse(row.items_json || '[]'),
+    text: row.text_summary || '',
+    notes: row.notes || '',
+    rating: row.rating == null ? null : Number(row.rating),
+    createdAt: row.created_at,
+    updatedAt: row.updated_at
+  };
+}
+
+function rowOrder(dbRow) {
+  return dbRow ? summarize(dbRow) : null;
+}
+
+async function findById(db, id) {
+  return db.prepare('SELECT * FROM orders WHERE id = ?1').bind(id).first();
+}
+
+async function findByIdempotency(db, key) {
+  if (!key) return null;
+  return db.prepare('SELECT * FROM orders WHERE idempotency_key = ?1').bind(key).first();
+}
+
+async function nextOrderNumber(db) {
+  const result = await db.prepare(
+    'UPDATE order_counter SET next_number = next_number + 1 WHERE id = 1 RETURNING next_number - 1 AS number'
+  ).run();
+  const number = result.results?.[0]?.number;
+  if (!Number.isInteger(number)) throw new Error('Unable to allocate order number.');
+  return number;
+}
+
+async function rateLimited(db, ip) {
+  if (!ip) return false;
+  const cutoff = new Date(Date.now() - 3 * 60 * 1000).toISOString();
+  const row = await db.prepare(
+    'SELECT COUNT(*) AS count FROM orders WHERE ip = ?1 AND created_at > ?2'
+  ).bind(ip, cutoff).first();
+  return Number(row?.count || 0) >= 3;
+}
+
+async function awardPoints(db, phone, total, orderId) {
+  const key = normalizePhone(phone);
+  if (!key) return;
+  const points = Math.floor(Number(total) || 0);
+  if (points <= 0) return;
+
+  // The order transition is guarded by loyalty_awarded=0, so only one
+  // concurrent completion can reach this point for the same order.
+  await db.prepare(
+    `INSERT INTO loyalty_awards (order_id, phone, points, created_at)
+     VALUES (?1, ?2, ?3, ?4)
+     ON CONFLICT(order_id) DO NOTHING`
+  ).bind(orderId, key, points, new Date().toISOString()).run();
+
+  await db.prepare(
+    `INSERT INTO loyalty (phone, points, total_orders, updated_at)
+     VALUES (?1, ?2, 1, ?3)
+     ON CONFLICT(phone) DO UPDATE SET
+       points = loyalty.points + excluded.points,
+       total_orders = loyalty.total_orders + 1,
+       updated_at = excluded.updated_at`
+  ).bind(key, points, new Date().toISOString()).run();
+
+  await db.prepare('UPDATE orders SET loyalty_awarded = 1 WHERE id = ?1').bind(orderId).run();
+}
+
+async function ensureDB(db) {
+  if (!db) throw new Error('OLV_DB D1 binding is not configured in Cloudflare Pages.');
+}
+
 export async function onRequest(context) {
   const { request, env } = context;
-  const repo = env.GITHUB_REPO || 'mohannad087-spec/Olv-menu';
-  const branch = env.GITHUB_BRANCH || 'main';
-  const h = headersFor(env);
-  if (!h) return json({ ok: false, error: 'GITHUB_TOKEN is not configured in Cloudflare Pages environment variables.' }, 503);
+  const db = getDB(env);
+
   try {
+    await ensureDB(db);
+
     if (request.method === 'GET') {
       const u = new URL(request.url);
       const id = u.searchParams.get('id');
-      const { store } = await readStore(h, repo, branch);
+
       if (id) {
-        const o = (store.orders || []).find(x => x.id === id);
-        return o ? json({ ok: true, order: summarize(o) }) : json({ ok: false, error: 'Order not found' }, 404);
+        const row = await findById(db, id);
+        return row ? json({ ok: true, order: rowOrder(row) }) : json({ ok: false, error: 'Order not found' }, 404);
       }
+
       if (!adminOK(request, env)) return json({ ok: false, error: 'Admin access required.' }, 403);
-      return json({ ok: true, orders: (store.orders || []).slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt)).map(summarize) });
+
+      const result = await db.prepare(
+        'SELECT * FROM orders ORDER BY created_at DESC LIMIT 1000'
+      ).all();
+
+      return json({ ok: true, orders: (result.results || []).map(rowOrder) });
     }
+
     if (request.method === 'POST') {
       const p = await request.json();
-      if (!p?.mode || !Array.isArray(p.items) || !p.items.length) return json({ ok: false, error: 'Invalid order payload.' }, 400);
-      if (!['hall', 'takeaway', 'delivery'].includes(p.mode)) return json({ ok: false, error: 'Invalid order mode.' }, 400);
+
+      if (!p?.mode || !Array.isArray(p.items) || !p.items.length) {
+        return json({ ok: false, error: 'Invalid order payload.' }, 400);
+      }
+      if (!['hall', 'takeaway', 'delivery'].includes(p.mode)) {
+        return json({ ok: false, error: 'Invalid order mode.' }, 400);
+      }
+
+      const idempotencyKey = normalizeIdempotencyKey(p.idempotencyKey);
+      if (!idempotencyKey) {
+        return json({ ok: false, error: 'Missing idempotency key.' }, 400);
+      }
+
+      const existing = await findByIdempotency(db, idempotencyKey);
+      if (existing) return json({ ok: true, duplicate: true, order: rowOrder(existing) }, 200);
+
+      const fields = {
+        table: String(p.table || '').slice(0, 30),
+        name: String(p.name || '').slice(0, 100),
+        phone: String(p.phone || '').slice(0, 30),
+        address: String(p.address || '').slice(0, 300),
+        notes: String(p.notes || '').slice(0, 500),
+        waiter: String(p.waiter || '').slice(0, 100)
+      };
+
       let menu;
       try {
         menu = await loadMenu(context);
       } catch (e) {
         return json({ ok: false, error: e instanceof Error ? e.message : 'Unable to load menu for price verification.' }, 503);
       }
+
       let verified;
       try {
         verified = verifyOrderItems(p.items, menu, p.mode);
       } catch (e) {
         return json({ ok: false, error: e instanceof Error ? e.message : 'Unable to verify order.' }, 400);
       }
+
       const trusted = adminOK(request, env);
       const ip = request.headers.get('CF-Connecting-IP') || '';
+
       if (!trusted) {
         try {
           await verifyTurnstile(p.turnstileToken, ip, env);
         } catch (e) {
           return json({ ok: false, error: e instanceof Error ? e.message : 'Bot verification failed.' }, 403);
         }
-      }
-      for (let attempt = 0; attempt < CONFLICT_RETRIES; attempt++) {
-        if (attempt > 0) await backoffBeforeRetry(attempt);
-        const { sha, store } = await readStore(h, repo, branch);
-        store.orders = Array.isArray(store.orders) ? store.orders : [];
-        if (!trusted && rateLimited(store, ip)) {
+        if (await rateLimited(db, ip)) {
           return json({ ok: false, error: 'في طلبات كثيرة من نفس الجهاز خلال وقت قصير، جرب بعد شوي.' }, 429);
         }
-        store.nextNumber = Number(store.nextNumber || 1001);
-        const now = new Date().toISOString(), id = `olv-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, number = store.nextNumber++;
-        const order = { id, number, status: 'new', mode: p.mode, table: String(p.table || ''), name: String(p.name || ''), phone: String(p.phone || ''), address: String(p.address || ''), notes: String(p.notes || ''), waiter: String(p.waiter || ''), ip, total: verified.total, items: verified.items, text: verified.text, createdAt: now, updatedAt: now };
-        store.orders.push(order);
-        const put = await writeStore(h, repo, branch, sha, store, `New OLV order #${number}`);
-        if (put.ok) return json({ ok: true, order: summarize(order) }, 201);
-        if (put.status !== 409) return json({ ok: false, error: `GitHub update failed: ${await put.text()}` }, put.status);
       }
-      return json({ ok: false, error: 'Order store busy; please retry.' }, 409);
+
+      // Allocate a number from a dedicated atomic counter. A failed request
+      // can leave a harmless gap, but two concurrent orders cannot get the same number.
+      const number = await nextOrderNumber(db);
+      const now = new Date().toISOString();
+      const id = `olv-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
+
+      try {
+        await db.prepare(
+          `INSERT INTO orders
+           (id, number, idempotency_key, status, mode, table_no, name, phone, address, notes, waiter, ip, total, items_json, text_summary, created_at, updated_at, loyalty_awarded)
+           VALUES (?1, ?2, ?3, 'new', ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?15, 0)`
+        ).bind(
+          id, number, idempotencyKey, p.mode, fields.table, fields.name, fields.phone,
+          fields.address, fields.notes, fields.waiter, ip, verified.total,
+          JSON.stringify(verified.items), verified.text, now
+        ).run();
+      } catch (e) {
+        // A second identical request can race the first one. The unique
+        // idempotency_key constraint makes the loser return the first order.
+        const duplicate = await findByIdempotency(db, idempotencyKey);
+        if (duplicate) return json({ ok: true, duplicate: true, order: rowOrder(duplicate) }, 200);
+        throw e;
+      }
+
+      const created = await findById(db, id);
+      return json({ ok: true, order: rowOrder(created) }, 201);
     }
+
     if (request.method === 'PATCH') {
       if (!adminOK(request, env)) return json({ ok: false, error: 'Admin access required.' }, 403);
-      const p = await request.json(), allowed = ['new', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'];
+
+      const p = await request.json();
+      const allowed = ['new', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'];
       if (!p?.id || !allowed.includes(p.status)) return json({ ok: false, error: 'Invalid status update.' }, 400);
-      for (let attempt = 0; attempt < CONFLICT_RETRIES; attempt++) {
-        if (attempt > 0) await backoffBeforeRetry(attempt);
-        const { sha, store } = await readStore(h, repo, branch), o = (store.orders || []).find(x => x.id === p.id);
-        if (!o) return json({ ok: false, error: 'Order not found' }, 404);
-        const wasCompleted = o.status === 'completed';
-        o.status = p.status;
-        o.updatedAt = new Date().toISOString();
-        const put = await writeStore(h, repo, branch, sha, store, `Update OLV order #${o.number} → ${o.status}`);
-        if (put.ok) {
-          if (!wasCompleted && p.status === 'completed' && o.phone) {
-            // الطلب اتحفظ "مكتمل" أصلًا (أهم إشي)، فلو فشلت النقاط ما بنفشل الطلب —
-            // بس نسجّل الخطأ بسجلات Cloudflare Functions حتى يصير أثر يُكتشف،
-            // بدل ما يضيع بصمت تمامًا زي قبل
-            try { await awardPoints(h, repo, branch, o.phone, o.total); } catch (e) {
-              console.error(`Loyalty award failed for order #${o.number} (${o.phone}):`, e instanceof Error ? e.message : e);
-            }
-          }
-          return json({ ok: true, order: summarize(o) });
-        }
-        if (put.status !== 409) return json({ ok: false, error: `GitHub update failed: ${await put.text()}` }, put.status);
+
+      const current = await findById(db, p.id);
+      if (!current) return json({ ok: false, error: 'Order not found' }, 404);
+
+      const transitions = {
+        new: ['confirmed', 'cancelled'],
+        confirmed: ['preparing', 'cancelled'],
+        preparing: ['ready', 'cancelled'],
+        ready: ['completed', 'cancelled'],
+        completed: [],
+        cancelled: []
+      };
+
+      if (p.status !== current.status && !transitions[current.status].includes(p.status)) {
+        return json({ ok: false, error: `لا يمكن تغيير الطلب من "${current.status}" إلى "${p.status}".` }, 409);
       }
-      return json({ ok: false, error: 'Order store busy; please retry.' }, 409);
+
+      const now = new Date().toISOString();
+
+      if (p.status === 'completed' && current.status !== 'completed') {
+        // Conditional update makes concurrent completion requests mutually exclusive.
+        const result = await db.prepare(
+          `UPDATE orders
+           SET status = 'completed', updated_at = ?1
+           WHERE id = ?2 AND status = ?3 AND loyalty_awarded = 0`
+        ).bind(now, p.id, current.status).run();
+
+        if (!result.meta?.changes) {
+          const latest = await findById(db, p.id);
+          return latest ? json({ ok: true, duplicate: true, order: rowOrder(latest) }) : json({ ok: false, error: 'Order not found' }, 404);
+        }
+
+        const completed = await findById(db, p.id);
+        if (completed?.phone) {
+          try {
+            await awardPoints(db, completed.phone, completed.total, completed.id);
+          } catch (e) {
+            console.error(`Loyalty award failed for order #${completed.number}:`, e instanceof Error ? e.message : e);
+          }
+        }
+
+        const latest = await findById(db, p.id);
+        return json({ ok: true, order: rowOrder(latest) });
+      }
+
+      await db.prepare(
+        'UPDATE orders SET status = ?1, updated_at = ?2 WHERE id = ?3'
+      ).bind(p.status, now, p.id).run();
+
+      const latest = await findById(db, p.id);
+      return json({ ok: true, order: rowOrder(latest) });
     }
+
     return json({ ok: false, error: 'Method not allowed' }, 405);
   } catch (e) {
+    console.error('orders.js:', e);
     return json({ ok: false, error: e instanceof Error ? e.message : 'Server error' }, 500);
   }
 }
