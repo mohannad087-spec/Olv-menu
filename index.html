@@ -184,11 +184,13 @@ function playCloseSound(){whoosh(0,.11,.04,false)}
 function playCartSound(){whoosh(0,.18,.07,true);subThump(0,.16,.05)}
 function playConfirmSound(){subThump(0,.3,.07);tone(523.25,0,.22,.14,'sine');tone(659.25,.1,.22,.14,'sine');tone(784,.2,.22,.14,'sine');tone(1046.5,.32,.32,.17,'sine');tone(1318.51,.44,.5,.2,'sine');sparkle(.38,7,.055)}
 document.addEventListener('click',ensureAudio);
+let orderIdempotencyKey='';
 function onTurnstileToken(t){turnstileToken=t}
 function onTurnstileExpired(){turnstileToken=''}
 async function recordOrder(o){
   try{
-    const payload={mode:orderMode,items:cartItems.map(x=>({id:x.id,qty:x.qty,custom:x.custom})),total:o.total,text:o.text,notes:$('notes').value.trim(),turnstileToken};
+    if(!orderIdempotencyKey)orderIdempotencyKey=crypto.randomUUID();
+    const payload={mode:orderMode,items:cartItems.map(x=>({id:x.id,qty:x.qty,custom:x.custom})),total:o.total,text:o.text,notes:$('notes').value.trim(),turnstileToken,idempotencyKey:orderIdempotencyKey};
     if(orderMode==='hall'){payload.table=$('table').value.trim();payload.name=$('customerName').value.trim();payload.phone=$('hallPhone').value.trim()}
     else if(orderMode==='takeaway'){payload.name=$('takeawayName').value.trim();payload.phone=$('takeawayPhone').value.trim()}
     else{payload.name=$('deliveryName').value.trim();payload.phone=$('customerPhone').value.trim();payload.address=$('address').value.trim()}
@@ -196,7 +198,7 @@ async function recordOrder(o){
     const out=await r.json();
     try{if(typeof turnstile!=='undefined')turnstile.reset('#turnstileBox')}catch(e){}
     turnstileToken='';
-    if(r.ok&&out.ok)return out.order;
+    if(r.ok&&out.ok){orderIdempotencyKey='';return out.order;}
     console.warn('Order not recorded:',out.error);
     return null;
   }catch(e){console.warn('Order not recorded:',e.message);return null}
