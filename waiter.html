@@ -111,7 +111,7 @@ const $=id=>document.getElementById(id);
 const money=n=>`${Number(n).toFixed(2)} JD`;
 const imgs={burgers:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=70',snacks:'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=400&q=70',sandwiches:'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=400&q=70',pasta:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=400&q=70',salads:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=70',hot:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=70',cold:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=70',juices:'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=400&q=70',shakes:'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=70',desserts:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=70',icecream:'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=400&q=70',donuts:'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=400&q=70',shisha:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=70'};imgs.cocktails=imgs.juices;
 const names={new:'جديد',confirmed:'تم التأكيد',preparing:'قيد التحضير',ready:'جاهز',completed:'مكتمل',cancelled:'ملغى'};
-let DATA=null,cart=[],active='all',waiterName='',staffKey='',knownStatuses=null,audioCtx=null;
+let DATA=null,cart=[],active='all',waiterName='',staffKey='',knownStatuses=null,audioCtx=null,orderIdempotencyKey='';
 
 function showToast(m){$('toast').textContent=m;$('toast').classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>$('toast').classList.remove('show'),1700)}
 
@@ -223,8 +223,9 @@ async function submitOrder(){
   const text=cart.map(x=>`${x.label} × ${x.qty}`).join('\n')+`\nالمجموع: ${money(total)}`;
   const phone=$('tablePhone').value.trim();
   try{
-    await api('/api/orders',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({mode:'hall',table,phone,waiter:waiterName,notes:$('orderNotes').value.trim(),items:cart,total,text})});
-    cart=[];$('tableNum').value='';$('tablePhone').value='';$('orderNotes').value='';
+    if(!orderIdempotencyKey)orderIdempotencyKey=crypto.randomUUID();
+    await api('/api/orders',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({mode:'hall',table,phone,waiter:waiterName,notes:$('orderNotes').value.trim(),items:cart,total,text,idempotencyKey:orderIdempotencyKey})});
+    cart=[];orderIdempotencyKey='';$('tableNum').value='';$('tablePhone').value='';$('orderNotes').value='';
     updateCartBar();closeCart();showToast('تم إرسال الطلب');
     loadMine();
   }catch(e){showToast(e.message)}
