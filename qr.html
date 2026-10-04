@@ -71,7 +71,8 @@ h1{margin:0;color:var(--ink);font:500 30px/1.3 var(--display)}
 <script src="assets/back-nav.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-const base=location.origin+location.pathname.replace(/qr\.html$/,'');
+// Cloudflare Pages بيفتح الصفحة على /qr بدون .html، فبناخد مجلد الصفحة مش اسمها
+const base=location.origin+location.pathname.replace(/[^/]*$/,'');
 function cleanNum(v,min,max){v=parseInt(v,10);if(!Number.isFinite(v))v=min;return Math.max(min,Math.min(max,v))}
 function tableUrl(n){return base+'?table='+encodeURIComponent(String(n))}
 function generate(){
