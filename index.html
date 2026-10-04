@@ -15,7 +15,7 @@
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <link rel="preload" href="assets/fonts/readex-pro-arabic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/reem-kufi-arabic-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/olv-theme.css?v=a3">
+<link rel="stylesheet" href="assets/olv-theme.css?v=a4">
 </head>
 <body>
 <div id="installBanner" class="install-banner"><img src="assets/olv-original.jpg" alt="OLV"><div class="install-copy"><b data-t>ثبّت تطبيق OLV</b><span data-t>اطلب بسرعة من شاشتك الرئيسية</span></div><button id="installBtn" data-t>تثبيت</button><button id="installClose" aria-label="إغلاق">×</button></div>
@@ -307,7 +307,9 @@ function showToast(m){$('toast').textContent=tr(m);$('toast').classList.add('sho
 $('enterBtn').onclick=()=>{ensureAudio();playWelcomeSound();$('entry').classList.add('hide');setTimeout(()=>{$('entry').style.display='none';$('choice').classList.add('open');choiceFromEntry=true;navOpen('choice')},320)};let searchDebounce;$('search').oninput=()=>{clearTimeout(searchDebounce);searchDebounce=setTimeout(render,180)};$('surpriseBtn').onclick=()=>{playMagicSound();pickSurprise()};$('lang').onclick=()=>{playToggleOnSound();lang=lang==='ar'?'en':'ar';try{localStorage.setItem('olv-lang',lang)}catch(e){}applyLang();renderCats();render();renderCart()};$('cart').onclick=()=>{playCartSound();if(!orderMode){$('choice').classList.add('open');choiceFromEntry=false;navOpen('choice');return}navOpen('order');$('orderOverlay').classList.add('open');selectMode(orderMode);renderCart()};$('homeFab').onclick=()=>{if(navStack.length){goingHome=true;history.go(-navStack.length);return}document.querySelectorAll('.overlay,.category-overlay').forEach(o=>o.classList.remove('open'));$('search').value='';setCat('all')};document.querySelectorAll('.mood').forEach(b=>b.onclick=()=>{playTapSound();if(navStack[navStack.length-1]!=='filter')navOpen('filter');mood=b.dataset.mood;document.querySelectorAll('.mood').forEach(x=>x.classList.toggle('active',x===b));active='all';renderCats();render()});$('orderOverlay').onclick=e=>{if(e.target===$('orderOverlay'))closeOrder()};$('detailOverlay').onclick=e=>{if(e.target===$('detailOverlay'))closeDetail()};$('categoryOverlay').onclick=e=>{if(e.target===$('categoryOverlay'))closeCategory()};$('shishaOverlay').onclick=e=>{if(e.target===$('shishaOverlay'))closeShisha()};function showTrackingLink(rec){
   if(!rec)return;
   try{localStorage.setItem('olv-last-order',JSON.stringify({id:rec.id,number:rec.number}))}catch(e){}
-  $('notice').innerHTML=`${L('تم استلام طلبك رقم','We received your order')} <b>#${rec.number}</b> — <a href="order.html?id=${encodeURIComponent(rec.id)}" target="_blank" style="color:var(--wa);font-weight:700">${L('تابع حالة طلبك من هون','Track your order status here')}</a>`;
+  const bk=(()=>{try{const it=cartItems[0]&&DATA.items.find(x=>x.id===cartItems[0].id);const k=it?catIdx(it.cat):-1;return k>=0?k:Number(rec.number||0)%15}catch(e){return 0}})();
+  $('notice').innerHTML=`<div class="bloom" style="--fc:${fcol(bk)}">${flower(bk,'draw')}</div>${L('تم استلام طلبك رقم','We received your order')} <b>#${rec.number}</b> — <a href="order.html?id=${encodeURIComponent(rec.id)}" target="_blank" style="color:var(--wa);font-weight:700">${L('تابع حالة طلبك من هون','Track your order status here')}</a>`;
+  $('notice').querySelectorAll('.bloom path,.bloom circle').forEach(e=>e.setAttribute('pathLength','1'));
   if(rec.phone){
     fetch('/api/loyalty?phone='+encodeURIComponent(rec.phone)+'&ts='+Date.now()).then(r=>r.json()).then(out=>{
       if(out.ok)$('notice').innerHTML+=`<div style="margin-top:8px">${L(`عندك ${out.points} نقطة (نقطة عن كل دينار)`,`You have ${out.points} points (1 point per dinar)`)}</div>`;
