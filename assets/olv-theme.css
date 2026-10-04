@@ -14,7 +14,7 @@
   --f0:#d98c97;--f1:#dd9c72;--f2:#d4ae55;--f3:#9ab98a;--f4:#8db2c8;--f5:#b9a0cf;
   --font:"Readex Pro","Noto Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif;
   --display:"Reem Kufi","Readex Pro","Noto Kufi Arabic",system-ui,sans-serif;
-  --r:16px;
+  --r:16px;--back-shadow:none;
   color-scheme:dark;
 }
 :root[data-olv-theme="light"]{

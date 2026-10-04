@@ -5,7 +5,7 @@
   const stack=[];
   const ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   const css=document.createElement('style');
-  css.textContent=".olv-back{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 16px 0 14px;border-radius:999px;border:1px solid #6a522d;background:#15110b;color:#f0bd5c;font:800 15px 'Cairo',Arial,sans-serif;white-space:nowrap;flex-shrink:0;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35)}.olv-back svg{width:18px;height:18px}.olv-back:active{transform:scale(.94)}@media print{.olv-back{display:none!important}}";
+  css.textContent=".olv-back{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 16px 0 14px;border-radius:999px;border:1px solid var(--line,#6a522d);background:var(--surface,#15110b);color:var(--ink,#f0bd5c);font:800 15px var(--font,'Cairo',Arial,sans-serif);white-space:nowrap;flex-shrink:0;cursor:pointer;box-shadow:var(--back-shadow,0 6px 18px rgba(0,0,0,.35))}.olv-back svg{width:18px;height:18px}.olv-back:active{transform:scale(.94)}@media print{.olv-back{display:none!important}}";
   document.head.appendChild(css);
 
   function fromSameSite(){try{return !!document.referrer&&new URL(document.referrer).origin===location.origin}catch(e){return false}}
