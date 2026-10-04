@@ -38,6 +38,22 @@ function priceForMode(basePrice, mode, menu) {
   return roundMoney(basePrice * (1 + pct / 100));
 }
 
+// رقم الطاولة لطلبات الصالة لازم يكون رقم ضمن عدد الطاولات المحدد بالإدارة (الافتراضي 20).
+function tableCount(menu) {
+  const n = parseInt(menu.settings?.tableCount, 10);
+  return Number.isFinite(n) && n > 0 ? Math.min(n, 500) : 20;
+}
+
+function verifyTable(raw, menu) {
+  const t = String(raw ?? '').trim();
+  if (!t) throw new Error('رقم الطاولة مطلوب لطلبات الصالة.');
+  if (!/^\d{1,3}$/.test(t)) throw new Error('رقم الطاولة غير صحيح.');
+  const n = parseInt(t, 10);
+  const max = tableCount(menu);
+  if (n < 1 || n > max) throw new Error(`رقم الطاولة لازم يكون بين 1 و ${max}.`);
+  return String(n);
+}
+
 function verifyOrderItems(rawItems, menu, mode) {
   if (rawItems.length > 50) throw new Error('Too many items in order.');
   const byId = new Map((menu.items || []).map(i => [String(i.id), i]));
@@ -235,6 +251,16 @@ export async function onRequest(context) {
         menu = await loadMenu(context);
       } catch (e) {
         return json({ ok: false, error: e instanceof Error ? e.message : 'Unable to load menu for price verification.' }, 503);
+      }
+
+      if (p.mode === 'hall') {
+        try {
+          fields.table = verifyTable(p.table, menu);
+        } catch (e) {
+          return json({ ok: false, error: e.message }, 400);
+        }
+      } else {
+        fields.table = '';
       }
 
       let verified;
