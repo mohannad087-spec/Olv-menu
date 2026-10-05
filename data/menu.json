@@ -1908,7 +1908,7 @@
       "descEn": "",
       "price": 0.4,
       "tags": [],
-      "available": true,
+      "available": false,
       "source": "stock"
     }
   ],
