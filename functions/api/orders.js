@@ -44,6 +44,25 @@ function tableCount(menu) {
   return Number.isFinite(n) && n > 0 ? Math.min(n, 500) : 20;
 }
 
+// الطلب من الصالة (QR/الباركود) ممكن يتوقف كلياً أو بفترة يومية من الإدارة. نفس منطق index.html. المنطقة الزمنية الافتراضية Asia/Amman.
+export function hallClosedNow(settings, date = new Date()) {
+  const h = settings?.hallOrdering;
+  if (!h || !h.mode || h.mode === 'on') return false;
+  if (h.mode === 'off') return true;
+  if (h.mode !== 'schedule') return false;
+  const re = /^(\d{1,2}):(\d{2})$/;
+  const a = re.exec(h.closedFrom || ''), b = re.exec(h.closedTo || '');
+  if (!a || !b) return false;
+  const from = +a[1] * 60 + +a[2], to = +b[1] * 60 + +b[2];
+  if (from === to) return false;
+  let now;
+  try {
+    const parts = new Intl.DateTimeFormat('en-GB', { timeZone: h.timezone || 'Asia/Amman', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(date);
+    now = +parts.find(x => x.type === 'hour').value * 60 + +parts.find(x => x.type === 'minute').value;
+  } catch { return false; }
+  return from < to ? (now >= from && now < to) : (now >= from || now < to);
+}
+
 function verifyTable(raw, menu) {
   const t = String(raw ?? '').trim();
   if (!t) throw new Error('رقم الطاولة مطلوب لطلبات الصالة.');
@@ -251,6 +270,11 @@ export async function onRequest(context) {
         menu = await loadMenu(context);
       } catch (e) {
         return json({ ok: false, error: e instanceof Error ? e.message : 'Unable to load menu for price verification.' }, 503);
+      }
+
+      // الموظفين (waiter.html) بيطلبوا للطاولات بمفتاحهم حتى لو الطلب الذاتي متوقف
+      if (p.mode === 'hall' && !adminOK(request, env) && hallClosedNow(menu.settings)) {
+        return json({ ok: false, code: 'hall_closed', error: 'الطلب من الطاولة متوقف حالياً — يرجى الطلب عند الكاشير.' }, 403);
       }
 
       if (p.mode === 'hall') {
