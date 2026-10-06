@@ -1,3 +1,20 @@
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000
+  Permissions-Policy: camera=(), microphone=(), payment=(), usb=()
+
+# صفحات الإدارة والموظفين: ما لازم تنفهرس بمحركات البحث
+/admin.html
+  X-Robots-Tag: noindex, nofollow
+/waiter.html
+  X-Robots-Tag: noindex, nofollow
+/orders.html
+  X-Robots-Tag: noindex, nofollow
+/qr.html
+  X-Robots-Tag: noindex, nofollow
+
 /manifest.webmanifest
   Content-Type: application/manifest+json
 

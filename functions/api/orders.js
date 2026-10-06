@@ -1,3 +1,4 @@
+import { checkKey } from '../_lib/keys.js';
 const API = 'https://api.github.com';
 
 function json(data, status = 200) {
@@ -7,14 +8,8 @@ function json(data, status = 200) {
   });
 }
 
-function safeKey(request) {
-  return request.headers.get('x-olv-staff-key') || request.headers.get('x-olv-admin-key') || '';
-}
-
-function adminOK(request, env) {
-  const provided = safeKey(request);
-  if (!provided) return false;
-  return provided === env.OLV_ADMIN_KEY || Boolean(env.OLV_STAFF_KEY && provided === env.OLV_STAFF_KEY);
+async function adminOK(request, env) {
+  return (await checkKey(request, env, { staff: true })).ok;
 }
 
 function getDB(env) {
@@ -229,7 +224,7 @@ export async function onRequest(context) {
         return row ? json({ ok: true, order: rowOrder(row) }) : json({ ok: false, error: 'Order not found' }, 404);
       }
 
-      if (!adminOK(request, env)) return json({ ok: false, error: 'Admin access required.' }, 403);
+      if (!(await adminOK(request, env))) return json({ ok: false, error: 'Admin access required.' }, 403);
 
       const result = await db.prepare(
         'SELECT * FROM orders ORDER BY created_at DESC LIMIT 1000'
@@ -273,7 +268,7 @@ export async function onRequest(context) {
       }
 
       // الموظفين (waiter.html) بيطلبوا للطاولات بمفتاحهم حتى لو الطلب الذاتي متوقف
-      if (p.mode === 'hall' && !adminOK(request, env) && hallClosedNow(menu.settings)) {
+      if (p.mode === 'hall' && !(await adminOK(request, env)) && hallClosedNow(menu.settings)) {
         return json({ ok: false, code: 'hall_closed', error: 'الطلب من الطاولة متوقف حالياً — يرجى الطلب عند الكاشير.' }, 403);
       }
 
@@ -294,7 +289,7 @@ export async function onRequest(context) {
         return json({ ok: false, error: e instanceof Error ? e.message : 'Unable to verify order.' }, 400);
       }
 
-      const trusted = adminOK(request, env);
+      const trusted = await adminOK(request, env);
       const ip = request.headers.get('CF-Connecting-IP') || '';
 
       if (!trusted) {
@@ -337,7 +332,7 @@ export async function onRequest(context) {
     }
 
     if (request.method === 'PATCH') {
-      if (!adminOK(request, env)) return json({ ok: false, error: 'Admin access required.' }, 403);
+      if (!(await adminOK(request, env))) return json({ ok: false, error: 'Admin access required.' }, 403);
 
       const p = await request.json();
       const allowed = ['new', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'];
