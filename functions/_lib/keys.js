@@ -18,8 +18,11 @@ export async function safeEqual(a, b) {
   return diff === 0;
 }
 
+let tableReady = false; // مرة وحدة لكل instance، حتى ما ننفّذ DDL مع كل طلب
 async function ensureTable(db) {
+  if (tableReady) return;
   await db.prepare('CREATE TABLE IF NOT EXISTS key_failures (ip TEXT NOT NULL, kh TEXT NOT NULL, at INTEGER NOT NULL)').run();
+  tableReady = true;
 }
 async function keyHash(s) {
   return Array.from((await sha256('olv-kf:' + s)).slice(0, 8)).map((b) => b.toString(16).padStart(2, '0')).join('');

@@ -268,7 +268,8 @@ export async function onRequest(context) {
       }
 
       // الموظفين (waiter.html) بيطلبوا للطاولات بمفتاحهم حتى لو الطلب الذاتي متوقف
-      if (p.mode === 'hall' && !(await adminOK(request, env)) && hallClosedNow(menu.settings)) {
+      const trusted = await adminOK(request, env); // مرة وحدة للطلب كله (قبل كانت مرتين)
+      if (p.mode === 'hall' && !trusted && hallClosedNow(menu.settings)) {
         return json({ ok: false, code: 'hall_closed', error: 'الطلب من الطاولة متوقف حالياً — يرجى الطلب عند الكاشير.' }, 403);
       }
 
@@ -289,7 +290,6 @@ export async function onRequest(context) {
         return json({ ok: false, error: e instanceof Error ? e.message : 'Unable to verify order.' }, 400);
       }
 
-      const trusted = await adminOK(request, env);
       const ip = request.headers.get('CF-Connecting-IP') || '';
 
       if (!trusted) {
