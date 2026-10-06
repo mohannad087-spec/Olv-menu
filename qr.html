@@ -48,8 +48,12 @@ h1{margin:0;color:var(--ink);font:500 30px/1.3 var(--display)}
 <button class="btn secondary" onclick="downloadAllLinks()">نسخ روابط الطاولات</button>
 <button class="btn secondary" onclick="generate()">تحديث الأكواد</button>
 </div>
+<div class="controls" style="margin-top:9px">
+<input id="saveKey" class="field" type="password" autocomplete="off" placeholder="كلمة سر الإدارة (لحفظ عدد الطاولات)">
+<button class="btn" id="saveCountBtn" onclick="saveTableCount()">حفظ عدد الطاولات في المنيو</button>
+</div>
 <div id="status" class="status"></div>
-<div class="sub" style="margin:6px 0 0">عدد الطاولات الافتراضي يجي من «الإعدادات» بلوحة الإدارة، وأي رقم طاولة أكبر منه بيرفضه النظام.</div>
+<div class="sub" style="margin:6px 0 0">عدد الطاولات المحفوظ بيحدد أعلى رقم طاولة بيقبله النظام. تغيير الرقم هون ما بينحفظ إلا بكلمة سر الإدارة (نفس كلمة لوحة الإدارة)، وكل الباقي (إنشاء/طباعة الأكواد) بيشتغل بدون تعديل على المنيو.</div>
 </section>
 <section class="head" style="margin-top:16px">
 <h1 style="font-size:22px">QR عام للمنيو</h1>
@@ -115,6 +119,26 @@ function printGeneral(){
 function downloadGeneral(){
  const img=generalImgSrc();
  const a=document.createElement('a');a.href=img;a.download='olv-menu-qr.png';document.body.appendChild(a);a.click();a.remove();
+}
+// حفظ عدد الطاولات: بيمر على نفس مسار النشر المحمي بكلمة سر الإدارة (السيرفر هو اللي بيتحقق، مو الصفحة)
+document.getElementById('saveKey').value=sessionStorage.getItem('olv-admin-key')||'';
+async function saveTableCount(){
+ const st=document.getElementById('status'),btn=document.getElementById('saveCountBtn');
+ const key=document.getElementById('saveKey').value.trim();
+ if(!key){st.textContent='أدخل كلمة سر الإدارة أولاً لحفظ عدد الطاولات.';return}
+ const count=cleanNum(document.getElementById('count').value,1,500);
+ btn.disabled=true;st.textContent='جاري الحفظ...';
+ try{
+  const cur=await fetch('data/menu.json?ts='+Date.now(),{cache:'no-store'});if(!cur.ok)throw Error('تعذر تحميل المنيو الحالي');
+  const menu=await cur.json();menu.settings=menu.settings||{};menu.settings.tableCount=count;
+  const r=await fetch('/api/save-menu',{method:'POST',headers:{'content-type':'application/json','x-olv-admin-key':key},body:JSON.stringify({menu,message:'Update table count from QR page'})});
+  const out=await r.json().catch(()=>({}));
+  if(r.status===403)throw Error('كلمة السر غير صحيحة — ما انحفظ شي');
+  if(!r.ok)throw Error(out.error||'فشل الحفظ');
+  try{sessionStorage.setItem('olv-admin-key',key)}catch(e){}
+  st.textContent='تم حفظ عدد الطاولات ('+count+'). بيطبّق بالمنيو خلال لحظات.';
+ }catch(e){st.textContent='لم يتم الحفظ: '+e.message}
+ finally{btn.disabled=false}
 }
 // عدد الطاولات من إعدادات المنيو (الافتراضي 20)
 fetch('data/menu.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{const n=parseInt(d?.settings?.tableCount,10);if(n>0)document.getElementById('count').value=Math.min(n,500)}).catch(()=>{}).finally(generate);
