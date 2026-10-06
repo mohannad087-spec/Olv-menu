@@ -1,3 +1,5 @@
+import { checkKey } from '../_lib/keys.js';
+
 // Cloudflare Pages Function — reads GITHUB_TOKEN/GITHUB_REPO/GITHUB_BRANCH/OLV_ADMIN_KEY from context.env at request time.
 export async function onRequest(context) {
   const { request, env } = context;
@@ -9,11 +11,10 @@ export async function onRequest(context) {
     });
   }
 
-  const adminKey = env.OLV_ADMIN_KEY;
-  const providedKey = request.headers.get('x-olv-admin-key') || '';
-  if (!adminKey || providedKey !== adminKey) {
-    return new Response(JSON.stringify({ ok: false, error: 'Admin access required.' }), {
-      status: 403,
+  const auth = await checkKey(request, env);
+  if (!auth.ok) {
+    return new Response(JSON.stringify({ ok: false, error: auth.status === 429 ? 'Too many attempts. Try again later.' : 'Admin access required.' }), {
+      status: auth.status,
       headers: { 'content-type': 'application/json' }
     });
   }

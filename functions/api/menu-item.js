@@ -1,3 +1,5 @@
+import { checkKey } from '../_lib/keys.js';
+
 const API = 'https://api.github.com';
 
 function json(data, status = 200) {
@@ -8,10 +10,8 @@ function json(data, status = 200) {
 // This endpoint only ever flips one item's `available` flag, so handing the
 // staff key out doesn't give waiters menu-editing rights (that stays behind
 // save-menu.js, which only accepts OLV_ADMIN_KEY).
-function keyOK(request, env) {
-  const provided = request.headers.get('x-olv-staff-key') || request.headers.get('x-olv-admin-key') || '';
-  if (!provided) return false;
-  return provided === env.OLV_ADMIN_KEY || Boolean(env.OLV_STAFF_KEY && provided === env.OLV_STAFF_KEY);
+async function keyOK(request, env) {
+  return checkKey(request, env, { staff: true });
 }
 
 function headersFor(env) {
@@ -27,7 +27,8 @@ function encode(text) {
 export async function onRequest(context) {
   const { request, env } = context;
   if (request.method !== 'PATCH') return json({ ok: false, error: 'Method not allowed' }, 405);
-  if (!keyOK(request, env)) return json({ ok: false, error: 'Access denied.' }, 403);
+  const auth = await keyOK(request, env);
+  if (!auth.ok) return json({ ok: false, error: auth.status === 429 ? 'Too many attempts. Try again later.' : 'Access denied.' }, auth.status);
 
   const repo = env.GITHUB_REPO || 'mohannad087-spec/Olv-menu';
   const branch = env.GITHUB_BRANCH || 'main';

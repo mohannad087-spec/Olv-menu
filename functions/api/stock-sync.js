@@ -1,3 +1,4 @@
+import { checkKey } from '../_lib/keys.js';
 const API = 'https://api.github.com';
 
 function json(data, status = 200) {
@@ -181,8 +182,8 @@ export async function onRequest(context) {
   const { request, env } = context;
   if (request.method !== 'POST') return json({ ok: false, error: 'Method not allowed' }, 405);
 
-  const provided = request.headers.get('x-olv-admin-key') || '';
-  if (!env.OLV_ADMIN_KEY || provided !== env.OLV_ADMIN_KEY) return json({ ok: false, error: 'Admin access required.' }, 403);
+  const auth = await checkKey(request, env);
+  if (!auth.ok) return json({ ok: false, error: auth.status === 429 ? 'Too many attempts. Try again later.' : 'Admin access required.' }, auth.status);
 
   const repo = env.GITHUB_REPO || 'mohannad087-spec/Olv-menu';
   const branch = env.GITHUB_BRANCH || 'main';
