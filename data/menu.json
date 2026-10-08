@@ -4,7 +4,14 @@
     "taglineAr": "مطعم وكافيه",
     "taglineEn": "Restaurant & Cafe",
     "whatsappNumber": "0775826060",
-    "googleReviewUrl": "https://search.google.com/local/writereview?placeid=ChIJX3yo-hKHHBURvqbTabZy88Y"
+    "googleReviewUrl": "https://search.google.com/local/writereview?placeid=ChIJX3yo-hKHHBURvqbTabZy88Y",
+    "hallSurchargePercent": 0,
+    "hallOrdering": {
+      "mode": "schedule",
+      "closedFrom": "08:00",
+      "closedTo": "16:00",
+      "timezone": "Asia/Amman"
+    }
   },
   "categories": [
     {
