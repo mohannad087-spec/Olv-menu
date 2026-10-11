@@ -3,9 +3,9 @@
 (function(){
 const GROUPS=[
   {id:'food',ar:'الأكل',en:'Food',cats:['burgers','snacks','sandwiches','pasta','salads'],img:'burgers',pick:'olv-burger'},
-  {id:'drinks',ar:'المشروبات',en:'Drinks',cats:['hot','cold','cocktails','juices','shakes'],img:'hot'},
+  {id:'drinks',ar:'المشروبات',en:'Drinks',cats:['hot','cold','cocktails','juices','shakes'],img:'hot',pick:'iced-spanish-latte'},
   {id:'sweet',ar:'الحلو',en:'Sweets',cats:['desserts','icecream','donuts'],img:'desserts',pick:'molten-cake'},
-  {id:'shisha',ar:'الأرجيلة',en:'Shisha',cats:['shisha'],img:'shisha'}
+  {id:'shisha',ar:'الأرجيلة',en:'Shisha',cats:['shisha'],img:'shisha',pick:'shisha-special'}
 ];
 // أيقونات خطية لكل قسم (24×24)
 const ICONS={
@@ -56,9 +56,14 @@ closeLayer=function(n){if(n==='group'){window.olvGroup=null;active='all';renderC
 const _setCat=setCat;
 setCat=function(c){if(c==='all')window.olvGroup=null;else if(!window.olvGroup){const g=groupOf(c);if(g){window.olvOpenGroup(g.id);active=c;renderCats();render();return}}return _setCat(c)};
 
+// حركة الأحرف متل الفيديو: الكلمة العربية تنكشف كاملة (الأحرف موصولة)، والإنجليزي حرف حرف
+function kin(s,base){let n=base||0;return String(s).split(/(<br>| )/).map(w=>{if(w==='<br>'||w===' '||!w)return w;
+  if(/[A-Za-z]/.test(w)&&!/[\u0600-\u06FF]/.test(w))return `<span class="kw">${[...w].map(c=>`<span class="kc" style="--c:${n++}">${c}</span>`).join('')}</span>`;
+  const o=`<span class="kw kar" style="--c:${n}">${w}</span>`;n+=3;return o}).join('')}
+const H2=t=>`<h2 class="kt">${kin(t)}</h2>`;
 function groupCard(g,k){const first=DATA.items.find(i=>i.cat===(g.img in imgs?g.img:g.cats[0])&&shown(i));const pk=g.pick&&DATA.items.find(i=>i.id===g.pick&&i.image);const src=pk?pk.image:(imgs[g.img]||photo(first,400,70));
   const names=g.cats.map(id=>tx(catById(id))).join(L('، ',', '));
-  return `<button class="grp" style="--i:${k}" onclick="olvOpenGroup('${g.id}')"><span class="grp-copy"><b>${L(g.ar,g.en)}</b><small>${names}</small></span><span class="grp-photo"><img src="${String(src).replace(/([?&])w=\d+/,'$1w=360')}" alt="" loading="${k<2?'eager':'lazy'}" decoding="async" width="180" height="180"></span></button>`}
+  return `<button class="grp" style="--i:${k}" onclick="olvOpenGroup('${g.id}')"><span class="grp-copy"><b class="kt" style="--d:${160+k*90}ms">${kin(L(g.ar,g.en))}</b><small>${names}</small></span><span class="grp-photo"><img src="${String(src).replace(/([?&])w=\d+/,'$1w=360')}" alt="" loading="${k<2?'eager':'lazy'}" decoding="async" width="180" height="180"></span></button>`}
 
 card=function(i,k){const fav=favorites.includes(i.id),nm=tx(i),t=i.tags||[];
   return `<article class="item tile-item" style="--i:${Math.min(k||0,9)}"><div class="media" onclick="openDetail('${i.id}')"><img loading="lazy" decoding="async" width="360" height="360" src="${photo(i,360,70)}" alt="${nm}"><button class="favorite ${fav?'on':''}" aria-pressed="${fav}" aria-label="${lang==='ar'?'المفضلة':'Favorite'}: ${nm}" onclick="event.stopPropagation();toggleFavorite('${i.id}')">${HEART}</button><button class="add" aria-label="${lang==='ar'?'أضف':'Add'} ${nm}" onclick="event.stopPropagation();flashAdd(this);openCustomize('${i.id}')">${PLUS}</button></div><div class="body" onclick="openDetail('${i.id}')"><h3><button class="item-open" onclick="event.stopPropagation();openDetail('${i.id}')">${nm}</button>${t.includes('spicy')?`<span class="hot-dot" title="${tr('حار')}"></span>`:''}</h3><span class="price">${listPrice(i)}</span></div></article>`};
@@ -71,22 +76,22 @@ render=function(){
   let html='';
   if(active==='all'&&!q&&!mood){
     // الصفحة الأولى: الأقسام الكبيرة ثم الأكثر طلباً
-    html=`<section class="landing"><h1 class="land-title">${L('شو بتحب<br>اليوم؟','What are you<br>craving?').split(/(<br>| )/).map((w,k)=>w==='<br>'||w===' '?w:`<span style="--w:${k}">${w}</span>`).join('')}</h1><div class="grp-list">${groupsLive().map(groupCard).join('')}</div></section>`;
+    html=`<section class="landing"><h1 class="land-title">${kin(L('شو بتحب<br>اليوم؟','What are you<br>craving?'))}</h1><div class="grp-list">${groupsLive().map(groupCard).join('')}</div></section>`;
     const pop=DATA.items.filter(i=>i.popular&&shown(i));
-    if(pop.length)html+=`<section class="section" data-cat="popular"><div class="section-head"><h2>${tr('الأكثر طلباً')}</h2></div>${grid(pop)}</section>`;
+    if(pop.length)html+=`<section class="section" data-cat="popular"><div class="section-head">${H2(tr('الأكثر طلباً'))}</div>${grid(pop)}</section>`;
   }else if(active==='popular'&&!q&&!mood){
-    html=`<section class="section" data-cat="popular"><div class="section-head"><h2>${tr('الأكثر طلباً')}</h2></div>${grid(DATA.items.filter(i=>i.popular&&shown(i)))}</section>`;
+    html=`<section class="section" data-cat="popular"><div class="section-head">${H2(tr('الأكثر طلباً'))}</div>${grid(DATA.items.filter(i=>i.popular&&shown(i)))}</section>`;
   }else if(active!=='all'&&!q&&!mood&&catById(active)){
     // داخل قسم: عناوين فرعية إذا في أكثر من صنف بنفس الفرع
     const list=items.filter(i=>i.cat===active),subs=[],seen={};
     list.forEach(i=>{const key=i.subcat||'_';if(!seen[key]){seen[key]={ar:i.subcatAr,en:i.subcatEn,items:[]};subs.push(seen[key])}seen[key].items.push(i)});
     const useSubs=subs.length>1&&subs.some(s=>s.items.length>1);
     if(!list.length)html='';
-    else if(useSubs)html=subs.map(s=>`<section class="section" data-cat="${active}"><div class="section-head"><h2>${L(s.ar||tx(catById(active)),s.en||tx(catById(active)))}</h2></div>${grid(s.items)}</section>`).join('');
-    else html=`<section class="section" data-cat="${active}"><div class="section-head"><h2>${tx(catById(active))}</h2></div>${grid(list)}</section>`;
+    else if(useSubs)html=subs.map(s=>`<section class="section" data-cat="${active}"><div class="section-head">${H2(L(s.ar||tx(catById(active)),s.en||tx(catById(active))))}</div>${grid(s.items)}</section>`).join('');
+    else html=`<section class="section" data-cat="${active}"><div class="section-head">${H2(tx(catById(active)))}</div>${grid(list)}</section>`;
   }else{
     // بحث أو مزاج: النتائج مجمّعة حسب القسم
-    DATA.categories.forEach(c=>{const list=items.filter(i=>i.cat===c.id);if(list.length)html+=`<section class="section" data-cat="${c.id}"><div class="section-head"><h2>${tx(c)}</h2><span>${list.length} ${lang==='ar'?'أصناف':'items'}</span></div>${grid(list)}</section>`});
+    DATA.categories.forEach(c=>{const list=items.filter(i=>i.cat===c.id);if(list.length)html+=`<section class="section" data-cat="${c.id}"><div class="section-head">${H2(tx(c))}<span>${list.length} ${lang==='ar'?'أصناف':'items'}</span></div>${grid(list)}</section>`});
   }
   const sc=document.querySelector('.shortcuts');
   $('menu').innerHTML=(mood?backBar():'')+(html||`<div class="notice">${lang==='ar'?'لا توجد نتائج':'No results'}</div>`);

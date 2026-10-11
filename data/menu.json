@@ -420,7 +420,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/espresso-single.webp"
     },
     {
       "id": "espresso-double",
@@ -436,7 +437,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/espresso-double.webp"
     },
     {
       "id": "spanish-latte",
@@ -452,7 +454,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/spanish-latte.webp"
     },
     {
       "id": "cappuccino",
@@ -468,7 +471,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/cappuccino.webp"
     },
     {
       "id": "nescafe",
@@ -484,7 +488,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/nescafe.webp"
     },
     {
       "id": "hot-chocolate",
@@ -500,7 +505,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/hot-chocolate.webp"
     },
     {
       "id": "americano",
@@ -516,7 +522,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/americano.webp"
     },
     {
       "id": "caffe-latte",
@@ -532,7 +539,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/caffe-latte.webp"
     },
     {
       "id": "turkish-coffee",
@@ -548,7 +556,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/turkish-coffee.webp"
     },
     {
       "id": "mocha",
@@ -564,7 +573,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/mocha.webp"
     },
     {
       "id": "karak",
@@ -580,7 +590,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/karak.webp"
     },
     {
       "id": "herbal",
@@ -596,7 +607,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/herbal.webp"
     },
     {
       "id": "iced-spanish-latte",
@@ -612,7 +624,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/iced-spanish-latte.webp"
     },
     {
       "id": "frappuccino",
@@ -628,7 +641,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/frappuccino.webp"
     },
     {
       "id": "caramel-macchiato",
@@ -644,7 +658,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/caramel-macchiato.webp"
     },
     {
       "id": "iced-mocha",
@@ -660,7 +675,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/iced-mocha.webp"
     },
     {
       "id": "white-mocha",
@@ -676,7 +692,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/white-mocha.webp"
     },
     {
       "id": "ice-coffee",
@@ -692,7 +709,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/ice-coffee.webp"
     },
     {
       "id": "smoothie",
@@ -708,7 +726,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/smoothie.webp"
     },
     {
       "id": "milkshake-cold",
@@ -724,7 +743,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/milkshake-cold.webp"
     },
     {
       "id": "soft-drink",
@@ -740,7 +760,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/soft-drink.webp"
     },
     {
       "id": "energy-drink",
@@ -756,7 +777,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/energy-drink.webp"
     },
     {
       "id": "cocktail-plain",
@@ -775,7 +797,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/cocktail-plain.webp"
     },
     {
       "id": "cocktail-pieces",
@@ -794,7 +817,8 @@
       "available": true,
       "large": {
         "price": 3
-      }
+      },
+      "image": "assets/photos/cocktail-pieces.webp"
     },
     {
       "id": "cocktail-cream-honey",
@@ -813,7 +837,8 @@
       "available": true,
       "large": {
         "price": 3.5
-      }
+      },
+      "image": "assets/photos/cocktail-cream-honey.webp"
     },
     {
       "id": "cocktail-icecream",
@@ -832,7 +857,8 @@
       "available": true,
       "large": {
         "price": 2.5
-      }
+      },
+      "image": "assets/photos/cocktail-icecream.webp"
     },
     {
       "id": "emperor",
@@ -851,7 +877,8 @@
       "available": true,
       "large": {
         "price": 3
-      }
+      },
+      "image": "assets/photos/emperor.webp"
     },
     {
       "id": "mango-farghali",
@@ -870,7 +897,8 @@
       "available": true,
       "large": {
         "price": 2
-      }
+      },
+      "image": "assets/photos/mango-farghali.webp"
     },
     {
       "id": "mango-strawberry",
@@ -889,7 +917,8 @@
       "available": true,
       "large": {
         "price": 2.5
-      }
+      },
+      "image": "assets/photos/mango-strawberry.webp"
     },
     {
       "id": "mango-vanilla",
@@ -908,7 +937,8 @@
       "available": true,
       "large": {
         "price": 3
-      }
+      },
+      "image": "assets/photos/mango-vanilla.webp"
     },
     {
       "id": "galaxy-plain",
@@ -927,7 +957,8 @@
       "available": true,
       "large": {
         "price": 2.5
-      }
+      },
+      "image": "assets/photos/galaxy-plain.webp"
     },
     {
       "id": "galaxy-cream",
@@ -946,7 +977,8 @@
       "available": true,
       "large": {
         "price": 3
-      }
+      },
+      "image": "assets/photos/galaxy-cream.webp"
     },
     {
       "id": "orange",
@@ -965,7 +997,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/orange.webp"
     },
     {
       "id": "orange-lemon",
@@ -984,7 +1017,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/orange-lemon.webp"
     },
     {
       "id": "lemon",
@@ -1003,7 +1037,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/lemon.webp"
     },
     {
       "id": "lemon-mint",
@@ -1022,7 +1057,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/lemon-mint.webp"
     },
     {
       "id": "banana-milk",
@@ -1041,7 +1077,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/banana-milk.webp"
     },
     {
       "id": "banana-milk-dates",
@@ -1060,7 +1097,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/banana-milk-dates.webp"
     },
     {
       "id": "pineapple",
@@ -1079,7 +1117,8 @@
       "available": true,
       "large": {
         "price": 2
-      }
+      },
+      "image": "assets/photos/pineapple.webp"
     },
     {
       "id": "pineapple-strawberry",
@@ -1098,7 +1137,8 @@
       "available": true,
       "large": {
         "price": 2
-      }
+      },
+      "image": "assets/photos/pineapple-strawberry.webp"
     },
     {
       "id": "pineapple-kiwi",
@@ -1117,7 +1157,8 @@
       "available": true,
       "large": {
         "price": 2
-      }
+      },
+      "image": "assets/photos/pineapple-kiwi.webp"
     },
     {
       "id": "avocado-plain",
@@ -1136,7 +1177,8 @@
       "available": true,
       "large": {
         "price": 2
-      }
+      },
+      "image": "assets/photos/avocado-plain.webp"
     },
     {
       "id": "avocado-cream-honey",
@@ -1155,7 +1197,8 @@
       "available": true,
       "large": {
         "price": 3
-      }
+      },
+      "image": "assets/photos/avocado-cream-honey.webp"
     },
     {
       "id": "avocado-pieces-cream",
@@ -1174,7 +1217,8 @@
       "available": true,
       "large": {
         "price": 3.25
-      }
+      },
+      "image": "assets/photos/avocado-pieces-cream.webp"
     },
     {
       "id": "khamis-plain",
@@ -1193,7 +1237,8 @@
       "available": true,
       "large": {
         "price": 3
-      }
+      },
+      "image": "assets/photos/khamis-plain.webp"
     },
     {
       "id": "khamis-cream",
@@ -1212,7 +1257,8 @@
       "available": true,
       "large": {
         "price": 3.5
-      }
+      },
+      "image": "assets/photos/khamis-cream.webp"
     },
     {
       "id": "fruit-salad",
@@ -1228,7 +1274,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/fruit-salad.webp"
     },
     {
       "id": "fruit-salad-cream",
@@ -1244,7 +1291,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/fruit-salad-cream.webp"
     },
     {
       "id": "fakhfakhina",
@@ -1260,7 +1308,8 @@
       "tags": [
         "veg"
       ],
-      "available": true
+      "available": true,
+      "image": "assets/photos/fakhfakhina.webp"
     },
     {
       "id": "pomegranate",
@@ -1279,7 +1328,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/pomegranate.webp"
     },
     {
       "id": "pomegranate-pineapple",
@@ -1298,7 +1348,8 @@
       "available": true,
       "large": {
         "price": 2.25
-      }
+      },
+      "image": "assets/photos/pomegranate-pineapple.webp"
     },
     {
       "id": "pomegranate-grape",
@@ -1317,7 +1368,8 @@
       "available": true,
       "large": {
         "price": 2.25
-      }
+      },
+      "image": "assets/photos/pomegranate-grape.webp"
     },
     {
       "id": "pomegranate-pine-orange",
@@ -1336,7 +1388,8 @@
       "available": true,
       "large": {
         "price": 2.25
-      }
+      },
+      "image": "assets/photos/pomegranate-pine-orange.webp"
     },
     {
       "id": "pomegranate-strawberry",
@@ -1355,7 +1408,8 @@
       "available": true,
       "large": {
         "price": 2.25
-      }
+      },
+      "image": "assets/photos/pomegranate-strawberry.webp"
     },
     {
       "id": "vitamin-c",
@@ -1374,7 +1428,8 @@
       "available": true,
       "large": {
         "price": 2.25
-      }
+      },
+      "image": "assets/photos/vitamin-c.webp"
     },
     {
       "id": "cantaloupe",
@@ -1393,7 +1448,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/cantaloupe.webp"
     },
     {
       "id": "cantaloupe-strawberry",
@@ -1412,7 +1468,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/cantaloupe-strawberry.webp"
     },
     {
       "id": "watermelon",
@@ -1431,7 +1488,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/watermelon.webp"
     },
     {
       "id": "watermelon-strawberry",
@@ -1450,7 +1508,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/watermelon-strawberry.webp"
     },
     {
       "id": "carrot",
@@ -1469,7 +1528,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/carrot.webp"
     },
     {
       "id": "carrot-orange",
@@ -1488,7 +1548,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/carrot-orange.webp"
     },
     {
       "id": "strawberry",
@@ -1507,7 +1568,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/strawberry.webp"
     },
     {
       "id": "strawberry-milk",
@@ -1526,7 +1588,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/strawberry-milk.webp"
     },
     {
       "id": "strawberry-banana-milk",
@@ -1545,7 +1608,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/strawberry-banana-milk.webp"
     },
     {
       "id": "kiwi",
@@ -1564,7 +1628,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/kiwi.webp"
     },
     {
       "id": "kiwi-lemon",
@@ -1583,7 +1648,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/kiwi-lemon.webp"
     },
     {
       "id": "kiwi-strawberry",
@@ -1602,7 +1668,8 @@
       "available": true,
       "large": {
         "price": 1.5
-      }
+      },
+      "image": "assets/photos/kiwi-strawberry.webp"
     },
     {
       "id": "shake-oreo",
@@ -1621,7 +1688,8 @@
       "available": true,
       "large": {
         "price": 2.5
-      }
+      },
+      "image": "assets/photos/shake-oreo.webp"
     },
     {
       "id": "shake-snickers",
@@ -1640,7 +1708,8 @@
       "available": true,
       "large": {
         "price": 2.5
-      }
+      },
+      "image": "assets/photos/shake-snickers.webp"
     },
     {
       "id": "shake-chocolate",
@@ -1659,7 +1728,8 @@
       "available": true,
       "large": {
         "price": 2.5
-      }
+      },
+      "image": "assets/photos/shake-chocolate.webp"
     },
     {
       "id": "shake-pistachio",
@@ -1678,7 +1748,8 @@
       "available": true,
       "large": {
         "price": 2.5
-      }
+      },
+      "image": "assets/photos/shake-pistachio.webp"
     },
     {
       "id": "shake-strawberry",
@@ -1697,7 +1768,8 @@
       "available": true,
       "large": {
         "price": 2.5
-      }
+      },
+      "image": "assets/photos/shake-strawberry.webp"
     },
     {
       "id": "shake-cheesecake",
@@ -1716,7 +1788,8 @@
       "available": true,
       "large": {
         "price": 2.5
-      }
+      },
+      "image": "assets/photos/shake-cheesecake.webp"
     },
     {
       "id": "cheesecake",
@@ -1872,7 +1945,8 @@
         "watermelon",
         "olv-mix"
       ],
-      "tags": []
+      "tags": [],
+      "image": "assets/photos/shisha.webp"
     },
     {
       "id": "shisha-special",
@@ -1901,7 +1975,8 @@
         "watermelon",
         "olv-mix"
       ],
-      "tags": []
+      "tags": [],
+      "image": "assets/photos/shisha-special.webp"
     },
     {
       "id": "item-1790288943246",
@@ -1932,7 +2007,8 @@
       "price": 0.15,
       "tags": [],
       "available": true,
-      "source": "stock"
+      "source": "stock",
+      "image": "assets/photos/stk-850b359bed0b.webp"
     },
     {
       "id": "stk-1ac151970a15",
@@ -1947,7 +2023,8 @@
       "price": 0.4,
       "tags": [],
       "available": false,
-      "source": "stock"
+      "source": "stock",
+      "image": "assets/photos/stk-1ac151970a15.webp"
     }
   ],
   "shishaOptions": {
