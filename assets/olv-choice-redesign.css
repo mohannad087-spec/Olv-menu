@@ -199,3 +199,133 @@
     linear-gradient(90deg,rgba(35,43,27,.76) 0%,rgba(35,43,27,.68) 48%,rgba(35,43,27,.4) 100%),
     linear-gradient(0deg,rgba(25,31,20,.5),transparent 55%);
 }
+
+
+/* UI/UX refinement: responsive choice cards, accessible focus, reduced motion.
+   Intentionally presentation-only; existing markup and chooseMode() are unchanged. */
+.choice{
+  overscroll-behavior-y:contain;
+  scrollbar-gutter:stable;
+}
+.choice-card{
+  width:min(94vw,760px);
+}
+.choice-box{
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.choice-box:focus-visible,
+.choice-back:focus-visible{
+  outline:3px solid #f0d58e;
+  outline-offset:4px;
+}
+.choice-box:focus-visible{
+  border-color:#f0d58e;
+  box-shadow:0 0 0 2px rgba(240,213,142,.2),0 18px 40px rgba(0,0,0,.35);
+}
+.choice-box:active{
+  border-color:#f0d58e;
+}
+.choice-box:disabled{
+  opacity:.58;
+  cursor:not-allowed;
+  filter:saturate(.55);
+}
+.choice-box:disabled:hover,
+.choice-box:disabled:active{
+  transform:none;
+}
+.choice-card h1{
+  letter-spacing:-.025em;
+  text-wrap:balance;
+}
+.choice-card>p{
+  max-width:42ch;
+  line-height:1.8;
+  text-wrap:pretty;
+}
+.choice-phone{
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  line-height:1.8;
+}
+@media(min-width:720px){
+  .choice{
+    align-items:center;
+    padding:34px 24px 40px;
+  }
+  .choice-card{
+    width:min(96vw,1040px);
+  }
+  .choice-logo{
+    width:170px;
+    max-height:94px;
+    margin:0 auto 12px;
+  }
+  .choice-card h1{
+    font-size:clamp(32px,3.2vw,42px);
+  }
+  .choice-card>p{
+    margin-bottom:28px;
+    font-size:15px;
+  }
+  .choice-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:16px;
+  }
+  .choice-box{
+    min-height:230px;
+    padding:24px 18px 20px;
+    border-radius:24px;
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:64px auto 1fr;
+    justify-items:center;
+    align-content:start;
+    row-gap:12px;
+    text-align:center;
+  }
+  .choice-icon{
+    grid-column:1;
+    grid-row:1;
+    width:62px;
+    height:62px;
+  }
+  .choice-box strong{
+    grid-column:1;
+    grid-row:2;
+    align-self:center;
+    font-size:21px;
+  }
+  .choice-box>span{
+    grid-column:1;
+    grid-row:3;
+    align-self:start;
+    margin-top:0;
+    font-size:13px;
+    max-width:28ch;
+  }
+  .choice-box>span:after{
+    margin-top:8px;
+  }
+  .choice-phone{
+    margin-top:24px;
+  }
+}
+@media(max-height:700px) and (min-width:720px){
+  .choice{align-items:flex-start}
+  .choice-logo{width:130px;max-height:70px;margin-bottom:6px}
+  .choice-card h1{font-size:30px}
+  .choice-card>p{margin-bottom:16px}
+  .choice-box{min-height:190px;padding:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .choice-box,
+  .choice-back{
+    scroll-behavior:auto;
+    transition:none!important;
+    animation:none!important;
+  }
+  .choice-box:hover,
+  .choice-box:active{
+    transform:none;
+  }
+}
