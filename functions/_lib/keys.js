@@ -1,3 +1,4 @@
+import { parseStaffToken, verifyStaff } from './staff.js';
 // تحقق من مفاتيح الإدارة/الموظفين: مقارنة ثابتة الزمن (ما بتسرّب طول التطابق بالتوقيت) + قفل مؤقت لمحاولات التخمين.
 // القفل: 10 مفاتيح غلط *مختلفة* من نفس الـIP خلال 15 دقيقة => 429 (نفس المفتاح الغلط المكرّر، متل جهاز موظف مفتاحه قديم وبيعمل تحديث كل 15 ثانية، بينحسب مرة وحدة حتى ما يقفل المطعم كله) (بيحتاج ربط D1 باسم OLV_DB، وإذا مش مربوط بنتخطاه بدون ما نكسر شي).
 // محاولة بدون مفتاح أصلًا (زبون عادي) ما بتنحسب.
@@ -28,7 +29,7 @@ async function keyHash(s) {
   return Array.from((await sha256('olv-kf:' + s)).slice(0, 8)).map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
-async function lockedOut(db, ip) {
+export async function lockedOut(db, ip) {
   if (!db || !ip) return false;
   try {
     await ensureTable(db);
@@ -37,7 +38,7 @@ async function lockedOut(db, ip) {
   } catch { return false; }
 }
 
-async function recordFailure(db, ip, provided) {
+export async function recordFailure(db, ip, provided) {
   if (!db || !ip) return;
   try {
     await ensureTable(db);
@@ -58,8 +59,14 @@ export async function checkKey(request, env, opts = {}) {
   const ip = request.headers.get('CF-Connecting-IP') || '';
   if (await lockedOut(db, ip)) return { ok: false, status: 429 };
   const isAdmin = Boolean(env.OLV_ADMIN_KEY) && await safeEqual(provided, env.OLV_ADMIN_KEY);
-  const isStaff = !isAdmin && staff && Boolean(env.OLV_STAFF_KEY) && await safeEqual(provided, env.OLV_STAFF_KEY);
-  if (isAdmin || isStaff) return { ok: true, status: 200, role: isAdmin ? 'admin' : 'staff' };
+  if (isAdmin) return { ok: true, status: 200, role: 'admin' };
+  // الموظف بيدخل بحسابه (اسم + رمز) اللي ضافه صاحب المطعم. المفتاح المشترك القديم OLV_STAFF_KEY ما عاد ينقبل.
+  const tok = staff ? parseStaffToken(provided) : null;
+  if (tok) {
+    let member = null;
+    try { member = await verifyStaff(db, tok.id, tok.pin); } catch { member = null; }
+    if (member) return { ok: true, status: 200, role: 'staff', staffId: member.id, staffName: member.name };
+  }
   await recordFailure(db, ip, provided);
   return { ok: false, status: 403 };
 }
