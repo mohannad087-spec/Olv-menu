@@ -2,9 +2,9 @@
 // بيستبدل renderCats و render و card من index.html، وما بيغيّر شي بالطلب أو السلة أو الأسعار
 (function(){
 const GROUPS=[
-  {id:'food',ar:'الأكل',en:'Food',cats:['burgers','snacks','sandwiches','pasta','salads'],img:'burgers'},
+  {id:'food',ar:'الأكل',en:'Food',cats:['burgers','snacks','sandwiches','pasta','salads'],img:'burgers',pick:'olv-burger'},
   {id:'drinks',ar:'المشروبات',en:'Drinks',cats:['hot','cold','cocktails','juices','shakes'],img:'hot'},
-  {id:'sweet',ar:'الحلو',en:'Sweets',cats:['desserts','icecream','donuts'],img:'desserts'},
+  {id:'sweet',ar:'الحلو',en:'Sweets',cats:['desserts','icecream','donuts'],img:'desserts',pick:'molten-cake'},
   {id:'shisha',ar:'الأرجيلة',en:'Shisha',cats:['shisha'],img:'shisha'}
 ];
 // أيقونات خطية لكل قسم (24×24)
@@ -56,7 +56,7 @@ closeLayer=function(n){if(n==='group'){window.olvGroup=null;active='all';renderC
 const _setCat=setCat;
 setCat=function(c){if(c==='all')window.olvGroup=null;else if(!window.olvGroup){const g=groupOf(c);if(g){window.olvOpenGroup(g.id);active=c;renderCats();render();return}}return _setCat(c)};
 
-function groupCard(g,k){const first=DATA.items.find(i=>i.cat===(g.img in imgs?g.img:g.cats[0])&&shown(i));const src=imgs[g.img]||photo(first,400,70);
+function groupCard(g,k){const first=DATA.items.find(i=>i.cat===(g.img in imgs?g.img:g.cats[0])&&shown(i));const pk=g.pick&&DATA.items.find(i=>i.id===g.pick&&i.image);const src=pk?pk.image:(imgs[g.img]||photo(first,400,70));
   const names=g.cats.map(id=>tx(catById(id))).join(L('، ',', '));
   return `<button class="grp" style="--i:${k}" onclick="olvOpenGroup('${g.id}')"><span class="grp-copy"><b>${L(g.ar,g.en)}</b><small>${names}</small></span><span class="grp-photo"><img src="${String(src).replace(/([?&])w=\d+/,'$1w=360')}" alt="" loading="${k<2?'eager':'lazy'}" decoding="async" width="180" height="180"></span></button>`}
 
