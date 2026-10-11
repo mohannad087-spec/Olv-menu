@@ -1,0 +1,55 @@
+/* OLV glass menu: frosted layers over warm lamp light.
+   Only the menu screens; welcome (.entry) and order choice (.choice) keep their own look.
+   Blur is used only on fixed/sticky layers (toolbar, cart, sheets) so long lists stay smooth on phones. */
+
+:root{
+  --amb1:rgba(226,150,96,.62);--amb2:rgba(140,178,120,.42);--amb3:rgba(222,176,80,.48);--amb4:rgba(217,140,151,.30);
+  --glass:rgba(255,255,255,.075);--glass-strong:rgba(40,36,32,.55);--glass-line:rgba(255,255,255,.14);
+  --glass-hi:rgba(255,255,255,.20);--glass-shadow:0 10px 30px rgba(0,0,0,.28);
+}
+:root[data-olv-theme="light"]{
+  --amb1:rgba(232,160,112,.55);--amb2:rgba(150,186,130,.50);--amb3:rgba(226,184,96,.45);--amb4:rgba(217,140,151,.32);
+  --glass:rgba(255,255,255,.40);--glass-strong:rgba(250,248,244,.66);--glass-line:rgba(255,255,255,.75);
+  --glass-hi:rgba(255,255,255,.9);--glass-shadow:0 10px 30px rgba(90,70,40,.12);
+}
+
+/* lamp light behind everything */
+body:before{content:"";position:fixed;inset:-10%;z-index:-1;pointer-events:none;
+  background:radial-gradient(60% 34% at 88% 8%,var(--amb1),transparent 72%),
+    radial-gradient(60% 40% at 0% 50%,var(--amb2),transparent 72%),
+    radial-gradient(60% 34% at 80% 92%,var(--amb3),transparent 72%),
+    radial-gradient(50% 30% at 100% 62%,var(--amb4),transparent 72%),var(--ground)}
+html,body{background:transparent}
+html{background:var(--ground)}
+
+/* frosted surfaces */
+.toolbar{background:var(--glass-strong);-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);border-bottom:1px solid var(--glass-line);margin-inline:-16px;padding-inline:16px}
+.search,.mood,.quick button,.back-btn,.closex{background:var(--glass);border-color:var(--glass-line);box-shadow:inset 0 1px 0 var(--glass-hi)}
+.item,.subitem,.subcategory-card,.feature,.recommend,.option{background:var(--glass);border-color:var(--glass-line);box-shadow:inset 0 1px 0 var(--glass-hi),var(--glass-shadow);border-radius:24px}
+.media,.subitem-media{border-radius:18px}
+.option.selected{background:var(--glass-hi);border-color:var(--ink)}
+.add{background:var(--glass-hi);color:var(--ink);border:1px solid var(--glass-line);box-shadow:inset 0 1px 0 var(--glass-hi)}
+.mood.active{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+
+/* floating glass bars */
+.cart{background:var(--glass-strong);color:var(--ink);border:1px solid var(--glass-line);border-radius:999px;-webkit-backdrop-filter:blur(24px) saturate(1.5);backdrop-filter:blur(24px) saturate(1.5);box-shadow:inset 0 1px 0 var(--glass-hi),var(--glass-shadow)}
+.home-fab{background:var(--glass-strong);border-color:var(--glass-line);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+.toast{background:var(--glass-strong);color:var(--ink);border:1px solid var(--glass-line);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+
+/* sheets: item detail, cart, order */
+.overlay{background:color-mix(in srgb,var(--ground) 35%,transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.sheet{background:var(--glass-strong);border:1px solid var(--glass-line);border-bottom:0;border-radius:28px 28px 0 0;-webkit-backdrop-filter:blur(30px) saturate(1.5);backdrop-filter:blur(30px) saturate(1.5);box-shadow:inset 0 1px 0 var(--glass-hi)}
+.detail-media{border-radius:22px}
+.category-overlay{background:transparent;-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px)}
+.category-overlay:before{content:"";position:fixed;inset:0;z-index:-1;background:var(--glass-strong)}
+.category-top{background:transparent}
+
+/* phones without blur support: solid fallback so text stays readable */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .toolbar,.cart,.sheet,.home-fab,.toast{background:var(--surface)}
+  .category-overlay{background:var(--ground)}
+}
+@media (prefers-reduced-transparency:reduce){
+  .toolbar,.cart,.sheet,.home-fab,.toast{background:var(--surface);backdrop-filter:none;-webkit-backdrop-filter:none}
+  .item,.subitem,.subcategory-card,.feature,.recommend,.option,.search,.mood{background:var(--surface)}
+}
