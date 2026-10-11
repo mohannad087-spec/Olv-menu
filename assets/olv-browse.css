@@ -60,3 +60,17 @@ body.in-group .hero,body.in-group .shortcuts{display:none}
 @media(prefers-reduced-motion:reduce){.grp,.item.tile-item,.kc,.kar{animation:none}}
 .landing+.shortcuts{padding-top:22px}
 .section-head h2 span:last-child,.grp-copy b span:last-child{margin-inline-start:0;font-size:inherit;color:inherit}
+
+/* صورة الصنف وهي طايرة للسلة */
+.fly-dot{position:fixed;z-index:2000;border-radius:50%;object-fit:cover;pointer-events:none;box-shadow:0 10px 24px rgba(0,0,0,.35);will-change:transform}
+/* نفس طلبك الماضي */
+.repeat-card{display:flex;align-items:center;gap:12px;width:100%;margin:0 0 4px;padding:10px 14px 10px 10px;border:1px solid var(--glass-line,var(--line));border-radius:22px;background:var(--glass,var(--surface));box-shadow:inset 0 1px 0 var(--glass-hi,transparent),var(--glass-shadow,none);color:var(--ink);text-align:start;animation:grpIn .6s cubic-bezier(.22,1,.36,1) .1s both;transition:transform .15s ease}
+.repeat-card:active{transform:scale(.98)}
+.repeat-pics{display:flex;flex-shrink:0}
+.repeat-pics img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--ground);margin-inline-start:-14px;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.repeat-pics img:first-child{margin-inline-start:0}
+.repeat-copy{flex:1;min-width:0}
+.repeat-copy b{display:block;font-size:15px;font-weight:600}
+.repeat-copy small{display:block;font-size:12px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.repeat-go{width:40px;height:40px;flex-shrink:0;border-radius:50%;background:var(--ink);color:var(--ground);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1}
+@media(prefers-reduced-motion:reduce){.repeat-card{animation:none}}

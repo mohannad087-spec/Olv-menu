@@ -21,7 +21,7 @@ h1{margin:0;color:var(--ink);font:500 30px/1.3 var(--display)}
 .btn.secondary{background:var(--ground);color:var(--ink);border:1px solid var(--line);font-weight:500}
 .status{margin-top:12px;color:var(--ink2);font-size:14px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
-.table{background:#fff;color:#111;border:1px solid var(--line);border-radius:var(--r);padding:15px;text-align:center;break-inside:avoid}
+.table{background:transparent;color:#111;border:1px solid var(--line);border-radius:var(--r);padding:15px;text-align:center;break-inside:avoid}
 .table h2{margin:0 0 9px;font-size:22px}
 .qr{min-height:220px;display:flex;justify-content:center;align-items:center}
 .url{font-size:12px;word-break:break-all;color:#555;margin:7px 0}
@@ -29,7 +29,7 @@ h1{margin:0;color:var(--ink);font:500 30px/1.3 var(--display)}
 .empty{padding:30px;color:var(--ink2);text-align:center}
 @media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.controls{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.wrap{padding:14px 12px 35px}}
-@media print{body{background:#fff}.wrap{padding:0}.head{display:none}.grid{grid-template-columns:repeat(3,1fr);gap:8px;margin:0}.table{border:1px solid #ddd;padding:8px}.table h2{font-size:16px}.qr{min-height:180px}.url,.print{display:none}}
+@media print{body{background:#fff}.wrap{padding:0}.head{display:none}.grid{grid-template-columns:repeat(3,1fr);gap:8px;margin:0}.table{border:0;padding:0}.tent .t-qr img,.tent .t-qr canvas{width:130px!important;height:130px!important}.url,.print{display:none}}
 </style>
 </head>
 <body>
@@ -77,6 +77,22 @@ h1{margin:0;color:var(--ink);font:500 30px/1.3 var(--display)}
 <script>
 // Cloudflare Pages بيفتح الصفحة على /qr بدون .html، فبناخد مجلد الصفحة مش اسمها
 const base=location.origin+location.pathname.replace(/[^/]*$/,'');
+// بطاقة الطاولة المطبوعة بهوية المنيو: حجر ترافرتين، لوغو OLV، ورقم الطاولة كبير
+const TENT_CSS=`@font-face{font-family:"Reem Kufi";font-weight:500;src:url(${base}assets/fonts/reem-kufi-arabic-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Readex Pro";font-weight:160 700;src:url(${base}assets/fonts/readex-pro-arabic-wght-normal.woff2) format("woff2")}
+.tent{width:100%;max-width:340px;margin:auto;aspect-ratio:105/148;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:8px;padding:22px 20px 18px;border-radius:22px;border:1px solid #ddd2bf;color:#25231f;text-align:center;font-family:"Readex Pro",Tahoma,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+ background:radial-gradient(60% 30% at 90% 4%,rgba(232,160,112,.28),transparent 70%),radial-gradient(60% 34% at 0% 55%,rgba(150,186,130,.22),transparent 70%),radial-gradient(60% 30% at 85% 100%,rgba(226,184,96,.24),transparent 70%),radial-gradient(circle at 30% 30%,rgba(120,100,70,.06) 0 1px,transparent 2px) 0 0/19px 19px,#f5f0e7}
+.tent .t-logo{width:72%;height:auto}
+.tent .t-ask{font:500 19px/1.35 "Reem Kufi","Readex Pro",sans-serif}
+.tent .t-qr{background:#fff;border-radius:18px;padding:12px;box-shadow:0 8px 20px rgba(60,40,20,.14);line-height:0}
+.tent .t-qr img,.tent .t-qr canvas{width:150px!important;height:150px!important}
+.tent .t-table{display:flex;align-items:baseline;gap:8px;color:#56663a}
+.tent .t-table small{font-size:15px;color:#6b6458}
+.tent .t-table b{font:500 40px/1 "Reem Kufi","Readex Pro",sans-serif}
+.tent .t-foot{font-size:11px;color:#6b6458;letter-spacing:.3px}`;
+document.head.insertAdjacentHTML('beforeend','<style>'+TENT_CSS+'</style>');
+function tentHtml(label,num,qrImg){return '<div class="tent"><img class="t-logo" src="'+base+'assets/olv-logo-full.webp" alt="OLV"><div class="t-ask">امسح الكود<br>واطلب من '+(num?'طاولتك':'جوالك')+'</div><div class="t-qr">'+(qrImg?'<img src="'+qrImg+'" alt="">':'')+'</div>'+(num?'<div class="t-table"><small>طاولة</small><b>'+num+'</b></div>':'<div class="t-table"><b style="font-size:26px">'+label+'</b></div>')+'<div class="t-foot">Scan to order · OLV Café &amp; Restaurant</div></div>'}
+function printTent(title,inner){const w=window.open('','_blank');if(!w)return;w.document.write('<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>'+title+'</title><style>'+TENT_CSS+'@page{size:105mm 148mm;margin:0}body{margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#fff}.tent{max-width:none;width:105mm;height:148mm;border:0;border-radius:0}<\/style></head><body>'+inner+'<script>Promise.all([document.fonts.ready,...[...document.images].map(i=>i.complete?1:new Promise(r=>i.onload=i.onerror=r))]).then(()=>window.print())<\/script></body></html>');w.document.close()}
 function cleanNum(v,min,max){v=parseInt(v,10);if(!Number.isFinite(v))v=min;return Math.max(min,Math.min(max,v))}
 function tableUrl(n){return base+'?table='+encodeURIComponent(String(n))}
 function generate(){
@@ -85,17 +101,16 @@ function generate(){
  const frag=document.createDocumentFragment();
  for(let i=0;i<count;i++){
   const n=start+i,u=tableUrl(n),card=document.createElement('article');card.className='table';
-  card.innerHTML='<h2>طاولة '+n+'</h2><div class="qr"></div><div class="url">'+u+'</div><button class="print" type="button">طباعة هذا QR</button>';
+  card.innerHTML=tentHtml('',n,'')+'<div class="url">'+u+'</div><button class="print" type="button">طباعة هذا QR</button>';
   frag.appendChild(card);
-  const qr=card.querySelector('.qr');new QRCode(qr,{text:u,width:200,height:200,colorDark:'#111111',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
+  const qr=card.querySelector('.t-qr');new QRCode(qr,{text:u,width:300,height:300,colorDark:'#25231f',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
   card.querySelector('.print').onclick=()=>printOne(n,u,qr);
  }
  grid.appendChild(frag);document.getElementById('status').textContent='تم إنشاء '+count+' QR — من طاولة '+start+' إلى طاولة '+(start+count-1)+'.';
 }
 function printOne(n,u,qr){
  const img=qr.querySelector('img')?.src||qr.querySelector('canvas')?.toDataURL('image/png')||'';
- const w=window.open('','_blank');if(!w)return;
- w.document.write('<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>OLV — طاولة '+n+'</title><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet"><style>body{text-align:center;font-family:"Cairo",Arial,sans-serif;margin:40px}h1{font-size:32px}img{width:260px;height:260px}.url{font-size:12px;color:#555}</style></head><body><h1>OLV</h1><h2>طاولة '+n+'</h2><img src="'+img+'"><div class="url">'+u+'</div><script>window.onload=()=>window.print()<\\/script></body></html>');w.document.close();
+ printTent('OLV — طاولة '+n,tentHtml('',n,img));
 }
 function downloadAllLinks(){
  const count=cleanNum(document.getElementById('count').value,1,500),start=cleanNum(document.getElementById('start').value,1,999);
@@ -104,7 +119,7 @@ function downloadAllLinks(){
 }
 function generateGeneral(){
  const qr=document.getElementById('generalQr');qr.innerHTML='';
- new QRCode(qr,{text:base,width:200,height:200,colorDark:'#111111',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
+ new QRCode(qr,{text:base,width:300,height:300,colorDark:'#25231f',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
  document.getElementById('generalUrl').textContent=base;
 }
 function generalImgSrc(){
@@ -112,9 +127,7 @@ function generalImgSrc(){
  return qr.querySelector('img')?.src||qr.querySelector('canvas')?.toDataURL('image/png')||'';
 }
 function printGeneral(){
- const img=generalImgSrc();
- const w=window.open('','_blank');if(!w)return;
- w.document.write('<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>OLV — QR عام</title><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet"><style>body{text-align:center;font-family:"Cairo",Arial,sans-serif;margin:40px}h1{font-size:32px}img{width:280px;height:280px}.url{font-size:12px;color:#555}</style></head><body><h1>OLV</h1><img src="'+img+'"><div class="url">'+base+'</div><script>window.onload=()=>window.print()<\\/script></body></html>');w.document.close();
+ printTent('OLV — QR عام',tentHtml('المنيو',0,generalImgSrc()));
 }
 function downloadGeneral(){
  const img=generalImgSrc();
