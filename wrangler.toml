@@ -1,0 +1,10 @@
+# إعدادات Cloudflare Pages لمشروع olv-menu (Pages بيقرأ هالملف وقت النشر)
+# ربط قاعدة الطلبات D1 باسم OLV_DB. المفاتيح (OLV_ADMIN_KEY, OLV_STAFF_KEY, GITHUB_TOKEN) بتضل Secrets بالداشبورد، مش هون.
+name = "olv-menu"
+pages_build_output_dir = "."
+compatibility_date = "2026-09-01"
+
+[[d1_databases]]
+binding = "OLV_DB"
+database_name = "olv-db"
+database_id = "a008349f-ee20-4412-aea3-8347696ba081"
