@@ -97,7 +97,7 @@ function verifyOrderItems(rawItems, menu, mode) {
   }
   if (!items.length) throw new Error('Order has no items.');
   const total = roundMoney(items.reduce((sum, i) => sum + i.price * i.qty, 0));
-  const text = items.map(i => `${i.label} × ${i.qty}`).join('\\n') + `\\nالمجموع: ${total.toFixed(2)} JD`;
+  const text = items.map(i => `${i.label} × ${i.qty}`).join('\n') + `\nالمجموع: ${total.toFixed(2)} JD`;
   return { items, total, text };
 }
 
@@ -115,7 +115,7 @@ async function verifyTurnstile(token, ip, env) {
 }
 
 function normalizePhone(raw) {
-  let n = String(raw || '').replace(/\\D/g, '');
+  let n = String(raw || '').replace(/\D/g, '');
   if (n.startsWith('0')) n = '962' + n.slice(1);
   return n;
 }
@@ -141,7 +141,7 @@ function summarize(row) {
     items: JSON.parse(row.items_json || '[]'),
     text: row.text_summary || '',
     notes: row.notes || '',
-    rating: row.rating == null ? null : Number(row.rating),
+    rating: row.rating == null ? null : { stars: Number(row.rating), comment: row.rating_comment || '', ratedAt: row.rated_at || '' },
     createdAt: row.created_at,
     updatedAt: row.updated_at
   };
@@ -213,18 +213,18 @@ export async function onRequest(context) {
   const db = getDB(env);
 
   try {
-    await ensureDB(db);
-
     if (request.method === 'GET') {
       const u = new URL(request.url);
       const id = u.searchParams.get('id');
+
+      // المفتاح بينفحص قبل قاعدة البيانات، حتى صفحة الموظف تقدر تتأكد من المفتاح وقت تسجيل الدخول
+      if (!id && !(await adminOK(request, env))) return json({ ok: false, error: 'Admin access required.' }, 403);
+      await ensureDB(db);
 
       if (id) {
         const row = await findById(db, id);
         return row ? json({ ok: true, order: rowOrder(row) }) : json({ ok: false, error: 'Order not found' }, 404);
       }
-
-      if (!(await adminOK(request, env))) return json({ ok: false, error: 'Admin access required.' }, 403);
 
       const result = await db.prepare(
         'SELECT * FROM orders ORDER BY created_at DESC LIMIT 1000'
@@ -234,6 +234,7 @@ export async function onRequest(context) {
     }
 
     if (request.method === 'POST') {
+      await ensureDB(db);
       const p = await request.json();
 
       if (!p?.mode || !Array.isArray(p.items) || !p.items.length) {
@@ -333,6 +334,7 @@ export async function onRequest(context) {
 
     if (request.method === 'PATCH') {
       if (!(await adminOK(request, env))) return json({ ok: false, error: 'Admin access required.' }, 403);
+      await ensureDB(db);
 
       const p = await request.json();
       const allowed = ['new', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'];

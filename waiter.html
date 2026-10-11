@@ -130,10 +130,17 @@ function notifyReady(orders){
   });
 }
 
-function doLogin(){
+async function doLogin(){
   const n=$('waiterName').value.trim(),k=$('staffKey').value.trim();
   if(!n||!k){showToast('عبّي الاسم والمفتاح');return}
   ensureAudio();
+  // نتأكد من المفتاح عند السيرفر قبل ما نفتح الصفحة
+  try{
+    const r=await fetch('/api/orders?ts='+Date.now(),{headers:{'x-olv-staff-key':k},cache:'no-store'});
+    if(r.status===403||r.status===429){
+      sessionStorage.removeItem('olv-staff-key');
+      showToast(r.status===429?'محاولات كثيرة، جرّب بعد شوي':'مفتاح الموظفين غلط');return}
+  }catch(e){}
   waiterName=n;staffKey=k;
   localStorage.setItem('olv-waiter-name',n);
   sessionStorage.setItem('olv-staff-key',k);

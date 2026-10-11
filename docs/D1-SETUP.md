@@ -4,14 +4,17 @@ The Cloudflare Pages Functions now expect a D1 binding named **OLV_DB**.
 
 ## Production setup
 
+Done on 2026-10-11: database **olv-db** (id `a008349f-ee20-4412-aea3-8347696ba081`) was created and migrations 0001 + 0002 were applied. Only steps 2–4 and 6 (the Pages binding + redeploy) are left for the owner.
+
+
 1. Create a Cloudflare D1 database.
 2. Open the OLV Pages project in Cloudflare.
 3. Go to **Settings → Bindings → Add → D1 database**.
 4. Set the variable name to **OLV_DB** and select the production D1 database.
-5. Apply `migrations/0001_orders_loyalty.sql` to the database.
+5. Apply `migrations/0001_orders_loyalty.sql` and `migrations/0002_rating_comment.sql` to the database.
 6. Redeploy the Pages project.
 
-The code keeps `data/menu.json` in GitHub because the menu is published static content. Orders and loyalty are stored in D1.
+The code keeps `data/menu.json` in GitHub because the menu is published static content. Orders, ratings and loyalty are stored in D1 (`/api/orders`, `/api/rate-order`, `/api/loyalty`).
 
 ## Existing orders
 
