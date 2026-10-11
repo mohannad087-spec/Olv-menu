@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#1d1b18">
 <title>OLV — طلب الموظفين</title>
 
-<link rel="preload" href="assets/fonts/readex-pro-arabic-wght-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="assets/olv-theme.css?v=b2"><script>(function(){try{var h=Number(new Intl.DateTimeFormat("en-US",{timeZone:"Asia/Amman",hour:"2-digit",hourCycle:"h23"}).format(new Date())),l=h>=6&&h<18;document.documentElement.dataset.olvTheme=l?"light":"dark";document.addEventListener("DOMContentLoaded",function(){document.body.classList.toggle("olv-light",l)});var m=document.querySelector("meta[name=theme-color]");if(m)m.content=l?"#efede9":"#1d1b18"}catch(e){}})()</script>
+<link rel="preload" href="assets/fonts/readex-pro-arabic-wght-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="assets/olv-theme.css?v=b2"><link rel="stylesheet" href="assets/olv-staff.css?v=1"><script>(function(){try{var h=Number(new Intl.DateTimeFormat("en-US",{timeZone:"Asia/Amman",hour:"2-digit",hourCycle:"h23"}).format(new Date())),l=h>=6&&h<18;document.documentElement.dataset.olvTheme=l?"light":"dark";document.addEventListener("DOMContentLoaded",function(){document.body.classList.toggle("olv-light",l)});var m=document.querySelector("meta[name=theme-color]");if(m)m.content=l?"#efede9":"#1d1b18"}catch(e){}})()</script>
 <style>*{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--font)}
 button,input,textarea,select{font:inherit}button{cursor:pointer}
 :focus-visible{outline:2px solid var(--ink);outline-offset:2px}
@@ -207,7 +207,7 @@ function updateCartBar(){
   $('cartText').textContent=`الطلب • ${n} صنف`;$('cartTotal').textContent=money(t);
 }
 function openCart(){
-  $('cartRows').innerHTML=cart.map((x,idx)=>`<div class="crow"><span>${x.label}</span><div class="qty"><button onclick="cartQty(${idx},-1)">−</button><b>${x.qty}</b><button onclick="cartQty(${idx},1)">+</button></div><span>${money(x.price*x.qty)}</span></div>`).join('')||'<div class="empty">السلة فارغة</div>';
+  $('cartRows').innerHTML=cart.map((x,idx)=>`<div class="crow"><img class="oi-pic" src="assets/photos/${encodeURIComponent(x.id)}.webp" alt="" onerror="this.remove()"><span class="oi-txt">${x.label}</span><div class="qty"><button onclick="cartQty(${idx},-1)">−</button><b>${x.qty}</b><button onclick="cartQty(${idx},1)">+</button></div><span>${money(x.price*x.qty)}</span></div>`).join('')||'<div class="empty">السلة فارغة</div>';
   $('cartTotal2').textContent=money(cart.reduce((a,x)=>a+x.price*x.qty,0));
   if(!$('cartOverlay').classList.contains('open')){$('cartOverlay').classList.add('open');olvLayerOpen(hideCart)}
 }
