@@ -71,8 +71,8 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 
 <div id="login" class="login">
   <h2>تسجيل دخول الموظف</h2>
-  <input id="waiterName" placeholder="اسمك">
-  <input id="staffKey" type="password" placeholder="مفتاح الموظفين">
+  <input id="waiterName" placeholder="اسمك (متل ما سجّلك المدير)" autocomplete="username">
+  <input id="staffKey" type="password" inputmode="numeric" placeholder="رمزك (أرقام)" autocomplete="current-password">
   <button onclick="doLogin()">دخول</button>
 </div>
 
@@ -131,19 +131,22 @@ function notifyReady(orders){
 }
 
 async function doLogin(){
-  const n=$('waiterName').value.trim(),k=$('staffKey').value.trim();
-  if(!n||!k){showToast('عبّي الاسم والمفتاح');return}
+  const n=$('waiterName').value.trim(),pin=$('staffKey').value.trim();
+  if(!n||!pin){showToast('عبّي الاسم والرمز');return}
   ensureAudio();
-  // نتأكد من المفتاح عند السيرفر قبل ما نفتح الصفحة
+  // الموظف لازم يكون مضاف من صفحة الإدارة، والسيرفر بيتأكد من الاسم والرمز
+  let out;
   try{
-    const r=await fetch('/api/orders?ts='+Date.now(),{headers:{'x-olv-staff-key':k},cache:'no-store'});
-    if(r.status===403||r.status===429){
-      sessionStorage.removeItem('olv-staff-key');
-      showToast(r.status===429?'محاولات كثيرة، جرّب بعد شوي':'مفتاح الموظفين غلط');return}
-  }catch(e){}
+    const r=await fetch('/api/staff',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'login',name:n,pin})});
+    out=await r.json();
+    if(!r.ok){showToast(out.error||'تعذّر الدخول');return}
+  }catch(e){showToast('تعذّر الاتصال، جرّب كمان مرة');return}
+  localStorage.setItem('olv-waiter-name',out.staff.name);
+  sessionStorage.setItem('olv-staff-key','staff:'+out.staff.id+':'+pin);
+  enterApp(out.staff.name,'staff:'+out.staff.id+':'+pin);
+}
+function enterApp(n,k){
   waiterName=n;staffKey=k;
-  localStorage.setItem('olv-waiter-name',n);
-  sessionStorage.setItem('olv-staff-key',k);
   $('login').style.display='none';$('app').style.display='block';
   $('whoBar').style.display='block';$('whoBar').textContent='الموظف: '+n;
   $('logoutBtn').style.display='inline-block';
@@ -154,6 +157,7 @@ function logout(){sessionStorage.removeItem('olv-staff-key');location.reload()}
 async function api(url,opt={}){
   opt.headers=Object.assign({'x-olv-staff-key':staffKey},opt.headers||{});
   const r=await fetch(url,opt),out=await r.json();
+  if(r.status===403&&staffKey){logout();return out}
   if(!r.ok)throw Error(out.error||'Request failed');
   return out;
 }
@@ -266,7 +270,7 @@ async function loadMine(){
 
 (function(){
   const n=localStorage.getItem('olv-waiter-name'),k=sessionStorage.getItem('olv-staff-key');
-  if(n&&k){waiterName=n;staffKey=k;$('waiterName').value=n;$('staffKey').value=k;doLogin()}
+  if(n&&k&&k.startsWith('staff:')){$('waiterName').value=n;enterApp(n,k)}
 })();
 </script>
 </body>

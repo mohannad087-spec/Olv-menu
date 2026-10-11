@@ -269,7 +269,11 @@ export async function onRequest(context) {
       }
 
       // الموظفين (waiter.html) بيطلبوا للطاولات بمفتاحهم حتى لو الطلب الذاتي متوقف
-      const trusted = await adminOK(request, env); // مرة وحدة للطلب كله (قبل كانت مرتين)
+      const auth = await checkKey(request, env, { staff: true }); // مرة وحدة للطلب كله
+      const trusted = auth.ok;
+      // اسم النادل بييجي من حسابه، مش من اللي انكتب بالطلب
+      if (auth.role === 'staff') fields.waiter = auth.staffName;
+      else if (!trusted) fields.waiter = '';
       if (p.mode === 'hall' && !trusted && hallClosedNow(menu.settings)) {
         return json({ ok: false, code: 'hall_closed', error: 'الطلب من الطاولة متوقف حالياً — يرجى الطلب عند الكاشير.' }, 403);
       }

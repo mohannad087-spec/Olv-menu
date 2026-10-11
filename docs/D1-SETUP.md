@@ -23,3 +23,7 @@ The current repository contains historical customer orders in `data/orders.json`
 Before switching production traffic, import any historical orders you need into D1, then remove `data/orders.json` and its customer-data history from the public repository.
 
 Cloudflare Pages D1 bindings: https://developers.cloudflare.com/pages/functions/bindings/
+
+## Staff accounts (2026-10-11)
+
+Staff no longer share one key. The owner adds each staff member in **admin.html → الموظفين** (name + 4–8 digit PIN), and can deactivate, reset the PIN or delete them there. Waiters log in on waiter.html with that name and PIN; the server records orders under the account's name. The old shared `OLV_STAFF_KEY` is no longer accepted; `OLV_ADMIN_KEY` still works everywhere. Table: `migrations/0003_staff.sql` (already applied to olv-db).
