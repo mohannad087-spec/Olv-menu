@@ -1,4 +1,5 @@
 import { parseStaffToken, verifyStaff } from './staff.js';
+import { storedAdmin, matchesStored, envFingerprint } from './admin-pass.js';
 // تحقق من مفاتيح الإدارة/الموظفين: مقارنة ثابتة الزمن (ما بتسرّب طول التطابق بالتوقيت) + قفل مؤقت لمحاولات التخمين.
 // القفل: 10 مفاتيح غلط *مختلفة* من نفس الـIP خلال 15 دقيقة => 429 (نفس المفتاح الغلط المكرّر، متل جهاز موظف مفتاحه قديم وبيعمل تحديث كل 15 ثانية، بينحسب مرة وحدة حتى ما يقفل المطعم كله) (بيحتاج ربط D1 باسم OLV_DB، وإذا مش مربوط بنتخطاه بدون ما نكسر شي).
 // محاولة بدون مفتاح أصلًا (زبون عادي) ما بتنحسب.
@@ -51,7 +52,18 @@ export async function recordFailure(db, ip, provided) {
 // opts.staff = true: بيقبل مفتاح الموظفين كمان (x-olv-staff-key أو x-olv-admin-key). غير هيك مفتاح الإدارة بس.
 // بيرجّع { ok, status } — status 403 لمفتاح غلط/ناقص، 429 لو القفل مفعّل.
 // بيشيل المسافات وعلامات الاتجاه المخفية (U+200E/200F وأخواتها) يلي بتنلزق وقت النسخ من جوال عربي
-const cleanKey = (v) => String(v || '').replace(/[\u200e\u200f\u202a-\u202e\u2066-\u2069\ufeff]/g, '').trim();
+export const cleanKey = (v) => String(v || '').replace(/[\u200e\u200f\u202a-\u202e\u2066-\u2069\ufeff]/g, '').trim();
+
+// باسورد الإدارة: المخزّن بـ D1 (اللي غيّره صاحب المطعم) أولًا. OLV_ADMIN_KEY من Cloudflare بينقبل إذا ما في باسورد مخزّن،
+// أو إذا انحط مفتاح جديد بـ Cloudflare بعد آخر تغيير للباسورد (هيك بيرجع صاحب المطعم يدخل إذا نسي الباسورد).
+export async function isAdminPassword(env, provided) {
+  const row = await storedAdmin(env.OLV_DB || null);
+  if (row && await matchesStored(row, provided)) return true;
+  const adminKey = cleanKey(env.OLV_ADMIN_KEY);
+  if (!adminKey) return false;
+  if (row && (await envFingerprint(adminKey)) === row.env_fp) return false;
+  return safeEqual(provided, adminKey);
+}
 
 export async function checkKey(request, env, opts = {}) {
   const staff = Boolean(opts.staff);
@@ -62,9 +74,7 @@ export async function checkKey(request, env, opts = {}) {
   const db = env.OLV_DB || null;
   const ip = request.headers.get('CF-Connecting-IP') || '';
   if (await lockedOut(db, ip)) return { ok: false, status: 429 };
-  const adminKey = cleanKey(env.OLV_ADMIN_KEY);
-  const isAdmin = Boolean(adminKey) && await safeEqual(provided, adminKey);
-  if (isAdmin) return { ok: true, status: 200, role: 'admin' };
+  if (await isAdminPassword(env, provided)) return { ok: true, status: 200, role: 'admin' };
   // الموظف بيدخل بحسابه (اسم + رمز) اللي ضافه صاحب المطعم. المفتاح المشترك القديم OLV_STAFF_KEY ما عاد ينقبل.
   const tok = staff ? parseStaffToken(provided) : null;
   if (tok) {
