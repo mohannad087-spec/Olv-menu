@@ -299,7 +299,7 @@
       "price": 5.5,
       "tags": [],
       "image": "assets/photos/steak.webp",
-      "available": false
+      "available": true
     },
     {
       "id": "philly",
