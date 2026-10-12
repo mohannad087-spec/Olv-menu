@@ -102,7 +102,8 @@ function verifyOrderItems(rawItems, menu, mode) {
 }
 
 async function verifyTurnstile(token, ip, env) {
-  const secret = env.TURNSTILE_SECRET_KEY;
+  // نشيل المسافات وعلامات الاتجاه المخفية اللي بتلزق مع النسخ واللصق من الموبايل
+  const secret = String(env.TURNSTILE_SECRET_KEY || '').replace(/[\u200e\u200f\u202a-\u202e\u2066-\u2069\ufeff]/g, '').trim();
   if (!secret) throw new Error('Bot verification is not configured yet.');
   if (!token) throw new Error('Missing bot verification token.');
   const body = new URLSearchParams();
@@ -111,7 +112,12 @@ async function verifyTurnstile(token, ip, env) {
   if (ip) body.set('remoteip', ip);
   const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body });
   const out = await res.json();
-  if (!out.success) throw new Error('Bot verification failed.');
+  if (!out.success) {
+    // رموز الخطأ من Cloudflare بتبيّن السبب: invalid-input-secret = المفتاح السري غلط، timeout-or-duplicate = الرمز انستعمل أو خلص وقته
+    const codes = (out['error-codes'] || []).join(',');
+    console.warn('Turnstile rejected:', codes, out.hostname || '');
+    throw new Error('Bot verification failed.' + (codes ? ' (' + codes + ')' : ''));
+  }
 }
 
 function normalizePhone(raw) {

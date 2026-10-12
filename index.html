@@ -226,7 +226,7 @@ async function recordOrder(o){
     if(!(r.status>=500||/Bot verification|bot verification token/i.test(lastErr)))break;
   }
   if(/not configured/i.test(lastErr))lastErr=L('في مشكلة مؤقتة بإعدادات الموقع — أرسل طلبك عالواتساب','Temporary site problem, please send your order on WhatsApp');
-  else if(/bot verification/i.test(lastErr))lastErr=L('ما قدرنا نتأكد إنك مش روبوت — حدّث الصفحة وجرّب كمان مرة','Could not verify you are human, refresh and try again');
+  else if(/bot verification/i.test(lastErr)){const c=(lastErr.match(/\(([^)]+)\)/)||[])[1];lastErr=L('ما قدرنا نتأكد إنك مش روبوت — حدّث الصفحة وجرّب كمان مرة','Could not verify you are human, refresh and try again')+(c?' ['+c+']':'')}
   return{error:lastErr};
 }
 let orderSending=false;
