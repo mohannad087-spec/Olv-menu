@@ -137,7 +137,7 @@ function downloadGeneral(){
 document.getElementById('saveKey').value=sessionStorage.getItem('olv-admin-key')||'';
 async function saveTableCount(){
  const st=document.getElementById('status'),btn=document.getElementById('saveCountBtn');
- const key=document.getElementById('saveKey').value.trim();
+ const key=document.getElementById('saveKey').value.replace(/[^\x21-\x7e]/g,''); // بنشيل الرموز المخفية اللي بتلزق مع النسخ
  if(!key){st.textContent='أدخل كلمة سر الإدارة أولاً لحفظ عدد الطاولات.';return}
  const count=cleanNum(document.getElementById('count').value,1,500);
  btn.disabled=true;st.textContent='جاري الحفظ...';
