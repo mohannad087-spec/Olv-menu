@@ -1,5 +1,5 @@
 import { parseStaffToken, verifyStaff } from './staff.js';
-import { storedAdmin, matchesStored, envFingerprint } from './admin-pass.js';
+import { storedAdmin, matchesStored } from './admin-pass.js';
 // تحقق من مفاتيح الإدارة/الموظفين: مقارنة ثابتة الزمن (ما بتسرّب طول التطابق بالتوقيت) + قفل مؤقت لمحاولات التخمين.
 // القفل: 10 مفاتيح غلط *مختلفة* من نفس الـIP خلال 15 دقيقة => 429 (نفس المفتاح الغلط المكرّر، متل جهاز موظف مفتاحه قديم وبيعمل تحديث كل 15 ثانية، بينحسب مرة وحدة حتى ما يقفل المطعم كله) (بيحتاج ربط D1 باسم OLV_DB، وإذا مش مربوط بنتخطاه بدون ما نكسر شي).
 // محاولة بدون مفتاح أصلًا (زبون عادي) ما بتنحسب.
@@ -54,14 +54,14 @@ export async function recordFailure(db, ip, provided) {
 // بيشيل المسافات وعلامات الاتجاه المخفية (U+200E/200F وأخواتها) يلي بتنلزق وقت النسخ من جوال عربي
 export const cleanKey = (v) => String(v || '').replace(/[\u200e\u200f\u202a-\u202e\u2066-\u2069\ufeff]/g, '').trim();
 
-// باسورد الإدارة: المخزّن بـ D1 (اللي غيّره صاحب المطعم) أولًا. OLV_ADMIN_KEY من Cloudflare بينقبل إذا ما في باسورد مخزّن،
-// أو إذا انحط مفتاح جديد بـ Cloudflare بعد آخر تغيير للباسورد (هيك بيرجع صاحب المطعم يدخل إذا نسي الباسورد).
+// باسورد الإدارة: المخزّن بـ D1 (اللي غيّره صاحب المطعم) بينقبل، و OLV_ADMIN_KEY من Cloudflare بينقبل دايمًا كمان.
+// ليش دايمًا: نظام المحاسبة (Supabase olv-menu-proxy) بيجيب الطلبات الواردة بهالمفتاح نفسه، فلو تعطّل
+// بعد تغيير الباسورد بتوقف الطلبات الواردة كلها (صار هيك 2026-10-12). وإذا نسي صاحب المطعم الباسورد بيدخل بالمفتاح.
 export async function isAdminPassword(env, provided) {
   const row = await storedAdmin(env.OLV_DB || null);
   if (row && await matchesStored(row, provided)) return true;
   const adminKey = cleanKey(env.OLV_ADMIN_KEY);
   if (!adminKey) return false;
-  if (row && (await envFingerprint(adminKey)) === row.env_fp) return false;
   return safeEqual(provided, adminKey);
 }
 
