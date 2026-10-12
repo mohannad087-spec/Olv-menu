@@ -1,8 +1,8 @@
 import { newSalt, hashPin } from './staff.js';
 // باسورد الإدارة: إذا صاحب المطعم غيّره من صفحة الإدارة بيتخزن (PBKDF2 + salt) بجدول admin_auth بـ D1،
-// ووقتها OLV_ADMIN_KEY اللي كان موجود وقت التغيير ما عاد ينقبل. إذا ما في باسورد مخزّن بنرجع لـ OLV_ADMIN_KEY.
-// نسيت الباسورد؟ حط OLV_ADMIN_KEY *جديد* (قيمة مختلفة) بـ Cloudflare Pages وأعد النشر: المفتاح الجديد بيفتح الإدارة
-// (لأن بصمته مش نفس البصمة المخزّنة env_fp)، ومن جوا بتغيّر الباسورد مرة تانية.
+// و OLV_ADMIN_KEY بيضل ينقبل كمان (نظام المحاسبة بيجيب الطلبات فيه، شوف isAdminPassword بـ keys.js).
+// نسيت الباسورد؟ ادخل بـ OLV_ADMIN_KEY، أو حط قيمة جديدة إله بـ Cloudflare Pages (وبنفس الوقت بأسرار Supabase) وأعد النشر.
+// env_fp بيضل ينخزن بس ما عاد بيعطّل المفتاح.
 
 let tableReady = false;
 async function ensureTable(db) {
