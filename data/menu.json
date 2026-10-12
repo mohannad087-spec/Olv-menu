@@ -298,7 +298,8 @@
       "descEn": "Steak strips, cheese & signature sauce",
       "price": 5.5,
       "tags": [],
-      "image": "assets/photos/steak.webp"
+      "image": "assets/photos/steak.webp",
+      "available": false
     },
     {
       "id": "philly",
@@ -326,7 +327,7 @@
       "descEn": "Pasta in creamy Alfredo sauce with chicken",
       "price": 5.75,
       "tags": [],
-      "available": false,
+      "available": true,
       "image": "assets/photos/alfredo.webp"
     },
     {
