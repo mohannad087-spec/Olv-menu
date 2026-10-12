@@ -134,7 +134,7 @@ function downloadGeneral(){
  const a=document.createElement('a');a.href=img;a.download='olv-menu-qr.png';document.body.appendChild(a);a.click();a.remove();
 }
 // حفظ عدد الطاولات: بيمر على نفس مسار النشر المحمي بكلمة سر الإدارة (السيرفر هو اللي بيتحقق، مو الصفحة)
-document.getElementById('saveKey').value=sessionStorage.getItem('olv-admin-key')||'';
+document.getElementById('saveKey').value=(localStorage.getItem('olv-admin-key')||sessionStorage.getItem('olv-admin-key'))||'';
 async function saveTableCount(){
  const st=document.getElementById('status'),btn=document.getElementById('saveCountBtn');
  const key=document.getElementById('saveKey').value.replace(/[^\x21-\x7e]/g,''); // بنشيل الرموز المخفية اللي بتلزق مع النسخ
@@ -148,7 +148,7 @@ async function saveTableCount(){
   const out=await r.json().catch(()=>({}));
   if(r.status===403)throw Error('كلمة السر غير صحيحة — ما انحفظ شي');
   if(!r.ok)throw Error(out.error||'فشل الحفظ');
-  try{sessionStorage.setItem('olv-admin-key',key)}catch(e){}
+  try{localStorage.setItem('olv-admin-key',key)}catch(e){}
   st.textContent='تم حفظ عدد الطاولات ('+count+'). بيطبّق بالمنيو خلال لحظات.';
  }catch(e){st.textContent='لم يتم الحفظ: '+e.message}
  finally{btn.disabled=false}
