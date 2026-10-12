@@ -19,7 +19,7 @@ export async function onRequest(context) {
     });
   }
 
-  const token = env.GITHUB_TOKEN;
+  const token = String(env.GITHUB_TOKEN || '').replace(/[\u200e\u200f\u202a-\u202e\u2066-\u2069\ufeff]/g, '').trim(); // نشيل الرموز المخفية اللي بتلزق مع اللصق
   const repo = env.GITHUB_REPO || 'mohannad087-spec/Olv-menu';
   const branch = env.GITHUB_BRANCH || 'main';
 

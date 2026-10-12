@@ -15,7 +15,7 @@ async function keyOK(request, env) {
 }
 
 function headersFor(env) {
-  const token = env.GITHUB_TOKEN;
+  const token = String(env.GITHUB_TOKEN || '').replace(/[\u200e\u200f\u202a-\u202e\u2066-\u2069\ufeff]/g, '').trim(); // نشيل الرموز المخفية اللي بتلزق مع اللصق
   return token ? { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json', 'User-Agent': 'olv-menu-cloudflare-pages' } : null;
 }
 
