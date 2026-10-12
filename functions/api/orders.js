@@ -169,13 +169,17 @@ async function nextOrderNumber(db) {
   return number;
 }
 
+// كل زباين الكافيه على نفس شبكة الواي فاي بيطلعوا بنفس الـIP، فحد 3 طلبات كان يرفض طاولة رابعة
+// بدون ما حدا ينتبه. رمز الحماية (Turnstile) هو اللي بيمنع الروبوتات، وهالحد بس سقف للإغراق.
+const RATE_LIMIT = 15;
+
 async function rateLimited(db, ip) {
   if (!ip) return false;
   const cutoff = new Date(Date.now() - 3 * 60 * 1000).toISOString();
   const row = await db.prepare(
     'SELECT COUNT(*) AS count FROM orders WHERE ip = ?1 AND created_at > ?2'
   ).bind(ip, cutoff).first();
-  return Number(row?.count || 0) >= 3;
+  return Number(row?.count || 0) >= RATE_LIMIT;
 }
 
 async function awardPoints(db, phone, total, orderId) {
