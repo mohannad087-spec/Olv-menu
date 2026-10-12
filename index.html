@@ -16,7 +16,7 @@
 <link rel="preload" href="assets/fonts/readex-pro-arabic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/reem-kufi-arabic-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/olv-theme.css?v=b5">
-<link rel="stylesheet" href="assets/olv-choice-redesign.css?v=1"><link rel="stylesheet" href="assets/olv-glass.css?v=1"><link rel="stylesheet" href="assets/olv-browse.css?v=3"><link rel="stylesheet" href="assets/olv-glass-entry.css?v=1"><style>.choice-box.disabled{opacity:.55;filter:grayscale(.6);cursor:not-allowed}.choice-box.disabled:active{transform:none}</style></head>
+<link rel="stylesheet" href="assets/olv-choice-redesign.css?v=1"><link rel="stylesheet" href="assets/olv-glass.css?v=1"><link rel="stylesheet" href="assets/olv-browse.css?v=3"><link rel="stylesheet" href="assets/olv-glass-entry.css?v=1"><link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.11"><link rel="stylesheet" href="assets/olv-motion.css?v=1"><style>.choice-box.disabled{opacity:.55;filter:grayscale(.6);cursor:not-allowed}.choice-box.disabled:active{transform:none}</style></head>
 <body>
 <div id="installBanner" class="install-banner"><img src="assets/olv-original.jpg" alt="OLV"><div class="install-copy"><b data-t>ثبّت تطبيق OLV</b><span data-t>اطلب بسرعة من شاشتك الرئيسية</span></div><button id="installBtn" data-t>تثبيت</button><button id="installClose" aria-label="إغلاق">×</button></div>
 <script>(function(){const h=new Date().getHours(),light=h>=6&&h<18;document.body.classList.toggle('olv-light',light);document.documentElement.dataset.olvTheme=light?'light':'dark';const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=light?'#efede9':'#1d1b18';window.olvApplyTimeTheme=()=>{const x=new Date().getHours(),l=x>=6&&x<18;document.body.classList.toggle('olv-light',l);document.documentElement.dataset.olvTheme=l?'light':'dark';if(m)m.content=l?'#efede9':'#1d1b18'}})();</script>
@@ -384,4 +384,5 @@ ids.forEach(function(id){var el=document.getElementById(id);if(!el)return;new Mu
 document.addEventListener('keydown',function(e){var top=ids.map(function(id){return document.getElementById(id)}).filter(function(el){return el&&el.classList.contains('open')}).pop();if(!top)return;if(e.key==='Escape'){e.preventDefault();goBack()}else if(e.key==='Tab'){var f=foc(top);if(!f.length)return;var a=document.activeElement,i=f.indexOf(a);if(e.shiftKey&&(i<=0)){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&(i===f.length-1||i<0)){e.preventDefault();f[0].focus()}}})})();
 </script>
 <script src="assets/olv-browse.js?v=3"></script><script src="assets/olv-cart-fx.js?v=1"></script>
+<script src="assets/vendor/gsap.min.js?v=3.13.0"></script><script src="assets/vendor/ScrollTrigger.min.js?v=3.13.0"></script><script src="assets/vendor/lenis.min.js?v=1.3.11"></script><script src="assets/olv-motion.js?v=1"></script>
 </body></html>
