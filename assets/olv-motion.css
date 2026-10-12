@@ -1,0 +1,39 @@
+/* حركة الموقع: سكرول ناعم (Lenis) + حركات GSAP ScrollTrigger + تأثيرات منقولة من React Bits.
+   شكل بس: ما في أي تغيير على الطلب أو السلة أو الأسعار. */
+
+/* Lenis هو اللي بنعّم السكرول، فلازم نطفي scroll-behavior:smooth تبع المتصفح وإلا بيتعاركوا */
+html.lenis,html.lenis body{scroll-behavior:auto!important}
+
+/* ===== Aurora (React Bits) — خلفية الشفق ورا صفحة الترحيب وصفحة الاختيار ===== */
+.olv-aurora{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:0;opacity:0;transition:opacity 1.2s ease}
+.olv-aurora.on{opacity:.75}
+:root[data-olv-theme="light"] .olv-aurora.on{opacity:.6}
+.choice>.olv-aurora{position:fixed}
+.choice>.olv-aurora.on{opacity:.4}
+:root[data-olv-theme="light"] .choice>.olv-aurora.on{opacity:.35}
+.entry-bg>.olv-aurora{mix-blend-mode:screen}
+:root[data-olv-theme="light"] .entry-bg>.olv-aurora{mix-blend-mode:normal}
+.choice>:not(.olv-aurora){position:relative;z-index:1}
+.choice>.choice-back{position:absolute;z-index:3}
+
+/* ===== StarBorder (React Bits) — نجمة ضو بتلف حوالين الزر ===== */
+.olv-star{isolation:isolate}
+#enterBtn.olv-star{position:relative}
+.olv-star__light{position:absolute;top:-48px;left:-48px;z-index:-1;width:calc(100% + 96px);height:calc(100% + 96px);pointer-events:none}
+
+/* ===== ShinyText (React Bits) — لمعة بتمر على العنوان ===== */
+.olv-shiny{
+  --shine-base:var(--ink);--shine:#e9c97f;
+  background:linear-gradient(120deg,var(--shine-base) 0%,var(--shine-base) 40%,var(--shine) 50%,var(--shine-base) 60%,var(--shine-base) 100%);
+  background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:wordWipe .75s cubic-bezier(.22,1,.36,1) .1s both,olvShine 4.5s ease-in-out 1.2s infinite!important}
+:root[data-olv-theme="light"] .olv-shiny{--shine:#9a7a34}
+@keyframes olvShine{0%{background-position:100% 0}55%,100%{background-position:-50% 0}}
+
+/* ===== ScrollReveal (React Bits) — كلمات بتنكشف مع السكرول ===== */
+.olv-sr .olv-sr-w{display:inline-block}
+
+@media(prefers-reduced-motion:reduce){
+  .olv-aurora{display:none}
+  .olv-shiny{animation:none!important;-webkit-text-fill-color:currentColor;background:none}
+}
