@@ -358,7 +358,8 @@ export async function onRequest(context) {
       if (!current) return json({ ok: false, error: 'Order not found' }, 404);
 
       const transitions = {
-        new: ['confirmed', 'cancelled'],
+        // نظام المحاسبة بيقبل الطلب ويبعته عالمطبخ مباشرة (new => preparing)، فلازم ينقبل بدون المرور بـ confirmed
+        new: ['confirmed', 'preparing', 'cancelled'],
         confirmed: ['preparing', 'cancelled'],
         preparing: ['ready', 'cancelled'],
         ready: ['completed', 'cancelled'],
