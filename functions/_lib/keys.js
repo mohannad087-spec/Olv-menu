@@ -50,15 +50,20 @@ export async function recordFailure(db, ip, provided) {
 
 // opts.staff = true: بيقبل مفتاح الموظفين كمان (x-olv-staff-key أو x-olv-admin-key). غير هيك مفتاح الإدارة بس.
 // بيرجّع { ok, status } — status 403 لمفتاح غلط/ناقص، 429 لو القفل مفعّل.
+// بيشيل المسافات وعلامات الاتجاه المخفية (U+200E/200F وأخواتها) يلي بتنلزق وقت النسخ من جوال عربي
+const cleanKey = (v) => String(v || '').replace(/[\u200e\u200f\u202a-\u202e\u2066-\u2069\ufeff]/g, '').trim();
+
 export async function checkKey(request, env, opts = {}) {
   const staff = Boolean(opts.staff);
-  const adminHeader = request.headers.get('x-olv-admin-key') || '';
-  const provided = (staff ? request.headers.get('x-olv-staff-key') || adminHeader : adminHeader);
+  // clean: مسافة أو علامة اتجاه مخفية (كيبورد عربي) أو سطر زيادة انلزق وقت لصق المفتاح (بالداشبورد أو بصفحة الإدارة) ما لازم يرفض الدخول
+  const adminHeader = cleanKey(request.headers.get('x-olv-admin-key'));
+  const provided = (staff ? cleanKey(request.headers.get('x-olv-staff-key')) || adminHeader : adminHeader);
   if (!provided) return { ok: false, status: 403 };
   const db = env.OLV_DB || null;
   const ip = request.headers.get('CF-Connecting-IP') || '';
   if (await lockedOut(db, ip)) return { ok: false, status: 429 };
-  const isAdmin = Boolean(env.OLV_ADMIN_KEY) && await safeEqual(provided, env.OLV_ADMIN_KEY);
+  const adminKey = cleanKey(env.OLV_ADMIN_KEY);
+  const isAdmin = Boolean(adminKey) && await safeEqual(provided, adminKey);
   if (isAdmin) return { ok: true, status: 200, role: 'admin' };
   // الموظف بيدخل بحسابه (اسم + رمز) اللي ضافه صاحب المطعم. المفتاح المشترك القديم OLV_STAFF_KEY ما عاد ينقبل.
   const tok = staff ? parseStaffToken(provided) : null;
