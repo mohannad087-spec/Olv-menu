@@ -6,12 +6,12 @@ n=int(SR*.7);t=np.arange(n)/SR
 IR=rng.standard_normal(n)*np.exp(-t*7);IR[0]=0;IR/=np.abs(IR).sum()
 def note(f,dur=.9,vel=1.0,bright=1.0):
     t=np.arange(int(SR*dur))/SR
-    # kalimba/marimba-like: fundamental + inharmonic tine partials with faster decay
-    y=np.sin(2*np.pi*f*t)*np.exp(-t*5.0)
-    y+=.28*np.sin(2*np.pi*f*2.0*t)*np.exp(-t*8)
-    y+=.16*bright*np.sin(2*np.pi*f*5.4*t)*np.exp(-t*28)   # tine "ping"
-    y+=.05*bright*np.sin(2*np.pi*f*9.6*t)*np.exp(-t*45)
-    a=np.minimum(1,t/.004);y*=a                              # 4ms attack
+    # فيبرافون: نغمة رنّانة دافئة مع اهتزاز خفيف (tremolo) وجزيئات عالية قصيرة
+    trem=1+.12*np.sin(2*np.pi*5.5*t)
+    y=(np.sin(2*np.pi*f*t)*np.exp(-t*1.6)
+       +.18*bright*np.sin(2*np.pi*f*4*t)*np.exp(-t*5)
+       +.05*bright*np.sin(2*np.pi*f*10*t)*np.exp(-t*14))*trem
+    y*=np.minimum(1,t/.004)                                  # 4ms attack
     return y*vel
 def seq(notes,total):
     out=np.zeros(int(SR*total))
@@ -27,7 +27,7 @@ def finish(y,name,wet=.22,peak=.5,tail=.05):
     y=y/np.abs(y).max()*peak
     pcm=(y*32767).astype('<i2').tobytes()
     subprocess.run(['ffmpeg','-v','error','-y','-f','s16le','-ar',str(SR),'-ac','1','-i','-','-c:a','libmp3lame','-b:a','80k',name+'.mp3'],input=pcm,check=True)
-# C major pentatonic
+# C major pentatonic (الآلة: فيبرافون)
 C5,D5,E5,G5,A5,C6,D6,E6,G6=523.25,587.33,659.25,783.99,880.0,1046.5,1174.66,1318.51,1567.98
 A4,G4=440.0,392.0
 # taps: single soft notes, 5 variants
