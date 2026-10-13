@@ -1,18 +1,17 @@
 # أصوات المنيو
 
-مقصوصة من مجموعة **SND02 "piano"** (تصميم Ayako Taniguchi) من مكتبة
-[SND](https://snd.dev) — حزمة `snd-lib` على npm، رخصة MIT، والأصوات نفسها
-مجانية للاستخدام التجاري وغير التجاري.
+مجموعة **glass** من مكتبة [uisfx](https://www.npmjs.com/package/uisfx) (الكود MIT، والأصوات CC0 يعني ملك عام ومجانية للاستخدام التجاري).
+مقصوصة ومضبوطة المستوى (mono، 80kbps)، المجموع حوالي 70KB، وبتتحمّل بس بعد أول لمسة.
 
-| الملف | الأصل | وين بينسمع |
+| الملف | الأصل (glass) | وين بينسمع |
 | --- | --- | --- |
-| tap-1..5.mp3 | tap_01..05 | لمسة خفيفة: الأقسام، المزاج، الرئيسية، زيادة/نقص الكمية |
-| toggle-on.mp3 / toggle-off.mp3 | toggle_on / toggle_off | اختيار/إلغاء إضافة، مفضلة، حجم، لغة |
-| open.mp3 / close.mp3 | transition_up / transition_down | فتح وسكر النوافذ |
+| tap.mp3 | press | لمسة خفيفة: الأقسام، المزاج، الرئيسية، وزيادة/نقص الكمية (بدرجة صوت مختلفة) |
+| toggle-on.mp3 / toggle-off.mp3 | toggle-on / toggle-off | اختيار/إلغاء إضافة، مفضلة، حجم، لغة |
+| open.mp3 / close.mp3 | open / close | فتح وسكر النوافذ |
 | select.mp3 | select | فتح السلة، "اختر لي" |
-| add.mp3 | button | إضافة صنف للسلة |
-| remove.mp3 | disabled | حذف صنف من السلة |
-| chime.mp3 | notification (مقصوص 2.3 ث) | شاشة الترحيب، تغيّر حالة الطلب، تنبيه الويتر |
-| celebrate.mp3 | celebration (مقصوص 2.8 ث) | تأكيد الطلب، الطلب جاهز |
+| add.mp3 | add-to-cart | إضافة صنف للسلة |
+| remove.mp3 | remove-from-cart | حذف صنف من السلة |
+| chime.mp3 | notification | شاشة الترحيب، تنبيه الويتر |
+| celebrate.mp3 | purchase | تأكيد الطلب، الطلب جاهز |
 
-كلهم mono 80kbps، المجموع تقريباً 110KB، وبينحمّلوا بس بعد أول لمسة.
+للتبديل لمجموعة ثانية (soft, zen, organic...) بيكفي قص نفس الأسماء من `uisfx/sounds/<pack>/` بـ ffmpeg.
