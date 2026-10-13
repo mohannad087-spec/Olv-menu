@@ -1,4 +1,4 @@
-/* أصوات المنيو: مجموعة "glass" من assets/sounds (شوف README هناك للرخصة).
+/* أصوات المنيو: نغمات موسيقية (سلّم بنتاتوني C) مولّدة بالكود، شوف assets/sounds/README.md.
    - ما في ولا صوت قبل أول لمسة من الزبون (المتصفح أصلاً بيمنع).
    - زر السماعة بالمنيو بيخزن 'olv-sound'='off' وكل الصفحات بتحترمه.
    - مع "تقليل الحركة" منسكت الأصوات الزخرفية (لمسات، فتح/سكر) ومنخلي أصوات النتيجة (إضافة، تأكيد).
@@ -6,9 +6,9 @@
 (function(){
   const BASE='assets/sounds/';
   const SOUNDS={
-    tap:{f:'tap',g:.5,decor:1},
-    tickUp:{f:'tap',g:.45,rate:1.12,decor:1},
-    tickDown:{f:'tap',g:.4,rate:.88,decor:1},
+    tap:{f:['tap-1','tap-2','tap-3','tap-4','tap-5'],g:.55,decor:1},
+    tickUp:{f:['tap-3','tap-4'],g:.5,decor:1},
+    tickDown:{f:['tap-5','tap-1'],g:.45,decor:1},
     toggleOn:{f:'toggle-on',g:.5},
     toggleOff:{f:'toggle-off',g:.45},
     open:{f:'open',g:.32,decor:1},
