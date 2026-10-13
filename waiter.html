@@ -105,7 +105,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
   <button class="secondary" onclick="closeCart()">إغلاق</button>
 </div></div>
 
-<script src="assets/back-nav.js"></script>
+<script src="assets/back-nav.js"></script><script src="assets/olv-sounds.js?v=1"></script>
 <script>
 const $=id=>document.getElementById(id);
 const money=n=>`${Number(n).toFixed(2)} JD`;
@@ -115,9 +115,9 @@ let DATA=null,cart=[],active='all',waiterName='',staffKey='',knownStatuses=null,
 
 function showToast(m){$('toast').textContent=m;$('toast').classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>$('toast').classList.remove('show'),1700)}
 
-function ensureAudio(){try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}catch(e){}}
+function ensureAudio(){try{if(window.OlvSound)OlvSound.unlock(true);if(!audioCtx)audioCtx=(window.OlvSound&&OlvSound.context())||new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}catch(e){}}
 function beep(freq,delay,dur){setTimeout(()=>{try{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=freq;o.connect(g);g.connect(audioCtx.destination);g.gain.setValueAtTime(.0001,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.3,audioCtx.currentTime+.02);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+dur);o.start();o.stop(audioCtx.currentTime+dur+.05)}catch(e){}},delay)}
-function playReadyChime(){if(!audioCtx)return;beep(880,0,.45);beep(1046,250,.4)}
+function playReadyChime(){if(window.OlvSound&&OlvSound.play('alert',{force:true}))return;if(!audioCtx)return;beep(880,0,.45);beep(1046,250,.4)}
 function notifyReady(orders){
   playReadyChime();
   try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}
