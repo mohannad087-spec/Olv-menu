@@ -114,6 +114,7 @@ h1,h2,h3{font-family:var(--display);font-weight:500;letter-spacing:0}
 .search::placeholder{color:var(--ink2)}
 .search:focus{outline:2px solid var(--ink);outline-offset:1px;border-color:transparent}
 .lang{min-width:84px;min-height:48px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0 14px;font-weight:500;font-size:14px}
+.sound-btn{min-width:48px;padding:0;display:grid;place-items:center;color:var(--ink2)}.sound-btn svg{width:22px;height:22px}.sound-btn[aria-pressed="true"]{color:var(--ink)}
 .cats,.quick,.mood-row{display:flex;gap:4px;overflow:auto;scrollbar-width:none}
 .cats::-webkit-scrollbar,.quick::-webkit-scrollbar,.mood-row::-webkit-scrollbar{display:none}
 .cats{padding:6px 0 0;margin-inline:-4px}
