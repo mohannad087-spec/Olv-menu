@@ -361,7 +361,9 @@ $('whatsapp').onclick=async()=>{if(orderSending)return;const o=getOrder();if(!o)
 $('copy').onclick=async()=>{if(orderSending)return;const o=getOrder();if(!o)return;setSending(true);const rec=await recordOrder(o);setSending(false);
   // إذا الطلب ما انسجل: ما بنمسح السلة ولا بنقول "تم" — الزبون بيشوف السبب وبيقدر يعيد
   if(!rec.order){showToast(rec.error,6000);const nt=$('notice');if(nt)nt.textContent=rec.error;return}
-  await copyText(o.text);playConfirmSound();clearCart();showToast(L('تم تأكيد الطلب — رقم الطلب #','Order confirmed, number #')+rec.order.number,3500);showTrackingLink(rec.order)};
+  await copyText(o.text);playConfirmSound();clearCart();showToast(L('تم تأكيد الطلب — رقم الطلب #','Order confirmed, number #')+rec.order.number,3500);showTrackingLink(rec.order);
+  // الزبون ما بيحتاج يكبس إشي: بننقله لحاله لصفحة متابعة الطلب، وهناك بتطلعله «طلبك جاهز» أول ما يجهز
+  setTimeout(()=>{location.href='order.html?id='+encodeURIComponent(rec.order.id)},1800)};
 applyLang();init();
 </script>
 <script>
