@@ -4,7 +4,7 @@
 const GROUPS=[
   {id:'food',ar:'الأكل',en:'Food',cats:['burgers','snacks','sandwiches','pasta','salads'],img:'burgers',pick:'olv-burger'},
   {id:'drinks',ar:'المشروبات',en:'Drinks',cats:['hot','cold','cocktails','juices','shakes'],img:'hot',pick:'iced-spanish-latte'},
-  {id:'sweet',ar:'الحلو',en:'Sweets',cats:['desserts','icecream','donuts'],img:'desserts',pick:'molten-cake'},
+  {id:'sweet',ar:'الحلو',en:'Sweets',cats:['desserts','icecream','donuts','waffles','crepes'],img:'desserts',pick:'molten-cake'},
   {id:'shisha',ar:'الأرجيلة',en:'Shisha',cats:['shisha'],img:'shisha',pick:'shisha-special'}
 ];
 // أيقونات خطية لكل قسم (24×24)
@@ -23,6 +23,8 @@ const ICONS={
   desserts:'<path d="M3 14.5 19 9v10H3Z"/><path d="M3 17h16"/><path d="M15.5 6.5c0-1.3 1-2.3 1-2.3s1 1 1 2.3"/>',
   icecream:'<path d="M7 10.5 12 21l5-10.5"/><path d="M6.5 10.5a5.5 5.5 0 0 1 11 0Z"/>',
   donuts:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/><path d="M8 7.6l.8.8M15.6 8l-.6.9M16.6 14.2l-.9-.3M8.8 16.2l.6-.8"/>',
+  waffles:'<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9.3 4v16M14.7 4v16M4 9.3h16M4 14.7h16"/>',
+  crepes:'<path d="M3 15.5c0-3 4-5.5 9-5.5s9 2.5 9 5.5c0 1.4-4 3-9 3s-9-1.6-9-3Z"/><path d="M7 13.2 12 18l5-4.8"/><path d="M12 10v8.5"/>',
   shisha:'<path d="M10 2.5h4l-.6 3h-2.8Z"/><path d="M12 5.5V12"/><path d="M8.5 9.5h7"/><path d="M9.5 13.5a4.5 4.5 0 1 0 5 0V12h-5Z"/><path d="M14.5 10c3 0 5 2 5 5v5.5"/>'
 };
 const BUD_ICON='<circle cx="12" cy="12" r="7"/>';
