@@ -772,7 +772,7 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/soft-drink.webp"
+      "image": "assets/photos/mojito-gazi.webp"
     },
     {
       "id": "energy-drink",
@@ -789,7 +789,7 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/energy-drink.webp"
+      "image": "assets/photos/mojito-boom.webp"
     },
     {
       "id": "cocktail-plain",
@@ -1640,7 +1640,7 @@
       "large": {
         "price": 2
       },
-      "image": "assets/photos/cocktail-pieces.webp"
+      "image": "assets/photos/cocktail-awar-alqalb.webp"
     },
     {
       "id": "cocktail-papaya-mango",
@@ -1660,7 +1660,7 @@
       "large": {
         "price": 3
       },
-      "image": "assets/photos/mango-vanilla.webp"
+      "image": "assets/photos/cocktail-papaya-mango.webp"
     },
     {
       "id": "cocktail-dragon-fruit",
@@ -1680,7 +1680,7 @@
       "large": {
         "price": 3
       },
-      "image": "assets/photos/cocktail-pieces.webp"
+      "image": "assets/photos/cocktail-dragon-fruit.webp"
     },
     {
       "id": "cocktail-alloord",
@@ -1700,7 +1700,7 @@
       "large": {
         "price": 3
       },
-      "image": "assets/photos/cocktail-icecream.webp"
+      "image": "assets/photos/cocktail-alloord.webp"
     },
     {
       "id": "cocktail-banana-strawberry-orange",
@@ -1720,7 +1720,7 @@
       "large": {
         "price": 1.5
       },
-      "image": "assets/photos/strawberry-banana-milk.webp"
+      "image": "assets/photos/cocktail-banana-strawberry-orange.webp"
     },
     {
       "id": "passion-mango",
@@ -1740,7 +1740,7 @@
       "large": {
         "price": 2.5
       },
-      "image": "assets/photos/mango-strawberry.webp"
+      "image": "assets/photos/passion-mango.webp"
     },
     {
       "id": "passion-pineapple",
@@ -1760,7 +1760,7 @@
       "large": {
         "price": 2.5
       },
-      "image": "assets/photos/pineapple.webp"
+      "image": "assets/photos/passion-pineapple.webp"
     },
     {
       "id": "passion-strawberry",
@@ -1780,7 +1780,7 @@
       "large": {
         "price": 2.5
       },
-      "image": "assets/photos/pineapple-strawberry.webp"
+      "image": "assets/photos/passion-strawberry.webp"
     },
     {
       "id": "tropicana",
@@ -1800,7 +1800,7 @@
       "large": {
         "price": 2.5
       },
-      "image": "assets/photos/galaxy-plain.webp"
+      "image": "assets/photos/tropicana.webp"
     },
     {
       "id": "kiwi",
@@ -1880,7 +1880,7 @@
       "large": {
         "price": 3
       },
-      "image": "assets/photos/pineapple.webp"
+      "image": "assets/photos/pineapple-mango.webp"
     },
     {
       "id": "shake-oreo",
@@ -2065,7 +2065,7 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/icecream.webp"
+      "image": "assets/photos/candy-kilo.webp"
     },
     {
       "id": "icecream",
@@ -2475,7 +2475,7 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/icecream.webp"
+      "image": "assets/photos/icecream-2-scoops.webp"
     },
     {
       "id": "icecream-kilo",
@@ -2492,7 +2492,7 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/icecream.webp"
+      "image": "assets/photos/icecream-kilo.webp"
     },
     {
       "id": "stk-850b359bed0b",
@@ -2541,7 +2541,7 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/energy-drink.webp"
+      "image": "assets/photos/mojito-code-red.webp"
     },
     {
       "id": "mojito-redbull",
@@ -2558,7 +2558,7 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/energy-drink.webp"
+      "image": "assets/photos/mojito-redbull.webp"
     }
   ],
   "shishaOptions": {
