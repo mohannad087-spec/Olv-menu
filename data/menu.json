@@ -444,7 +444,7 @@
       "en": "Double Espresso",
       "descAr": "",
       "descEn": "",
-      "price": 2,
+      "price": 1.5,
       "tags": [
         "veg"
       ],
@@ -461,7 +461,7 @@
       "en": "Spanish Latte",
       "descAr": "",
       "descEn": "",
-      "price": 1.5,
+      "price": 2,
       "tags": [
         "veg"
       ],
@@ -478,7 +478,7 @@
       "en": "Cappuccino",
       "descAr": "",
       "descEn": "",
-      "price": 1,
+      "price": 2,
       "tags": [
         "veg"
       ],
@@ -546,7 +546,7 @@
       "en": "Caffè Latte",
       "descAr": "",
       "descEn": "",
-      "price": 1,
+      "price": 1.5,
       "tags": [
         "veg"
       ],
@@ -580,7 +580,7 @@
       "en": "Mocha",
       "descAr": "",
       "descEn": "",
-      "price": 1,
+      "price": 2,
       "tags": [
         "veg"
       ],
@@ -760,11 +760,11 @@
     {
       "id": "soft-drink",
       "cat": "cold",
-      "subcat": "soft",
-      "subcatAr": "غازي وطاقة",
-      "subcatEn": "Soft & Energy",
-      "ar": "مشروب غازي",
-      "en": "Soft Drink",
+      "subcat": "mojito",
+      "subcatAr": "موهيتو",
+      "subcatEn": "Mojito",
+      "ar": "موهيتو غازي",
+      "en": "Gazi Mojito",
       "descAr": "",
       "descEn": "",
       "price": 1,
@@ -777,11 +777,11 @@
     {
       "id": "energy-drink",
       "cat": "cold",
-      "subcat": "soft",
-      "subcatAr": "غازي وطاقة",
-      "subcatEn": "Soft & Energy",
-      "ar": "مشروب طاقة",
-      "en": "Energy Drink",
+      "subcat": "mojito",
+      "subcatAr": "موهيتو",
+      "subcatEn": "Mojito",
+      "ar": "موهيتو بوم بوم",
+      "en": "Boom Boom Mojito",
       "descAr": "",
       "descEn": "",
       "price": 1.5,
@@ -797,8 +797,8 @@
       "subcat": "cocktail",
       "subcatAr": "كوكتيل",
       "subcatEn": "Cocktail",
-      "ar": "كوكتيل سادة",
-      "en": "Plain Cocktail",
+      "ar": "كوكتيل فيتامينات السعادة سادة",
+      "en": "Vitamins Happiness Plain Cocktail",
       "descAr": "",
       "descEn": "",
       "price": 1,
@@ -861,13 +861,13 @@
       "en": "Cocktail with Pieces & Ice Cream",
       "descAr": "",
       "descEn": "",
-      "price": 2,
+      "price": 2.5,
       "tags": [
         "veg"
       ],
       "available": true,
       "large": {
-        "price": 2.5
+        "price": 3.5
       },
       "image": "assets/photos/cocktail-icecream.webp"
     },
@@ -1173,7 +1173,7 @@
     },
     {
       "id": "avocado-plain",
-      "cat": "juices",
+      "cat": "cocktails",
       "subcat": "avocado",
       "subcatAr": "أفوكادو",
       "subcatEn": "Avocado",
@@ -1193,7 +1193,7 @@
     },
     {
       "id": "avocado-cream-honey",
-      "cat": "juices",
+      "cat": "cocktails",
       "subcat": "avocado",
       "subcatAr": "أفوكادو",
       "subcatEn": "Avocado",
@@ -1213,7 +1213,7 @@
     },
     {
       "id": "avocado-pieces-cream",
-      "cat": "juices",
+      "cat": "cocktails",
       "subcat": "avocado",
       "subcatAr": "أفوكادو",
       "subcatEn": "Avocado",
@@ -1233,7 +1233,7 @@
     },
     {
       "id": "khamis-plain",
-      "cat": "juices",
+      "cat": "cocktails",
       "subcat": "khamis",
       "subcatAr": "ليلة الخميس",
       "subcatEn": "Laylet El Khamis",
@@ -1253,7 +1253,7 @@
     },
     {
       "id": "khamis-cream",
-      "cat": "juices",
+      "cat": "cocktails",
       "subcat": "khamis",
       "subcatAr": "ليلة الخميس",
       "subcatEn": "Laylet El Khamis",
@@ -1267,13 +1267,13 @@
       ],
       "available": true,
       "large": {
-        "price": 3.5
+        "price": 3.25
       },
       "image": "assets/photos/khamis-cream.webp"
     },
     {
       "id": "fruit-salad",
-      "cat": "juices",
+      "cat": "cocktails",
       "subcat": "fsalad",
       "subcatAr": "سلطة فواكه",
       "subcatEn": "Fruit Salad",
@@ -1290,12 +1290,12 @@
     },
     {
       "id": "fruit-salad-cream",
-      "cat": "juices",
+      "cat": "cocktails",
       "subcat": "fsalad",
       "subcatAr": "سلطة فواكه",
       "subcatEn": "Fruit Salad",
-      "ar": "سلطة فواكه مع قشطة",
-      "en": "Fruit Salad with Cream",
+      "ar": "سلطة فواكه مع قشطة وعسل ومكسرات",
+      "en": "Fruit Salad with Cream, Honey & Nuts",
       "descAr": "",
       "descEn": "",
       "price": 3.5,
@@ -1307,7 +1307,7 @@
     },
     {
       "id": "fakhfakhina",
-      "cat": "juices",
+      "cat": "cocktails",
       "subcat": "fsalad",
       "subcatAr": "سلطة فواكه",
       "subcatEn": "Fruit Salad",
@@ -1332,13 +1332,13 @@
       "en": "Pomegranate",
       "descAr": "",
       "descEn": "",
-      "price": 1,
+      "price": 1.5,
       "tags": [
         "veg"
       ],
       "available": true,
       "large": {
-        "price": 1.5
+        "price": 2
       },
       "image": "assets/photos/pomegranate.webp"
     },
@@ -1352,13 +1352,13 @@
       "en": "Pomegranate & Pineapple",
       "descAr": "",
       "descEn": "",
-      "price": 1,
+      "price": 1.5,
       "tags": [
         "veg"
       ],
       "available": true,
       "large": {
-        "price": 2.25
+        "price": 2
       },
       "image": "assets/photos/pomegranate-pineapple.webp"
     },
@@ -1378,7 +1378,7 @@
       ],
       "available": true,
       "large": {
-        "price": 2.25
+        "price": 2
       },
       "image": "assets/photos/pomegranate-grape.webp"
     },
@@ -1398,7 +1398,7 @@
       ],
       "available": true,
       "large": {
-        "price": 2.25
+        "price": 2
       },
       "image": "assets/photos/pomegranate-pine-orange.webp"
     },
@@ -1418,7 +1418,7 @@
       ],
       "available": true,
       "large": {
-        "price": 2.25
+        "price": 2
       },
       "image": "assets/photos/pomegranate-strawberry.webp"
     },
@@ -1438,7 +1438,7 @@
       ],
       "available": true,
       "large": {
-        "price": 2.25
+        "price": 2
       },
       "image": "assets/photos/vitamin-c.webp"
     },
@@ -1584,12 +1584,12 @@
     },
     {
       "id": "strawberry-milk",
-      "cat": "juices",
-      "subcat": "straw",
-      "subcatAr": "فراولة",
-      "subcatEn": "Strawberry",
-      "ar": "فراولة بالحليب",
-      "en": "Strawberry Milk",
+      "cat": "cocktails",
+      "subcat": "milk",
+      "subcatAr": "بالحليب",
+      "subcatEn": "With Milk",
+      "ar": "فراولة وحليب",
+      "en": "Strawberry & Milk",
       "descAr": "",
       "descEn": "",
       "price": 1,
@@ -1604,12 +1604,12 @@
     },
     {
       "id": "strawberry-banana-milk",
-      "cat": "juices",
-      "subcat": "straw",
-      "subcatAr": "فراولة",
-      "subcatEn": "Strawberry",
-      "ar": "فراولة وموز بالحليب",
-      "en": "Strawberry & Banana Milk",
+      "cat": "cocktails",
+      "subcat": "milk",
+      "subcatAr": "بالحليب",
+      "subcatEn": "With Milk",
+      "ar": "موز وفراولة وحليب",
+      "en": "Banana, Strawberry & Milk",
       "descAr": "",
       "descEn": "",
       "price": 1,
@@ -1621,6 +1621,186 @@
         "price": 1.5
       },
       "image": "assets/photos/strawberry-banana-milk.webp"
+    },
+    {
+      "id": "cocktail-awar-alqalb",
+      "cat": "cocktails",
+      "subcat": "cocktail",
+      "subcatAr": "كوكتيل",
+      "subcatEn": "Cocktail",
+      "ar": "عوار القلب",
+      "en": "Awar Al-Qalb",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2
+      },
+      "image": "assets/photos/cocktail-pieces.webp"
+    },
+    {
+      "id": "cocktail-papaya-mango",
+      "cat": "cocktails",
+      "subcat": "cocktail",
+      "subcatAr": "كوكتيل",
+      "subcatEn": "Cocktail",
+      "ar": "بابايا ومانجا",
+      "en": "Papaya & Mango",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 3
+      },
+      "image": "assets/photos/mango-vanilla.webp"
+    },
+    {
+      "id": "cocktail-dragon-fruit",
+      "cat": "cocktails",
+      "subcat": "cocktail",
+      "subcatAr": "كوكتيل",
+      "subcatEn": "Cocktail",
+      "ar": "فاكهة التنين",
+      "en": "Dragon Fruit",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 3
+      },
+      "image": "assets/photos/cocktail-pieces.webp"
+    },
+    {
+      "id": "cocktail-alloord",
+      "cat": "cocktails",
+      "subcat": "cocktail",
+      "subcatAr": "كوكتيل",
+      "subcatEn": "Cocktail",
+      "ar": "كوكتيل اللورد",
+      "en": "Lord Cocktail",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 3
+      },
+      "image": "assets/photos/cocktail-icecream.webp"
+    },
+    {
+      "id": "cocktail-banana-strawberry-orange",
+      "cat": "cocktails",
+      "subcat": "milk",
+      "subcatAr": "بالحليب",
+      "subcatEn": "With Milk",
+      "ar": "فراولة وموز وبرتقال",
+      "en": "Strawberry, Banana & Orange",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 1.5
+      },
+      "image": "assets/photos/strawberry-banana-milk.webp"
+    },
+    {
+      "id": "passion-mango",
+      "cat": "cocktails",
+      "subcat": "passion",
+      "subcatAr": "باشن",
+      "subcatEn": "Passion Fruit",
+      "ar": "باشن ومانجا",
+      "en": "Passion & Mango",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.5
+      },
+      "image": "assets/photos/mango-strawberry.webp"
+    },
+    {
+      "id": "passion-pineapple",
+      "cat": "cocktails",
+      "subcat": "passion",
+      "subcatAr": "باشن",
+      "subcatEn": "Passion Fruit",
+      "ar": "باشن وأناناس",
+      "en": "Passion & Pineapple",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.5
+      },
+      "image": "assets/photos/pineapple.webp"
+    },
+    {
+      "id": "passion-strawberry",
+      "cat": "cocktails",
+      "subcat": "passion",
+      "subcatAr": "باشن",
+      "subcatEn": "Passion Fruit",
+      "ar": "باشن وفراولة",
+      "en": "Passion & Strawberry",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.5
+      },
+      "image": "assets/photos/pineapple-strawberry.webp"
+    },
+    {
+      "id": "tropicana",
+      "cat": "cocktails",
+      "subcat": "passion",
+      "subcatAr": "باشن",
+      "subcatEn": "Passion Fruit",
+      "ar": "تروبيكانا",
+      "en": "Tropicana",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 2.5
+      },
+      "image": "assets/photos/galaxy-plain.webp"
     },
     {
       "id": "kiwi",
@@ -1681,6 +1861,26 @@
         "price": 1.5
       },
       "image": "assets/photos/kiwi-strawberry.webp"
+    },
+    {
+      "id": "pineapple-mango",
+      "cat": "juices",
+      "subcat": "pine",
+      "subcatAr": "أناناس",
+      "subcatEn": "Pineapple",
+      "ar": "أناناس مع مانجا",
+      "en": "Pineapple & Mango",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "large": {
+        "price": 3
+      },
+      "image": "assets/photos/pineapple.webp"
     },
     {
       "id": "shake-oreo",
@@ -1849,6 +2049,23 @@
         "veg"
       ],
       "image": "assets/photos/molten-cake.webp"
+    },
+    {
+      "id": "candy-kilo",
+      "cat": "desserts",
+      "subcat": "candy",
+      "subcatAr": "كاندي",
+      "subcatEn": "Candy",
+      "ar": "كاندي (الكيلو)",
+      "en": "Candy per Kilo",
+      "descAr": "",
+      "descEn": "",
+      "price": 7,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/icecream.webp"
     },
     {
       "id": "icecream",
@@ -2230,18 +2447,52 @@
     {
       "id": "item-1790288943246",
       "cat": "icecream",
-      "ar": "سكوب صغير",
-      "en": "سكوب صغير",
-      "price": 0,
-      "subcatAr": "سكوب صغير",
-      "subcatEn": "سكوب صغير",
-      "subcat": "سكوب صغير",
+      "ar": "سكوب واحد",
+      "en": "One Scoop",
+      "price": 0.5,
+      "subcatAr": "سكوبات",
+      "subcatEn": "Scoops",
+      "subcat": "scoops",
       "descAr": "",
       "descEn": "",
       "available": true,
       "popular": false,
       "tags": [],
       "image": "assets/photos/item-1790288943246.webp"
+    },
+    {
+      "id": "icecream-2-scoops",
+      "cat": "icecream",
+      "subcat": "scoops",
+      "subcatAr": "سكوبات",
+      "subcatEn": "Scoops",
+      "ar": "سكوب 2",
+      "en": "Two Scoops",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/icecream.webp"
+    },
+    {
+      "id": "icecream-kilo",
+      "cat": "icecream",
+      "subcat": "scoops",
+      "subcatAr": "سكوبات",
+      "subcatEn": "Scoops",
+      "ar": "بوظة كيلو",
+      "en": "Ice Cream per Kilo",
+      "descAr": "",
+      "descEn": "",
+      "price": 7,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/icecream.webp"
     },
     {
       "id": "stk-850b359bed0b",
@@ -2274,6 +2525,40 @@
       "available": false,
       "source": "stock",
       "image": "assets/photos/stk-1ac151970a15.webp"
+    },
+    {
+      "id": "mojito-code-red",
+      "cat": "cold",
+      "subcat": "mojito",
+      "subcatAr": "موهيتو",
+      "subcatEn": "Mojito",
+      "ar": "موهيتو كود رد",
+      "en": "Code Red Mojito",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/energy-drink.webp"
+    },
+    {
+      "id": "mojito-redbull",
+      "cat": "cold",
+      "subcat": "mojito",
+      "subcatAr": "موهيتو",
+      "subcatEn": "Mojito",
+      "ar": "موهيتو ردبل",
+      "en": "Red Bull Mojito",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/energy-drink.webp"
     }
   ],
   "shishaOptions": {
