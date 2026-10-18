@@ -85,6 +85,16 @@
       "en": "Donuts"
     },
     {
+      "id": "waffles",
+      "ar": "وافل",
+      "en": "Waffles"
+    },
+    {
+      "id": "crepes",
+      "ar": "كريب",
+      "en": "Crepes"
+    },
+    {
       "id": "shisha",
       "ar": "أرجيلة",
       "en": "Shisha"
@@ -1919,6 +1929,244 @@
         "veg"
       ],
       "image": "assets/photos/donut-chocolate.webp"
+    },
+    {
+      "id": "waffle-mix",
+      "cat": "waffles",
+      "subcat": "waffles",
+      "subcatAr": "وافل",
+      "subcatEn": "Waffles",
+      "ar": "وافل مكس",
+      "en": "Mix Waffle",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.0,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/waffle-mix.webp"
+    },
+    {
+      "id": "waffle-bubble-classic",
+      "cat": "waffles",
+      "subcat": "waffles",
+      "subcatAr": "وافل",
+      "subcatEn": "Waffles",
+      "ar": "وافل ببلز كلاسك",
+      "en": "Classic Bubble Waffle",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/waffle-bubble.webp"
+    },
+    {
+      "id": "waffle-bubble-mix-pistachio",
+      "cat": "waffles",
+      "subcat": "waffles",
+      "subcatAr": "وافل",
+      "subcatEn": "Waffles",
+      "ar": "وافل ببلز ميكس إضافة بستاشيو",
+      "en": "Mix Bubble Waffle + Pistachio",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/waffle-bubble.webp"
+    },
+    {
+      "id": "waffle-bubble-lotus",
+      "cat": "waffles",
+      "subcat": "waffles",
+      "subcatAr": "وافل",
+      "subcatEn": "Waffles",
+      "ar": "وافل ببلز لوتس",
+      "en": "Lotus Bubble Waffle",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/waffle-bubble-lotus.webp"
+    },
+    {
+      "id": "waffle-bubble-pistachio",
+      "cat": "waffles",
+      "subcat": "waffles",
+      "subcatAr": "وافل",
+      "subcatEn": "Waffles",
+      "ar": "وافل ببلز بستاشيو",
+      "en": "Pistachio Bubble Waffle",
+      "descAr": "",
+      "descEn": "",
+      "price": 3.0,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/waffle-bubble-pistachio.webp"
+    },
+    {
+      "id": "waffle-fruit",
+      "cat": "waffles",
+      "subcat": "waffles",
+      "subcatAr": "وافل",
+      "subcatEn": "Waffles",
+      "ar": "وافل فواكه",
+      "en": "Fruit Waffle",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.0,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/waffle-mix.webp"
+    },
+    {
+      "id": "waffle-fish",
+      "cat": "waffles",
+      "subcat": "waffles",
+      "subcatAr": "وافل",
+      "subcatEn": "Waffles",
+      "ar": "وافل سمكة",
+      "en": "Fish Waffle",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/waffle-fish.webp"
+    },
+    {
+      "id": "waffle-mix-pistachio",
+      "cat": "waffles",
+      "subcat": "waffles",
+      "subcatAr": "وافل",
+      "subcatEn": "Waffles",
+      "ar": "ميكس إضافة بستاشيو",
+      "en": "Mix + Pistachio",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/waffle-pistachio.webp"
+    },
+    {
+      "id": "crepe-classic",
+      "cat": "crepes",
+      "subcat": "crepes",
+      "subcatAr": "كريب",
+      "subcatEn": "Crepes",
+      "ar": "كريب كلاسيك",
+      "en": "Classic Crepe",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.0,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/crepe-classic.webp"
+    },
+    {
+      "id": "crepe-mix",
+      "cat": "crepes",
+      "subcat": "crepes",
+      "subcatAr": "كريب",
+      "subcatEn": "Crepes",
+      "ar": "كريب مكس",
+      "en": "Mix Crepe",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/crepe-mix.webp"
+    },
+    {
+      "id": "crepe-mix-pistachio",
+      "cat": "crepes",
+      "subcat": "crepes",
+      "subcatAr": "كريب",
+      "subcatEn": "Crepes",
+      "ar": "كريب مكس بالإضافة بستاشيو",
+      "en": "Mix Crepe + Pistachio",
+      "descAr": "",
+      "descEn": "",
+      "price": 3.0,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/crepe-pistachio.webp"
+    },
+    {
+      "id": "crepe-lotus",
+      "cat": "crepes",
+      "subcat": "crepes",
+      "subcatAr": "كريب",
+      "subcatEn": "Crepes",
+      "ar": "كريب لوتس",
+      "en": "Lotus Crepe",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/crepe-lotus.webp"
+    },
+    {
+      "id": "crepe-pistachio",
+      "cat": "crepes",
+      "subcat": "crepes",
+      "subcatAr": "كريب",
+      "subcatEn": "Crepes",
+      "ar": "كريب بستاشيو",
+      "en": "Pistachio Crepe",
+      "descAr": "",
+      "descEn": "",
+      "price": 3.0,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/crepe-pistachio.webp"
+    },
+    {
+      "id": "crepe-add-fruit",
+      "cat": "crepes",
+      "subcat": "crepes",
+      "subcatAr": "كريب",
+      "subcatEn": "Crepes",
+      "ar": "إضافة فواكه",
+      "en": "Add Fruit",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/add-fruit.webp"
     },
     {
       "id": "shisha",
