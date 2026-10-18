@@ -147,6 +147,7 @@ function summarize(row) {
     items: JSON.parse(row.items_json || '[]'),
     text: row.text_summary || '',
     notes: row.notes || '',
+    pickup: row.pickup_note || '',
     rating: row.rating == null ? null : { stars: Number(row.rating), comment: row.rating_comment || '', ratedAt: row.rated_at || '' },
     createdAt: row.created_at,
     updatedAt: row.updated_at
@@ -212,6 +213,16 @@ async function awardPoints(db, phone, total, orderId) {
   ).bind(key, points, new Date().toISOString()).run();
 
   await db.prepare('UPDATE orders SET loyalty_awarded = 1 WHERE id = ?1').bind(orderId).run();
+}
+
+// عمود «مكان الاستلام» اللي بيطلع للزبون بصفحة «طلبك جاهز». بنضيفه مرة وحدة تلقائيًا إذا لسا (migrations/0005 نفسه).
+let pickupColReady = false;
+async function ensurePickupColumn(db) {
+  if (pickupColReady) return;
+  try {
+    await db.prepare("ALTER TABLE orders ADD COLUMN pickup_note TEXT NOT NULL DEFAULT ''").run();
+  } catch { /* العمود موجود أصلًا */ }
+  pickupColReady = true;
 }
 
 async function ensureDB(db) {
@@ -399,9 +410,17 @@ export async function onRequest(context) {
         return json({ ok: true, order: rowOrder(latest) });
       }
 
-      await db.prepare(
-        'UPDATE orders SET status = ?1, updated_at = ?2 WHERE id = ?3'
-      ).bind(p.status, now, p.id).run();
+      // لما الكاشير بيبلّغ الزبون إن طلبه جاهز، بيبعت معه نص مكان الاستلام (اختياري)
+      if (p.status === 'ready' && typeof p.pickup === 'string' && p.pickup.trim()) {
+        await ensurePickupColumn(db);
+        await db.prepare(
+          'UPDATE orders SET status = ?1, updated_at = ?2, pickup_note = ?3 WHERE id = ?4'
+        ).bind(p.status, now, p.pickup.trim().slice(0, 120), p.id).run();
+      } else {
+        await db.prepare(
+          'UPDATE orders SET status = ?1, updated_at = ?2 WHERE id = ?3'
+        ).bind(p.status, now, p.id).run();
+      }
 
       const latest = await findById(db, p.id);
       return json({ ok: true, order: rowOrder(latest) });
