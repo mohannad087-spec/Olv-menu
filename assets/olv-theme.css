@@ -487,3 +487,7 @@ img{font-size:0;color:transparent}
   .choice-box>span{font-size:12px;line-height:1.65}
   .choice-phone{font-size:12px;margin-top:15px}
 }
+.ios-hint{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:960;display:none;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:0 10px 30px rgba(0,0,0,.35);font-size:13px;line-height:1.8}
+.ios-hint.show{display:block}.ios-hint b:first-child{display:block;font-size:14px;margin-bottom:4px}
+.ios-hint #iosHintClose{position:absolute;top:2px;left:2px;background:transparent;border:0;color:var(--ink2);font-size:22px;min-width:44px;min-height:44px}
+.ios-share{display:inline-block;border:1px solid currentColor;border-radius:5px;padding:0 5px;line-height:1.3}

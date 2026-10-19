@@ -6,7 +6,7 @@
 <title>OLV — Luxury Café & Restaurant</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="assets/olv-original.jpg">
-<link rel="apple-touch-icon" href="assets/olv-original.jpg">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="OLV">
@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="assets/olv-choice-redesign.css?v=1"><link rel="stylesheet" href="assets/olv-glass.css?v=1"><link rel="stylesheet" href="assets/olv-browse.css?v=3"><link rel="stylesheet" href="assets/olv-glass-entry.css?v=1"><style>.choice-box.disabled{opacity:.55;filter:grayscale(.6);cursor:not-allowed}.choice-box.disabled:active{transform:none}</style></head>
 <body>
 <div id="installBanner" class="install-banner"><img src="assets/olv-original.jpg" alt="OLV"><div class="install-copy"><b data-t>ثبّت تطبيق OLV</b><span data-t>اطلب بسرعة من شاشتك الرئيسية</span></div><button id="installBtn" data-t>تثبيت</button><button id="installClose" aria-label="إغلاق">×</button></div>
+<div id="iosHint" class="ios-hint" role="dialog" aria-label="تثبيت التطبيق"><button id="iosHintClose" aria-label="إغلاق">×</button><b>ثبّت OLV على الآيفون</b><div id="iosHintBody"></div></div>
 <script>(function(){const h=new Date().getHours(),light=h>=6&&h<18;document.body.classList.toggle('olv-light',light);document.documentElement.dataset.olvTheme=light?'light':'dark';const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=light?'#efede9':'#1d1b18';window.olvApplyTimeTheme=()=>{const x=new Date().getHours(),l=x>=6&&x<18;document.body.classList.toggle('olv-light',l);document.documentElement.dataset.olvTheme=l?'light':'dark';if(m)m.content=l?'#efede9':'#1d1b18'}})();</script>
 <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}
 (function(){
@@ -68,6 +69,21 @@
       try{localStorage.setItem(DISMISS_KEY,String(Date.now()+7*24*60*60*1000))}catch(e){}
     };
   });
+  // iOS never fires beforeinstallprompt, so Safari users got no banner at all.
+  // Show a how-to hint instead (Share > Add to Home Screen).
+  (function(){
+    var ua=navigator.userAgent||'';
+    var ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+    if(!ios||navigator.standalone||!eligible())return;
+    var inApp=/FBAN|FBAV|Instagram|Line\/|Snapchat|TikTok|WhatsApp|Telegram|MicroMessenger/i.test(ua);
+    var h=document.getElementById('iosHint'),body=document.getElementById('iosHintBody'),x=document.getElementById('iosHintClose');
+    if(!h||!body)return;
+    body.innerHTML=inApp
+      ?'هالمتصفح الداخلي ما بيدعم التثبيت. افتح الرابط بـ <b>Safari</b> (زر ⋯ ثم "فتح في Safari")، وبعدين اضغط زر المشاركة ثم <b>إضافة إلى الشاشة الرئيسية</b>.'
+      :'1) اضغط زر المشاركة <span class="ios-share">⬆︎</span> بأسفل الشاشة (أو بأعلاها بالآيباد)<br>2) اختر <b>إضافة إلى الشاشة الرئيسية</b><br>3) اضغط <b>إضافة</b>';
+    setTimeout(function(){h.classList.add('show')},2500);
+    x.onclick=function(){h.classList.remove('show');try{localStorage.setItem(DISMISS_KEY,String(Date.now()+14*24*60*60*1000))}catch(e){}};
+  })();
 })();
 </script>
 <div id="entry" class="entry"><div class="entry-bg"></div><div class="entry-card"><div class="logo-shine"><img class="entry-logo" src="assets/olv-logo-full.webp" width="714" height="367" alt="OLV Luxury Café & Restaurant"></div><div class="entry-text"><div class="entry-title" data-t>أهلاً بكم في OLV</div><div class="entry-copy" data-t>تجربة فاخرة تبدأ من أول لحظة… اختَر طريقة طلبك واستمتع.</div></div><button class="entry-btn" id="enterBtn" data-t>ابدأ التجربة</button><div class="entry-social"><a id="entryWa" class="wa" href="#" target="_blank" rel="noopener" aria-label="واتساب"><svg viewBox="0 0 24 24"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.42 1.26 4.86L2 22l5.3-1.39a9.9 9.9 0 0 0 4.74 1.2h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2zm0 18.2h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.38c0-4.55 3.7-8.25 8.26-8.25a8.2 8.2 0 0 1 8.24 8.26c0 4.55-3.7 8.23-8.25 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.65.81-.8.97-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.55c.12.17 1.73 2.64 4.19 3.7.58.25 1.04.4 1.4.51.59.19 1.12.16 1.54.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.1-.23-.16-.48-.28z"/></svg></a><a class="ig" href="https://www.instagram.com/olvrestaurant" target="_blank" rel="noopener" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg></a><a class="fb" href="https://www.facebook.com/share/1FKjsA3idZ/" target="_blank" rel="noopener" aria-label="فيسبوك"><svg viewBox="0 0 24 24"><path d="M22 12.06C22 6.51 17.52 2 12 2S2 6.51 2 12.06C2 17.06 5.66 21.2 10.44 21.95v-6.98H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.9h-2.34v6.98C18.34 21.2 22 17.06 22 12.06z"/></svg></a></div><a id="entryReview" class="entry-review" href="#" target="_blank" rel="noopener" hidden><span aria-hidden="true">★</span> <span data-t>قيّمنا على Google</span></a></div></div>
