@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "include": ["/api/*", "/_go", "/admin*", "/waiter*", "/orders*", "/qr*", "/print-menu*"],
+  "exclude": []
+}
