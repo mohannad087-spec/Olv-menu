@@ -142,8 +142,8 @@
 
   const entryTitle = $1('.entry-title');
   if (entryTitle) {
-    const base = getComputedStyle(entryTitle).color;
-    Bits.shinyText(entryTitle, { color: base, shineColor: light ? GOLD : GOLD_HI, speed: 2.4, delay: 2.5, angle: 110, shineWidth: 30 });
+    // اللون الأساسي ثابت وواضح من متغيّرات CSS (بيتبدّل لحاله مع الثيم)؛ اللمعة بس فوقه
+    Bits.shinyText(entryTitle, { color: 'var(--olv-title)', shineColor: 'var(--olv-title-shine)', speed: 2.4, delay: 2.5, angle: 110, shineWidth: 30 });
   }
 
   const entryCopy = $1('.entry-copy');

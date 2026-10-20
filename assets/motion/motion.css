@@ -18,6 +18,10 @@ html.lenis, html.lenis body { scroll-behavior: auto; }
   width: calc(100% + 96px); height: calc(100% + 96px); pointer-events: none;
 }
 
+/* لون عنوان الترحيب: ذهبي ثابت بتباين كافي على الوضعين، واللمعة أفتح/أغمق منه شوي */
+:root{--olv-title:#f0dcaa;--olv-title-shine:#fffaf0}
+:root[data-olv-theme="light"]{--olv-title:#7a5612;--olv-title-shine:#c9a24b}
+
 /* ShinyText (React Bits) */
 .shiny-text {
   --shiny-pos: -50%;
