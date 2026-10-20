@@ -49,6 +49,16 @@ body{font-size:16px}
 .price small{font:500 26px var(--font);color:var(--ink2)}
 .price .alt{font:500 28px var(--font);color:var(--ink2)}
 
+/* عرض اليوم */
+.offer{flex:1;display:flex;align-items:center;gap:72px}
+.offer .photo{flex:0 0 760px;height:100%;border-radius:48px;overflow:hidden;box-shadow:inset 0 1px 0 var(--glass-hi),var(--shadow)}
+.offer .txt{flex:1;display:flex;flex-direction:column;gap:26px;align-items:flex-start}
+.offer .tag{font:600 40px var(--font);padding:10px 34px;border-radius:999px;background:var(--glass);border:1px solid var(--glass-line);color:var(--ink)}
+.offer h2{font:700 120px/1.15 var(--display);margin:0}
+.offer p{font:500 44px/1.4 var(--font);color:var(--ink2);margin:0}
+.offer .big{font:700 190px/1 var(--display);display:flex;align-items:baseline;gap:20px;font-variant-numeric:tabular-nums}
+.offer .big small{font:600 56px var(--font);color:var(--ink2)}
+.offer .was{font:500 40px var(--font);color:var(--ink2);text-decoration:line-through}
 #bar{position:absolute;bottom:0;right:0;height:6px;background:var(--ink);opacity:.55;width:0}
 #msg{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font:600 56px var(--font);color:var(--ink2)}
 .lowmo .slide,.lowmo .slide.on{transition:none}
@@ -82,6 +92,9 @@ function priceHtml(i){
   return p+' <small>JD</small>'+alt;
 }
 
+// عرض اليوم: بيظهر بس بالتاريخ المحدد (بتوقيت عمّان) وبعدها بيختفي لحاله
+var OFFER={date:'2026-10-21',tag:'عرض اليوم فقط',title:'وجبة برغر OLV',desc:'برغر لحم، جبنة، خس، طماطم وصوص OLV',price:5,image:'assets/photos/olv-burger.webp',every:5};
+function offerOn(){var d=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Amman'}).format(new Date());return d===OFFER.date}
 var slides=[],cur=-1,timer=null,t0=0,sig='';
 
 function build(DATA){
@@ -94,11 +107,16 @@ function build(DATA){
     var per=Math.ceil(items.length/pages);
     for(var p=0;p<pages;p++)out.push({cat:c,ci:ci,items:items.slice(p*per,(p+1)*per),page:p,pages:pages});
   });
+  if(offerOn()){var res=[],k=0;res.push({offer:1});out.forEach(function(x){res.push(x);if(++k%OFFER.every===0)res.push({offer:1})});return res}
   return out;
 }
 
 function slideEl(s){
   var el=document.createElement('section');el.className='slide';
+  if(s.offer){
+    el.innerHTML='<div class="offer"><div class="photo"><img src="'+esc(OFFER.image)+'" alt=""></div><div class="txt"><img class="logo" src="assets/olv-logo-transparent.webp" alt="OLV"><span class="tag">'+esc(OFFER.tag)+'</span><h2>'+esc(OFFER.title)+'</h2><p>'+esc(OFFER.desc)+'</p><div class="big">'+money(OFFER.price).replace(/\.00$/,'')+' <small>دنانير</small></div></div></div>';
+    return el;
+  }
   var dots='';if(s.pages>1){for(var d=0;d<s.pages;d++)dots+='<i'+(d===s.page?' class="cur"':'')+'></i>'}
   var cards=s.items.map(function(i,k){
     var img=i.image?'<img src="'+esc(i.image)+'" alt="" decoding="async">':'';
@@ -118,7 +136,7 @@ function show(n){
   setTimeout(function(){prev.forEach(function(p){if(p!==el&&!p.classList.contains('on'))p.remove()})},1200);
   cur=n;t0=performance.now();
   // حمّل الصورة اللي بعدها مسبقاً
-  var nx=slides[(n+1)%slides.length];nx.items.forEach(function(i){if(i.image){var im=new Image();im.src=i.image}});
+  var nx=slides[(n+1)%slides.length];(nx.items||[]).forEach(function(i){if(i.image){var im=new Image();im.src=i.image}});
 }
 function tick(now){
   var f=Math.min(1,(now-t0)/DWELL);bar.style.width=(f*100)+'%';
@@ -129,7 +147,7 @@ function tick(now){
 function load(first){
   return fetch('data/menu.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(D){
     var s=build(D);
-    var ns=JSON.stringify(s.map(function(x){return[x.cat.id,x.cat.ar,x.items.map(function(i){return[i.id,i.ar,i.price,i.image,i.large,i.variants]})]}));
+    var ns=offerOn()+JSON.stringify(s.map(function(x){if(x.offer)return 'offer';return[x.cat.id,x.cat.ar,x.items.map(function(i){return[i.id,i.ar,i.price,i.image,i.large,i.variants]})]}));
     if(ns===sig)return;           // ما تغيّر شي
     sig=ns;slides=s;
     msg.style.display='none';
