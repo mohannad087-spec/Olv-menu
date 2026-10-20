@@ -6,6 +6,9 @@
   Permissions-Policy: camera=(), microphone=(), payment=(), usb=()
 
 # صفحات الإدارة والموظفين: ما لازم تنفهرس بمحركات البحث
+/tv.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache
 /admin.html
   X-Robots-Tag: noindex, nofollow
 /waiter.html
