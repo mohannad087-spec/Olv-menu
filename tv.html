@@ -95,11 +95,16 @@ function priceHtml(i){
 // عرض اليوم: بيظهر بس بالتاريخ المحدد (بتوقيت عمّان) وبعدها بيختفي لحاله
 var OFFER={date:'2026-10-21',tag:'عرض اليوم فقط',title:'وجبة برغر OLV',desc:'برغر لحم، جبنة، خس، طماطم وصوص OLV',price:5,image:'assets/photos/olv-burger.webp',every:5};
 function offerOn(){var d=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Amman'}).format(new Date());return d===OFFER.date}
+// شاشتين: المشروبات لحالها، والباقي (أكل وحلويات وأرجيلة) لحاله. بتتحدد من الدومين أو من ?show=drinks|food
+var DRINKS=['hot','cold','cocktails','juices','shakes'];
+var MODE=(new URLSearchParams(location.search).get('show')||(/^screen2\./.test(location.hostname)?'drinks':/^screen\./.test(location.hostname)?'food':'all')).toLowerCase();
+function inMode(id){return MODE==='drinks'?DRINKS.indexOf(id)>-1:MODE==='food'?DRINKS.indexOf(id)<0:true}
 var slides=[],cur=-1,timer=null,t0=0,sig='';
 
 function build(DATA){
   var out=[];
   DATA.categories.forEach(function(c,ci){
+    if(!inMode(c.id)||(MODE==='drinks'&&c.id==='popular'))return;
     var items=c.id==='popular'?DATA.items.filter(function(i){return i.popular&&i.available!==false&&!i.inGroup}):
       DATA.items.filter(function(i){return i.cat===c.id&&i.available!==false&&!i.inGroup});
     if(!items.length)return;
@@ -107,7 +112,7 @@ function build(DATA){
     var per=Math.ceil(items.length/pages);
     for(var p=0;p<pages;p++)out.push({cat:c,ci:ci,items:items.slice(p*per,(p+1)*per),page:p,pages:pages});
   });
-  if(offerOn()){var res=[],k=0;res.push({offer:1});out.forEach(function(x){res.push(x);if(++k%OFFER.every===0)res.push({offer:1})});return res}
+  if(offerOn()&&MODE!=='drinks'){var res=[],k=0;res.push({offer:1});out.forEach(function(x){res.push(x);if(++k%OFFER.every===0)res.push({offer:1})});return res}
   return out;
 }
 
@@ -147,7 +152,7 @@ function tick(now){
 function load(first){
   return fetch('data/menu.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(D){
     var s=build(D);
-    var ns=offerOn()+JSON.stringify(s.map(function(x){if(x.offer)return 'offer';return[x.cat.id,x.cat.ar,x.items.map(function(i){return[i.id,i.ar,i.price,i.image,i.large,i.variants]})]}));
+    var ns=MODE+offerOn()+JSON.stringify(s.map(function(x){if(x.offer)return 'offer';return[x.cat.id,x.cat.ar,x.items.map(function(i){return[i.id,i.ar,i.price,i.image,i.large,i.variants]})]}));
     if(ns===sig)return;           // ما تغيّر شي
     sig=ns;slides=s;
     msg.style.display='none';
