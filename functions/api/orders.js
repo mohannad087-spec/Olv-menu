@@ -85,6 +85,7 @@ function verifyOrderItems(rawItems, menu, mode) {
     const basePrice = wantsMeal ? Number(real.meal.price) : large ? Number(real.large.price) : real.price;
     const label = wantsMeal ? `${real.ar} (وجبة)` : sized ? `${real.ar} (${large ? 'كبير' : 'صغير'})` : real.ar;
     const custom = raw?.custom;
+    if (custom != null && (typeof custom !== 'object' || Array.isArray(custom))) throw new Error('Invalid order customization.');
     const customText = custom == null ? '' : JSON.stringify(custom);
     if (customText.length > 2000) throw new Error('Order customization is too large.');
     items.push({
@@ -124,6 +125,11 @@ function normalizePhone(raw) {
   let n = String(raw || '').replace(/\D/g, '');
   if (n.startsWith('0')) n = '962' + n.slice(1);
   return n;
+}
+
+// نص من الزبون: نحوّله لنص، نشيل رموز التحكم المخفية (ما عدا السطر الجديد)، ونقصّه للطول المسموح
+function cleanText(v, max) {
+  return String(v ?? '').replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, '').trim().slice(0, max);
 }
 
 function normalizeIdempotencyKey(raw) {
@@ -256,7 +262,8 @@ export async function onRequest(context) {
 
     if (request.method === 'POST') {
       await ensureDB(db);
-      const p = await request.json();
+      let p;
+      try { p = await request.json(); } catch { return json({ ok: false, error: 'Invalid JSON body.' }, 400); }
 
       if (!p?.mode || !Array.isArray(p.items) || !p.items.length) {
         return json({ ok: false, error: 'Invalid order payload.' }, 400);
@@ -274,13 +281,23 @@ export async function onRequest(context) {
       if (existing) return json({ ok: true, duplicate: true, order: rowOrder(existing) }, 200);
 
       const fields = {
-        table: String(p.table || '').slice(0, 30),
-        name: String(p.name || '').slice(0, 100),
-        phone: String(p.phone || '').slice(0, 30),
-        address: String(p.address || '').slice(0, 300),
-        notes: String(p.notes || '').slice(0, 500),
-        waiter: String(p.waiter || '').slice(0, 100)
+        table: cleanText(p.table, 30),
+        name: cleanText(p.name, 100),
+        phone: cleanText(p.phone, 30),
+        address: cleanText(p.address, 300),
+        notes: cleanText(p.notes, 500),
+        waiter: cleanText(p.waiter, 100)
       };
+      // الهاتف اختياري، بس إذا انكتب لازم يكون رقم منطقي (7 لـ 15 خانة)
+      if (fields.phone) {
+        const digits = fields.phone.replace(/\D/g, '');
+        if (!/^[\d+\-\s()]+$/.test(fields.phone) || digits.length < 7 || digits.length > 15) {
+          return json({ ok: false, error: 'رقم الهاتف غير صحيح.' }, 400);
+        }
+      }
+      if (p.mode === 'delivery' && (!fields.phone || !fields.address)) {
+        return json({ ok: false, error: 'التوصيل بحتاج رقم هاتف وعنوان.' }, 400);
+      }
 
       let menu;
       try {
@@ -361,7 +378,8 @@ export async function onRequest(context) {
       if (!(await adminOK(request, env))) return json({ ok: false, error: 'Admin access required.' }, 403);
       await ensureDB(db);
 
-      const p = await request.json();
+      let p;
+      try { p = await request.json(); } catch { return json({ ok: false, error: 'Invalid JSON body.' }, 400); }
       const allowed = ['new', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'];
       if (!p?.id || !allowed.includes(p.status)) return json({ ok: false, error: 'Invalid status update.' }, 400);
 
