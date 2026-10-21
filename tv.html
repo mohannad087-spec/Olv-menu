@@ -59,6 +59,7 @@ body{font-size:16px}
 .offer .big{font:700 190px/1 var(--display);display:flex;align-items:baseline;gap:20px;font-variant-numeric:tabular-nums}
 .offer .big small{font:600 56px var(--font);color:var(--ink2)}
 .offer .was{font:500 40px var(--font);color:var(--ink2);text-decoration:line-through}
+#fs{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font:500 30px var(--font);color:var(--ink2);background:var(--glass);border:1px solid var(--glass-line);padding:12px 32px;border-radius:999px;transition:opacity .6s;pointer-events:none}
 #bar{position:absolute;bottom:0;right:0;height:6px;background:var(--ink);opacity:.55;width:0}
 #msg{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font:600 56px var(--font);color:var(--ink2)}
 .lowmo .slide,.lowmo .slide.on{transition:none}
@@ -66,7 +67,7 @@ body{font-size:16px}
 </style>
 </head>
 <body>
-<div id="stage"><div id="msg">جاري تحميل المنيو…</div><div id="bar"></div></div>
+<div id="stage"><div id="msg">جاري تحميل المنيو…</div><div id="bar"></div><div id="fs">اضغط أي مكان لملء الشاشة</div></div>
 <script>
 (function(){
 var DWELL=7000,REFRESH=120000,PER=3;
@@ -99,6 +100,14 @@ function offerOn(){var d=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Amman'}
 var DRINKS=['hot','cold','cocktails','juices','shakes'];
 var MODE=(new URLSearchParams(location.search).get('show')||(/^screen2\./.test(location.hostname)?'drinks':/^screen\./.test(location.hostname)?'food':'all')).toLowerCase();
 function inMode(id){return MODE==='drinks'?DRINKS.indexOf(id)>-1:MODE==='food'?DRINKS.indexOf(id)<0:true}
+// المتصفح بيمنع ملء الشاشة التلقائي، فأول ضغطة أو مفتاح بتدخّل ملء الشاشة
+(function(){var h=document.getElementById('fs');
+function go(){var e=document.documentElement;(e.requestFullscreen||e.webkitRequestFullscreen||function(){}).call(e)}
+function done(){h.style.opacity=0;['click','keydown','touchend'].forEach(function(t){removeEventListener(t,on)})}
+function on(){go();done()}
+['click','keydown','touchend'].forEach(function(t){addEventListener(t,on)});
+document.addEventListener('fullscreenchange',function(){if(document.fullscreenElement)h.style.opacity=0});
+setTimeout(function(){h.style.opacity=0},12000);})();
 var slides=[],cur=-1,timer=null,t0=0,sig='';
 
 function build(DATA){
