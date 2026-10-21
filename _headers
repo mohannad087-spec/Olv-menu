@@ -5,6 +5,16 @@
   Strict-Transport-Security: max-age=31536000
   Permissions-Policy: camera=(), microphone=(), payment=(), usb=()
 
+# كاش للملفات الثابتة (الخطوط ما بتتغير؛ الصور والأصوات أسبوع مع تحديث بالخلفية)
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/photos/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/assets/sounds/*
+  Cache-Control: public, max-age=604800
+/assets/motion/vendor/*
+  Cache-Control: public, max-age=604800
+
 # صفحات الإدارة والموظفين: ما لازم تنفهرس بمحركات البحث
 /tv.html
   X-Robots-Tag: noindex, nofollow
