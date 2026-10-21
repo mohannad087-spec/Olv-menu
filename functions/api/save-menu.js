@@ -47,6 +47,17 @@ export async function onRequest(context) {
     });
   }
 
+  // فحص أساسي قبل النشر: سعر سالب أو مش رقم بيخرّب الحسابات عند الزبون والسيرفر
+  const bad = payload.menu.items.find(i => !i || typeof i !== 'object' || !i.id || !String(i.ar || '').trim()
+    || !Number.isFinite(Number(i.price)) || Number(i.price) < 0
+    || (i.meal && !(Number(i.meal.price) >= 0)) || (i.large && !(Number(i.large.price) >= 0)));
+  if (bad) {
+    return new Response(JSON.stringify({ ok: false, error: `بيانات صنف غير صحيحة (اسم أو سعر): ${String(bad?.ar || bad?.id || '')}` }), {
+      status: 400,
+      headers: { 'content-type': 'application/json' }
+    });
+  }
+
   const apiBase = 'https://api.github.com';
   const headers = {
     'Authorization': `Bearer ${token}`,

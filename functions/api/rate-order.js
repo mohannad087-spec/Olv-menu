@@ -25,10 +25,12 @@ export async function onRequest(context) {
   const comment = String(p.comment || '').slice(0, 500);
 
   try {
-    const o = await db.prepare('SELECT status FROM orders WHERE id = ?1').bind(String(p.orderId)).first();
+    const o = await db.prepare('SELECT status, rating FROM orders WHERE id = ?1').bind(String(p.orderId)).first();
     if (!o) return json({ ok: false, error: 'Order not found' }, 404);
     if (o.status !== 'completed') return json({ ok: false, error: 'يمكن تقييم الطلب بعد اكتماله فقط.' }, 400);
-    await db.prepare('UPDATE orders SET rating = ?1, rating_comment = ?2, rated_at = ?3 WHERE id = ?4')
+    if (o.rating != null) return json({ ok: false, error: 'تم تقييم هذا الطلب من قبل.' }, 409);
+    // AND rating IS NULL: التقييم مرة وحدة بس، حتى لو انبعت طلبين بنفس اللحظة
+    await db.prepare('UPDATE orders SET rating = ?1, rating_comment = ?2, rated_at = ?3 WHERE id = ?4 AND rating IS NULL')
       .bind(stars, comment, new Date().toISOString(), String(p.orderId)).run();
     return json({ ok: true });
   } catch (e) {
