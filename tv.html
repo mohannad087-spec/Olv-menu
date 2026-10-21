@@ -108,7 +108,7 @@ function on(){go();done()}
 ['click','keydown','touchend'].forEach(function(t){addEventListener(t,on)});
 document.addEventListener('fullscreenchange',function(){if(document.fullscreenElement)h.style.opacity=0});
 setTimeout(function(){h.style.opacity=0},12000);})();
-var slides=[],cur=-1,timer=null,t0=0,sig='';
+var slides=[],cur=-1,timer=null,t0=performance.now(),sig='';
 
 function build(DATA){
   var out=[];
@@ -168,7 +168,10 @@ function load(first){
     if(first||cur<0||cur>=slides.length){show(0)}else{show(cur)}
   }).catch(function(){if(first){msg.textContent='تعذّر تحميل المنيو';msg.style.display='flex'}});
 }
-load(true).then(function(){requestAnimationFrame(tick)});
+requestAnimationFrame(tick);
+load(true);
+// لو فشل أول تحميل (نت ضعيف أو رفرش) بنعيد المحاولة كل 10 ثواني لين ينجح
+var retry=setInterval(function(){if(slides.length)clearInterval(retry);else load(true)},10000);
 setInterval(function(){load(false)},REFRESH);
 // كل ساعة نعيد تحميل الصفحة كلها عشان تاخذ آخر نسخة من الكود
 setTimeout(function(){location.reload()},6*3600*1000);
