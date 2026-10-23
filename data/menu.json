@@ -114,7 +114,7 @@
       "price": 5.5,
       "popular": true,
       "tags": [],
-      "available": true,
+      "available": false,
       "image": "assets/photos/olv-burger.webp"
     },
     {
@@ -2157,7 +2157,7 @@
       "en": "Mix Waffle",
       "descAr": "",
       "descEn": "",
-      "price": 2.0,
+      "price": 2,
       "tags": [
         "veg"
       ],
@@ -2225,7 +2225,7 @@
       "en": "Pistachio Bubble Waffle",
       "descAr": "",
       "descEn": "",
-      "price": 3.0,
+      "price": 3,
       "tags": [
         "veg"
       ],
@@ -2242,7 +2242,7 @@
       "en": "Fruit Waffle",
       "descAr": "",
       "descEn": "",
-      "price": 2.0,
+      "price": 2,
       "tags": [
         "veg"
       ],
@@ -2293,7 +2293,7 @@
       "en": "Classic Crepe",
       "descAr": "",
       "descEn": "",
-      "price": 2.0,
+      "price": 2,
       "tags": [
         "veg"
       ],
@@ -2327,7 +2327,7 @@
       "en": "Mix Crepe + Pistachio",
       "descAr": "",
       "descEn": "",
-      "price": 3.0,
+      "price": 3,
       "tags": [
         "veg"
       ],
@@ -2361,7 +2361,7 @@
       "en": "Pistachio Crepe",
       "descAr": "",
       "descEn": "",
-      "price": 3.0,
+      "price": 3,
       "tags": [
         "veg"
       ],
