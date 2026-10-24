@@ -102,4 +102,6 @@ render=function(){
   $('menu').classList.remove('swap');void $('menu').offsetWidth;$('menu').classList.add('swap');
   updateCart();setupScrollSpy();
 };
+// الداتا ممكن توصل قبل ما هالملف يتحمّل، فتنرسم الأقسام بالشكل القديم؛ بنعيد الرسم هون
+try{if(DATA&&DATA.items&&DATA.categories){renderCats();render()}}catch(e){}
 })();

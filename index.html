@@ -409,7 +409,7 @@ function foc(el){return [].slice.call(el.querySelectorAll('button,[href],input,s
 ids.forEach(function(id){var el=document.getElementById(id);if(!el)return;new MutationObserver(function(){var on=el.classList.contains('open');if(on&&!openSet[id]){openSet[id]=1;opener=opener||document.activeElement;var kb=false;try{kb=!!(opener&&opener.matches&&opener.matches(':focus-visible'))}catch(e){}setTimeout(function(){var f=kb?foc(el)[0]:null;if(!f){el.setAttribute('tabindex','-1');f=el}f.focus({preventScroll:true})},60)}else if(!on&&openSet[id]){delete openSet[id];if(!Object.keys(openSet).length&&opener&&document.contains(opener)){try{opener.focus({preventScroll:true})}catch(e){}opener=null}}}).observe(el,{attributes:true,attributeFilter:['class']})});
 document.addEventListener('keydown',function(e){var top=ids.map(function(id){return document.getElementById(id)}).filter(function(el){return el&&el.classList.contains('open')}).pop();if(!top)return;if(e.key==='Escape'){e.preventDefault();goBack()}else if(e.key==='Tab'){var f=foc(top);if(!f.length)return;var a=document.activeElement,i=f.indexOf(a);if(e.shiftKey&&(i<=0)){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&(i===f.length-1||i<0)){e.preventDefault();f[0].focus()}}})})();
 </script>
-<script src="assets/olv-browse.js?v=3"></script><script src="assets/olv-cart-fx.js?v=1"></script>
+<script src="assets/olv-browse.js?v=4"></script><script src="assets/olv-cart-fx.js?v=1"></script>
 <!-- الحركة: GSAP + ScrollTrigger + SplitText، Lenis، ونسخ React Bits (assets/motion/) -->
 <script defer src="assets/motion/vendor/gsap.min.js?v=1"></script>
 <script defer src="assets/motion/vendor/ScrollTrigger.min.js?v=1"></script>
