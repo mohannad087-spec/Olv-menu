@@ -2600,6 +2600,210 @@
         "price": 2.5,
         "descAr": "مع بطاطا"
       }
+    },
+    {
+      "id": "sw-zinger",
+      "cat": "snacks",
+      "subcat": "sandwiches",
+      "subcatAr": "ساندويشات",
+      "subcatEn": "Sandwiches",
+      "ar": "ساندويش زنجر",
+      "en": "Zinger Sandwich",
+      "descAr": "زنجر، خس، كوكتيل صوص، جبنة شدر، تيركي",
+      "descEn": "Zinger chicken, lettuce, cocktail sauce, cheddar, turkey",
+      "price": 1.75,
+      "tags": [],
+      "image": "assets/photos/sandwich-zinger.webp",
+      "meal": {
+        "price": 2.5,
+        "descAr": "مع بطاطا"
+      }
+    },
+    {
+      "id": "sw-zinger-cream",
+      "cat": "snacks",
+      "subcat": "sandwiches",
+      "subcatAr": "ساندويشات",
+      "subcatEn": "Sandwiches",
+      "ar": "ساندويش زنجر كريما",
+      "en": "Creamy Zinger Sandwich",
+      "descAr": "زنجر، خس، كريما، تيركي، جبنة شدر، موزاريلا",
+      "descEn": "Zinger chicken, lettuce, cream sauce, turkey, cheddar, mozzarella",
+      "price": 2.25,
+      "tags": [],
+      "meal": {
+        "price": 2.75,
+        "descAr": "مع بطاطا"
+      }
+    },
+    {
+      "id": "sw-fajita",
+      "cat": "snacks",
+      "subcat": "sandwiches",
+      "subcatAr": "ساندويشات",
+      "subcatEn": "Sandwiches",
+      "ar": "ساندويش فاهيتا",
+      "en": "Fajita Sandwich",
+      "descAr": "دجاج، فلفل ألوان، فطر، بطاطا",
+      "descEn": "Chicken, colored peppers, mushrooms, potato",
+      "price": 2.5,
+      "tags": []
+    },
+    {
+      "id": "sw-bbq",
+      "cat": "snacks",
+      "subcat": "sandwiches",
+      "subcatAr": "ساندويشات",
+      "subcatEn": "Sandwiches",
+      "ar": "ساندويش باربكيو",
+      "en": "BBQ Sandwich",
+      "descAr": "دجاج، باربكيو، جبنة شدر",
+      "descEn": "Chicken, BBQ sauce, cheddar",
+      "price": 2.5,
+      "tags": []
+    },
+    {
+      "id": "sw-mushroom",
+      "cat": "snacks",
+      "subcat": "sandwiches",
+      "subcatAr": "ساندويشات",
+      "subcatEn": "Sandwiches",
+      "ar": "ساندويش مشروم",
+      "en": "Mushroom Sandwich",
+      "descAr": "دجاج مسحب، فطر، جبنة شدر، كوكتيل صوص، موزاريلا",
+      "descEn": "Shredded chicken, mushrooms, cheddar, cocktail sauce, mozzarella",
+      "price": 2.5,
+      "tags": [],
+      "meal": {
+        "price": 3.0,
+        "descAr": "مع بطاطا"
+      }
+    },
+    {
+      "id": "sw-mexican",
+      "cat": "snacks",
+      "subcat": "sandwiches",
+      "subcatAr": "ساندويشات",
+      "subcatEn": "Sandwiches",
+      "ar": "ساندويش مكسيكي",
+      "en": "Mexican Sandwich",
+      "descAr": "دجاج، فلفل حار، فلفل حلو، هالبينو، صوص حار، خس",
+      "descEn": "Chicken, hot pepper, sweet pepper, jalapeño, hot sauce, lettuce",
+      "price": 2.5,
+      "tags": [
+        "spicy"
+      ]
+    },
+    {
+      "id": "sw-shish",
+      "cat": "snacks",
+      "subcat": "sandwiches",
+      "subcatAr": "ساندويشات",
+      "subcatEn": "Sandwiches",
+      "ar": "ساندويش شيش",
+      "en": "Shish Sandwich",
+      "descAr": "شيش، مايونيز، مخلل",
+      "descEn": "Shish tawook, mayonnaise, pickles",
+      "price": 1.5,
+      "tags": [],
+      "meal": {
+        "price": 2.5,
+        "descAr": "مع بطاطا"
+      }
+    },
+    {
+      "id": "sh-chicken",
+      "cat": "snacks",
+      "subcat": "shawarma",
+      "subcatAr": "شاورما",
+      "subcatEn": "Shawarma",
+      "ar": "شاورما دجاج عادي",
+      "en": "Chicken Shawarma",
+      "descAr": "دجاج، ثومة، بطاطا، مخلل",
+      "descEn": "Chicken, garlic sauce, fries, pickles",
+      "price": 0.75,
+      "tags": [],
+      "meal": {
+        "price": 2.0,
+        "descAr": "مع بطاطا"
+      }
+    },
+    {
+      "id": "sh-chicken-super",
+      "cat": "snacks",
+      "subcat": "shawarma",
+      "subcatAr": "شاورما",
+      "subcatEn": "Shawarma",
+      "ar": "شاورما دجاج سوبر",
+      "en": "Chicken Shawarma Super",
+      "descAr": "دجاج، ثومة، بطاطا، مخلل",
+      "descEn": "Chicken, garlic sauce, fries, pickles",
+      "price": 1.25,
+      "tags": [],
+      "meal": {
+        "price": 2.5,
+        "descAr": "مع بطاطا"
+      }
+    },
+    {
+      "id": "sh-chicken-double",
+      "cat": "snacks",
+      "subcat": "shawarma",
+      "subcatAr": "شاورما",
+      "subcatEn": "Shawarma",
+      "ar": "شاورما دجاج دبل (وجبة)",
+      "en": "Chicken Shawarma Double Meal",
+      "descAr": "وجبة دبل: دجاج، ثومة، بطاطا، مخلل",
+      "descEn": "Double meal: chicken, garlic sauce, fries, pickles",
+      "price": 3.0,
+      "tags": []
+    },
+    {
+      "id": "sh-meat",
+      "cat": "snacks",
+      "subcat": "shawarma",
+      "subcatAr": "شاورما",
+      "subcatEn": "Shawarma",
+      "ar": "شاورما لحمة عادي",
+      "en": "Beef Shawarma",
+      "descAr": "لحمة، طحينية، بصل، بندورة",
+      "descEn": "Beef, tahini, onion, tomato",
+      "price": 0.85,
+      "tags": [],
+      "meal": {
+        "price": 2.25,
+        "descAr": "مع بطاطا"
+      }
+    },
+    {
+      "id": "sh-meat-super",
+      "cat": "snacks",
+      "subcat": "shawarma",
+      "subcatAr": "شاورما",
+      "subcatEn": "Shawarma",
+      "ar": "شاورما لحمة سوبر",
+      "en": "Beef Shawarma Super",
+      "descAr": "لحمة، طحينية، بصل، بندورة",
+      "descEn": "Beef, tahini, onion, tomato",
+      "price": 1.45,
+      "tags": [],
+      "meal": {
+        "price": 2.75,
+        "descAr": "مع بطاطا"
+      }
+    },
+    {
+      "id": "sh-meat-double",
+      "cat": "snacks",
+      "subcat": "shawarma",
+      "subcatAr": "شاورما",
+      "subcatEn": "Shawarma",
+      "ar": "شاورما لحمة دبل (وجبة)",
+      "en": "Beef Shawarma Double Meal",
+      "descAr": "وجبة دبل: لحمة، طحينية، بصل، بندورة",
+      "descEn": "Double meal: beef, tahini, onion, tomato",
+      "price": 3.25,
+      "tags": []
     }
   ],
   "shishaOptions": {
