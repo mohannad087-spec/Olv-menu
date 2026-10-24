@@ -298,7 +298,8 @@
       "descEn": "Chicken, turkey, cheese, lettuce & tomato with fries",
       "price": 4.75,
       "tags": [],
-      "image": "assets/photos/club.webp"
+      "image": "assets/photos/club.webp",
+      "available": false
     },
     {
       "id": "crispy-sandwich",
@@ -312,7 +313,8 @@
       "descEn": "Crispy chicken, lettuce, cheese & signature sauce",
       "price": 4.5,
       "tags": [],
-      "image": "assets/photos/crispy-sandwich.webp"
+      "image": "assets/photos/crispy-sandwich.webp",
+      "available": false
     },
     {
       "id": "steak",
@@ -327,7 +329,7 @@
       "price": 5.5,
       "tags": [],
       "image": "assets/photos/steak.webp",
-      "available": true
+      "available": false
     },
     {
       "id": "philly",
@@ -341,7 +343,8 @@
       "descEn": "Steak strips with cheese, onion & signature sauce",
       "price": 5.75,
       "tags": [],
-      "image": "assets/photos/philly.webp"
+      "image": "assets/photos/philly.webp",
+      "available": false
     },
     {
       "id": "alfredo",
