@@ -355,17 +355,21 @@
     {
       "id": "alfredo",
       "cat": "pasta",
-      "subcat": "creamy",
-      "subcatAr": "كريمي",
+      "subcat": "كريمي دجاج",
+      "subcatAr": "كريمي دجاج",
       "subcatEn": "Creamy",
       "ar": "باستا ألفريدو بالدجاج",
       "en": "Chicken Alfredo Pasta",
       "descAr": "باستا بصوص ألفريدو الكريمي والدجاج",
       "descEn": "Pasta in creamy Alfredo sauce with chicken",
-      "price": 5.75,
+      "price": 2.5,
       "tags": [],
       "available": true,
-      "image": "assets/photos/alfredo.webp"
+      "image": "assets/photos/alfredo.webp",
+      "popular": false,
+      "large": {
+        "price": 3
+      }
     },
     {
       "id": "arrabbiata",
@@ -2846,6 +2850,44 @@
       "descEn": "Double meal: beef, tahini, onion, tomato",
       "price": 3.25,
       "tags": []
+    },
+    {
+      "id": "item-1792877670610",
+      "cat": "pasta",
+      "ar": "باستا ألفريدو خضار",
+      "en": "باستا ألفريدو خضار",
+      "price": 2,
+      "subcatAr": "كريمي خضار",
+      "subcatEn": "باستا ألفريدو خضار",
+      "subcat": "كريمي خضار",
+      "image": "assets/photos/alfredo.webp",
+      "descAr": "",
+      "descEn": "",
+      "available": true,
+      "popular": false,
+      "tags": [],
+      "large": {
+        "price": 2.5
+      }
+    },
+    {
+      "id": "item-1792877840161",
+      "cat": "pasta",
+      "ar": "فوتتشيني",
+      "en": "فوتتشيني",
+      "price": 2.5,
+      "subcatAr": "باستا فوتتشيني",
+      "subcatEn": "فوتتشيني",
+      "subcat": "باستا فوتتشيني",
+      "image": "assets/photos/alfredo.webp",
+      "descAr": "يمكن ان تقدم بدون دجاج",
+      "descEn": "",
+      "available": true,
+      "popular": false,
+      "tags": [],
+      "large": {
+        "price": 3
+      }
     }
   ],
   "shishaOptions": {
