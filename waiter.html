@@ -94,6 +94,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 <button id="cartbar" class="cartbar" onclick="openCart()"><span id="cartText">السلة</span><span id="cartTotal"></span></button>
 <div id="toast" class="toast"></div>
 
+<div id="flavorOverlay" class="overlay"><div class="sheet"><div style="margin:-4px 0 10px"><button class="olv-back" data-layer></button></div><h2 id="flavorTitle">اختر النكهة</h2><div id="flavorList" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div></div></div>
 <div id="cartOverlay" class="overlay"><div class="sheet"><div style="margin:-4px 0 10px"><button class="olv-back" data-layer></button></div>
   <h2>الطلب الحالي</h2>
   <div id="cartRows"></div>
@@ -204,8 +205,25 @@ async function toggleAvail(id,currentlyOk){
   }catch(e){showToast(e.message)}
 }
 
+// الأرجيلة: لازم نكهة قبل الإضافة (نفس خيارات صفحة الزبون)
+function flavorsFor(i){const o=DATA.shishaOptions;if(!o)return[];const allowed=i.flavors||o.flavors.map(f=>f.id);return o.flavors.filter(f=>allowed.includes(f.id)&&f.available!==false)}
+function openFlavors(i){
+  const list=flavorsFor(i);if(!list.length){showToast('ما في نكهات متوفرة');return}
+  $('flavorTitle').textContent=i.ar+' — اختر النكهة';
+  $('flavorList').innerHTML=list.map(f=>`<button class="add" style="width:auto;padding:12px 8px;font-size:15px" data-f="${f.id}">${f.ar}</button>`).join('');
+  $('flavorList').querySelectorAll('button').forEach(b=>b.onclick=()=>{const fl=list.find(f=>f.id===b.dataset.f);closeFlavors();addShisha(i,fl)});
+  if(!$('flavorOverlay').classList.contains('open')){$('flavorOverlay').classList.add('open');olvLayerOpen(hideFlavors)}
+}
+function hideFlavors(){$('flavorOverlay').classList.remove('open')}
+function closeFlavors(){if($('flavorOverlay').classList.contains('open')&&!olvLayerBack())hideFlavors()}
+function addShisha(i,fl){
+  const label=`${i.ar} — ${fl.ar}`,f=cart.find(x=>x.id===i.id&&x.label===label);
+  if(f)f.qty++;else cart.push({id:i.id,qty:1,price:i.price,label,custom:{options:[fl.ar],remove:[],extras:[],note:''}});
+  updateCartBar();showToast('أُضيف للطلب');
+}
 function addToCart(id,size){
   const i=DATA.items.find(x=>x.id===id);if(!i||i.available===false)return;
+  if(i.cat==='shisha'){openFlavors(i);return}
   // الأصناف اللي إلها حجمين بتنضاف كسطر منفصل لكل حجم
   const sized=!!(i.large&&i.large.price);if(sized&&size!=='large')size='small';
   const f=cart.find(x=>x.id===id&&(x.custom?.size||null)===(sized?size:null));
