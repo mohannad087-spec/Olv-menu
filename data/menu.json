@@ -221,7 +221,8 @@
       "price": 4.5,
       "popular": true,
       "tags": [],
-      "image": "assets/photos/wings.webp"
+      "image": "assets/photos/wings.webp",
+      "available": false
     },
     {
       "id": "chicken-strips",
@@ -235,7 +236,8 @@
       "descEn": "Crispy chicken strips with signature sauce",
       "price": 4.25,
       "tags": [],
-      "image": "assets/photos/chicken-strips.webp"
+      "image": "assets/photos/chicken-strips.webp",
+      "available": false
     },
     {
       "id": "mozzarella",
@@ -251,7 +253,8 @@
       "tags": [
         "veg"
       ],
-      "image": "assets/photos/mozzarella.webp"
+      "image": "assets/photos/mozzarella.webp",
+      "available": false
     },
     {
       "id": "nachos",
@@ -268,23 +271,26 @@
         "veg",
         "spicy"
       ],
-      "image": "assets/photos/nachos.webp"
+      "image": "assets/photos/nachos.webp",
+      "available": false
     },
     {
       "id": "fries",
       "cat": "snacks",
-      "subcat": "sharing",
+      "subcat": "للمشاركة",
       "subcatAr": "للمشاركة",
       "subcatEn": "Sharing",
       "ar": "بطاطا OLV",
       "en": "OLV Fries",
       "descAr": "بطاطا مقرمشة مع صوص OLV",
       "descEn": "Crispy fries with OLV sauce",
-      "price": 2.5,
+      "price": 1,
       "tags": [
         "veg"
       ],
-      "image": "assets/photos/fries.webp"
+      "image": "assets/photos/fries.webp",
+      "available": true,
+      "popular": false
     },
     {
       "id": "club",
@@ -2604,7 +2610,7 @@
     {
       "id": "sw-zinger",
       "cat": "snacks",
-      "subcat": "sandwiches",
+      "subcat": "ساندويشات",
       "subcatAr": "ساندويشات",
       "subcatEn": "Sandwiches",
       "ar": "ساندويش زنجر",
@@ -2617,12 +2623,14 @@
       "meal": {
         "price": 2.5,
         "descAr": "مع بطاطا"
-      }
+      },
+      "available": true,
+      "popular": false
     },
     {
       "id": "sw-zinger-cream",
       "cat": "snacks",
-      "subcat": "sandwiches",
+      "subcat": "ساندويشات",
       "subcatAr": "ساندويشات",
       "subcatEn": "Sandwiches",
       "ar": "ساندويش زنجر كريما",
@@ -2632,14 +2640,17 @@
       "price": 2.25,
       "tags": [],
       "meal": {
-        "price": 2.75,
+        "price": 3,
         "descAr": "مع بطاطا"
-      }
+      },
+      "image": "",
+      "available": true,
+      "popular": false
     },
     {
       "id": "sw-fajita",
       "cat": "snacks",
-      "subcat": "sandwiches",
+      "subcat": "ساندويشات",
       "subcatAr": "ساندويشات",
       "subcatEn": "Sandwiches",
       "ar": "ساندويش فاهيتا",
@@ -2647,12 +2658,19 @@
       "descAr": "دجاج، فلفل ألوان، فطر، بطاطا",
       "descEn": "Chicken, colored peppers, mushrooms, potato",
       "price": 2.5,
-      "tags": []
+      "tags": [],
+      "image": "",
+      "available": true,
+      "popular": false,
+      "meal": {
+        "price": 3,
+        "descAr": "مع بطاطا"
+      }
     },
     {
       "id": "sw-bbq",
       "cat": "snacks",
-      "subcat": "sandwiches",
+      "subcat": "ساندويشات",
       "subcatAr": "ساندويشات",
       "subcatEn": "Sandwiches",
       "ar": "ساندويش باربكيو",
@@ -2660,12 +2678,19 @@
       "descAr": "دجاج، باربكيو، جبنة شدر",
       "descEn": "Chicken, BBQ sauce, cheddar",
       "price": 2.5,
-      "tags": []
+      "tags": [],
+      "image": "",
+      "available": true,
+      "popular": false,
+      "meal": {
+        "price": 3,
+        "descAr": "مع بطاطا"
+      }
     },
     {
       "id": "sw-mushroom",
       "cat": "snacks",
-      "subcat": "sandwiches",
+      "subcat": "ساندويشات",
       "subcatAr": "ساندويشات",
       "subcatEn": "Sandwiches",
       "ar": "ساندويش مشروم",
@@ -2675,14 +2700,17 @@
       "price": 2.5,
       "tags": [],
       "meal": {
-        "price": 3.0,
+        "price": 3,
         "descAr": "مع بطاطا"
-      }
+      },
+      "image": "",
+      "available": true,
+      "popular": false
     },
     {
       "id": "sw-mexican",
       "cat": "snacks",
-      "subcat": "sandwiches",
+      "subcat": "ساندويشات",
       "subcatAr": "ساندويشات",
       "subcatEn": "Sandwiches",
       "ar": "ساندويش مكسيكي",
@@ -2692,7 +2720,14 @@
       "price": 2.5,
       "tags": [
         "spicy"
-      ]
+      ],
+      "image": "",
+      "available": true,
+      "popular": false,
+      "meal": {
+        "price": 3,
+        "descAr": ""
+      }
     },
     {
       "id": "sw-shish",
@@ -2714,35 +2749,40 @@
     {
       "id": "sh-chicken",
       "cat": "snacks",
-      "subcat": "shawarma",
-      "subcatAr": "شاورما",
+      "subcat": "شاورما سوبر",
+      "subcatAr": "شاورما سوبر",
       "subcatEn": "Shawarma",
       "ar": "شاورما دجاج عادي",
       "en": "Chicken Shawarma",
       "descAr": "دجاج، ثومة، بطاطا، مخلل",
       "descEn": "Chicken, garlic sauce, fries, pickles",
-      "price": 0.75,
+      "price": 1,
       "tags": [],
-      "meal": {
-        "price": 2.0,
-        "descAr": "مع بطاطا"
-      }
+      "image": "",
+      "available": true,
+      "popular": false
     },
     {
       "id": "sh-chicken-super",
       "cat": "snacks",
-      "subcat": "shawarma",
-      "subcatAr": "شاورما",
+      "subcat": "وجبة شاورما",
+      "subcatAr": "وجبة شاورما",
       "subcatEn": "Shawarma",
       "ar": "شاورما دجاج سوبر",
       "en": "Chicken Shawarma Super",
       "descAr": "دجاج، ثومة، بطاطا، مخلل",
       "descEn": "Chicken, garlic sauce, fries, pickles",
-      "price": 1.25,
+      "price": 2,
       "tags": [],
       "meal": {
-        "price": 2.5,
+        "price": 2.75,
         "descAr": "مع بطاطا"
+      },
+      "image": "",
+      "available": true,
+      "popular": false,
+      "large": {
+        "price": 3.5
       }
     },
     {
@@ -2755,42 +2795,44 @@
       "en": "Chicken Shawarma Double Meal",
       "descAr": "وجبة دبل: دجاج، ثومة، بطاطا، مخلل",
       "descEn": "Double meal: chicken, garlic sauce, fries, pickles",
-      "price": 3.0,
+      "price": 3,
       "tags": []
     },
     {
       "id": "sh-meat",
       "cat": "snacks",
-      "subcat": "shawarma",
-      "subcatAr": "شاورما",
+      "subcat": "وجبة شاورما لحمه",
+      "subcatAr": "وجبة شاورما لحمه",
       "subcatEn": "Shawarma",
       "ar": "شاورما لحمة عادي",
       "en": "Beef Shawarma",
       "descAr": "لحمة، طحينية، بصل، بندورة",
       "descEn": "Beef, tahini, onion, tomato",
-      "price": 0.85,
+      "price": 2.5,
       "tags": [],
       "meal": {
-        "price": 2.25,
+        "price": 3.5,
         "descAr": "مع بطاطا"
-      }
+      },
+      "image": "",
+      "available": true,
+      "popular": false
     },
     {
       "id": "sh-meat-super",
       "cat": "snacks",
-      "subcat": "shawarma",
-      "subcatAr": "شاورما",
+      "subcat": "شاورما ساندويش",
+      "subcatAr": "شاورما ساندويش",
       "subcatEn": "Shawarma",
       "ar": "شاورما لحمة سوبر",
       "en": "Beef Shawarma Super",
       "descAr": "لحمة، طحينية، بصل، بندورة",
       "descEn": "Beef, tahini, onion, tomato",
-      "price": 1.45,
+      "price": 1.5,
       "tags": [],
-      "meal": {
-        "price": 2.75,
-        "descAr": "مع بطاطا"
-      }
+      "image": "",
+      "available": true,
+      "popular": false
     },
     {
       "id": "sh-meat-double",
