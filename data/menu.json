@@ -104,33 +104,42 @@
     {
       "id": "olv-burger",
       "cat": "burgers",
-      "subcat": "signature",
-      "subcatAr": "برغر OLV",
+      "subcat": "برغر OLV وجبه",
+      "subcatAr": "برغر OLV وجبه",
       "subcatEn": "OLV Signature",
       "ar": "برغر OLV",
       "en": "OLV Burger",
-      "descAr": "برغر لحم، جبنة، خس، طماطم وصوص OLV",
+      "descAr": "برغر لحم، جبنة، خس، طماطم وصوص  وجبنه خاصه OLV",
       "descEn": "Beef burger, cheese, lettuce, tomato & OLV sauce",
-      "price": 5.5,
+      "price": 4,
       "popular": true,
       "tags": [],
-      "available": false,
-      "image": "assets/photos/olv-burger.webp"
+      "available": true,
+      "image": "assets/photos/olv-burger.webp",
+      "meal": {
+        "price": 400,
+        "descAr": "مع بطاطا"
+      }
     },
     {
       "id": "crispy-burger",
       "cat": "burgers",
-      "subcat": "crispy",
+      "subcat": "كريسبي",
       "subcatAr": "كريسبي",
       "subcatEn": "Crispy",
       "ar": "كريسبي تشيكن برغر",
       "en": "Crispy Chicken Burger",
       "descAr": "دجاج مقرمش، جبنة، خس وصوص خاص",
       "descEn": "Crispy chicken, cheese, lettuce & special sauce",
-      "price": 4.75,
+      "price": 200,
       "popular": true,
       "tags": [],
-      "image": "assets/photos/crispy-burger.webp"
+      "image": "assets/photos/crispy-burger.webp",
+      "available": true,
+      "meal": {
+        "price": 33,
+        "descAr": "مع بطاطا"
+      }
     },
     {
       "id": "classic-burger",
@@ -144,7 +153,8 @@
       "descEn": "Beef burger, lettuce, tomato, onion & burger sauce",
       "price": 5.25,
       "tags": [],
-      "image": "assets/photos/classic-burger.webp"
+      "image": "assets/photos/classic-burger.webp",
+      "available": false
     },
     {
       "id": "cheese-burger",
@@ -158,23 +168,30 @@
       "descEn": "Beef burger with cheddar cheese & signature sauce",
       "price": 5.75,
       "tags": [],
-      "image": "assets/photos/cheese-burger.webp"
+      "image": "assets/photos/cheese-burger.webp",
+      "available": false
     },
     {
       "id": "spicy-burger",
       "cat": "burgers",
-      "subcat": "spicy",
-      "subcatAr": "سبايسي",
+      "subcat": "سبايسي مكسيكي",
+      "subcatAr": "سبايسي مكسيكي",
       "subcatEn": "Spicy",
       "ar": "سبايسي برغر",
       "en": "Spicy Burger",
       "descAr": "برغر لحم، جبنة، هالبينو وصوص سبايسي",
       "descEn": "Beef burger, cheese, jalapeño & spicy sauce",
-      "price": 6,
+      "price": 2.25,
       "tags": [
         "spicy"
       ],
-      "image": "assets/photos/spicy-burger.webp"
+      "image": "assets/photos/spicy-burger.webp",
+      "available": true,
+      "popular": false,
+      "meal": {
+        "price": 3,
+        "descAr": "مع بطاطا"
+      }
     },
     {
       "id": "mushroom-burger",
@@ -188,7 +205,8 @@
       "descEn": "Beef burger, mushrooms, cheese & creamy sauce",
       "price": 6.25,
       "tags": [],
-      "image": "assets/photos/mushroom-burger.webp"
+      "image": "assets/photos/mushroom-burger.webp",
+      "available": false
     },
     {
       "id": "wings",
@@ -2559,6 +2577,26 @@
       ],
       "available": true,
       "image": "assets/photos/mojito-redbull.webp"
+    },
+    {
+      "id": "item-1792875774804",
+      "cat": "burgers",
+      "ar": "سكالوب دجاج",
+      "en": "سكالوب دجاج",
+      "price": 1.5,
+      "subcatAr": "سكالوب دجاج",
+      "subcatEn": "سكالوب دجاج",
+      "subcat": "سكالوب دجاج",
+      "image": "assets/photos/crispy-burger.webp",
+      "descAr": "",
+      "descEn": "",
+      "available": true,
+      "popular": false,
+      "tags": [],
+      "meal": {
+        "price": 2.5,
+        "descAr": "مع بطاطا"
+      }
     }
   ],
   "shishaOptions": {
