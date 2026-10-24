@@ -25,6 +25,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 .cats{display:flex;gap:8px;overflow:auto;padding:4px 0 10px;scrollbar-width:none}
 .cats::-webkit-scrollbar{display:none}
 .cat{white-space:nowrap;min-height:44px;background:var(--surface);color:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:0 16px;font-size:14px}
+.groups .cat{min-height:52px;flex:1;font-size:15px;font-weight:600;padding:0 12px}
 .cat.active{background:var(--primary);border-color:var(--primary);color:var(--on-primary);font-weight:600}
 .search{width:100%;min-height:48px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 14px;color:var(--ink);margin-bottom:10px;font-size:16px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
@@ -81,6 +82,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 
   <div id="menuTab">
     <input id="search" class="search" placeholder="ابحث عن صنف...">
+    <div id="groups" class="cats groups"></div>
     <div id="cats" class="cats"></div>
     <div id="grid" class="grid"></div>
   </div>
@@ -171,15 +173,27 @@ async function init(){
   document.addEventListener('click',ensureAudio);
 }
 
+// نفس الأقسام الأربعة تبع منيو الزبون، وتحتها تصنيفات القسم المختار
+const GROUPS=[{id:'food',ar:'الأكل',cats:['burgers','snacks','sandwiches','breakfast','bakery','pasta','salads']},{id:'drinks',ar:'المشروبات',cats:['hot','cold','cocktails','juices','shakes']},{id:'sweet',ar:'الحلو',cats:['desserts','icecream','donuts','waffles','crepes']},{id:'shisha',ar:'الأرجيلة',cats:['shisha']}];
+function groupOfActive(){
+  if(active==='all')return null;
+  if(active.startsWith('g:'))return GROUPS.find(g=>'g:'+g.id===active);
+  return GROUPS.find(g=>g.cats.includes(active))||null;
+}
 function renderCats(){
-  $('cats').innerHTML=['<button class="cat active" data-c="all">الكل</button>'].concat(DATA.categories.map(c=>`<button class="cat" data-c="${c.id}">${c.ar}</button>`)).join('');
-  $('cats').querySelectorAll('.cat').forEach(b=>b.onclick=()=>setCat(b.dataset.c));
+  const g=groupOfActive(),known=new Set(GROUPS.flatMap(x=>x.cats));
+  const extra=DATA.categories.filter(c=>c.id!=='popular'&&!known.has(c.id));
+  const groups=extra.length?GROUPS.concat({id:'more',ar:'المزيد',cats:extra.map(c=>c.id)}):GROUPS;
+  $('groups').innerHTML=[{k:'all',t:'الكل'}].concat(groups.map(x=>({k:'g:'+x.id,t:x.ar,on:g&&g.id===x.id}))).map(x=>`<button class="cat ${x.on||active===x.k?'active':''}" data-c="${x.k}">${x.t}</button>`).join('');
+  const cur=g||groups.find(x=>'g:'+x.id===active);
+  $('cats').innerHTML=cur?[`<button class="cat ${active==='g:'+cur.id?'active':''}" data-c="g:${cur.id}">كل ${cur.ar}</button>`].concat(cur.cats.map(id=>DATA.categories.find(c=>c.id===id)).filter(Boolean).map(c=>`<button class="cat ${active===c.id?'active':''}" data-c="${c.id}">${c.ar}</button>`)).join(''):'';
+  $('cats').hidden=!cur;
+  document.querySelectorAll('#groups .cat,#cats .cat').forEach(b=>b.onclick=()=>setCat(b.dataset.c));
 }
 // اختيار قسم = خطوة؛ زر الرجوع بيرجّع لـ«الكل»
 function setCat(c,fromBack){
   const was=active;active=c;
-  $('cats').querySelectorAll('.cat').forEach(x=>x.classList.toggle('active',x.dataset.c===c));
-  renderGrid();
+  renderCats();renderGrid();
   if(fromBack)return;
   if(was==='all'&&c!=='all')olvLayerOpen(()=>setCat('all',true));
   else if(was!=='all'&&c==='all')olvLayerBack();
@@ -188,7 +202,8 @@ function setCat(c,fromBack){
 function renderGrid(){
   const q=$('search').value.trim().toLowerCase();
   let items=DATA.items.filter(i=>!i.variants);
-  if(active!=='all')items=items.filter(i=>i.cat===active);
+  if(active.startsWith('g:')){const cs=new Set(((groupOfActive()||{}).cats)||DATA.categories.filter(c=>!GROUPS.some(x=>x.cats.includes(c.id))&&c.id!=='popular').map(c=>c.id));items=items.filter(i=>cs.has(i.cat))}
+  else if(active!=='all')items=items.filter(i=>i.cat===active);
   if(q)items=items.filter(i=>(i.ar+' '+i.en).toLowerCase().includes(q));
   $('grid').innerHTML=items.length?items.map(i=>{
     const ok=i.available!==false;
