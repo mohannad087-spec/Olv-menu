@@ -2,7 +2,7 @@
 // بيستبدل renderCats و render و card من index.html، وما بيغيّر شي بالطلب أو السلة أو الأسعار
 (function(){
 const GROUPS=[
-  {id:'food',ar:'الأكل',en:'Food',cats:['burgers','snacks','sandwiches','pasta','salads'],img:'burgers',pick:'olv-burger'},
+  {id:'food',ar:'الأكل',en:'Food',cats:['burgers','snacks','sandwiches','breakfast','bakery','pasta','salads'],img:'burgers',pick:'olv-burger'},
   {id:'drinks',ar:'المشروبات',en:'Drinks',cats:['hot','cold','cocktails','juices','shakes'],img:'hot',pick:'iced-spanish-latte'},
   {id:'sweet',ar:'الحلو',en:'Sweets',cats:['desserts','icecream','donuts','waffles','crepes'],img:'desserts',pick:'molten-cake'},
   {id:'shisha',ar:'الأرجيلة',en:'Shisha',cats:['shisha'],img:'shisha',pick:'shisha-special'}

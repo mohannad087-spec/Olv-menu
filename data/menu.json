@@ -35,6 +35,16 @@
       "en": "Sandwiches"
     },
     {
+      "id": "breakfast",
+      "ar": "ساندويشات الصباح",
+      "en": "Breakfast Sandwiches"
+    },
+    {
+      "id": "bakery",
+      "ar": "بيتزا ومعجنات",
+      "en": "Pizza & Bakery"
+    },
+    {
       "id": "pasta",
       "ar": "باستا",
       "en": "Pasta"
@@ -2888,6 +2898,355 @@
       "large": {
         "price": 3
       }
+    },
+    {
+      "id": "bf-halloumi",
+      "cat": "breakfast",
+      "subcat": "morning",
+      "subcatAr": "ساندويشات الصباح",
+      "subcatEn": "Morning",
+      "ar": "ساندويش جبنة حلوم",
+      "en": "Halloumi Sandwich",
+      "descAr": "جبنة حلوم، جبنة شدر، بندورة، فلفل أخضر، موزاريلا",
+      "descEn": "Halloumi, cheddar, tomato, green pepper, mozzarella",
+      "price": 1.25,
+      "tags": [
+        "veg"
+      ]
+    },
+    {
+      "id": "bf-sinyora",
+      "cat": "breakfast",
+      "subcat": "morning",
+      "subcatAr": "ساندويشات الصباح",
+      "subcatEn": "Morning",
+      "ar": "ساندويش سنيورة",
+      "en": "Sinyora Sandwich",
+      "descAr": "سنيورة، لبنة، خيار، بندورة، خس",
+      "descEn": "Sinyora, labneh, cucumber, tomato, lettuce",
+      "price": 0.75,
+      "tags": []
+    },
+    {
+      "id": "bf-cheese-mix",
+      "cat": "breakfast",
+      "subcat": "morning",
+      "subcatAr": "ساندويشات الصباح",
+      "subcatEn": "Morning",
+      "ar": "ساندويش مكس أجبان",
+      "en": "Cheese Mix Sandwich",
+      "descAr": "جبنة، شدر، موزاريلا",
+      "descEn": "Cheese mix, cheddar, mozzarella",
+      "price": 1.25,
+      "tags": [
+        "veg"
+      ]
+    },
+    {
+      "id": "bf-turkey",
+      "cat": "breakfast",
+      "subcat": "morning",
+      "subcatAr": "ساندويشات الصباح",
+      "subcatEn": "Morning",
+      "ar": "ساندويش تيركي",
+      "en": "Turkey Sandwich",
+      "descAr": "تيركي، كوكتيل صوص، موزاريلا، جبنة شدر، خس",
+      "descEn": "Turkey, cocktail sauce, mozzarella, cheddar, lettuce",
+      "price": 1.25,
+      "tags": []
+    },
+    {
+      "id": "bf-fafoot",
+      "cat": "breakfast",
+      "subcat": "morning",
+      "subcatAr": "ساندويشات الصباح",
+      "subcatEn": "Morning",
+      "ar": "ساندويش فعفوط",
+      "en": "Fafoot Sandwich",
+      "descAr": "نقانق مع بيض، مايونيز، مخلل، فلفل أخضر، خس",
+      "descEn": "Sausage with egg, mayonnaise, pickles, green pepper, lettuce",
+      "price": 0.75,
+      "tags": []
+    },
+    {
+      "id": "bf-liver",
+      "cat": "breakfast",
+      "subcat": "morning",
+      "subcatAr": "ساندويشات الصباح",
+      "subcatEn": "Morning",
+      "ar": "ساندويش كبدة دجاج",
+      "en": "Chicken Liver Sandwich",
+      "descAr": "كبدة، بصل، بطاطا، مخلل",
+      "descEn": "Chicken liver, onion, potato, pickles",
+      "price": 0.75,
+      "tags": []
+    },
+    {
+      "id": "bf-liver-hot",
+      "cat": "breakfast",
+      "subcat": "morning",
+      "subcatAr": "ساندويشات الصباح",
+      "subcatEn": "Morning",
+      "ar": "ساندويش كبدة حارة",
+      "en": "Spicy Liver Sandwich",
+      "descAr": "كبدة، فلفل حار، بصل، بطاطا، مخلل",
+      "descEn": "Liver, hot pepper, onion, potato, pickles",
+      "price": 0.75,
+      "tags": [
+        "spicy"
+      ]
+    },
+    {
+      "id": "sn-potato-sandwich",
+      "cat": "snacks",
+      "subcat": "snack-sandwiches",
+      "subcatAr": "سناكات سريعة",
+      "subcatEn": "Quick snacks",
+      "ar": "ساندويش بطاطا",
+      "en": "Potato Sandwich",
+      "descAr": "بطاطا، خس، كاتشب، كوكتيل صوص، جبنة شدر",
+      "descEn": "Potato, lettuce, ketchup, cocktail sauce, cheddar",
+      "price": 1.0,
+      "tags": [
+        "veg"
+      ]
+    },
+    {
+      "id": "sn-potato-cups",
+      "cat": "snacks",
+      "subcat": "snack-sandwiches",
+      "subcatAr": "سناكات سريعة",
+      "subcatEn": "Quick snacks",
+      "ar": "كاسات بطاطا",
+      "en": "Potato Cups",
+      "descAr": "بطاطا، جبنة شدر، كاتشب، باربكيو",
+      "descEn": "Potato, cheddar, ketchup, BBQ",
+      "price": 1.0,
+      "tags": [
+        "veg"
+      ]
+    },
+    {
+      "id": "sn-chicken-cream",
+      "cat": "snacks",
+      "subcat": "snack-sandwiches",
+      "subcatAr": "سناكات سريعة",
+      "subcatEn": "Quick snacks",
+      "ar": "دجاج مع كريمة",
+      "en": "Chicken with Cream",
+      "descAr": "قطع دجاج، كريمة، فطر، موزاريلا",
+      "descEn": "Chicken pieces, cream, mushrooms, mozzarella",
+      "price": 2.5,
+      "tags": []
+    },
+    {
+      "id": "sn-hotdog",
+      "cat": "snacks",
+      "subcat": "snack-sandwiches",
+      "subcatAr": "سناكات سريعة",
+      "subcatEn": "Quick snacks",
+      "ar": "ساندويش هوت دوغ",
+      "en": "Hot Dog Sandwich",
+      "descAr": "هوت دوغ، مايونيز، جبنة شدر أو خردل، كاتشب، إصبع شبس",
+      "descEn": "Hot dog, mayonnaise, cheddar or mustard, ketchup, chips stick",
+      "price": 1.5,
+      "tags": []
+    },
+    {
+      "id": "bk-olv-pizza",
+      "cat": "bakery",
+      "subcat": "pizza",
+      "subcatAr": "بيتزا",
+      "subcatEn": "Pizza",
+      "ar": "بيتزا OLV",
+      "en": "OLV Pizza",
+      "descAr": "زنجر / خضار / بيبروني",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [],
+      "available": false
+    },
+    {
+      "id": "bk-pepperoni",
+      "cat": "bakery",
+      "subcat": "pizza",
+      "subcatAr": "بيتزا",
+      "subcatEn": "Pizza",
+      "ar": "بيتزا بيبروني",
+      "en": "Pepperoni Pizza",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.0,
+      "tags": [],
+      "available": false
+    },
+    {
+      "id": "bk-veg",
+      "cat": "bakery",
+      "subcat": "pizza",
+      "subcatAr": "بيتزا",
+      "subcatEn": "Pizza",
+      "ar": "بيتزا خضار",
+      "en": "Veggie Pizza",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.0,
+      "tags": [],
+      "available": false
+    },
+    {
+      "id": "bk-margherita",
+      "cat": "bakery",
+      "subcat": "pizza",
+      "subcatAr": "بيتزا",
+      "subcatEn": "Pizza",
+      "ar": "بيتزا مارغريتا",
+      "en": "Margherita Pizza",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.0,
+      "tags": [],
+      "available": false
+    },
+    {
+      "id": "bk-zinger",
+      "cat": "bakery",
+      "subcat": "pizza",
+      "subcatAr": "بيتزا",
+      "subcatEn": "Pizza",
+      "ar": "بيتزا زنجر",
+      "en": "Zinger Pizza",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [],
+      "available": false
+    },
+    {
+      "id": "bk-chicken-cream",
+      "cat": "bakery",
+      "subcat": "pizza",
+      "subcatAr": "بيتزا",
+      "subcatEn": "Pizza",
+      "ar": "بيتزا دجاج مع كريمة",
+      "en": "Chicken Cream Pizza",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [],
+      "available": false
+    },
+    {
+      "id": "bk-heart",
+      "cat": "bakery",
+      "subcat": "pizza",
+      "subcatAr": "بيتزا",
+      "subcatEn": "Pizza",
+      "ar": "قلب أصابع",
+      "en": "Heart Fingers",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.0,
+      "tags": [],
+      "available": false
+    },
+    {
+      "id": "bk-zaatar",
+      "cat": "bakery",
+      "subcat": "manakish",
+      "subcatAr": "معجنات",
+      "subcatEn": "Pastries",
+      "ar": "زعتر",
+      "en": "Zaatar",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.75,
+      "tags": [],
+      "available": false
+    },
+    {
+      "id": "bk-zaatar-cheese",
+      "cat": "bakery",
+      "subcat": "manakish",
+      "subcatAr": "معجنات",
+      "subcatEn": "Pastries",
+      "ar": "زعتر مع جبنة",
+      "en": "Zaatar with Cheese",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.0,
+      "tags": [],
+      "available": false
+    },
+    {
+      "id": "bk-muhammara",
+      "cat": "bakery",
+      "subcat": "manakish",
+      "subcatAr": "معجنات",
+      "subcatEn": "Pastries",
+      "ar": "محمرة",
+      "en": "Muhammara",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.0,
+      "tags": [],
+      "available": false
+    },
+    {
+      "id": "bk-muhammara-cheese",
+      "cat": "bakery",
+      "subcat": "manakish",
+      "subcatAr": "معجنات",
+      "subcatEn": "Pastries",
+      "ar": "محمرة مع جبنة",
+      "en": "Muhammara with Cheese",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.25,
+      "tags": [],
+      "available": false
+    },
+    {
+      "id": "bk-white-cheese",
+      "cat": "bakery",
+      "subcat": "manakish",
+      "subcatAr": "معجنات",
+      "subcatEn": "Pastries",
+      "ar": "جبنة بيضاء",
+      "en": "White Cheese",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [],
+      "available": false
+    },
+    {
+      "id": "bk-labneh",
+      "cat": "bakery",
+      "subcat": "manakish",
+      "subcatAr": "معجنات",
+      "subcatEn": "Pastries",
+      "ar": "لبنة",
+      "en": "Labneh",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.0,
+      "tags": [],
+      "available": false
+    },
+    {
+      "id": "bk-bbq",
+      "cat": "bakery",
+      "subcat": "pizza",
+      "subcatAr": "بيتزا",
+      "subcatEn": "Pizza",
+      "ar": "بيتزا باربكيو",
+      "en": "BBQ Pizza",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [],
+      "available": false
     }
   ],
   "shishaOptions": {
