@@ -114,7 +114,7 @@
       "price": 5.5,
       "popular": true,
       "tags": [],
-      "available": true,
+      "available": false,
       "image": "assets/photos/olv-burger.webp"
     },
     {
