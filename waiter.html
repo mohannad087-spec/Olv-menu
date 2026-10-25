@@ -207,7 +207,7 @@ function renderGrid(){
   if(q)items=items.filter(i=>(i.ar+' '+i.en).toLowerCase().includes(q));
   $('grid').innerHTML=items.length?items.map(i=>{
     const ok=i.available!==false;
-    return `<article class="card ${ok?'':'unavailable'}"><img src="${i.image||imgs[i.cat]||imgs.hot}" loading="lazy"><h3>${i.ar}</h3><div class="price">${i.large&&i.large.price?`صغير ${money(i.price)} · كبير ${money(i.large.price)}`:money(i.price)}</div><div class="row"><button class="avail ${ok?'':'off'}" onclick="toggleAvail('${i.id}',${ok})">${ok?'متوفر':'غير متوفر'}</button>${i.large&&i.large.price?`<button class="add" style="width:auto;padding:0 8px;font-size:12px" onclick="addToCart('${i.id}','small')" ${ok?'':'disabled'}>+ صغير</button><button class="add" style="width:auto;padding:0 8px;font-size:12px" onclick="addToCart('${i.id}','large')" ${ok?'':'disabled'}>+ كبير</button>`:`<button class="add" onclick="addToCart('${i.id}')" ${ok?'':'disabled'}>+</button>`}</div></article>`;
+    return `<article class="card ${ok?'':'unavailable'}"><img src="${i.image||imgs[i.cat]||imgs.hot}" loading="lazy"><h3>${i.ar}</h3><div class="price">${i.large&&i.large.price?`صغير ${money(i.price)} · كبير ${money(i.large.price)}`:money(i.hallPrice||i.price)}</div><div class="row"><button class="avail ${ok?'':'off'}" onclick="toggleAvail('${i.id}',${ok})">${ok?'متوفر':'غير متوفر'}</button>${i.large&&i.large.price?`<button class="add" style="width:auto;padding:0 8px;font-size:12px" onclick="addToCart('${i.id}','small')" ${ok?'':'disabled'}>+ صغير</button><button class="add" style="width:auto;padding:0 8px;font-size:12px" onclick="addToCart('${i.id}','large')" ${ok?'':'disabled'}>+ كبير</button>`:`<button class="add" onclick="addToCart('${i.id}')" ${ok?'':'disabled'}>+</button>`}</div></article>`;
   }).join(''):'<div class="empty">لا توجد نتائج</div>';
 }
 
@@ -253,7 +253,7 @@ function addToCart(id,size,sugar){
   const sized=!!(i.large&&i.large.price);if(sized&&size!=='large')size='small';
   const label=sized?`${i.ar} (${size==='large'?'كبير':'صغير'})`:i.ar,full=sugar?`${label} — سكر ${sugar}`:label;
   const f=cart.find(x=>x.id===id&&x.label===full);
-  if(f)f.qty++;else{const custom=sized?{size}:{};if(sugar){custom.options=['سكر '+sugar];custom.remove=[];custom.extras=[];custom.note=''}cart.push({id,qty:1,price:sized&&size==='large'?i.large.price:i.price,label:full,...(sized||sugar?{custom}:{})})}
+  if(f)f.qty++;else{const custom=sized?{size}:{};if(sugar){custom.options=['سكر '+sugar];custom.remove=[];custom.extras=[];custom.note=''}cart.push({id,qty:1,price:sized&&size==='large'?i.large.price:(i.hallPrice||i.price),label:full,...(sized||sugar?{custom}:{})})}
   updateCartBar();showToast('أُضيف للطلب');
 }
 function updateCartBar(){

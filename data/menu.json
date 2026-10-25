@@ -2208,7 +2208,8 @@
       "tags": [
         "veg"
       ],
-      "image": "assets/photos/donut-lotus.webp"
+      "image": "assets/photos/donut-lotus.webp",
+      "hallPrice": 1
     },
     {
       "id": "donut-oreo",
@@ -2224,7 +2225,8 @@
       "tags": [
         "veg"
       ],
-      "image": "assets/photos/donut-oreo.webp"
+      "image": "assets/photos/donut-oreo.webp",
+      "hallPrice": 1
     },
     {
       "id": "donut-chocolate",
@@ -2240,7 +2242,8 @@
       "tags": [
         "veg"
       ],
-      "image": "assets/photos/donut-chocolate.webp"
+      "image": "assets/photos/donut-chocolate.webp",
+      "hallPrice": 1
     },
     {
       "id": "waffle-mix",
