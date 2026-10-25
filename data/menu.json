@@ -529,19 +529,20 @@
     {
       "id": "cappuccino",
       "cat": "hot",
-      "subcat": "coffee",
+      "subcat": "قهوة",
       "subcatAr": "قهوة",
       "subcatEn": "Coffee",
       "ar": "كابتشينو",
       "en": "Cappuccino",
       "descAr": "",
       "descEn": "",
-      "price": 2,
+      "price": 0.5,
       "tags": [
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/cappuccino.webp"
+      "image": "assets/photos/cappuccino.webp",
+      "popular": false
     },
     {
       "id": "cappuccino-barista",
@@ -574,7 +575,7 @@
       "tags": [
         "veg"
       ],
-      "available": true,
+      "available": false,
       "image": "assets/photos/cappuccino.webp"
     },
     {
@@ -614,19 +615,20 @@
     {
       "id": "americano",
       "cat": "hot",
-      "subcat": "coffee",
+      "subcat": "قهوة",
       "subcatAr": "قهوة",
       "subcatEn": "Coffee",
       "ar": "أمريكانو",
       "en": "Americano",
       "descAr": "",
       "descEn": "",
-      "price": 1,
+      "price": 1.5,
       "tags": [
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/americano.webp"
+      "image": "assets/photos/americano.webp",
+      "popular": false
     },
     {
       "id": "caffe-latte",
@@ -732,19 +734,20 @@
     {
       "id": "frappuccino",
       "cat": "cold",
-      "subcat": "icecoffee",
+      "subcat": "قهوة باردة",
       "subcatAr": "قهوة باردة",
       "subcatEn": "Iced Coffee",
       "ar": "فرابتشينو",
       "en": "Frappuccino",
       "descAr": "",
       "descEn": "",
-      "price": 2,
+      "price": 2.5,
       "tags": [
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/frappuccino.webp"
+      "image": "assets/photos/frappuccino.webp",
+      "popular": false
     },
     {
       "id": "caramel-macchiato",
@@ -800,10 +803,10 @@
     {
       "id": "ice-coffee",
       "cat": "cold",
-      "subcat": "icecoffee",
+      "subcat": "قهوة باردة",
       "subcatAr": "قهوة باردة",
       "subcatEn": "Iced Coffee",
-      "ar": "آيس كوفي",
+      "ar": "آيس امريكانو",
       "en": "Iced Coffee",
       "descAr": "",
       "descEn": "",
@@ -812,7 +815,8 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/ice-coffee.webp"
+      "image": "assets/photos/ice-coffee.webp",
+      "popular": false
     },
     {
       "id": "smoothie",
@@ -896,7 +900,7 @@
       "tags": [
         "veg"
       ],
-      "available": true,
+      "available": false,
       "large": {
         "price": 1.5
       },
@@ -2155,7 +2159,7 @@
       "tags": [
         "veg"
       ],
-      "available": false,
+      "available": true,
       "image": "assets/photos/candy-kilo.webp"
     },
     {
@@ -2629,7 +2633,7 @@
       "tags": [
         "veg"
       ],
-      "available": false,
+      "available": true,
       "image": "assets/photos/icecream-kilo.webp"
     },
     {
