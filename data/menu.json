@@ -2506,6 +2506,35 @@
       "image": "assets/photos/shisha.webp"
     },
     {
+      "id": "shisha-zaghloul",
+      "cat": "shisha",
+      "subcat": "zaghloul",
+      "subcatAr": "زغلول وسلوم",
+      "subcatEn": "Zaghloul & Salloum",
+      "ar": "أرجيلة زغلول وسلوم",
+      "en": "Zaghloul & Salloum Shisha",
+      "descAr": "كل النكهات",
+      "descEn": "All flavors",
+      "price": 1.75,
+      "shishaType": "zaghloul",
+      "flavors": [
+        "double-apple",
+        "grape-mint",
+        "watermelon-mint",
+        "lemon-mint",
+        "mint",
+        "grape",
+        "blueberry",
+        "peach",
+        "mango",
+        "strawberry",
+        "watermelon",
+        "olv-mix"
+      ],
+      "tags": [],
+      "image": "assets/photos/shisha.webp"
+    },
+    {
       "id": "shisha-special",
       "cat": "shisha",
       "subcat": "nakhla",
@@ -3342,6 +3371,14 @@
         "price": 5,
         "descAr": "خلطة OLV الخاصة بنكهة أغنى",
         "descEn": "Our signature blend with a richer profile"
+      },
+      {
+        "id": "zaghloul",
+        "ar": "أرجيلة زغلول وسلوم",
+        "en": "Zaghloul & Salloum Shisha",
+        "price": 1.75,
+        "descAr": "كل النكهات",
+        "descEn": "All flavors"
       }
     ],
     "flavors": [
