@@ -476,6 +476,23 @@
       "image": "assets/photos/espresso-single.webp"
     },
     {
+      "id": "espresso-takeaway",
+      "cat": "hot",
+      "subcat": "coffee",
+      "subcatAr": "قهوة",
+      "subcatEn": "Coffee",
+      "ar": "اسبرسو سفري",
+      "en": "Espresso Takeaway",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.75,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/espresso-single.webp"
+    },
+    {
       "id": "espresso-double",
       "cat": "hot",
       "subcat": "coffee",
@@ -520,6 +537,23 @@
       "descAr": "",
       "descEn": "",
       "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/cappuccino.webp"
+    },
+    {
+      "id": "cappuccino-takeaway",
+      "cat": "hot",
+      "subcat": "coffee",
+      "subcatAr": "قهوة",
+      "subcatEn": "Coffee",
+      "ar": "كابتشينو سفري",
+      "en": "Cappuccino Takeaway",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.5,
       "tags": [
         "veg"
       ],
@@ -2149,7 +2183,7 @@
       "en": "Lotus Donut",
       "descAr": "دونات طازجة بتغطية اللوتس",
       "descEn": "Fresh donut with Lotus topping",
-      "price": 1.5,
+      "price": 0.75,
       "tags": [
         "veg"
       ],
@@ -2165,7 +2199,7 @@
       "en": "Oreo Donut",
       "descAr": "دونات طازجة بتغطية الأوريو",
       "descEn": "Fresh donut with Oreo topping",
-      "price": 1.5,
+      "price": 0.75,
       "tags": [
         "veg"
       ],
@@ -2181,7 +2215,7 @@
       "en": "Chocolate Donut",
       "descAr": "دونات طازجة بتغطية الشوكولاتة",
       "descEn": "Fresh donut with chocolate topping",
-      "price": 1.5,
+      "price": 0.75,
       "tags": [
         "veg"
       ],
