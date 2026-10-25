@@ -58,11 +58,13 @@ export const cleanKey = (v) => String(v || '').replace(/[\u200e\u200f\u202a-\u20
 // ليش دايمًا: نظام المحاسبة (Supabase olv-menu-proxy) بيجيب الطلبات الواردة بهالمفتاح نفسه، فلو تعطّل
 // بعد تغيير الباسورد بتوقف الطلبات الواردة كلها (صار هيك 2026-10-12). وإذا نسي صاحب المطعم الباسورد بيدخل بالمفتاح.
 export async function isAdminPassword(env, provided) {
-  const row = await storedAdmin(env.OLV_DB || null);
-  if (row && await matchesStored(row, provided)) return true;
+  // مفتاح البيئة أولًا: مقارنة SHA-256 رخيصة. فحص الباسورد المخزّن PBKDF2 بـ 100 ألف دورة (ثقيل على المعالج)،
+  // ونظام المحاسبة بيجيب الطلبات كل 10 ثواني بمفتاح البيئة، فلما كان بيمر على PBKDF2 كل مرة كان Cloudflare
+  // يرجّع أحيانًا "Worker exceeded resource limits" (503 صفحة HTML) بدل الطلبات.
   const adminKey = cleanKey(env.OLV_ADMIN_KEY);
-  if (!adminKey) return false;
-  return safeEqual(provided, adminKey);
+  if (adminKey && await safeEqual(provided, adminKey)) return true;
+  const row = await storedAdmin(env.OLV_DB || null);
+  return Boolean(row) && await matchesStored(row, provided);
 }
 
 export async function checkKey(request, env, opts = {}) {
