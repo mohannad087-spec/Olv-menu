@@ -3352,6 +3352,21 @@
       "price": 2.5,
       "tags": [],
       "available": false
+    },
+    {
+      "id": "stk-0d4e5b6281f4",
+      "cat": "donuts",
+      "subcat": "stk-0d4e5b6281f4",
+      "subcatAr": "دونات صالة",
+      "subcatEn": "Donut (Hall)",
+      "ar": "دونات صالة",
+      "en": "Donut (Hall)",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [],
+      "available": false,
+      "source": "stock"
     }
   ],
   "shishaOptions": {
