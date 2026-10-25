@@ -127,7 +127,7 @@
       "available": true,
       "image": "assets/photos/olv-burger.webp",
       "meal": {
-        "price": 400,
+        "price": 4,
         "descAr": "مع بطاطا"
       }
     },
@@ -147,7 +147,7 @@
       "image": "assets/photos/crispy-burger.webp",
       "available": true,
       "meal": {
-        "price": 33,
+        "price": 3,
         "descAr": "مع بطاطا"
       }
     },
