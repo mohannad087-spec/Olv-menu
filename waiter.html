@@ -174,7 +174,7 @@ async function init(){
 }
 
 // نفس الأقسام الأربعة تبع منيو الزبون، وتحتها تصنيفات القسم المختار
-const GROUPS=[{id:'food',ar:'الأكل',cats:['burgers','snacks','sandwiches','breakfast','bakery','pasta','salads']},{id:'drinks',ar:'المشروبات',cats:['hot','cold','cocktails','juices','shakes']},{id:'sweet',ar:'الحلو',cats:['desserts','icecream','donuts','waffles','crepes']},{id:'shisha',ar:'الأرجيلة',cats:['shisha']}];
+const GROUPS=[{id:'food',ar:'الأكل',cats:['burgers','snacks','sandwiches','breakfast','bakery','pasta','salads']},{id:'drinks',ar:'المشروبات',cats:['hot','cold','cocktails','juices','shakes']},{id:'sweet',ar:'الحلو',cats:['desserts','cakes','icecream','donuts','waffles','crepes']},{id:'shisha',ar:'الأرجيلة',cats:['shisha']}];
 function groupOfActive(){
   if(active==='all')return null;
   if(active.startsWith('g:'))return GROUPS.find(g=>'g:'+g.id===active);

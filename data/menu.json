@@ -85,6 +85,11 @@
       "en": "Desserts"
     },
     {
+      "id": "cakes",
+      "ar": "كيك",
+      "en": "Cakes"
+    },
+    {
       "id": "icecream",
       "ar": "بوظة",
       "en": "Ice Cream"
@@ -2162,6 +2167,278 @@
       ],
       "available": true,
       "image": "assets/photos/candy-kilo.webp"
+    },
+    {
+      "id": "cheesecake-mix",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "تشيز كيك مشكل",
+      "en": "Assorted Cheesecake",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.0,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "carrot-cake",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "كاروت كيك",
+      "en": "Carrot Cake",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.75,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "lotus-cake",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "لوتس كيك",
+      "en": "Lotus Cake",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.75,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "kinder-cake",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "كندر كيك",
+      "en": "Kinder Cake",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.85,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "sakura-cake",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "ساكورا كيك",
+      "en": "Sakura Cake",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.85,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "german-cake",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "جيرمن كيك",
+      "en": "German Cake",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.85,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "ferrero-mousse",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "فريرو موس",
+      "en": "Ferrero Mousse",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.0,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "chocolate-cake",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "شكلت كيك",
+      "en": "Chocolate Cake",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.0,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "royal-berry",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "رويال بيري",
+      "en": "Royal Berry",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.0,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "london-cake",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "لندن كيك",
+      "en": "London Cake",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.1,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "honey-cake",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "كيكة العسل",
+      "en": "Honey Cake",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.75,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "pistachio-cake",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "بستاشيو كيك",
+      "en": "Pistachio Cake",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.85,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "red-velvet-cake",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "ردفلت كيك",
+      "en": "Red Velvet Cake",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.75,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "blueberry-cake",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "بلوبري كيك",
+      "en": "Blueberry Cake",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.75,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "cup-mix",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "كب مشكل",
+      "en": "Assorted Cake Cup",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.0,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "trend-alzamel",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "ترند أحمد الزامل",
+      "en": "Ahmad Al-Zamil Trend",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.0,
+      "tags": [
+        "veg"
+      ],
+      "available": true
+    },
+    {
+      "id": "san-sebastian",
+      "cat": "cakes",
+      "subcat": "cakes",
+      "subcatAr": "كيك",
+      "subcatEn": "Cakes",
+      "ar": "سان سيبستيان",
+      "en": "San Sebastian Cheesecake",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.25,
+      "tags": [
+        "veg"
+      ],
+      "available": true
     },
     {
       "id": "icecream",
