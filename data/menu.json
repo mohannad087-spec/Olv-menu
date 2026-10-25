@@ -740,8 +740,7 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/karak.webp",
-      "hallPrice": 1
+      "image": "assets/photos/karak.webp"
     },
     {
       "id": "herbal",
