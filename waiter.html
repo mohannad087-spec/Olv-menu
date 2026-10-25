@@ -253,7 +253,7 @@ function addToCart(id,size,sugar){
   const sized=!!(i.large&&i.large.price);if(sized&&size!=='large')size='small';
   const label=sized?`${i.ar} (${size==='large'?'كبير':'صغير'})`:i.ar,full=sugar?`${label} — سكر ${sugar}`:label;
   const f=cart.find(x=>x.id===id&&x.label===full);
-  if(f)f.qty++;else{const custom=sized?{size}:{};if(sugar){custom.options=['سكر '+sugar];custom.remove=[];custom.extras=[];custom.note=''}cart.push({id,qty:1,price:sized&&size==='large'?i.large.price:(i.hallPrice||i.price),label:full,...(sized||sugar?{custom}:{})})}
+  if(f)f.qty++;else{const custom=sized?{size}:{};if(sugar){custom.options=['سكر '+sugar];custom.remove=[];custom.extras=[];custom.note=''}cart.push({id,qty:1,price:sized&&size==="large"?(i.large.hallPrice||i.large.price):(i.hallPrice||i.price),label:full,...(sized||sugar?{custom}:{})})}
   updateCartBar();showToast('أُضيف للطلب');
 }
 function updateCartBar(){

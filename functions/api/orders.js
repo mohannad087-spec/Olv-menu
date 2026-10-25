@@ -28,10 +28,11 @@ function roundMoney(n) {
   return Math.round(n * 100) / 100;
 }
 
-function priceForMode(basePrice, mode, menu, real) {
+function priceForMode(basePrice, mode, menu, real, isLarge) {
   if (mode !== 'hall') return basePrice;
   // per-item hall price (e.g. donuts) overrides the global surcharge for the plain item price
-  if (real && Number(real.hallPrice) > 0 && basePrice === real.price) return Number(real.hallPrice);
+  if (real && isLarge && Number(real.large?.hallPrice) > 0 && basePrice === Number(real.large.price)) return Number(real.large.hallPrice);
+  if (real && !isLarge && Number(real.hallPrice) > 0 && basePrice === real.price) return Number(real.hallPrice);
   const pct = Number(menu.settings?.hallSurchargePercent) || 0;
   return roundMoney(basePrice * (1 + pct / 100));
 }
@@ -75,7 +76,7 @@ function verifyOrderItems(rawItems, menu, mode) {
     items.push({
       id: real.id,
       qty,
-      price: priceForMode(basePrice, mode, menu, real),
+      price: priceForMode(basePrice, mode, menu, real, large),
       label,
       custom: custom || undefined
     });
