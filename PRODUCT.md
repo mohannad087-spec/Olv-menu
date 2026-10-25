@@ -16,7 +16,7 @@ The customer menu and ordering page for OLV, a modern café and restaurant in Jo
 Phone ordering and order tracking (points, ratings, fixed-price meal upgrade, hall vs takeaway pricing) inside a modern café experience, rather than a plain price list. [Inferred, not yet confirmed.]
 
 ## Operating Context
-Static site (index.html, data/menu.json, Cloudflare Pages and GitHub Pages) with serverless functions. 107 items in 15 categories. Prices in JD. The page switches theme by hour: light 06:00 to 18:00, dark otherwise. Menu is edited through admin.html.
+Static site (index.html, data/menu.json, deployed only through Cloudflare Pages) with serverless functions. 107 items in 15 categories. Prices in JD. The page switches theme by hour: light 06:00 to 18:00, dark otherwise. Menu is edited through admin.html.
 
 ## Capabilities and Constraints
 Bilingual (ar, en) with RTL. Server-side price checks, Turnstile, WhatsApp ordering, installable as an app, QR for the public menu. Behavior and ordering flow must not change in a visual redesign. Network in this build environment blocks Unsplash and Google Fonts, so photos and web fonts cannot be previewed here.
