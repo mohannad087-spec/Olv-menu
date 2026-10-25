@@ -604,7 +604,7 @@
       ],
       "available": true,
       "image": "assets/photos/nescafe.webp",
-      "hallPrice": 0.6
+      "hallPrice": 1
     },
     {
       "id": "hot-chocolate",
@@ -708,6 +708,22 @@
       ],
       "available": true,
       "image": "assets/photos/mocha.webp"
+    },
+    {
+      "id": "tea",
+      "cat": "hot",
+      "subcat": "tea",
+      "subcatAr": "شاي وزهورات",
+      "subcatEn": "Tea & Herbal",
+      "ar": "شاي",
+      "en": "Tea",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.35,
+      "hallPrice": 0.75,
+      "tags": [],
+      "available": true,
+      "popular": false
     },
     {
       "id": "karak",
@@ -3067,14 +3083,15 @@
       "subcatAr": "ماء 500 مل",
       "subcatEn": "Water 250ml",
       "ar": "ماء 500 مل",
-      "en": "Water 250ml",
+      "en": "Water 500ml",
       "descAr": "",
       "descEn": "",
       "price": 0.25,
       "tags": [],
       "available": true,
       "source": "stock",
-      "image": "assets/photos/stk-850b359bed0b.webp"
+      "image": "assets/photos/stk-850b359bed0b.webp",
+      "hallPrice": 0.5
     },
     {
       "id": "stk-1ac151970a15",
