@@ -544,6 +544,23 @@
       "image": "assets/photos/cappuccino.webp"
     },
     {
+      "id": "cappuccino-barista",
+      "cat": "hot",
+      "subcat": "coffee",
+      "subcatAr": "قهوة",
+      "subcatEn": "Coffee",
+      "ar": "كابتشينو باريستا",
+      "en": "Barista Cappuccino",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/cappuccino.webp"
+    },
+    {
       "id": "cappuccino-takeaway",
       "cat": "hot",
       "subcat": "coffee",
