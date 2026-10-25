@@ -3367,6 +3367,21 @@
       "tags": [],
       "available": false,
       "source": "stock"
+    },
+    {
+      "id": "stk-288ce4d3034b",
+      "cat": "cold",
+      "subcat": "stk-288ce4d3034b",
+      "subcatAr": "مشروب غازي",
+      "subcatEn": "Soft Drink",
+      "ar": "مشروب غازي",
+      "en": "Soft Drink",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.25,
+      "tags": [],
+      "available": false,
+      "source": "stock"
     }
   ],
   "shishaOptions": {
