@@ -2155,7 +2155,7 @@
       "tags": [
         "veg"
       ],
-      "available": true,
+      "available": false,
       "image": "assets/photos/candy-kilo.webp"
     },
     {
@@ -2629,7 +2629,7 @@
       "tags": [
         "veg"
       ],
-      "available": true,
+      "available": false,
       "image": "assets/photos/icecream-kilo.webp"
     },
     {
