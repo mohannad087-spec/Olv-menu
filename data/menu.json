@@ -642,6 +642,23 @@
       "popular": false
     },
     {
+      "id": "v60",
+      "cat": "hot",
+      "subcat": "coffee",
+      "subcatAr": "قهوة",
+      "subcatEn": "Coffee",
+      "ar": "قهوة V60",
+      "en": "V60 Coffee",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "image": "assets/photos/americano.webp"
+    },
+    {
       "id": "caffe-latte",
       "cat": "hot",
       "subcat": "coffee",
