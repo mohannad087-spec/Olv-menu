@@ -597,19 +597,18 @@
     {
       "id": "turkish-coffee",
       "cat": "hot",
-      "subcat": "coffee",
+      "subcat": "قهوة",
       "subcatAr": "قهوة",
       "subcatEn": "Coffee",
       "ar": "قهوة تركية",
       "en": "Turkish Coffee",
       "descAr": "",
       "descEn": "",
-      "price": 0.5,
-      "tags": [
-        "veg"
-      ],
+      "price": 0.6,
+      "tags": [],
       "available": true,
-      "image": "assets/photos/turkish-coffee.webp"
+      "image": "assets/photos/turkish-coffee.webp",
+      "popular": false
     },
     {
       "id": "mocha",
@@ -3006,7 +3005,7 @@
       "en": "Potato Sandwich",
       "descAr": "بطاطا، خس، كاتشب، كوكتيل صوص، جبنة شدر",
       "descEn": "Potato, lettuce, ketchup, cocktail sauce, cheddar",
-      "price": 1.0,
+      "price": 1,
       "tags": [
         "veg"
       ]
@@ -3021,7 +3020,7 @@
       "en": "Potato Cups",
       "descAr": "بطاطا، جبنة شدر، كاتشب، باربكيو",
       "descEn": "Potato, cheddar, ketchup, BBQ",
-      "price": 1.0,
+      "price": 1,
       "tags": [
         "veg"
       ]
@@ -3076,7 +3075,7 @@
       "en": "Pepperoni Pizza",
       "descAr": "",
       "descEn": "",
-      "price": 1.0,
+      "price": 1,
       "tags": [],
       "available": false
     },
@@ -3090,7 +3089,7 @@
       "en": "Veggie Pizza",
       "descAr": "",
       "descEn": "",
-      "price": 1.0,
+      "price": 1,
       "tags": [],
       "available": false
     },
@@ -3104,7 +3103,7 @@
       "en": "Margherita Pizza",
       "descAr": "",
       "descEn": "",
-      "price": 1.0,
+      "price": 1,
       "tags": [],
       "available": false
     },
@@ -3146,7 +3145,7 @@
       "en": "Heart Fingers",
       "descAr": "",
       "descEn": "",
-      "price": 1.0,
+      "price": 1,
       "tags": [],
       "available": false
     },
@@ -3174,7 +3173,7 @@
       "en": "Zaatar with Cheese",
       "descAr": "",
       "descEn": "",
-      "price": 1.0,
+      "price": 1,
       "tags": [],
       "available": false
     },
@@ -3188,7 +3187,7 @@
       "en": "Muhammara",
       "descAr": "",
       "descEn": "",
-      "price": 1.0,
+      "price": 1,
       "tags": [],
       "available": false
     },
@@ -3230,7 +3229,7 @@
       "en": "Labneh",
       "descAr": "",
       "descEn": "",
-      "price": 1.0,
+      "price": 1,
       "tags": [],
       "available": false
     },
