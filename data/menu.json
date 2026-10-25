@@ -2428,15 +2428,15 @@
     {
       "id": "shisha",
       "cat": "shisha",
-      "subcat": "classic",
-      "subcatAr": "أرجيلة عادية",
-      "subcatEn": "Classic Shisha",
-      "ar": "أرجيلة عادية",
-      "en": "Classic Shisha",
-      "descAr": "اختر النكهة من مجموعة OLV",
-      "descEn": "Choose your flavor from the OLV selection",
-      "price": 5,
-      "shishaType": "classic",
+      "subcat": "mazaya",
+      "subcatAr": "مزايا",
+      "subcatEn": "Mazaya",
+      "ar": "أرجيلة مزايا",
+      "en": "Mazaya Shisha",
+      "descAr": "كل النكهات",
+      "descEn": "All flavors",
+      "price": 2.5,
+      "shishaType": "mazaya",
       "flavors": [
         "double-apple",
         "grape-mint",
@@ -2457,29 +2457,18 @@
     {
       "id": "shisha-special",
       "cat": "shisha",
-      "subcat": "special",
-      "subcatAr": "OLV Special",
-      "subcatEn": "OLV Special",
-      "ar": "أرجيلة OLV Special",
-      "en": "OLV Special Shisha",
-      "descAr": "خلطة OLV الخاصة — اختر النكهة",
-      "descEn": "OLV signature blend — choose the flavor",
-      "price": 6,
+      "subcat": "nakhla",
+      "subcatAr": "نخلة",
+      "subcatEn": "Nakhla",
+      "ar": "أرجيلة نخلة تفاحتين",
+      "en": "Nakhla Double Apple Shisha",
+      "descAr": "نخلة بنكهة التفاحتين",
+      "descEn": "Nakhla double apple",
+      "price": 3,
       "popular": true,
-      "shishaType": "special",
+      "shishaType": "nakhla",
       "flavors": [
-        "double-apple",
-        "grape-mint",
-        "watermelon-mint",
-        "lemon-mint",
-        "mint",
-        "grape",
-        "blueberry",
-        "peach",
-        "mango",
-        "strawberry",
-        "watermelon",
-        "olv-mix"
+        "double-apple"
       ],
       "tags": [],
       "image": "assets/photos/shisha-special.webp"
@@ -3251,20 +3240,20 @@
   "shishaOptions": {
     "types": [
       {
-        "id": "classic",
-        "ar": "أرجيلة عادية",
-        "en": "Classic Shisha",
-        "price": 5,
-        "descAr": "اختيارك من نكهاتنا الكلاسيكية",
-        "descEn": "Your choice of classic flavors"
+        "id": "mazaya",
+        "ar": "أرجيلة مزايا",
+        "en": "Mazaya Shisha",
+        "price": 2.5,
+        "descAr": "كل النكهات",
+        "descEn": "All flavors"
       },
       {
-        "id": "special",
-        "ar": "OLV Special",
-        "en": "OLV Special",
-        "price": 6,
-        "descAr": "خلطة OLV الخاصة بنكهة أغنى",
-        "descEn": "Our signature blend with a richer profile"
+        "id": "nakhla",
+        "ar": "أرجيلة نخلة تفاحتين",
+        "en": "Nakhla Double Apple Shisha",
+        "price": 3,
+        "descAr": "نخلة بنكهة التفاحتين",
+        "descEn": "Nakhla double apple"
       }
     ],
     "flavors": [
