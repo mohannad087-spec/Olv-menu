@@ -3788,6 +3788,108 @@
       "source": "stock"
     },
     {
+      "id": "soft-pepsi",
+      "cat": "cold",
+      "subcat": "soft-drinks",
+      "subcatAr": "مشروبات غازية",
+      "subcatEn": "Soft Drinks",
+      "ar": "بيبسي",
+      "en": "Pepsi",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.25,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "hallPrice": 0.5
+    },
+    {
+      "id": "soft-pepsi-diet",
+      "cat": "cold",
+      "subcat": "soft-drinks",
+      "subcatAr": "مشروبات غازية",
+      "subcatEn": "Soft Drinks",
+      "ar": "بيبسي دايت",
+      "en": "Diet Pepsi",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.25,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "hallPrice": 0.5
+    },
+    {
+      "id": "soft-7up",
+      "cat": "cold",
+      "subcat": "soft-drinks",
+      "subcatAr": "مشروبات غازية",
+      "subcatEn": "Soft Drinks",
+      "ar": "سفن أب",
+      "en": "7Up",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.25,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "hallPrice": 0.5
+    },
+    {
+      "id": "soft-mirinda",
+      "cat": "cold",
+      "subcat": "soft-drinks",
+      "subcatAr": "مشروبات غازية",
+      "subcatEn": "Soft Drinks",
+      "ar": "ميرندا",
+      "en": "Mirinda Orange",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.25,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "hallPrice": 0.5
+    },
+    {
+      "id": "soft-mountain-dew",
+      "cat": "cold",
+      "subcat": "soft-drinks",
+      "subcatAr": "مشروبات غازية",
+      "subcatEn": "Soft Drinks",
+      "ar": "ماونتن ديو",
+      "en": "Mountain Dew",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.25,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "hallPrice": 0.5
+    },
+    {
+      "id": "soft-schweppes",
+      "cat": "cold",
+      "subcat": "soft-drinks",
+      "subcatAr": "مشروبات غازية",
+      "subcatEn": "Soft Drinks",
+      "ar": "شويبس",
+      "en": "Schweppes",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.25,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "hallPrice": 0.5
+    },
+    {
       "id": "stk-288ce4d3034b",
       "cat": "cold",
       "subcat": "stk-288ce4d3034b",
