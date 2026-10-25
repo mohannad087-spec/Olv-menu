@@ -236,13 +236,24 @@ function addShisha(i,fl){
   if(f)f.qty++;else cart.push({id:i.id,qty:1,price:i.price,label,custom:{options:[fl.ar],remove:[],extras:[],note:''}});
   updateCartBar();showToast('أُضيف للطلب');
 }
-function addToCart(id,size){
+// القهوة: الكاشير يختار السكر (سادة / وسط / حلوة) قبل الإضافة
+const SUGARS=['سادة','وسط','حلوة'];
+function isCoffee(i){return ['coffee','icecoffee','قهوة'].includes(i.subcat)}
+function openSugar(i,size){
+  $('flavorTitle').textContent=i.ar+' — السكر';
+  $('flavorList').innerHTML=SUGARS.map(x=>`<button class="add" style="width:auto;padding:12px 8px;font-size:15px">${x}</button>`).join('');
+  $('flavorList').querySelectorAll('button').forEach((b,k)=>b.onclick=()=>{closeFlavors();addToCart(i.id,size,SUGARS[k])});
+  if(!$('flavorOverlay').classList.contains('open')){$('flavorOverlay').classList.add('open');olvLayerOpen(hideFlavors)}
+}
+function addToCart(id,size,sugar){
   const i=DATA.items.find(x=>x.id===id);if(!i||i.available===false)return;
   if(i.cat==='shisha'){openFlavors(i);return}
+  if(isCoffee(i)&&!sugar){openSugar(i,size);return}
   // الأصناف اللي إلها حجمين بتنضاف كسطر منفصل لكل حجم
   const sized=!!(i.large&&i.large.price);if(sized&&size!=='large')size='small';
-  const f=cart.find(x=>x.id===id&&(x.custom?.size||null)===(sized?size:null));
-  if(f)f.qty++;else cart.push(sized?{id,qty:1,price:size==='large'?i.large.price:i.price,label:`${i.ar} (${size==='large'?'كبير':'صغير'})`,custom:{size}}:{id,qty:1,price:i.price,label:i.ar});
+  const label=sized?`${i.ar} (${size==='large'?'كبير':'صغير'})`:i.ar,full=sugar?`${label} — سكر ${sugar}`:label;
+  const f=cart.find(x=>x.id===id&&x.label===full);
+  if(f)f.qty++;else{const custom=sized?{size}:{};if(sugar){custom.options=['سكر '+sugar];custom.remove=[];custom.extras=[];custom.note=''}cart.push({id,qty:1,price:sized&&size==='large'?i.large.price:i.price,label:full,...(sized||sugar?{custom}:{})})}
   updateCartBar();showToast('أُضيف للطلب');
 }
 function updateCartBar(){
