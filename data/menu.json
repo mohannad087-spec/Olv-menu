@@ -95,6 +95,11 @@
       "en": "Ice Cream"
     },
     {
+      "id": "scoops",
+      "ar": "آيس كريم سكوب",
+      "en": "Ice Cream Scoops"
+    },
+    {
       "id": "donuts",
       "ar": "دونات",
       "en": "Donuts"
@@ -2916,6 +2921,126 @@
       ],
       "available": true,
       "image": "assets/photos/icecream-kilo.webp"
+    },
+    {
+      "id": "scoop-vanilla",
+      "cat": "scoops",
+      "ar": "سكوب فانيلا",
+      "en": "Vanilla Scoop",
+      "descAr": "سكوب صغير",
+      "descEn": "Small scoop",
+      "price": 0.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "popular": false,
+      "image": "assets/photos/scoop-vanilla.webp"
+    },
+    {
+      "id": "scoop-chocolate",
+      "cat": "scoops",
+      "ar": "سكوب شوكولاتة",
+      "en": "Chocolate Scoop",
+      "descAr": "سكوب صغير",
+      "descEn": "Small scoop",
+      "price": 0.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "popular": false,
+      "image": "assets/photos/scoop-chocolate.webp"
+    },
+    {
+      "id": "scoop-strawberry",
+      "cat": "scoops",
+      "ar": "سكوب فراولة",
+      "en": "Strawberry Scoop",
+      "descAr": "سكوب صغير",
+      "descEn": "Small scoop",
+      "price": 0.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "popular": false,
+      "image": "assets/photos/scoop-strawberry.webp"
+    },
+    {
+      "id": "scoop-mango",
+      "cat": "scoops",
+      "ar": "سكوب مانجو",
+      "en": "Mango Scoop",
+      "descAr": "سكوب صغير",
+      "descEn": "Small scoop",
+      "price": 0.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "popular": false,
+      "image": "assets/photos/scoop-mango.webp"
+    },
+    {
+      "id": "scoop-lotus",
+      "cat": "scoops",
+      "ar": "سكوب لوتس",
+      "en": "Lotus Scoop",
+      "descAr": "سكوب صغير",
+      "descEn": "Small scoop",
+      "price": 0.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "popular": false,
+      "image": "assets/photos/scoop-lotus.webp"
+    },
+    {
+      "id": "scoop-oreo",
+      "cat": "scoops",
+      "ar": "سكوب أوريو",
+      "en": "Oreo Scoop",
+      "descAr": "سكوب صغير",
+      "descEn": "Small scoop",
+      "price": 0.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "popular": false,
+      "image": "assets/photos/scoop-oreo.webp"
+    },
+    {
+      "id": "scoop-pistachio",
+      "cat": "scoops",
+      "ar": "سكوب فستق",
+      "en": "Pistachio Scoop",
+      "descAr": "سكوب صغير",
+      "descEn": "Small scoop",
+      "price": 0.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "popular": false,
+      "image": "assets/photos/scoop-pistachio.webp"
+    },
+    {
+      "id": "scoop-caramel",
+      "cat": "scoops",
+      "ar": "سكوب كراميل",
+      "en": "Caramel Scoop",
+      "descAr": "سكوب صغير",
+      "descEn": "Small scoop",
+      "price": 0.5,
+      "tags": [
+        "veg"
+      ],
+      "available": true,
+      "popular": false,
+      "image": "assets/photos/scoop-caramel.webp"
     },
     {
       "id": "stk-850b359bed0b",
