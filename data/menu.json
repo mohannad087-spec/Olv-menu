@@ -686,6 +686,7 @@
       "descAr": "",
       "descEn": "",
       "price": 0.6,
+      "hallPrice": 1,
       "tags": [],
       "available": true,
       "image": "assets/photos/turkish-coffee.webp",
