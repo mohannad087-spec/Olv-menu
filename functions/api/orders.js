@@ -1,4 +1,5 @@
 import { checkKey } from '../_lib/keys.js';
+import { loadControls, blockReason } from '../_lib/controls.js';
 const API = 'https://api.github.com';
 
 function json(data, status = 200) {
@@ -39,25 +40,6 @@ function priceForMode(basePrice, mode, menu, real) {
 function tableCount(menu) {
   const n = parseInt(menu.settings?.tableCount, 10);
   return Number.isFinite(n) && n > 0 ? Math.min(n, 500) : 20;
-}
-
-// الطلب من الصالة (QR/الباركود) ممكن يتوقف كلياً أو بفترة يومية من الإدارة. نفس منطق index.html. المنطقة الزمنية الافتراضية Asia/Amman.
-export function hallClosedNow(settings, date = new Date()) {
-  const h = settings?.hallOrdering;
-  if (!h || !h.mode || h.mode === 'on') return false;
-  if (h.mode === 'off') return true;
-  if (h.mode !== 'schedule') return false;
-  const re = /^(\d{1,2}):(\d{2})$/;
-  const a = re.exec(h.closedFrom || ''), b = re.exec(h.closedTo || '');
-  if (!a || !b) return false;
-  const from = +a[1] * 60 + +a[2], to = +b[1] * 60 + +b[2];
-  if (from === to) return false;
-  let now;
-  try {
-    const parts = new Intl.DateTimeFormat('en-GB', { timeZone: h.timezone || 'Asia/Amman', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(date);
-    now = +parts.find(x => x.type === 'hour').value * 60 + +parts.find(x => x.type === 'minute').value;
-  } catch { return false; }
-  return from < to ? (now >= from && now < to) : (now >= from || now < to);
 }
 
 function verifyTable(raw, menu) {
@@ -314,8 +296,12 @@ export async function onRequest(context) {
       // اسم النادل بييجي من حسابه، مش من اللي انكتب بالطلب
       if (auth.role === 'staff') fields.waiter = auth.staffName;
       else if (!trusted) fields.waiter = '';
-      if (p.mode === 'hall' && !trusted && hallClosedNow(menu.settings)) {
-        return json({ ok: false, code: 'hall_closed', error: 'الطلب من الطاولة متوقف حالياً — يرجى الطلب عند الكاشير.' }, 403);
+      // التحكم بالطلبات من الإدارة: إيقاف عام / لنوع الطلب / لمجموعة أصناف (الموظفين مستثنين)
+      if (!trusted) {
+        const byCat = new Map((menu.items || []).map(i => [String(i.id), i.cat]));
+        const cats = [...new Set(p.items.map(i => byCat.get(String(i?.id))).filter(Boolean))];
+        const blocked = blockReason(await loadControls(db), menu.settings, p.mode, cats);
+        if (blocked) return json({ ok: false, code: blocked.key === 'hall' ? 'hall_closed' : 'ordering_closed', closed: blocked.key, error: blocked.ar, errorEn: blocked.en }, 403);
       }
 
       if (p.mode === 'hall') {
