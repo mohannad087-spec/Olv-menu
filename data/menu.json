@@ -482,7 +482,7 @@
       "tags": [
         "veg"
       ],
-      "available": true,
+      "available": false,
       "image": "assets/photos/espresso-single.webp"
     },
     {
@@ -2200,7 +2200,7 @@
       "en": "Assorted Cheesecake",
       "descAr": "",
       "descEn": "",
-      "price": 2.0,
+      "price": 2,
       "tags": [
         "veg"
       ],
@@ -2296,7 +2296,7 @@
       "en": "Ferrero Mousse",
       "descAr": "",
       "descEn": "",
-      "price": 2.0,
+      "price": 2,
       "tags": [
         "veg"
       ],
@@ -2312,7 +2312,7 @@
       "en": "Chocolate Cake",
       "descAr": "",
       "descEn": "",
-      "price": 2.0,
+      "price": 2,
       "tags": [
         "veg"
       ],
@@ -2328,7 +2328,7 @@
       "en": "Royal Berry",
       "descAr": "",
       "descEn": "",
-      "price": 2.0,
+      "price": 2,
       "tags": [
         "veg"
       ],
@@ -2424,7 +2424,7 @@
       "en": "Assorted Cake Cup",
       "descAr": "",
       "descEn": "",
-      "price": 2.0,
+      "price": 2,
       "tags": [
         "veg"
       ],
@@ -2440,7 +2440,7 @@
       "en": "Ahmad Al-Zamil Trend",
       "descAr": "",
       "descEn": "",
-      "price": 2.0,
+      "price": 2,
       "tags": [
         "veg"
       ],
