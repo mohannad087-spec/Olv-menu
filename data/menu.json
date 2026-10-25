@@ -593,7 +593,8 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/nescafe.webp"
+      "image": "assets/photos/nescafe.webp",
+      "hallPrice": 0.6
     },
     {
       "id": "hot-chocolate",
