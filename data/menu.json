@@ -2424,36 +2424,40 @@
     {
       "id": "kinder-cake",
       "cat": "cakes",
-      "subcat": "cakes",
+      "subcat": "كيك",
       "subcatAr": "كيك",
       "subcatEn": "Cakes",
       "ar": "كندر كيك",
       "en": "Kinder Cake",
       "descAr": "",
       "descEn": "",
-      "price": 1.85,
+      "price": 2,
       "tags": [
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.35
+      "hallPrice": 2.35,
+      "image": "",
+      "popular": false
     },
     {
       "id": "sakura-cake",
       "cat": "cakes",
-      "subcat": "cakes",
+      "subcat": "كيك",
       "subcatAr": "كيك",
       "subcatEn": "Cakes",
       "ar": "ساكورا كيك",
       "en": "Sakura Cake",
       "descAr": "",
       "descEn": "",
-      "price": 1.85,
+      "price": 2,
       "tags": [
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.35
+      "hallPrice": 2.35,
+      "image": "",
+      "popular": false
     },
     {
       "id": "german-cake",
@@ -2465,7 +2469,7 @@
       "en": "German Cake",
       "descAr": "",
       "descEn": "",
-      "price": 1.85,
+      "price": 2,
       "tags": [
         "veg"
       ],
@@ -2585,19 +2589,21 @@
     {
       "id": "red-velvet-cake",
       "cat": "cakes",
-      "subcat": "cakes",
+      "subcat": "كيك",
       "subcatAr": "كيك",
       "subcatEn": "Cakes",
       "ar": "ردفلت كيك",
       "en": "Red Velvet Cake",
       "descAr": "",
       "descEn": "",
-      "price": 1.75,
+      "price": 2,
       "tags": [
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.25
+      "hallPrice": 2.25,
+      "image": "",
+      "popular": false
     },
     {
       "id": "blueberry-cake",
