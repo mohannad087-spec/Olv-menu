@@ -114,10 +114,10 @@ document.addEventListener('fullscreenchange',function(){if(document.fullscreenEl
 setTimeout(function(){h.style.opacity=0},12000);})();
 var OFFERS=[
  {date:'2026-10-21',tag:'عرض اليوم فقط',title:'وجبة برغر OLV',desc:'برغر لحم، جبنة، خس، طماطم وصوص OLV',price:5,unit:'دنانير',images:['assets/photos/olv-burger.webp'],modes:['all','food'],every:5},
- {date:null,tag:'لحد نفاذ الكمية',title:'دونات طازجة',desc:'لوتس، أوريو أو شوكولاتة',price:'0.50',unit:'دينار للحبة',was:'0.75',images:['assets/photos/donut-chocolate.webp','assets/photos/donut-lotus.webp','assets/photos/donut-oreo.webp'],modes:['all','food','drinks'],every:5}
+ {off:true,date:null,tag:'لحد نفاذ الكمية',title:'دونات طازجة',desc:'لوتس، أوريو أو شوكولاتة',price:'0.50',unit:'دينار للحبة',was:'0.75',images:['assets/photos/donut-chocolate.webp','assets/photos/donut-lotus.webp','assets/photos/donut-oreo.webp'],modes:['all','food','drinks'],every:5}
 ];
 function today(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Amman'}).format(new Date())}
-function activeOffers(){var t=today();return OFFERS.filter(function(o){return(!o.date||o.date===t)&&o.modes.indexOf(MODE)>-1})}
+function activeOffers(){var t=today();return OFFERS.filter(function(o){return!o.off&&(!o.date||o.date===t)&&o.modes.indexOf(MODE)>-1})}
 var slides=[],cur=-1,timer=null,t0=performance.now(),sig='';
 
 function build(DATA){
@@ -185,7 +185,11 @@ load(true);
 // لو فشل أول تحميل (نت ضعيف أو رفرش) بنعيد المحاولة كل 10 ثواني لين ينجح
 var retry=setInterval(function(){if(slides.length)clearInterval(retry);else load(true)},10000);
 setInterval(function(){load(false)},REFRESH);
-// كل ساعة نعيد تحميل الصفحة كلها عشان تاخذ آخر نسخة من الكود
+// تحديث تلقائي: كل دقيقة بنفحص إذا الصفحة نفسها اتغيرت على السيرفر، ولو اتغيرت بنعيد التحميل لحالنا (ما بتحتاج ريموت)
+var ver=null;
+function checkVer(){fetch('tv.html?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){var h=t.length+':'+t.slice(-200);if(ver===null)ver=h;else if(h!==ver)location.reload()}).catch(function(){})}
+checkVer();setInterval(checkVer,60000);
+// وكمان إعادة تحميل كاملة كل 6 ساعات احتياطًا
 setTimeout(function(){location.reload()},6*3600*1000);
 })();
 </script>
