@@ -52,13 +52,19 @@ body{font-size:16px}
 /* عرض اليوم */
 .offer{flex:1;display:flex;align-items:center;gap:72px}
 .offer .photo{flex:0 0 760px;height:100%;border-radius:48px;overflow:hidden;box-shadow:inset 0 1px 0 var(--glass-hi),var(--shadow)}
-.offer .txt{flex:1;display:flex;flex-direction:column;gap:26px;align-items:flex-start}
+.offer .txt{flex:1;display:flex;flex-direction:column;gap:18px;align-items:flex-start;justify-content:center}
+.offer .was{font:500 40px var(--font);color:var(--ink2)}
+.offer .photo{display:grid;gap:16px;background:none;box-shadow:none;min-height:0;overflow:visible}
+.offer .photo img{width:100%;height:100%;min-height:0;object-fit:cover}
+.offer .txt .logo{width:300px}
+.offer .photo img{border-radius:40px;box-shadow:var(--shadow)}
+.offer .photo.n3{grid-template-columns:1fr 1fr;grid-template-rows:1.4fr 1fr}.offer .photo.n3 img:first-child{grid-column:1/3}
+.offer .photo.n1 img{border-radius:48px}
 .offer .tag{font:600 40px var(--font);padding:10px 34px;border-radius:999px;background:var(--glass);border:1px solid var(--glass-line);color:var(--ink)}
-.offer h2{font:700 120px/1.15 var(--display);margin:0}
+.offer h2{font:700 104px/1.15 var(--display);margin:0}
 .offer p{font:500 44px/1.4 var(--font);color:var(--ink2);margin:0}
-.offer .big{font:700 190px/1 var(--display);display:flex;align-items:baseline;gap:20px;font-variant-numeric:tabular-nums}
+.offer .big{font:700 160px/1 var(--display);display:flex;align-items:baseline;gap:20px;font-variant-numeric:tabular-nums}
 .offer .big small{font:600 56px var(--font);color:var(--ink2)}
-.offer .was{font:500 40px var(--font);color:var(--ink2);text-decoration:line-through}
 #fs{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font:500 30px var(--font);color:var(--ink2);background:var(--glass);border:1px solid var(--glass-line);padding:12px 32px;border-radius:999px;transition:opacity .6s;pointer-events:none}
 #bar{position:absolute;bottom:0;right:0;height:6px;background:var(--ink);opacity:.55;width:0}
 #msg{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font:600 56px var(--font);color:var(--ink2)}
@@ -94,8 +100,6 @@ function priceHtml(i){
 }
 
 // عرض اليوم: بيظهر بس بالتاريخ المحدد (بتوقيت عمّان) وبعدها بيختفي لحاله
-var OFFER={date:'2026-10-21',tag:'عرض اليوم فقط',title:'وجبة برغر OLV',desc:'برغر لحم، جبنة، خس، طماطم وصوص OLV',price:5,image:'assets/photos/olv-burger.webp',every:5};
-function offerOn(){var d=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Amman'}).format(new Date());return d===OFFER.date}
 // شاشتين: المشروبات لحالها، والباقي (أكل وحلويات وأرجيلة) لحاله. بتتحدد من الدومين أو من ?show=drinks|food
 var DRINKS=['hot','cold','cocktails','juices','shakes'];
 var MODE=(new URLSearchParams(location.search).get('show')||(/^screen2\./.test(location.hostname)?'drinks':/^screen\./.test(location.hostname)?'food':'all')).toLowerCase();
@@ -108,6 +112,12 @@ function on(){go();done()}
 ['click','keydown','touchend'].forEach(function(t){addEventListener(t,on)});
 document.addEventListener('fullscreenchange',function(){if(document.fullscreenElement)h.style.opacity=0});
 setTimeout(function(){h.style.opacity=0},12000);})();
+var OFFERS=[
+ {date:'2026-10-21',tag:'عرض اليوم فقط',title:'وجبة برغر OLV',desc:'برغر لحم، جبنة، خس، طماطم وصوص OLV',price:5,unit:'دنانير',images:['assets/photos/olv-burger.webp'],modes:['all','food'],every:5},
+ {date:null,tag:'لحد نفاذ الكمية',title:'دونات طازجة',desc:'لوتس، أوريو أو شوكولاتة',price:'0.50',unit:'دينار للحبة',was:'0.75',images:['assets/photos/donut-chocolate.webp','assets/photos/donut-lotus.webp','assets/photos/donut-oreo.webp'],modes:['all','food','drinks'],every:5}
+];
+function today(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Amman'}).format(new Date())}
+function activeOffers(){var t=today();return OFFERS.filter(function(o){return(!o.date||o.date===t)&&o.modes.indexOf(MODE)>-1})}
 var slides=[],cur=-1,timer=null,t0=performance.now(),sig='';
 
 function build(DATA){
@@ -121,14 +131,16 @@ function build(DATA){
     var per=Math.ceil(items.length/pages);
     for(var p=0;p<pages;p++)out.push({cat:c,ci:ci,items:items.slice(p*per,(p+1)*per),page:p,pages:pages});
   });
-  if(offerOn()&&MODE!=='drinks'){var res=[],k=0;res.push({offer:1});out.forEach(function(x){res.push(x);if(++k%OFFER.every===0)res.push({offer:1})});return res}
+  var offs=activeOffers();
+  if(offs.length){var res=[],k=0,j=0;offs.forEach(function(o){res.push({offer:o})});out.forEach(function(x){res.push(x);if(++k%5===0)res.push({offer:offs[j++%offs.length]})});return res}
   return out;
 }
 
 function slideEl(s){
   var el=document.createElement('section');el.className='slide';
   if(s.offer){
-    el.innerHTML='<div class="offer"><div class="photo"><img src="'+esc(OFFER.image)+'" alt=""></div><div class="txt"><img class="logo" src="assets/olv-logo-transparent.webp" alt="OLV"><span class="tag">'+esc(OFFER.tag)+'</span><h2>'+esc(OFFER.title)+'</h2><p>'+esc(OFFER.desc)+'</p><div class="big">'+money(OFFER.price).replace(/\.00$/,'')+' <small>دنانير</small></div></div></div>';
+    var o=s.offer,ph=o.images.map(function(u){return '<img src="'+esc(u)+'" alt="">'}).join('');
+    el.innerHTML='<div class="offer"><div class="photo n'+o.images.length+'">'+ph+'</div><div class="txt"><img class="logo" src="assets/olv-logo-transparent.webp" alt="OLV"><span class="tag">'+esc(o.tag)+'</span><h2>'+esc(o.title)+'</h2><p>'+esc(o.desc)+'</p><div class="big">'+esc(String(o.price).replace(/\.00$/,''))+' <small>'+esc(o.unit)+'</small></div>'+(o.was?'<span class="was">بدل '+esc(o.was)+' دينار</span>':'')+'</div></div>';
     return el;
   }
   var dots='';if(s.pages>1){for(var d=0;d<s.pages;d++)dots+='<i'+(d===s.page?' class="cur"':'')+'></i>'}
@@ -161,7 +173,7 @@ function tick(now){
 function load(first){
   return fetch('data/menu.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(D){
     var s=build(D);
-    var ns=MODE+offerOn()+JSON.stringify(s.map(function(x){if(x.offer)return 'offer';return[x.cat.id,x.cat.ar,x.items.map(function(i){return[i.id,i.ar,i.price,i.image,i.large,i.variants]})]}));
+    var ns=MODE+JSON.stringify(s.map(function(x){if(x.offer)return 'offer:'+x.offer.title;return[x.cat.id,x.cat.ar,x.items.map(function(i){return[i.id,i.ar,i.price,i.image,i.large,i.variants]})]}));
     if(ns===sig)return;           // ما تغيّر شي
     sig=ns;slides=s;
     msg.style.display='none';
