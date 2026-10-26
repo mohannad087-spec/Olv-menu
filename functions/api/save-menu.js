@@ -1,4 +1,5 @@
 import { checkKey } from '../_lib/keys.js';
+import { saveLiveMenu } from '../_lib/menu-live.js';
 
 // Cloudflare Pages Function — reads GITHUB_TOKEN/GITHUB_REPO/GITHUB_BRANCH/OLV_ADMIN_KEY from context.env at request time.
 export async function onRequest(context) {
@@ -98,6 +99,7 @@ export async function onRequest(context) {
     });
   }
 
+  await saveLiveMenu(env.OLV_DB || null, payload.menu);
   return new Response(JSON.stringify({ ok: true, repository: repo, branch, result: JSON.parse(resultText) }), {
     status: 200,
     headers: { 'content-type': 'application/json' }

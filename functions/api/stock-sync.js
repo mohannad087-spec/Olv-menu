@@ -1,4 +1,5 @@
 import { checkKey } from '../_lib/keys.js';
+import { saveLiveMenu } from '../_lib/menu-live.js';
 const API = 'https://api.github.com';
 
 function json(data, status = 200) {
@@ -210,5 +211,6 @@ export async function onRequest(context) {
     body: JSON.stringify({ message: `Stock sync: +${added} ~${updated} -${removed}`, content: encode(JSON.stringify(next, null, 2)), sha: currentFile.sha, branch })
   });
   if (!put.ok) return json({ ok: false, error: `GitHub update failed: ${await put.text()}` }, put.status);
+  await saveLiveMenu(env.OLV_DB || null, next);
   return json({ ok: true, changed: true, added, updated, removed });
 }
