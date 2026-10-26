@@ -536,7 +536,7 @@
       ],
       "available": true,
       "image": "assets/photos/espresso-double.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "spanish-latte",
@@ -573,7 +573,7 @@
       "available": true,
       "image": "assets/photos/cappuccino.webp",
       "popular": false,
-      "hallPrice": 1.0
+      "hallPrice": 1
     },
     {
       "id": "cappuccino-barista",
@@ -663,7 +663,7 @@
       "available": true,
       "image": "assets/photos/americano.webp",
       "popular": false,
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "v60",
@@ -699,7 +699,7 @@
       ],
       "available": true,
       "image": "assets/photos/caffe-latte.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "turkish-coffee",
@@ -768,7 +768,7 @@
       ],
       "available": true,
       "image": "assets/photos/karak.webp",
-      "hallPrice": 1.0
+      "hallPrice": 1
     },
     {
       "id": "herbal",
@@ -786,7 +786,7 @@
       ],
       "available": true,
       "image": "assets/photos/herbal.webp",
-      "hallPrice": 1.0
+      "hallPrice": 1
     },
     {
       "id": "iced-spanish-latte",
@@ -823,7 +823,7 @@
       "available": true,
       "image": "assets/photos/frappuccino.webp",
       "popular": false,
-      "hallPrice": 3.0
+      "hallPrice": 3
     },
     {
       "id": "caramel-macchiato",
@@ -896,7 +896,7 @@
       "available": true,
       "image": "assets/photos/ice-coffee.webp",
       "popular": false,
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "smoothie",
@@ -968,7 +968,7 @@
       ],
       "available": true,
       "image": "assets/photos/mojito-boom.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "cocktail-plain",
@@ -987,7 +987,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/cocktail-plain.webp",
       "hallPrice": 1.5
@@ -1031,10 +1031,10 @@
       "available": true,
       "large": {
         "price": 3.5,
-        "hallPrice": 4.0
+        "hallPrice": 4
       },
       "image": "assets/photos/cocktail-cream-honey.webp",
-      "hallPrice": 3.0
+      "hallPrice": 3
     },
     {
       "id": "cocktail-icecream",
@@ -1053,10 +1053,10 @@
       "available": true,
       "large": {
         "price": 3.5,
-        "hallPrice": 4.0
+        "hallPrice": 4
       },
       "image": "assets/photos/cocktail-icecream.webp",
-      "hallPrice": 3.0
+      "hallPrice": 3
     },
     {
       "id": "emperor",
@@ -1078,7 +1078,7 @@
         "hallPrice": 3.5
       },
       "image": "assets/photos/emperor.webp",
-      "hallPrice": 3.0
+      "hallPrice": 3
     },
     {
       "id": "mango-farghali",
@@ -1100,7 +1100,7 @@
         "hallPrice": 2.5
       },
       "image": "assets/photos/mango-farghali.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "mango-strawberry",
@@ -1119,10 +1119,10 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/mango-strawberry.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "mango-vanilla",
@@ -1144,7 +1144,7 @@
         "hallPrice": 3.5
       },
       "image": "assets/photos/mango-vanilla.webp",
-      "hallPrice": 3.0
+      "hallPrice": 3
     },
     {
       "id": "galaxy-plain",
@@ -1163,7 +1163,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/galaxy-plain.webp",
       "hallPrice": 2.5
@@ -1188,7 +1188,7 @@
         "hallPrice": 3.5
       },
       "image": "assets/photos/galaxy-cream.webp",
-      "hallPrice": 3.0
+      "hallPrice": 3
     },
     {
       "id": "orange",
@@ -1207,7 +1207,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/orange.webp",
       "hallPrice": 1.5
@@ -1229,7 +1229,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/orange-lemon.webp",
       "hallPrice": 1.5
@@ -1251,7 +1251,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/lemon.webp",
       "hallPrice": 1.5
@@ -1273,7 +1273,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/lemon-mint.webp",
       "hallPrice": 1.5
@@ -1295,7 +1295,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/banana-milk.webp",
       "hallPrice": 1.5
@@ -1317,7 +1317,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/banana-milk-dates.webp",
       "hallPrice": 1.5
@@ -1365,7 +1365,7 @@
         "hallPrice": 2.5
       },
       "image": "assets/photos/pineapple-strawberry.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "pineapple-kiwi",
@@ -1387,7 +1387,7 @@
         "hallPrice": 2.5
       },
       "image": "assets/photos/pineapple-kiwi.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "avocado-plain",
@@ -1409,7 +1409,7 @@
         "hallPrice": 2.5
       },
       "image": "assets/photos/avocado-plain.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "avocado-cream-honey",
@@ -1453,7 +1453,7 @@
         "hallPrice": 3.75
       },
       "image": "assets/photos/avocado-pieces-cream.webp",
-      "hallPrice": 3.0
+      "hallPrice": 3
     },
     {
       "id": "khamis-plain",
@@ -1497,7 +1497,7 @@
         "hallPrice": 3.75
       },
       "image": "assets/photos/khamis-cream.webp",
-      "hallPrice": 3.0
+      "hallPrice": 3
     },
     {
       "id": "fruit-salad",
@@ -1533,7 +1533,7 @@
       ],
       "available": true,
       "image": "assets/photos/fruit-salad-cream.webp",
-      "hallPrice": 4.0
+      "hallPrice": 4
     },
     {
       "id": "fakhfakhina",
@@ -1551,7 +1551,7 @@
       ],
       "available": true,
       "image": "assets/photos/fakhfakhina.webp",
-      "hallPrice": 4.0
+      "hallPrice": 4
     },
     {
       "id": "pomegranate",
@@ -1573,7 +1573,7 @@
         "hallPrice": 2.5
       },
       "image": "assets/photos/pomegranate.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "pomegranate-pineapple",
@@ -1595,7 +1595,7 @@
         "hallPrice": 2.5
       },
       "image": "assets/photos/pomegranate-pineapple.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "pomegranate-grape",
@@ -1617,7 +1617,7 @@
         "hallPrice": 2.5
       },
       "image": "assets/photos/pomegranate-grape.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "pomegranate-pine-orange",
@@ -1639,7 +1639,7 @@
         "hallPrice": 2.5
       },
       "image": "assets/photos/pomegranate-pine-orange.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "pomegranate-strawberry",
@@ -1661,7 +1661,7 @@
         "hallPrice": 2.5
       },
       "image": "assets/photos/pomegranate-strawberry.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "vitamin-c",
@@ -1683,7 +1683,7 @@
         "hallPrice": 2.5
       },
       "image": "assets/photos/vitamin-c.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "cantaloupe",
@@ -1702,7 +1702,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/cantaloupe.webp",
       "hallPrice": 1.5
@@ -1724,7 +1724,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/cantaloupe-strawberry.webp",
       "hallPrice": 1.5
@@ -1746,7 +1746,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/watermelon.webp",
       "hallPrice": 1.5
@@ -1768,7 +1768,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/watermelon-strawberry.webp",
       "hallPrice": 1.5
@@ -1790,7 +1790,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/carrot.webp",
       "hallPrice": 1.5
@@ -1812,7 +1812,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/carrot-orange.webp",
       "hallPrice": 1.5
@@ -1834,7 +1834,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/strawberry.webp",
       "hallPrice": 1.5
@@ -1856,7 +1856,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/strawberry-milk.webp",
       "hallPrice": 1.5
@@ -1878,7 +1878,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/strawberry-banana-milk.webp",
       "hallPrice": 1.5
@@ -1903,7 +1903,7 @@
         "hallPrice": 2.5
       },
       "image": "assets/photos/cocktail-awar-alqalb.webp",
-      "hallPrice": 2.0
+      "hallPrice": 2
     },
     {
       "id": "cocktail-papaya-mango",
@@ -1925,7 +1925,7 @@
         "hallPrice": 3.5
       },
       "image": "assets/photos/cocktail-papaya-mango.webp",
-      "hallPrice": 3.0
+      "hallPrice": 3
     },
     {
       "id": "cocktail-dragon-fruit",
@@ -1947,7 +1947,7 @@
         "hallPrice": 3.5
       },
       "image": "assets/photos/cocktail-dragon-fruit.webp",
-      "hallPrice": 3.0
+      "hallPrice": 3
     },
     {
       "id": "cocktail-alloord",
@@ -1969,7 +1969,7 @@
         "hallPrice": 3.5
       },
       "image": "assets/photos/cocktail-alloord.webp",
-      "hallPrice": 3.0
+      "hallPrice": 3
     },
     {
       "id": "cocktail-banana-strawberry-orange",
@@ -1988,7 +1988,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/cocktail-banana-strawberry-orange.webp",
       "hallPrice": 1.5
@@ -2010,7 +2010,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/passion-mango.webp",
       "hallPrice": 2.5
@@ -2032,7 +2032,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/passion-pineapple.webp",
       "hallPrice": 2.5
@@ -2054,7 +2054,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/passion-strawberry.webp",
       "hallPrice": 2.5
@@ -2076,7 +2076,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/tropicana.webp",
       "hallPrice": 2.5
@@ -2098,7 +2098,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/kiwi.webp",
       "hallPrice": 1.5
@@ -2120,7 +2120,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/kiwi-lemon.webp",
       "hallPrice": 1.5
@@ -2142,7 +2142,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/kiwi-strawberry.webp",
       "hallPrice": 1.5
@@ -2186,7 +2186,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/shake-oreo.webp",
       "hallPrice": 2.5
@@ -2208,7 +2208,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/shake-snickers.webp",
       "hallPrice": 2.5
@@ -2230,7 +2230,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/shake-chocolate.webp",
       "hallPrice": 2.5
@@ -2252,7 +2252,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/shake-pistachio.webp",
       "hallPrice": 2.5
@@ -2274,7 +2274,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/shake-strawberry.webp",
       "hallPrice": 2.5
@@ -2296,7 +2296,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/shake-cheesecake.webp",
       "hallPrice": 2.5
@@ -2388,19 +2388,21 @@
     {
       "id": "carrot-cake",
       "cat": "cakes",
-      "subcat": "cakes",
+      "subcat": "كيك",
       "subcatAr": "كيك",
       "subcatEn": "Cakes",
       "ar": "كاروت كيك",
       "en": "Carrot Cake",
       "descAr": "",
       "descEn": "",
-      "price": 1.75,
+      "price": 2,
       "tags": [
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.25
+      "hallPrice": 2.25,
+      "image": "",
+      "popular": false
     },
     {
       "id": "lotus-cake",
@@ -3321,7 +3323,7 @@
       ],
       "available": true,
       "image": "assets/photos/mojito-redbull.webp",
-      "hallPrice": 3.0
+      "hallPrice": 3
     },
     {
       "id": "item-1792875774804",
