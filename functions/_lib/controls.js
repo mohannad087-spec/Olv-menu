@@ -2,7 +2,7 @@
 // محفوظة بصف واحد بجدول ordering_controls بـD1 حتى يسري التغيير فوراً (بدون نشر المنيو). المنطقة الزمنية الافتراضية Asia/Amman.
 export const RULE_KEYS = ['all', 'hall', 'takeaway', 'delivery', 'food', 'drinks', 'sweets', 'shisha'];
 export const GROUP_OF = {
-  burgers: 'food', snacks: 'food', sandwiches: 'food', breakfast: 'food', pizza: 'food', pasta: 'food', salads: 'food',
+  offers: 'food', burgers: 'food', snacks: 'food', sandwiches: 'food', breakfast: 'food', pizza: 'food', pasta: 'food', salads: 'food',
   hot: 'drinks', cold: 'drinks', cocktails: 'drinks', juices: 'drinks', shakes: 'drinks',
   desserts: 'sweets', cakes: 'sweets', icecream: 'sweets', scoops: 'sweets', donuts: 'sweets', waffles: 'sweets', crepes: 'sweets',
   shisha: 'shisha'

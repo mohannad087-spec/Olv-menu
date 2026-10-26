@@ -20,6 +20,11 @@
       "en": "Popular"
     },
     {
+      "id": "offers",
+      "ar": "عروض",
+      "en": "Offers"
+    },
+    {
       "id": "burgers",
       "ar": "برغر",
       "en": "Burgers"
@@ -121,6 +126,18 @@
     }
   ],
   "items": [
+    {
+      "id": "offer-zaatar-cup",
+      "cat": "offers",
+      "ar": "عرض منقوشة زعتر + كاسة",
+      "en": "Zaatar Manousheh + Cup Offer",
+      "descAr": "منقوشة زعتر مع كاسة",
+      "descEn": "Zaatar manousheh with a cup",
+      "price": 1,
+      "tags": [],
+      "available": true,
+      "popular": true
+    },
     {
       "id": "olv-burger",
       "cat": "burgers",

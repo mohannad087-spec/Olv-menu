@@ -2,7 +2,7 @@
 // بيستبدل renderCats و render و card من index.html، وما بيغيّر شي بالطلب أو السلة أو الأسعار
 (function(){
 const GROUPS=[
-  {id:'food',ar:'الأكل',en:'Food',cats:['burgers','snacks','sandwiches','breakfast','pizza','pasta','salads'],img:'burgers',pick:'olv-burger'},
+  {id:'food',ar:'الأكل',en:'Food',cats:['offers','burgers','snacks','sandwiches','breakfast','pizza','pasta','salads'],img:'burgers',pick:'olv-burger'},
   {id:'drinks',ar:'المشروبات',en:'Drinks',cats:['hot','cold','cocktails','juices','shakes'],img:'hot',pick:'iced-spanish-latte'},
   {id:'sweet',ar:'الحلو',en:'Sweets',cats:['desserts','cakes','icecream','scoops','donuts','waffles','crepes'],img:'desserts',pick:'molten-cake'},
   {id:'shisha',ar:'الأرجيلة',en:'Shisha',cats:['shisha'],img:'shisha',pick:'shisha-special'}
@@ -13,6 +13,7 @@ const ICONS={
   burgers:'<path d="M4 10.5a8 5.5 0 0 1 16 0Z"/><path d="M3.5 14h17"/><path d="M5 17.5h14a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3Z"/><path d="M9 7.5h.01M12 6.5h.01M15 7.5h.01"/>',
   snacks:'<path d="M6 10h12l-1.6 10.5H7.6Z"/><path d="M8.2 10 7.5 4M10.7 10l-.2-6.5M13.3 10l.2-6.5M15.8 10l.7-6"/>',
   sandwiches:'<path d="M3.5 16.5 18 5l2.5 11.5Z"/><path d="M3.5 16.5v2.5h17v-2.5"/><path d="M7.5 15.5l9-7"/>',
+  offers:'<path d="M11.5 3H4v7.5L14 20.5 21 13.5 11.5 3z"/><path d="M8 7.5h.01"/>',
   pizza:'<path d="M3.5 8.5C8.5 4 15.5 4 20.5 8.5L12 21Z"/><path d="M4.5 9.7c4.8-2.6 10.2-2.6 15 0"/><path d="M10 11.5h.01M13.5 13h.01M11.5 16h.01"/>',
   pasta:'<path d="M3 12h18a9 6.5 0 0 1-18 0Z"/><path d="M8 12c0-2.5 2-3 2-6M12 12c0-2.5 2-3 2-6M16 12c0-2 1.5-2.5 1.5-4.5"/>',
   salads:'<path d="M3 12h18a9 6.5 0 0 1-18 0Z"/><path d="M11 12c-3-1-4-4.3-1.8-7.5 3 1.2 4 4.3 1.8 7.5Z"/><path d="M14 12c.6-2.2 2.6-3.6 5-3.6"/>',
