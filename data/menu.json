@@ -3547,7 +3547,8 @@
       "descAr": "وجبة دبل: دجاج، ثومة، بطاطا، مخلل",
       "descEn": "Double meal: chicken, garlic sauce, fries, pickles",
       "price": 3,
-      "tags": []
+      "tags": [],
+      "available": false
     },
     {
       "id": "sh-meat",
