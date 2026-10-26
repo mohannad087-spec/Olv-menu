@@ -3504,7 +3504,14 @@
       "tags": [],
       "image": "",
       "available": true,
-      "popular": false
+      "popular": false,
+      "meal": {
+        "price": 2,
+        "descAr": "مع بطاطا"
+      },
+      "large": {
+        "price": 3.5
+      }
     },
     {
       "id": "sh-chicken-super",
