@@ -3287,15 +3287,14 @@
       "subcatAr": "ماء 500 مل",
       "subcatEn": "Water 250ml",
       "ar": "ماء 500 مل",
-      "en": "Water 500ml",
+      "en": "Water 250ml",
       "descAr": "",
       "descEn": "",
       "price": 0.25,
       "tags": [],
       "available": true,
       "source": "stock",
-      "image": "assets/photos/stk-850b359bed0b.webp",
-      "hallPrice": 0.5
+      "image": "assets/photos/stk-850b359bed0b.webp"
     },
     {
       "id": "stk-1ac151970a15",
