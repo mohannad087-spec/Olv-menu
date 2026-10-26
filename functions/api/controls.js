@@ -1,5 +1,6 @@
 import { checkKey } from '../_lib/keys.js';
 import { loadControls, saveControls, status, RULE_KEYS } from '../_lib/controls.js';
+import { loadMenu as loadLiveMenu } from '../_lib/menu-live.js';
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
@@ -11,7 +12,7 @@ export async function onRequest(context) {
   const db = env.OLV_DB || null;
   try {
     let menu = {};
-    try { menu = await (await env.ASSETS.fetch(new URL('/data/menu.json', request.url).toString())).json(); } catch { /* نكمل بدون إعدادات المنيو */ }
+    try { menu = await loadLiveMenu(env, request); } catch { /* نكمل بدون إعدادات المنيو */ }
     const controls = await loadControls(db);
     if (request.method === 'GET') {
       const out = { ok: true, status: status(controls, menu.settings), serverTime: new Date().toISOString() };

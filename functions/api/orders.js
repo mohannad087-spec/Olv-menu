@@ -1,5 +1,6 @@
 import { checkKey } from '../_lib/keys.js';
 import { loadControls, blockReason } from '../_lib/controls.js';
+import { loadMenu as loadLiveMenu } from '../_lib/menu-live.js';
 const API = 'https://api.github.com';
 
 function json(data, status = 200) {
@@ -18,10 +19,7 @@ function getDB(env) {
 }
 
 async function loadMenu(context) {
-  const url = new URL('/data/menu.json', context.request.url);
-  const res = await context.env.ASSETS.fetch(url.toString());
-  if (!res.ok) throw new Error('Unable to load menu for price verification.');
-  return res.json();
+  return loadLiveMenu(context.env, context.request);
 }
 
 function roundMoney(n) {
