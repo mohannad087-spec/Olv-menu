@@ -49,7 +49,6 @@ body{margin:0;background:#d8d0c2;color:var(--ink);font-family:"Readex Pro","Noto
 .row .dtag{font-size:12px;margin-inline-start:3px}
 .leader{flex:1 1 auto;border-bottom:1px dotted #b3a993;margin:0 6px;position:relative;top:-4px;min-width:8px}
 .row .price{white-space:nowrap;font-weight:600;font-size:13.5px;color:var(--ink)}
-.row .price small.lbl{margin-inline:6px 3px;font-size:10px}
 .row .price small{font-weight:400;font-size:11px;color:var(--muted);margin-inline-start:3px}
 .row .en{font-size:11px;color:var(--muted);margin-top:1px}
 .foot{margin-top:8px;text-align:center}
@@ -112,10 +111,7 @@ const GROUPS=[
 ];
 function row(i){
   // صنف بحجمين: صغير / كبير
-  let price=i.large&&i.large.price?`${Number(i.price).toFixed(2)} / ${Number(i.large.price).toFixed(2)}`:Number(i.price).toFixed(2);
-  // سعر الصالة المختلف عن السفري (إن وُجد)
-  const hp=Number(i.hallPrice);
-  if(!(i.large&&i.large.price)&&hp>0&&hp!==Number(i.price))price=`<small class="lbl">سفري</small>${Number(i.price).toFixed(2)}<small class="lbl">صالة</small>${hp.toFixed(2)}`;
+  const price=i.large&&i.large.price?`${Number(i.price).toFixed(2)} / ${Number(i.large.price).toFixed(2)}`:Number(i.price).toFixed(2);
   return `<div class="row">
     <div class="row-top">
       <span class="name">${i.popular?'<span class="star">★</span>':''}${i.ar}${tagBadges(i)}</span>
