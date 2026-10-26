@@ -40,6 +40,8 @@ function cleanItem(raw) {
     available: raw.available !== false,
     source: 'stock'
   };
+  const hall = Number(raw.hallPrice);
+  if (Number.isFinite(hall) && hall > 0) item.hallPrice = Math.round(hall * 100) / 100; // سعر الصالة (price = السفري)
   const group = String(raw.group || '').trim().slice(0, 80);
   if (group) { item._group = group; item._variant = String(raw.variant || '').trim().slice(0, 80); item._venEn = String(raw.en || '').trim().slice(0, 80); }
   return item;
@@ -148,7 +150,7 @@ function mergeStockItems(menu, incoming) {
       const w = wanted.get(old.id);
       if (!w) { removed++; continue; }
       // keep fields the owner may have edited by hand (image, description, popular flag)
-      const merged = { ...old, ...w, inGroup: w.inGroup, image: old.image, descAr: old.descAr || '', descEn: old.descEn || '', popular: old.popular, tags: old.tags || [] };
+      const merged = { ...old, ...w, hallPrice: w.hallPrice, inGroup: w.inGroup, image: old.image, descAr: old.descAr || '', descEn: old.descEn || '', popular: old.popular, tags: old.tags || [] };
       Object.keys(merged).forEach(k => merged[k] === undefined && delete merged[k]);
       if (JSON.stringify(merged) !== JSON.stringify(old)) updated++;
       next.push(merged);
