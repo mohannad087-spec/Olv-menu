@@ -2458,7 +2458,7 @@
     {
       "id": "german-cake",
       "cat": "cakes",
-      "subcat": "cakes",
+      "subcat": "كيك",
       "subcatAr": "كيك",
       "subcatEn": "Cakes",
       "ar": "جيرمن كيك",
@@ -2470,7 +2470,9 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.35
+      "hallPrice": 2.35,
+      "image": "",
+      "popular": false
     },
     {
       "id": "ferrero-mousse",
@@ -2543,19 +2545,21 @@
     {
       "id": "honey-cake",
       "cat": "cakes",
-      "subcat": "cakes",
+      "subcat": "كيك",
       "subcatAr": "كيك",
       "subcatEn": "Cakes",
       "ar": "كيكة العسل",
       "en": "Honey Cake",
       "descAr": "",
       "descEn": "",
-      "price": 1.75,
+      "price": 2,
       "tags": [
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.25
+      "hallPrice": 2.25,
+      "image": "",
+      "popular": false
     },
     {
       "id": "pistachio-cake",
@@ -2594,19 +2598,21 @@
     {
       "id": "blueberry-cake",
       "cat": "cakes",
-      "subcat": "cakes",
+      "subcat": "كيك",
       "subcatAr": "كيك",
       "subcatEn": "Cakes",
       "ar": "بلوبري كيك",
       "en": "Blueberry Cake",
       "descAr": "",
       "descEn": "",
-      "price": 1.75,
+      "price": 2,
       "tags": [
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.25
+      "hallPrice": 2.25,
+      "image": "",
+      "popular": false
     },
     {
       "id": "cup-mix",
