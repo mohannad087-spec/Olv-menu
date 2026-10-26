@@ -2316,7 +2316,7 @@
         "veg"
       ],
       "image": "assets/photos/cheesecake.webp",
-      "hallPrice": 3.75,
+      "hallPrice": 2.5,
       "available": true,
       "popular": false
     },
@@ -2353,7 +2353,7 @@
         "veg"
       ],
       "image": "assets/photos/molten-cake.webp",
-      "hallPrice": 4.25,
+      "hallPrice": 2.5,
       "available": true
     },
     {
@@ -2405,7 +2405,7 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.25,
+      "hallPrice": 2.5,
       "image": "",
       "popular": false
     },
@@ -2441,7 +2441,7 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.35,
+      "hallPrice": 2.5,
       "image": "",
       "popular": false
     },
@@ -2460,7 +2460,7 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.35,
+      "hallPrice": 2.5,
       "image": "",
       "popular": false
     },
@@ -2479,7 +2479,7 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.35,
+      "hallPrice": 2.5,
       "image": "",
       "popular": false
     },
@@ -2549,7 +2549,7 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.6,
+      "hallPrice": 2.5,
       "image": "",
       "popular": false
     },
@@ -2568,7 +2568,7 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.25,
+      "hallPrice": 2.5,
       "image": "",
       "popular": false
     },
@@ -2587,7 +2587,7 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.35,
+      "hallPrice": 2.5,
       "image": "",
       "popular": false
     },
@@ -2606,7 +2606,7 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.25,
+      "hallPrice": 2.5,
       "image": "",
       "popular": false
     },
@@ -2625,7 +2625,7 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.25,
+      "hallPrice": 2.5,
       "image": "",
       "popular": false
     },
@@ -2678,7 +2678,7 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.75,
+      "hallPrice": 2.5,
       "image": "",
       "popular": false
     },

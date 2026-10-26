@@ -1,5 +1,6 @@
 import { checkKey } from '../_lib/keys.js';
 import { saveLiveMenu } from '../_lib/menu-live.js';
+import { mergeMenu } from '../_lib/menu-merge.js';
 
 // Cloudflare Pages Function — reads GITHUB_TOKEN/GITHUB_REPO/GITHUB_BRANCH/OLV_ADMIN_KEY from context.env at request time.
 export async function onRequest(context) {
@@ -79,7 +80,15 @@ export async function onRequest(context) {
   }
 
   const currentFile = await current.json();
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload.menu, null, 2))));
+  // لو الإدارة بعتت النسخة اللي فتحتها (base) منطبّق تعديلاتها بس على الحالية بدل ما نكتب فوق كل شي
+  let menu = payload.menu, merged = false;
+  if (payload.base && Array.isArray(payload.base.items)) {
+    try {
+      const live = JSON.parse(decodeURIComponent(escape(atob(String(currentFile.content || '').replace(/\s/g, '')))));
+      if (JSON.stringify(live) !== JSON.stringify(payload.base)) { menu = mergeMenu(live, payload.base, payload.menu); merged = true; }
+    } catch { /* فشل الدمج: منرجع للنشر الكامل المعتاد */ }
+  }
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(menu, null, 2))));
   const put = await fetch(`${apiBase}/repos/${repo}/contents/data/menu.json`, {
     method: 'PUT',
     headers,
@@ -99,8 +108,8 @@ export async function onRequest(context) {
     });
   }
 
-  await saveLiveMenu(env.OLV_DB || null, payload.menu);
-  return new Response(JSON.stringify({ ok: true, repository: repo, branch, result: JSON.parse(resultText) }), {
+  await saveLiveMenu(env.OLV_DB || null, menu);
+  return new Response(JSON.stringify({ ok: true, merged, repository: repo, branch, result: JSON.parse(resultText) }), {
     status: 200,
     headers: { 'content-type': 'application/json' }
   });
