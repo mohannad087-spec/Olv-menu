@@ -2304,35 +2304,39 @@
     {
       "id": "cheesecake",
       "cat": "desserts",
-      "subcat": "cakes",
+      "subcat": "كيك وحلويات",
       "subcatAr": "كيك وحلويات",
       "subcatEn": "Cakes & Desserts",
       "ar": "تشيزكيك",
       "en": "Cheesecake",
       "descAr": "تشيزكيك كريمي مع صوص حسب التوفر",
       "descEn": "Creamy cheesecake with sauce, subject to availability",
-      "price": 3.25,
+      "price": 2,
       "tags": [
         "veg"
       ],
       "image": "assets/photos/cheesecake.webp",
-      "hallPrice": 3.75
+      "hallPrice": 3.75,
+      "available": true,
+      "popular": false
     },
     {
       "id": "brownie",
       "cat": "desserts",
-      "subcat": "cakes",
+      "subcat": "كيك وحلويات",
       "subcatAr": "كيك وحلويات",
       "subcatEn": "Cakes & Desserts",
       "ar": "براوني",
       "en": "Brownie",
       "descAr": "براوني شوكولاتة غني",
       "descEn": "Rich chocolate brownie",
-      "price": 2.75,
+      "price": 2,
       "tags": [
         "veg"
       ],
-      "image": "assets/photos/brownie.webp"
+      "image": "assets/photos/brownie.webp",
+      "available": true,
+      "popular": false
     },
     {
       "id": "molten-cake",
@@ -2344,12 +2348,13 @@
       "en": "Molten Cake",
       "descAr": "كيك شوكولاتة دافئ بقلب شوكولاتة ذائب",
       "descEn": "Warm chocolate cake with a molten center",
-      "price": 3.75,
+      "price": 2,
       "tags": [
         "veg"
       ],
       "image": "assets/photos/molten-cake.webp",
-      "hallPrice": 4.25
+      "hallPrice": 4.25,
+      "available": true
     },
     {
       "id": "candy-kilo",
