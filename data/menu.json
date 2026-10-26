@@ -554,7 +554,7 @@
       ],
       "available": true,
       "image": "assets/photos/spanish-latte.webp",
-      "hallPrice": 2.5
+      "hallPrice": 2
     },
     {
       "id": "cappuccino",
@@ -804,7 +804,7 @@
       ],
       "available": true,
       "image": "assets/photos/iced-spanish-latte.webp",
-      "hallPrice": 2.5
+      "hallPrice": 2
     },
     {
       "id": "frappuccino",
@@ -841,7 +841,7 @@
       ],
       "available": true,
       "image": "assets/photos/caramel-macchiato.webp",
-      "hallPrice": 2.5
+      "hallPrice": 2
     },
     {
       "id": "iced-mocha",
