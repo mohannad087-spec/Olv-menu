@@ -2651,19 +2651,21 @@
     {
       "id": "san-sebastian",
       "cat": "cakes",
-      "subcat": "cakes",
+      "subcat": "كيك",
       "subcatAr": "كيك",
       "subcatEn": "Cakes",
       "ar": "سان سيبستيان",
       "en": "San Sebastian Cheesecake",
       "descAr": "",
       "descEn": "",
-      "price": 2.25,
+      "price": 2,
       "tags": [
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.75
+      "hallPrice": 2.75,
+      "image": "",
+      "popular": false
     },
     {
       "id": "icecream",
