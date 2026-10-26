@@ -2528,19 +2528,21 @@
     {
       "id": "london-cake",
       "cat": "cakes",
-      "subcat": "cakes",
+      "subcat": "كيك",
       "subcatAr": "كيك",
       "subcatEn": "Cakes",
       "ar": "لندن كيك",
       "en": "London Cake",
       "descAr": "",
       "descEn": "",
-      "price": 2.1,
+      "price": 2,
       "tags": [
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.6
+      "hallPrice": 2.6,
+      "image": "",
+      "popular": false
     },
     {
       "id": "honey-cake",
@@ -2564,19 +2566,21 @@
     {
       "id": "pistachio-cake",
       "cat": "cakes",
-      "subcat": "cakes",
+      "subcat": "كيك",
       "subcatAr": "كيك",
       "subcatEn": "Cakes",
       "ar": "بستاشيو كيك",
       "en": "Pistachio Cake",
       "descAr": "",
       "descEn": "",
-      "price": 1.85,
+      "price": 2,
       "tags": [
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.35
+      "hallPrice": 2.35,
+      "image": "",
+      "popular": false
     },
     {
       "id": "red-velvet-cake",
