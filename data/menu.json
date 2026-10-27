@@ -4144,6 +4144,21 @@
       "price": 1,
       "tags": [],
       "available": true
+    },
+    {
+      "id": "card-mvq9jump",
+      "cat": "hot",
+      "subcat": "لاتيه كاونتر",
+      "subcatAr": "لاتيه كاونتر",
+      "subcatEn": "لاتيه كاونتر",
+      "ar": "لاتيه كاونتر",
+      "en": "لاتيه كاونتر",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.5,
+      "tags": [],
+      "available": true,
+      "hallPrice": 1
     }
   ],
   "shishaOptions": {
