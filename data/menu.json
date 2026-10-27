@@ -148,7 +148,7 @@
       "en": "OLV Burger",
       "descAr": "برغر لحم، جبنة، خس، طماطم وصوص  وجبنه خاصه OLV",
       "descEn": "Beef burger, cheese, lettuce, tomato & OLV sauce",
-      "price": 4,
+      "price": 3,
       "popular": true,
       "tags": [],
       "available": true,
@@ -1337,10 +1337,6 @@
         "veg"
       ],
       "available": true,
-      "large": {
-        "price": 2,
-        "hallPrice": 2.5
-      },
       "image": "assets/photos/pineapple.webp",
       "popular": false,
       "hallPrice": 2.5
