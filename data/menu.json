@@ -135,8 +135,7 @@
       "descEn": "Zaatar manousheh with a cup of tea",
       "price": 1,
       "tags": [],
-      "available": false,
-      "popular": true
+      "available": false
     },
     {
       "id": "olv-burger",
@@ -149,7 +148,6 @@
       "descAr": "برغر لحم، جبنة، خس، طماطم وصوص  وجبنه خاصه OLV",
       "descEn": "Beef burger, cheese, lettuce, tomato & OLV sauce",
       "price": 3,
-      "popular": true,
       "tags": [],
       "available": true,
       "image": "assets/photos/olv-burger.webp",
@@ -256,7 +254,6 @@
       "descAr": "أجنحة متبلة ومقرمشة مع صوص من اختيارك",
       "descEn": "Seasoned crispy wings with your choice of sauce",
       "price": 4.5,
-      "popular": true,
       "tags": [],
       "image": "assets/photos/wings.webp",
       "available": false
@@ -327,7 +324,7 @@
       ],
       "image": "assets/photos/fries.webp",
       "available": true,
-      "popular": false
+      "popular": true
     },
     {
       "id": "club",
@@ -467,8 +464,7 @@
       "tags": [
         "veg"
       ],
-      "image": "assets/photos/garden-salad.webp",
-      "popular": true
+      "image": "assets/photos/garden-salad.webp"
     },
     {
       "id": "greek-salad",
@@ -627,7 +623,8 @@
       ],
       "available": true,
       "image": "assets/photos/nescafe.webp",
-      "hallPrice": 1
+      "hallPrice": 1,
+      "popular": true
     },
     {
       "id": "hot-chocolate",
@@ -717,7 +714,7 @@
       "tags": [],
       "available": true,
       "image": "assets/photos/turkish-coffee.webp",
-      "popular": false
+      "popular": true
     },
     {
       "id": "mocha",
@@ -805,7 +802,8 @@
       ],
       "available": true,
       "image": "assets/photos/iced-spanish-latte.webp",
-      "hallPrice": 2
+      "hallPrice": 2,
+      "popular": true
     },
     {
       "id": "frappuccino",
@@ -2726,7 +2724,8 @@
         "veg"
       ],
       "image": "assets/photos/donut-lotus.webp",
-      "hallPrice": 1
+      "hallPrice": 1,
+      "popular": true
     },
     {
       "id": "donut-oreo",
@@ -3383,7 +3382,7 @@
         "descAr": "مع بطاطا"
       },
       "available": true,
-      "popular": false
+      "popular": true
     },
     {
       "id": "sw-zinger-cream",
@@ -3518,7 +3517,7 @@
       "tags": [],
       "image": "",
       "available": true,
-      "popular": false,
+      "popular": true,
       "meal": {
         "price": 2,
         "descAr": "مع بطاطا"
