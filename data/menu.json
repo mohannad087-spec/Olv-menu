@@ -459,15 +459,16 @@
       "subcat": "fresh",
       "subcatAr": "طازجة",
       "subcatEn": "Fresh",
-      "ar": "سلطة خضراء",
+      "ar": "سلطة تبوله",
       "en": "Garden Salad",
       "descAr": "خضار طازجة مع تتبيلة خفيفة",
       "descEn": "Fresh vegetables with a light dressing",
-      "price": 3.5,
+      "price": 1,
       "tags": [
         "veg"
       ],
-      "image": "assets/photos/garden-salad.webp"
+      "image": "assets/photos/garden-salad.webp",
+      "popular": true
     },
     {
       "id": "greek-salad",
