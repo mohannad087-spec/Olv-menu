@@ -3290,7 +3290,8 @@
       "tags": [],
       "available": true,
       "source": "stock",
-      "image": "assets/photos/stk-850b359bed0b.webp"
+      "image": "assets/photos/stk-850b359bed0b.webp",
+      "hallPrice": 0.5
     },
     {
       "id": "stk-1ac151970a15",
