@@ -4131,6 +4131,20 @@
       "tags": [],
       "available": false,
       "source": "stock"
+    },
+    {
+      "id": "card-mvpyr8xc",
+      "cat": "salads",
+      "subcat": "سلطة جرجير",
+      "subcatAr": "سلطة جرجير",
+      "subcatEn": "سلطة جرجير",
+      "ar": "سلطة جرجير",
+      "en": "سلطة جرجير",
+      "descAr": "جرجير،بصل ،سماق بلدي",
+      "descEn": "",
+      "price": 1,
+      "tags": [],
+      "available": true
     }
   ],
   "shishaOptions": {
