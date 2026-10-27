@@ -2496,7 +2496,8 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.5
+      "hallPrice": 2.5,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/ferrero-mousse-mvqjzj7u.jpg"
     },
     {
       "id": "chocolate-cake",
@@ -2531,7 +2532,8 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.5
+      "hallPrice": 2.5,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/royal-berry-mvqjzqz5.jpg"
     },
     {
       "id": "london-cake",
