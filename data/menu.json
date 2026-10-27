@@ -2223,8 +2223,7 @@
         "price": 2.5,
         "hallPrice": 3
       },
-      "image": "assets/photos/shake-chocolate.webp",
-      "hallPrice": 2.5
+      "image": "assets/photos/shake-chocolate.webp"
     },
     {
       "id": "shake-pistachio",
