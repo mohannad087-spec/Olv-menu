@@ -4002,7 +4002,7 @@
     },
     {
       "id": "stk-0d4e5b6281f4",
-      "cat": "donuts",
+      "cat": "cold",
       "subcat": "stk-0d4e5b6281f4",
       "subcatAr": "دونات صالة",
       "subcatEn": "Donut (Hall)",
@@ -4010,10 +4010,11 @@
       "en": "Donut (Hall)",
       "descAr": "",
       "descEn": "",
-      "price": 1,
+      "price": 49.95,
       "tags": [],
       "available": false,
-      "source": "stock"
+      "source": "stock",
+      "hallPrice": 1
     },
     {
       "id": "soft-pepsi",
