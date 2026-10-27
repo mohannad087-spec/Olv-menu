@@ -4176,6 +4176,21 @@
       "meal": {
         "price": 2.5
       }
+    },
+    {
+      "id": "card-mvqb8thh",
+      "cat": "breakfast",
+      "subcat": "ساندويش جبنه وزعتر",
+      "subcatAr": "ساندويش جبنه وزعتر",
+      "subcatEn": "ساندويش جبنه وزعتر",
+      "ar": "ساندويش جبنه وزعتر",
+      "en": "ساندويش جبنه وزعتر",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [],
+      "available": true,
+      "popular": true
     }
   ],
   "shishaOptions": {
