@@ -4155,6 +4155,20 @@
       "tags": [],
       "available": true,
       "popular": true
+    },
+    {
+      "id": "card-mvqqtp4m",
+      "cat": "cold",
+      "subcat": "ايس تي",
+      "subcatAr": "ايس تي",
+      "subcatEn": "ice tea",
+      "ar": "ايس تي",
+      "en": "ice tea",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [],
+      "available": true
     }
   ],
   "shishaOptions": {
