@@ -4159,6 +4159,23 @@
       "tags": [],
       "available": true,
       "hallPrice": 1
+    },
+    {
+      "id": "card-mvq9yxby",
+      "cat": "popular",
+      "subcat": "ساندويش شيش دجاج",
+      "subcatAr": "ساندويش شيش دجاج",
+      "subcatEn": "ساندويش شيش دجاج",
+      "ar": "ساندويش شيش دجاج",
+      "en": "ساندويش شيش دجاج",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [],
+      "available": true,
+      "meal": {
+        "price": 2.5
+      }
     }
   ],
   "shishaOptions": {
