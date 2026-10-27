@@ -748,7 +748,8 @@
       "hallPrice": 0.75,
       "tags": [],
       "available": true,
-      "popular": false
+      "popular": false,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/tea-mvqf24zd.jpg"
     },
     {
       "id": "karak",
