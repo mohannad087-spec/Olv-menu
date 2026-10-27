@@ -2202,12 +2202,7 @@
         "veg"
       ],
       "available": true,
-      "large": {
-        "price": 2.5,
-        "hallPrice": 3
-      },
-      "image": "assets/photos/shake-snickers.webp",
-      "hallPrice": 2.5
+      "image": "assets/photos/shake-snickers.webp"
     },
     {
       "id": "shake-chocolate",
