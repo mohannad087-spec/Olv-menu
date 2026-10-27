@@ -2513,7 +2513,8 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.5
+      "hallPrice": 2.5,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/chocolate-cake-mvqjzmcm.jpg"
     },
     {
       "id": "royal-berry",
