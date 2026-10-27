@@ -2478,7 +2478,7 @@
       ],
       "available": true,
       "hallPrice": 2.5,
-      "image": "",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/german-cake-mvqjzfd7.jpg",
       "popular": false
     },
     {
@@ -3604,7 +3604,10 @@
       "tags": [],
       "image": "",
       "available": true,
-      "popular": false
+      "popular": false,
+      "meal": {
+        "price": 3.5
+      }
     },
     {
       "id": "sh-meat-double",
