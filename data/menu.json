@@ -2608,7 +2608,7 @@
       ],
       "available": true,
       "hallPrice": 2.5,
-      "image": "",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/red-velvet-cake-mvqk0z7g.jpg",
       "popular": false
     },
     {
@@ -3421,7 +3421,7 @@
       "en": "Fajita Sandwich",
       "descAr": "دجاج، فلفل ألوان، فطر، بطاطا",
       "descEn": "Chicken, colored peppers, mushrooms, potato",
-      "price": 2.5,
+      "price": 2,
       "tags": [],
       "image": "",
       "available": true,
