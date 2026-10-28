@@ -3545,16 +3545,12 @@
       "subcat": "وجبة شاورما لحمه",
       "subcatAr": "وجبة شاورما لحمه",
       "subcatEn": "Shawarma",
-      "ar": "شاورما لحمة عادي",
+      "ar": "شاورما لحمة عادي وجبه",
       "en": "Beef Shawarma",
       "descAr": "لحمة، طحينية، بصل، بندورة",
       "descEn": "Beef, tahini, onion, tomato",
       "price": 2.5,
       "tags": [],
-      "meal": {
-        "price": 3.5,
-        "descAr": "مع بطاطا"
-      },
       "image": "",
       "available": true,
       "popular": false
