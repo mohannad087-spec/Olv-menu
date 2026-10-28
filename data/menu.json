@@ -3416,7 +3416,7 @@
       "descEn": "Chicken, BBQ sauce, cheddar",
       "price": 2,
       "tags": [],
-      "image": "",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sw-bbq-mvsni33q.jpg",
       "available": true,
       "popular": false,
       "meal": {
@@ -3440,7 +3440,7 @@
         "price": 3,
         "descAr": "مع بطاطا"
       },
-      "image": "",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sw-mushroom-mvsnih29.jpg",
       "available": true,
       "popular": false
     },
