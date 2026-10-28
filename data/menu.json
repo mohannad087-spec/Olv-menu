@@ -420,7 +420,8 @@
         "veg",
         "spicy"
       ],
-      "image": "assets/photos/arrabbiata.webp"
+      "image": "assets/photos/arrabbiata.webp",
+      "available": false
     },
     {
       "id": "chicken-pesto",
@@ -434,7 +435,8 @@
       "descEn": "Pasta, chicken & creamy pesto sauce",
       "price": 5.75,
       "tags": [],
-      "image": "assets/photos/chicken-pesto.webp"
+      "image": "assets/photos/chicken-pesto.webp",
+      "available": false
     },
     {
       "id": "caesar",
