@@ -4165,6 +4165,20 @@
       "price": 1.5,
       "tags": [],
       "available": true
+    },
+    {
+      "id": "card-mvsetjud",
+      "cat": "sandwiches",
+      "subcat": "شاورما لحمه عادي",
+      "subcatAr": "شاورما لحمه عادي",
+      "subcatEn": "شاورما لحمه عادي",
+      "ar": "شاورما لحمه عادي",
+      "en": "شاورما لحمه عادي",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [],
+      "available": true
     }
   ],
   "shishaOptions": {
