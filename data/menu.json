@@ -3643,7 +3643,8 @@
       "price": 1.5,
       "tags": [
         "veg"
-      ]
+      ],
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/bf-halloumi-mvsnk0s9.jpg"
     },
     {
       "id": "bf-sinyora",
