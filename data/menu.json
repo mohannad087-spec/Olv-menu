@@ -3672,7 +3672,8 @@
       "price": 1.25,
       "tags": [
         "veg"
-      ]
+      ],
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/bf-cheese-mix-mvsqtcjv.jpg"
     },
     {
       "id": "bf-turkey",
@@ -4012,10 +4013,7 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 0.5,
-      "meal": {
-        "price": 0.3
-      }
+      "hallPrice": 0.5
     },
     {
       "id": "soft-7up",
