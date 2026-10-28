@@ -3814,7 +3814,8 @@
       "descEn": "",
       "price": 2.5,
       "tags": [],
-      "available": true
+      "available": true,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/bk-chicken-cream-mvsr4n36.jpg"
     },
     {
       "id": "bk-cheese-mix",
