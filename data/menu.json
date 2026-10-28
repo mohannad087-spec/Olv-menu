@@ -3481,7 +3481,8 @@
       "meal": {
         "price": 2.5,
         "descAr": "مع بطاطا"
-      }
+      },
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sw-shish-mvsnj259.jpg"
     },
     {
       "id": "sh-chicken",
