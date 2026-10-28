@@ -4008,7 +4008,10 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 0.5
+      "hallPrice": 0.5,
+      "meal": {
+        "price": 0.3
+      }
     },
     {
       "id": "soft-7up",
