@@ -111,7 +111,9 @@ const GROUPS=[
 ];
 function row(i){
   // صنف بحجمين: صغير / كبير
-  const price=i.large&&i.large.price?`${Number(i.price).toFixed(2)} / ${Number(i.large.price).toFixed(2)}`:Number(i.price).toFixed(2);
+  const hall=i.cat!=='donuts';
+  const base=hall&&i.hallPrice>0?i.hallPrice:i.price, big=i.large&&i.large.price?(hall&&i.large.hallPrice>0?i.large.hallPrice:i.large.price):0;
+  const price=big?`${Number(base).toFixed(2)} / ${Number(big).toFixed(2)}`:Number(base).toFixed(2);
   return `<div class="row">
     <div class="row-top">
       <span class="name">${i.popular?'<span class="star">★</span>':''}${i.ar}${tagBadges(i)}</span>
