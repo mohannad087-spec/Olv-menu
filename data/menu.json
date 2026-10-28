@@ -421,7 +421,7 @@
         "spicy"
       ],
       "image": "assets/photos/arrabbiata.webp",
-      "available": false
+      "available": true
     },
     {
       "id": "chicken-pesto",
@@ -436,7 +436,7 @@
       "price": 5.75,
       "tags": [],
       "image": "assets/photos/chicken-pesto.webp",
-      "available": false
+      "available": true
     },
     {
       "id": "caesar",
@@ -3380,7 +3380,7 @@
         "price": 3,
         "descAr": "مع بطاطا"
       },
-      "image": "",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sw-zinger-cream-mvsni8d0.jpg",
       "available": true,
       "popular": false
     },
@@ -3396,7 +3396,7 @@
       "descEn": "Chicken, colored peppers, mushrooms, potato",
       "price": 2,
       "tags": [],
-      "image": "",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sw-fajita-mvsnic9g.jpg",
       "available": true,
       "popular": false,
       "meal": {
