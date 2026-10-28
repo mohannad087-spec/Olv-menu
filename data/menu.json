@@ -2614,7 +2614,8 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 2.5
+      "hallPrice": 2.5,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/cup-mix-mvseuswg.jpg"
     },
     {
       "id": "trend-alzamel",
@@ -2650,7 +2651,7 @@
       ],
       "available": true,
       "hallPrice": 2.5,
-      "image": "",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/san-sebastian-mvsev1nn.jpg",
       "popular": false
     },
     {
