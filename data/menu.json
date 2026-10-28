@@ -3701,7 +3701,8 @@
       "descAr": "نقانق مع بيض، مايونيز، مخلل، فلفل أخضر، خس",
       "descEn": "Sausage with egg, mayonnaise, pickles, green pepper, lettuce",
       "price": 0.75,
-      "tags": []
+      "tags": [],
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/bf-fafoot-mvsquxmf.jpg"
     },
     {
       "id": "bf-liver",
