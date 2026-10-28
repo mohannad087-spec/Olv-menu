@@ -88,14 +88,17 @@ fit();addEventListener('resize',fit);
 
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function money(n){return Number(n).toFixed(2)}
+// نعرض سعر الصالة بدون ذكر كلمة صالة (الدونات سفري بس فبتضل بسعرها)
+function shown(i){return i.cat!=='donuts'&&i.hallPrice>0?Number(i.hallPrice):Number(i.price)}
+function shownLarge(i){return i.cat!=='donuts'&&i.large.hallPrice>0?Number(i.large.hallPrice):Number(i.large.price)}
 function priceHtml(i){
   var p='';
   if(Array.isArray(i.variants)&&i.variants.length){
     var ps=i.variants.filter(function(v){return v.available!==false}).map(function(v){return Number(v.price)});
     if(ps.length){var lo=Math.min.apply(null,ps),hi=Math.max.apply(null,ps);p=lo===hi?money(lo):'<small>من</small> '+money(lo)}
   }
-  if(!p)p=money(i.price);
-  var alt=(i.large&&i.large.price)?'<span class="alt">كبير '+money(i.large.price)+'</span>':'';
+  if(!p)p=money(shown(i));
+  var alt=(i.large&&i.large.price)?'<span class="alt">كبير '+money(shownLarge(i))+'</span>':'';
   return p+' <small>JD</small>'+alt;
 }
 
@@ -173,7 +176,7 @@ function tick(now){
 function load(first){
   return fetch('data/menu.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(D){
     var s=build(D);
-    var ns=MODE+JSON.stringify(s.map(function(x){if(x.offer)return 'offer:'+x.offer.title;return[x.cat.id,x.cat.ar,x.items.map(function(i){return[i.id,i.ar,i.price,i.image,i.large,i.variants]})]}));
+    var ns=MODE+JSON.stringify(s.map(function(x){if(x.offer)return 'offer:'+x.offer.title;return[x.cat.id,x.cat.ar,x.items.map(function(i){return[i.id,i.ar,i.price,i.hallPrice,i.image,i.large,i.variants]})]}));
     if(ns===sig)return;           // ما تغيّر شي
     sig=ns;slides=s;
     msg.style.display='none';
