@@ -3686,7 +3686,8 @@
       "descAr": "تيركي، كوكتيل صوص، موزاريلا، جبنة شدر، خس",
       "descEn": "Turkey, cocktail sauce, mozzarella, cheddar, lettuce",
       "price": 1.25,
-      "tags": []
+      "tags": [],
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/bf-turkey-mvsqthtt.jpg"
     },
     {
       "id": "bf-fafoot",
