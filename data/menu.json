@@ -3556,7 +3556,7 @@
       "descEn": "Beef, tahini, onion, tomato",
       "price": 2.5,
       "tags": [],
-      "image": "",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sh-meat-mvsnjae4.jpg",
       "available": true,
       "popular": false
     },
