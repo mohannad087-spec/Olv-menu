@@ -3799,7 +3799,8 @@
       "descEn": "",
       "price": 2.5,
       "tags": [],
-      "available": true
+      "available": true,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/bk-zinger-mvsr4ly0.jpg"
     },
     {
       "id": "bk-chicken-cream",
