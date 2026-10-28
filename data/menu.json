@@ -3657,7 +3657,8 @@
       "descAr": "سنيورة، لبنة، خيار، بندورة، خس",
       "descEn": "Sinyora, labneh, cucumber, tomato, lettuce",
       "price": 0.75,
-      "tags": []
+      "tags": [],
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/bf-sinyora-mvsqt8cy.jpg"
     },
     {
       "id": "bf-cheese-mix",
