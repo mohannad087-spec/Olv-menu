@@ -1851,7 +1851,7 @@
       "tags": [
         "veg"
       ],
-      "available": false,
+      "available": true,
       "large": {
         "price": 1.5,
         "hallPrice": 2
