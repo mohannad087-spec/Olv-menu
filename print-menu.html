@@ -129,7 +129,7 @@ async function init(){
   try{
     const DATA=await fetch('data/menu.json',{cache:'no-store'}).then(r=>r.json());
     $('tagline').textContent=DATA.settings?.taglineAr||'مطعم وكافيه';
-    $('wa').textContent=DATA.settings?.whatsappNumber?('للطلب والتواصل: '+DATA.settings.whatsappNumber):'';
+    $('wa').innerHTML=DATA.settings?.whatsappNumber?('للطلب والتواصل: <bdi dir="ltr">'+String(DATA.settings.whatsappNumber).replace(/[<>&]/g,'')+'</bdi>'):'';
     const pct=Number(DATA.settings?.hallSurchargePercent)||0;$('surchargeNote').textContent=pct>0?`الأسعار أعلاه لطلبات السفري والتوصيل — عند الطلب داخل الكافيه تُضاف ${pct}% لكل الأصناف`:'';
     const catMap=new Map(DATA.categories.map(c=>[c.id,c]));
     let html='';
