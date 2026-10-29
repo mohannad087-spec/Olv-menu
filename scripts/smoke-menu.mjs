@@ -132,7 +132,7 @@ await scenario('خيارات منطقية لكل قسم', {}, async (page, ok) =
   const grp = async (n) => JSON.parse(await opts(page, byName(n).id))[2];
   ok(JSON.stringify(await grp('اسبرسو سنجل')) === '["sugar"]', 'اسبرسو: سكر بس بدون حليب');
   ok(JSON.stringify(await grp('كافيه لاتيه')) === '["sugar","milk"]', 'لاتيه: سكر وحليب');
-  ok(JSON.stringify(await grp('بيبسي')) === '[]', 'بيبسي بدون خيارات');
+  ok(JSON.parse(await opts(page, byName('بيبسي').id))[1].join() === 'ثلج مع كاسة', 'بيبسي: ثلج مع كاسة');
   ok(await opts(page, menu.items.find((i) => i.cat === 'shisha').id) === '[[],[],[]]', 'الأرجيلة بدون جبنة وسكر');
   const pz = menu.items.find((i) => i.cat === 'pizza' && i.subcat === 'pizza');
   const pzo = JSON.parse(await opts(page, pz.id));

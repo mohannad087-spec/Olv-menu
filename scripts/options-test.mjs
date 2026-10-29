@@ -22,4 +22,6 @@ t('تبولة بدون جبنة', customProblem(by('سلطة تبوله'), { rem
 t('كاندي بالكيلو بدون خيارات', customProblem(by('كاندي (الكيلو)'), { extras: ['إضافة صوص'] }, menu), false);
 t('كيك + صوص', customProblem(by('لوتس كيك'), { extras: ['إضافة صوص'] }, menu), true);
 t('سلطة فواكه بدون ثلج', customProblem(by('سلطة فواكه'), { options: ['ثلج عادي'] }, menu), false);
+t('بيبسي + ثلج مع كاسة', customProblem(by('بيبسي'), { extras: ['ثلج مع كاسة'] }, menu), true);
+t('ماء بدون خيارات', customProblem(by('ماء 500 مل'), { extras: ['ثلج مع كاسة'] }, menu), false);
 process.exit(failed ? 1 : 0);
