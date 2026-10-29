@@ -256,7 +256,8 @@
       "price": 4.5,
       "tags": [],
       "image": "assets/photos/wings.webp",
-      "available": false
+      "available": false,
+      "optionProfile": "snack"
     },
     {
       "id": "chicken-strips",
@@ -271,7 +272,8 @@
       "price": 4.25,
       "tags": [],
       "image": "assets/photos/chicken-strips.webp",
-      "available": false
+      "available": false,
+      "optionProfile": "snack"
     },
     {
       "id": "mozzarella",
@@ -288,7 +290,8 @@
         "veg"
       ],
       "image": "assets/photos/mozzarella.webp",
-      "available": false
+      "available": false,
+      "optionProfile": "snack"
     },
     {
       "id": "nachos",
@@ -306,7 +309,8 @@
         "spicy"
       ],
       "image": "assets/photos/nachos.webp",
-      "available": false
+      "available": false,
+      "optionProfile": "snack"
     },
     {
       "id": "fries",
@@ -324,7 +328,8 @@
       ],
       "image": "assets/photos/fries.webp",
       "available": true,
-      "popular": true
+      "popular": true,
+      "optionProfile": "snack"
     },
     {
       "id": "club",
@@ -553,7 +558,8 @@
       ],
       "available": true,
       "image": "assets/photos/spanish-latte.webp",
-      "hallPrice": 2
+      "hallPrice": 2,
+      "optionProfile": "coffeeMilk"
     },
     {
       "id": "cappuccino",
@@ -572,7 +578,8 @@
       "available": true,
       "image": "assets/photos/cappuccino.webp",
       "popular": false,
-      "hallPrice": 1
+      "hallPrice": 1,
+      "optionProfile": "coffeeMilk"
     },
     {
       "id": "cappuccino-barista",
@@ -590,7 +597,8 @@
       ],
       "available": true,
       "image": "assets/photos/cappuccino.webp",
-      "hallPrice": 2.5
+      "hallPrice": 2.5,
+      "optionProfile": "coffeeMilk"
     },
     {
       "id": "cappuccino-takeaway",
@@ -607,7 +615,8 @@
         "veg"
       ],
       "available": false,
-      "image": "assets/photos/cappuccino.webp"
+      "image": "assets/photos/cappuccino.webp",
+      "optionProfile": "coffeeMilk"
     },
     {
       "id": "nescafe",
@@ -626,7 +635,8 @@
       "available": true,
       "image": "assets/photos/nescafe.webp",
       "hallPrice": 1,
-      "popular": true
+      "popular": true,
+      "optionProfile": "coffeeMilk"
     },
     {
       "id": "hot-chocolate",
@@ -644,7 +654,8 @@
       ],
       "available": true,
       "image": "assets/photos/hot-chocolate.webp",
-      "hallPrice": 1.5
+      "hallPrice": 1.5,
+      "optionProfile": "none"
     },
     {
       "id": "americano",
@@ -699,7 +710,8 @@
       ],
       "available": true,
       "image": "assets/photos/caffe-latte.webp",
-      "hallPrice": 2
+      "hallPrice": 2,
+      "optionProfile": "coffeeMilk"
     },
     {
       "id": "turkish-coffee",
@@ -734,7 +746,8 @@
       ],
       "available": true,
       "image": "assets/photos/mocha.webp",
-      "hallPrice": 2.5
+      "hallPrice": 2.5,
+      "optionProfile": "none"
     },
     {
       "id": "tea",
@@ -806,7 +819,8 @@
       "available": true,
       "image": "assets/photos/iced-spanish-latte.webp",
       "hallPrice": 2,
-      "popular": true
+      "popular": true,
+      "optionProfile": "icedMilk"
     },
     {
       "id": "frappuccino",
@@ -825,7 +839,8 @@
       "available": true,
       "image": "assets/photos/frappuccino.webp",
       "popular": false,
-      "hallPrice": 3
+      "hallPrice": 3,
+      "optionProfile": "icedMilk"
     },
     {
       "id": "caramel-macchiato",
@@ -843,7 +858,8 @@
       ],
       "available": true,
       "image": "assets/photos/caramel-macchiato.webp",
-      "hallPrice": 2
+      "hallPrice": 2,
+      "optionProfile": "icedMilk"
     },
     {
       "id": "iced-mocha",
@@ -861,7 +877,8 @@
       ],
       "available": true,
       "image": "assets/photos/iced-mocha.webp",
-      "hallPrice": 2.5
+      "hallPrice": 2.5,
+      "optionProfile": "icedMilk"
     },
     {
       "id": "white-mocha",
@@ -879,7 +896,8 @@
       ],
       "available": true,
       "image": "assets/photos/white-mocha.webp",
-      "hallPrice": 2.5
+      "hallPrice": 2.5,
+      "optionProfile": "icedMilk"
     },
     {
       "id": "ice-coffee",
@@ -3270,7 +3288,8 @@
       "available": true,
       "source": "stock",
       "image": "assets/photos/stk-850b359bed0b.webp",
-      "hallPrice": 0.5
+      "hallPrice": 0.5,
+      "optionProfile": "none"
     },
     {
       "id": "stk-1ac151970a15",
@@ -3286,7 +3305,8 @@
       "tags": [],
       "available": false,
       "source": "stock",
-      "image": "assets/photos/stk-1ac151970a15.webp"
+      "image": "assets/photos/stk-1ac151970a15.webp",
+      "optionProfile": "none"
     },
     {
       "id": "mojito-code-red",
@@ -3362,7 +3382,8 @@
         "descAr": "مع بطاطا"
       },
       "available": true,
-      "popular": true
+      "popular": true,
+      "optionProfile": "sandwich"
     },
     {
       "id": "sw-zinger-cream",
@@ -3382,7 +3403,8 @@
       },
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sw-zinger-cream-mvsni8d0.jpg",
       "available": true,
-      "popular": false
+      "popular": false,
+      "optionProfile": "sandwich"
     },
     {
       "id": "sw-fajita",
@@ -3402,7 +3424,8 @@
       "meal": {
         "price": 3,
         "descAr": "مع بطاطا"
-      }
+      },
+      "optionProfile": "sandwich"
     },
     {
       "id": "sw-bbq",
@@ -3422,7 +3445,8 @@
       "meal": {
         "price": 3,
         "descAr": "مع بطاطا"
-      }
+      },
+      "optionProfile": "sandwich"
     },
     {
       "id": "sw-mushroom",
@@ -3442,7 +3466,8 @@
       },
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sw-mushroom-mvsnih29.jpg",
       "available": true,
-      "popular": false
+      "popular": false,
+      "optionProfile": "sandwich"
     },
     {
       "id": "sw-mexican",
@@ -3464,7 +3489,8 @@
       "meal": {
         "price": 3,
         "descAr": ""
-      }
+      },
+      "optionProfile": "sandwich"
     },
     {
       "id": "sw-shish",
@@ -3482,7 +3508,8 @@
         "price": 2.5,
         "descAr": "مع بطاطا"
       },
-      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sw-shish-mvsnj259.jpg"
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sw-shish-mvsnj259.jpg",
+      "optionProfile": "sandwich"
     },
     {
       "id": "sh-chicken",
@@ -3505,7 +3532,8 @@
       },
       "large": {
         "price": 3.5
-      }
+      },
+      "optionProfile": "sandwich"
     },
     {
       "id": "sh-chicken-super",
@@ -3528,7 +3556,8 @@
       "popular": false,
       "large": {
         "price": 3.5
-      }
+      },
+      "optionProfile": "sandwich"
     },
     {
       "id": "sh-chicken-double",
@@ -3542,7 +3571,8 @@
       "descEn": "Double meal: chicken, garlic sauce, fries, pickles",
       "price": 3,
       "tags": [],
-      "available": false
+      "available": false,
+      "optionProfile": "sandwich"
     },
     {
       "id": "sh-meat",
@@ -3558,7 +3588,8 @@
       "tags": [],
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sh-meat-mvsnjae4.jpg",
       "available": true,
-      "popular": false
+      "popular": false,
+      "optionProfile": "sandwich"
     },
     {
       "id": "sh-meat-super",
@@ -3577,7 +3608,8 @@
       "popular": false,
       "meal": {
         "price": 3.5
-      }
+      },
+      "optionProfile": "sandwich"
     },
     {
       "id": "sh-meat-double",
@@ -3590,7 +3622,8 @@
       "descAr": "وجبة دبل: لحمة، طحينية، بصل، بندورة",
       "descEn": "Double meal: beef, tahini, onion, tomato",
       "price": 3.25,
-      "tags": []
+      "tags": [],
+      "optionProfile": "sandwich"
     },
     {
       "id": "item-1792877670610",
@@ -3872,7 +3905,8 @@
       "descEn": "",
       "price": 1,
       "tags": [],
-      "available": true
+      "available": true,
+      "optionProfile": "manakish"
     },
     {
       "id": "bk-zaatar",
@@ -3886,7 +3920,8 @@
       "descEn": "",
       "price": 0.75,
       "tags": [],
-      "available": true
+      "available": true,
+      "optionProfile": "manakish"
     },
     {
       "id": "bk-muhammara",
@@ -3900,7 +3935,8 @@
       "descEn": "",
       "price": 1,
       "tags": [],
-      "available": true
+      "available": true,
+      "optionProfile": "manakish"
     },
     {
       "id": "bk-muhammara-cheese",
@@ -3914,7 +3950,8 @@
       "descEn": "",
       "price": 1.25,
       "tags": [],
-      "available": true
+      "available": true,
+      "optionProfile": "manakish"
     },
     {
       "id": "bk-white-cheese",
@@ -3928,7 +3965,8 @@
       "descEn": "",
       "price": 1.5,
       "tags": [],
-      "available": true
+      "available": true,
+      "optionProfile": "manakish"
     },
     {
       "id": "sn-potato-sandwich",
@@ -3943,7 +3981,8 @@
       "price": 1,
       "tags": [
         "veg"
-      ]
+      ],
+      "optionProfile": "sandwich"
     },
     {
       "id": "sn-potato-cups",
@@ -3958,7 +3997,8 @@
       "price": 1,
       "tags": [
         "veg"
-      ]
+      ],
+      "optionProfile": "snack"
     },
     {
       "id": "sn-chicken-cream",
@@ -3971,7 +4011,8 @@
       "descAr": "قطع دجاج، كريمة، فطر، موزاريلا",
       "descEn": "Chicken pieces, cream, mushrooms, mozzarella",
       "price": 2.5,
-      "tags": []
+      "tags": [],
+      "optionProfile": "snack"
     },
     {
       "id": "sn-hotdog",
@@ -3984,7 +4025,8 @@
       "descAr": "هوت دوغ، مايونيز، جبنة شدر أو خردل، كاتشب، إصبع شبس",
       "descEn": "Hot dog, mayonnaise, cheddar or mustard, ketchup, chips stick",
       "price": 1.5,
-      "tags": []
+      "tags": [],
+      "optionProfile": "sandwich"
     },
     {
       "id": "soft-pepsi",
@@ -4001,7 +4043,8 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 0.5
+      "hallPrice": 0.5,
+      "optionProfile": "none"
     },
     {
       "id": "soft-pepsi-diet",
@@ -4018,7 +4061,8 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 0.5
+      "hallPrice": 0.5,
+      "optionProfile": "none"
     },
     {
       "id": "soft-7up",
@@ -4035,7 +4079,8 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 0.5
+      "hallPrice": 0.5,
+      "optionProfile": "none"
     },
     {
       "id": "soft-mirinda",
@@ -4052,7 +4097,8 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 0.5
+      "hallPrice": 0.5,
+      "optionProfile": "none"
     },
     {
       "id": "soft-mountain-dew",
@@ -4069,7 +4115,8 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 0.5
+      "hallPrice": 0.5,
+      "optionProfile": "none"
     },
     {
       "id": "soft-schweppes",
@@ -4086,7 +4133,8 @@
         "veg"
       ],
       "available": true,
-      "hallPrice": 0.5
+      "hallPrice": 0.5,
+      "optionProfile": "none"
     },
     {
       "id": "stk-288ce4d3034b",
@@ -4101,7 +4149,8 @@
       "price": 0.25,
       "tags": [],
       "available": false,
-      "source": "stock"
+      "source": "stock",
+      "optionProfile": "none"
     },
     {
       "id": "card-mvpyr8xc",
@@ -4131,7 +4180,8 @@
       "price": 0.5,
       "tags": [],
       "available": true,
-      "hallPrice": 1
+      "hallPrice": 1,
+      "optionProfile": "coffeeMilk"
     },
     {
       "id": "card-mvq9yxby",
@@ -4148,7 +4198,8 @@
       "available": true,
       "meal": {
         "price": 2.5
-      }
+      },
+      "optionProfile": "sandwich"
     },
     {
       "id": "card-mvqb8thh",
@@ -4335,20 +4386,224 @@
         "ar": "OLV Mix",
         "en": "OLV Mix"
       }
-    ],
-    "addons": [
-      {
-        "id": "cheese",
-        "ar": "جبنة",
-        "en": "Cheese",
-        "price": 0
-      },
-      {
-        "id": "sugar",
-        "ar": "سكر",
-        "en": "Sugar",
-        "price": 0
-      }
     ]
+  },
+  "optionProfiles": {
+    "profiles": {
+      "sandwich": {
+        "remove": [
+          "بدون بصل",
+          "بدون مخلل",
+          "بدون صوص"
+        ],
+        "extras": [
+          "جبنة إضافية",
+          "صوص إضافي",
+          "هالبينو",
+          "بطاطا إضافية"
+        ]
+      },
+      "snack": {
+        "remove": [
+          "بدون صوص"
+        ],
+        "extras": [
+          "صوص إضافي",
+          "جبنة إضافية",
+          "هالبينو"
+        ]
+      },
+      "morning": {
+        "remove": [
+          "بدون بصل",
+          "بدون مخلل"
+        ],
+        "extras": [
+          "جبنة إضافية"
+        ]
+      },
+      "pizza": {
+        "remove": [
+          "بدون بصل",
+          "بدون زيتون"
+        ],
+        "extras": [
+          "جبنة إضافية",
+          "زيتون",
+          "هالبينو"
+        ]
+      },
+      "manakish": {
+        "extras": [
+          "جبنة إضافية"
+        ]
+      },
+      "pasta": {
+        "remove": [
+          "بدون بصل",
+          "بدون جبنة",
+          "بدون صوص"
+        ],
+        "extras": [
+          "دجاج إضافي",
+          "جبنة إضافية",
+          "صوص إضافي"
+        ]
+      },
+      "salad": {
+        "remove": [
+          "بدون بصل",
+          "بدون جبنة",
+          "بدون صوص"
+        ],
+        "extras": [
+          "دجاج إضافي",
+          "جبنة إضافية",
+          "صوص إضافي"
+        ]
+      },
+      "coffeeMilk": {
+        "groups": [
+          {
+            "id": "sugar",
+            "ar": "السكر",
+            "choices": [
+              "سكر سادة",
+              "سكر وسط",
+              "سكر حلوة"
+            ]
+          },
+          {
+            "id": "milk",
+            "ar": "الحليب",
+            "choices": [
+              "حليب عادي",
+              "حليب قليل الدسم",
+              "حليب نباتي"
+            ]
+          }
+        ]
+      },
+      "coffee": {
+        "groups": [
+          {
+            "id": "sugar",
+            "ar": "السكر",
+            "choices": [
+              "سكر سادة",
+              "سكر وسط",
+              "سكر حلوة"
+            ]
+          }
+        ]
+      },
+      "iced": {
+        "groups": [
+          {
+            "id": "sugar",
+            "ar": "السكر",
+            "choices": [
+              "سكر سادة",
+              "سكر وسط",
+              "سكر حلوة"
+            ]
+          },
+          {
+            "id": "ice",
+            "ar": "الثلج",
+            "choices": [
+              "ثلج عادي",
+              "ثلج أقل",
+              "بدون ثلج"
+            ]
+          }
+        ]
+      },
+      "icedMilk": {
+        "groups": [
+          {
+            "id": "sugar",
+            "ar": "السكر",
+            "choices": [
+              "سكر سادة",
+              "سكر وسط",
+              "سكر حلوة"
+            ]
+          },
+          {
+            "id": "milk",
+            "ar": "الحليب",
+            "choices": [
+              "حليب عادي",
+              "حليب قليل الدسم",
+              "حليب نباتي"
+            ]
+          },
+          {
+            "id": "ice",
+            "ar": "الثلج",
+            "choices": [
+              "ثلج عادي",
+              "ثلج أقل",
+              "بدون ثلج"
+            ]
+          }
+        ]
+      },
+      "shake": {
+        "remove": [
+          "بدون كريمة"
+        ],
+        "groups": [
+          {
+            "id": "sugar",
+            "ar": "السكر",
+            "choices": [
+              "سكر سادة",
+              "سكر وسط",
+              "سكر حلوة"
+            ]
+          }
+        ]
+      },
+      "dessert": {
+        "extras": [
+          "إضافة صوص",
+          "إضافة شوكولاتة",
+          "إضافة مكسرات"
+        ]
+      },
+      "icecream": {
+        "extras": [
+          "إضافة صوص",
+          "إضافة مكسرات"
+        ]
+      },
+      "none": {}
+    },
+    "byCat": {
+      "burgers": "sandwich",
+      "sandwiches": "sandwich",
+      "breakfast": "morning",
+      "pasta": "pasta",
+      "salads": "salad",
+      "juices": "iced",
+      "cocktails": "iced",
+      "shakes": "shake",
+      "desserts": "dessert",
+      "cakes": "dessert",
+      "waffles": "dessert",
+      "crepes": "dessert",
+      "donuts": "dessert",
+      "icecream": "icecream",
+      "scoops": "icecream",
+      "pizza": "pizza",
+      "offers": "none",
+      "popular": "none",
+      "shisha": "none",
+      "snacks": "snack",
+      "hot": "coffee",
+      "cold": "iced"
+    }
   }
 }

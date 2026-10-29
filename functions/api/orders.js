@@ -51,6 +51,30 @@ function verifyTable(raw, menu) {
   return String(n);
 }
 
+// الخيارات المسموحة لكل صنف حسب menu.optionProfiles (نفس المنطق اللي بيعرضه المنيو)
+export function customProblem(real, custom, menu) {
+  if (!custom) return '';
+  const list = (v) => (Array.isArray(v) ? v.map(String) : []);
+  const remove = list(custom.remove), extras = list(custom.extras), options = list(custom.options);
+  if (real.cat === 'shisha') {
+    const flavors = (menu.shishaOptions?.flavors || []).map(f => f.ar);
+    if (remove.length || extras.length || options.length > 1 || options.some(o => !flavors.includes(o))) return 'خيارات الأرجيلة غير صحيحة.';
+    return '';
+  }
+  if (!menu.optionProfiles) return ''; // نسخة مؤقتة قديمة من المنيو بدون ملفات الخيارات
+  const O = menu.optionProfiles;
+  const prof = (O.profiles || {})[real.optionProfile || (O.byCat || {})[real.cat] || 'none'] || {};
+  const groups = prof.groups || [];
+  const bad = [
+    ...remove.filter(x => !(prof.remove || []).includes(x)),
+    ...extras.filter(x => !(prof.extras || []).includes(x)),
+    ...options.filter(x => !groups.some(g => g.choices.includes(x)))
+  ];
+  if (bad.length) return `الخيار "${bad[0].slice(0, 40)}" غير متاح لـ ${real.ar}.`;
+  for (const g of groups) if (options.filter(x => g.choices.includes(x)).length > 1) return `اختر خياراً واحداً فقط من "${g.ar}" لـ ${real.ar}.`;
+  return '';
+}
+
 function verifyOrderItems(rawItems, menu, mode) {
   if (rawItems.length > 50) throw new Error('Too many items in order.');
   const byId = new Map((menu.items || []).map(i => [String(i.id), i]));
@@ -65,19 +89,12 @@ function verifyOrderItems(rawItems, menu, mode) {
     const wantsMeal = raw?.custom?.meal === true && real.meal && Number(real.meal.price) > 0;
     const sized = !wantsMeal && real.large && Number(real.large.price) > 0;
     const large = sized && raw?.custom?.size === 'large';
-    let basePrice = wantsMeal ? Number(real.meal.price) : large ? Number(real.large.price) : real.price;
-    // إضافات الأرجيلة (جبنة/سكر): السعر من المنيو مش من الزبون
-    if (real.cat === 'shisha' && Array.isArray(raw?.custom?.extras)) {
-      const addons = menu.shishaOptions?.addons || [];
-      for (const name of raw.custom.extras) {
-        const a = addons.find(x => x.ar === name);
-        if (!a) throw new Error(`إضافة غير معروفة: ${String(name).slice(0, 40)}`);
-        basePrice += Number(a.price) || 0;
-      }
-    }
+    const basePrice = wantsMeal ? Number(real.meal.price) : large ? Number(real.large.price) : real.price;
     const label = wantsMeal ? `${real.ar} (وجبة)` : sized ? `${real.ar} (${large ? 'كبير' : 'صغير'})` : real.ar;
     const custom = raw?.custom;
     if (custom != null && (typeof custom !== 'object' || Array.isArray(custom))) throw new Error('Invalid order customization.');
+    const problem = customProblem(real, custom, menu);
+    if (problem) throw new Error(problem);
     const customText = custom == null ? '' : JSON.stringify(custom);
     if (customText.length > 2000) throw new Error('Order customization is too large.');
     items.push({
