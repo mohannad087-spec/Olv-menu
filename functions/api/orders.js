@@ -65,7 +65,16 @@ function verifyOrderItems(rawItems, menu, mode) {
     const wantsMeal = raw?.custom?.meal === true && real.meal && Number(real.meal.price) > 0;
     const sized = !wantsMeal && real.large && Number(real.large.price) > 0;
     const large = sized && raw?.custom?.size === 'large';
-    const basePrice = wantsMeal ? Number(real.meal.price) : large ? Number(real.large.price) : real.price;
+    let basePrice = wantsMeal ? Number(real.meal.price) : large ? Number(real.large.price) : real.price;
+    // إضافات الأرجيلة (جبنة/سكر): السعر من المنيو مش من الزبون
+    if (real.cat === 'shisha' && Array.isArray(raw?.custom?.extras)) {
+      const addons = menu.shishaOptions?.addons || [];
+      for (const name of raw.custom.extras) {
+        const a = addons.find(x => x.ar === name);
+        if (!a) throw new Error(`إضافة غير معروفة: ${String(name).slice(0, 40)}`);
+        basePrice += Number(a.price) || 0;
+      }
+    }
     const label = wantsMeal ? `${real.ar} (وجبة)` : sized ? `${real.ar} (${large ? 'كبير' : 'صغير'})` : real.ar;
     const custom = raw?.custom;
     if (custom != null && (typeof custom !== 'object' || Array.isArray(custom))) throw new Error('Invalid order customization.');
