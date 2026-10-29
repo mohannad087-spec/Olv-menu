@@ -126,15 +126,6 @@ await scenario('رقم الهاتف بشاشة الاختيار بيبقى بت�
   ok(await get(page, "document.querySelector('.choice-phone bdi').dir==='ltr'&&document.querySelector('.choice-phone bdi').textContent==='0775 82 60 60'"), 'الرقم معزول LTR');
 });
 
-await scenario('أرجيلة: إضافة جبنة وسكر للسلة', { saved: 'takeaway' }, async (page, ok) => {
-  await enter(page); await pick(page, 'takeaway');
-  await page.evaluate(() => addItem('shisha')); await page.waitForTimeout(500);
-  await page.evaluate(() => { selectFlavor(DATA.shishaOptions.flavors[0].id); toggleAddon('cheese'); toggleAddon('sugar'); });
-  await page.evaluate(() => document.getElementById('addShisha').click()); await page.waitForTimeout(300);
-  ok(await get(page, "JSON.stringify(cartItems[0].custom.extras)") === '["جبنة","سكر"]', 'الجبنة والسكر بالسلة');
-  ok(await get(page, "cartItems[0].price") === 2.5, 'السعر ما تغيّر (الإضافات مجانية)');
-});
-
 await browser.close(); srv.close();
 console.log(failed ? `\nفشل ${failed} فحص` : '\nكل الفحوصات نجحت');
 process.exit(failed ? 1 : 0);

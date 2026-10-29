@@ -4335,20 +4335,6 @@
         "ar": "OLV Mix",
         "en": "OLV Mix"
       }
-    ],
-    "addons": [
-      {
-        "id": "cheese",
-        "ar": "جبنة",
-        "en": "Cheese",
-        "price": 0
-      },
-      {
-        "id": "sugar",
-        "ar": "سكر",
-        "en": "Sugar",
-        "price": 0
-      }
     ]
   }
 }

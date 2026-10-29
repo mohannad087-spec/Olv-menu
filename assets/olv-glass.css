@@ -54,4 +54,3 @@ html{background:var(--ground)}
   .item,.subitem,.subcategory-card,.feature,.recommend,.option,.search,.mood{background:var(--surface)}
 }
 #trackOrderBtn{position:fixed;z-index:345;inset-inline-end:14px;bottom:84px;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--glass-line);background:var(--glass-strong);color:var(--ink);font-weight:600;font-size:14px;font-family:inherit;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:inset 0 1px 0 var(--glass-hi),var(--glass-shadow);cursor:pointer}
-.shisha-addons-title{margin:16px 0 0;font-weight:600;color:var(--ink2);font-size:14px}.option[aria-pressed="true"]{outline:2px solid var(--primary)}
