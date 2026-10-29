@@ -1851,7 +1851,7 @@
       "tags": [
         "veg"
       ],
-      "available": true,
+      "available": false,
       "large": {
         "price": 1.5,
         "hallPrice": 2
@@ -3599,7 +3599,10 @@
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sh-meat-mvsnjae4.jpg",
       "available": true,
       "popular": false,
-      "optionProfile": "sandwich"
+      "optionProfile": "sandwich",
+      "meal": {
+        "price": 2.75
+      }
     },
     {
       "id": "sh-meat-super",
