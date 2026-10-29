@@ -471,7 +471,8 @@
       "tags": [
         "veg"
       ],
-      "image": "assets/photos/garden-salad.webp"
+      "image": "assets/photos/garden-salad.webp",
+      "optionProfile": "greens"
     },
     {
       "id": "greek-salad",
@@ -1531,7 +1532,8 @@
       ],
       "available": true,
       "image": "assets/photos/fruit-salad.webp",
-      "hallPrice": 3.5
+      "hallPrice": 3.5,
+      "optionProfile": "none"
     },
     {
       "id": "fruit-salad-cream",
@@ -1549,7 +1551,8 @@
       ],
       "available": true,
       "image": "assets/photos/fruit-salad-cream.webp",
-      "hallPrice": 4
+      "hallPrice": 4,
+      "optionProfile": "none"
     },
     {
       "id": "fakhfakhina",
@@ -1567,7 +1570,8 @@
       ],
       "available": true,
       "image": "assets/photos/fakhfakhina.webp",
-      "hallPrice": 4
+      "hallPrice": 4,
+      "optionProfile": "none"
     },
     {
       "id": "pomegranate",
@@ -2304,7 +2308,8 @@
       "image": "assets/photos/cheesecake.webp",
       "hallPrice": 2.5,
       "available": true,
-      "popular": false
+      "popular": false,
+      "optionProfile": "cake"
     },
     {
       "id": "brownie",
@@ -2322,7 +2327,8 @@
       ],
       "image": "assets/photos/brownie.webp",
       "available": true,
-      "popular": false
+      "popular": false,
+      "optionProfile": "cake"
     },
     {
       "id": "molten-cake",
@@ -2340,7 +2346,8 @@
       ],
       "image": "assets/photos/molten-cake.webp",
       "hallPrice": 2.5,
-      "available": true
+      "available": true,
+      "optionProfile": "dessert"
     },
     {
       "id": "candy-kilo",
@@ -2357,7 +2364,8 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/candy-kilo.webp"
+      "image": "assets/photos/candy-kilo.webp",
+      "optionProfile": "none"
     },
     {
       "id": "cheesecake-mix",
@@ -2995,7 +3003,8 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/add-fruit.webp"
+      "image": "assets/photos/add-fruit.webp",
+      "optionProfile": "none"
     },
     {
       "id": "shisha",
@@ -3151,7 +3160,8 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/icecream-kilo.webp"
+      "image": "assets/photos/icecream-kilo.webp",
+      "optionProfile": "none"
     },
     {
       "id": "scoop-vanilla",
@@ -3966,7 +3976,7 @@
       "price": 1.5,
       "tags": [],
       "available": true,
-      "optionProfile": "manakish"
+      "optionProfile": "none"
     },
     {
       "id": "sn-potato-sandwich",
@@ -4165,7 +4175,8 @@
       "price": 1,
       "tags": [],
       "available": true,
-      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/card-mvpyr8xc-mvsr5u2y.jpg"
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/card-mvpyr8xc-mvsr5u2y.jpg",
+      "optionProfile": "greens"
     },
     {
       "id": "card-mvq9jump",
@@ -4579,7 +4590,27 @@
           "إضافة مكسرات"
         ]
       },
-      "none": {}
+      "none": {},
+      "cake": {
+        "extras": [
+          "إضافة صوص",
+          "إضافة شوكولاتة"
+        ]
+      },
+      "donut": {
+        "extras": [
+          "إضافة صوص"
+        ]
+      },
+      "greens": {
+        "remove": [
+          "بدون بصل",
+          "بدون صوص"
+        ],
+        "extras": [
+          "دجاج إضافي"
+        ]
+      }
     },
     "byCat": {
       "burgers": "sandwich",
@@ -4591,10 +4622,10 @@
       "cocktails": "iced",
       "shakes": "shake",
       "desserts": "dessert",
-      "cakes": "dessert",
+      "cakes": "cake",
       "waffles": "dessert",
       "crepes": "dessert",
-      "donuts": "dessert",
+      "donuts": "donut",
       "icecream": "icecream",
       "scoops": "icecream",
       "pizza": "pizza",
