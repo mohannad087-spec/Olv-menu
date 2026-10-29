@@ -1,0 +1,18 @@
+// فحص تحقق السيرفر من خيارات الأصناف: node scripts/options-test.mjs
+import fs from 'node:fs';
+import { customProblem } from '../functions/api/orders.js';
+const menu = JSON.parse(fs.readFileSync(new URL('../data/menu.json', import.meta.url), 'utf8'));
+const by = (n) => menu.items.find((i) => i.ar === n);
+let failed = 0;
+const t = (name, got, want) => { const ok = (got === '') === want; if (!ok) failed++; console.log((ok ? '✓ ' : '✗ ') + name + (ok ? '' : ' → ' + got)); };
+t('لاتيه + سكر + حليب', customProblem(by('كافيه لاتيه'), { options: ['سكر وسط', 'حليب عادي'] }, menu), true);
+t('اسبرسو + حليب مرفوض', customProblem(by('اسبرسو سنجل'), { options: ['حليب عادي'] }, menu), false);
+t('سكرين من نفس المجموعة مرفوض', customProblem(by('كافيه لاتيه'), { options: ['سكر وسط', 'سكر حلوة'] }, menu), false);
+t('بيبسي + سكر مرفوض', customProblem(by('بيبسي'), { options: ['سكر وسط'] }, menu), false);
+t('برغر + جبنة إضافية', customProblem(menu.items.find((i) => i.cat === 'burgers'), { extras: ['جبنة إضافية'] }, menu), true);
+t('برغر + ثلج مرفوض', customProblem(menu.items.find((i) => i.cat === 'burgers'), { options: ['ثلج أقل'] }, menu), false);
+const sh = menu.items.find((i) => i.cat === 'shisha');
+t('أرجيلة + نكهة', customProblem(sh, { options: [menu.shishaOptions.flavors[0].ar] }, menu), true);
+t('أرجيلة + جبنة مرفوض', customProblem(sh, { extras: ['جبنة'] }, menu), false);
+t('بدون custom', customProblem(sh, undefined, menu), true);
+process.exit(failed ? 1 : 0);

@@ -126,6 +126,28 @@ await scenario('رقم الهاتف بشاشة الاختيار بيبقى بت�
   ok(await get(page, "document.querySelector('.choice-phone bdi').dir==='ltr'&&document.querySelector('.choice-phone bdi').textContent==='0775 82 60 60'"), 'الرقم معزول LTR');
 });
 
+const opts = async (page, id) => get(page, `(() => { const p = profile(DATA.items.find(x => x.id === ${JSON.stringify(id)})); return JSON.stringify([p.remove, p.extras, p.groups.map(g => g.id)]); })()`);
+const byName = (n) => menu.items.find((i) => i.ar === n);
+await scenario('خيارات منطقية لكل قسم', {}, async (page, ok) => {
+  const grp = async (n) => JSON.parse(await opts(page, byName(n).id))[2];
+  ok(JSON.stringify(await grp('اسبرسو سنجل')) === '["sugar"]', 'اسبرسو: سكر بس بدون حليب');
+  ok(JSON.stringify(await grp('كافيه لاتيه')) === '["sugar","milk"]', 'لاتيه: سكر وحليب');
+  ok(JSON.stringify(await grp('بيبسي')) === '[]', 'بيبسي بدون خيارات');
+  ok(await opts(page, menu.items.find((i) => i.cat === 'shisha').id) === '[[],[],[]]', 'الأرجيلة بدون جبنة وسكر');
+  const pz = menu.items.find((i) => i.cat === 'pizza' && i.subcat === 'pizza');
+  const pzo = JSON.parse(await opts(page, pz.id));
+  ok(!pzo[2].includes('ice') && pzo[1].includes('جبنة إضافية'), 'بيتزا: جبنة إضافية وبدون ثلج');
+  ok(JSON.parse(await opts(page, menu.items.find((i) => i.cat === 'juices').id))[2].includes('ice'), 'عصير: ثلج');
+});
+
+await scenario('اختيار واحد فقط من كل مجموعة', { saved: 'takeaway' }, async (page, ok) => {
+  await enter(page); await pick(page, 'takeaway');
+  await page.evaluate((id) => openCustomize(id), byName('كافيه لاتيه').id); await page.waitForTimeout(400);
+  const btns = await page.$$('.option-group[data-g="0"] .option');
+  await btns[0].click(); await btns[1].click();
+  ok(await get(page, 'JSON.stringify(currentCustom.options)') === '["سكر وسط"]', 'اختيار سكر ثاني بيبدّل الأول');
+});
+
 await browser.close(); srv.close();
 console.log(failed ? `\nفشل ${failed} فحص` : '\nكل الفحوصات نجحت');
 process.exit(failed ? 1 : 0);
