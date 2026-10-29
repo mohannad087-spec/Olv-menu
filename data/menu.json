@@ -4208,6 +4208,20 @@
       "price": 1.5,
       "tags": [],
       "available": true
+    },
+    {
+      "id": "card-mvtbzxfj",
+      "cat": "shisha",
+      "subcat": "تجديد راس نخله",
+      "subcatAr": "تجديد راس نخله",
+      "subcatEn": "تجديد راس نخله",
+      "ar": "تجديد راس نخله",
+      "en": "تجديد راس نخله",
+      "descAr": "",
+      "descEn": "",
+      "price": 2,
+      "tags": [],
+      "available": true
     }
   ],
   "shishaOptions": {
