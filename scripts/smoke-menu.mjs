@@ -19,11 +19,13 @@ const drink = menu.items.find((i) => i.cat === 'cold' && i.available !== false &
   || menu.items.find((i) => i.cat === 'hot' && i.available !== false && !i.variants && !i.large);
 
 let closed = {};
+let orderStatus = 'preparing'; // حالة الطلب اللي بيرجّعها /api/orders?id=
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.mp3': 'audio/mpeg' };
 const srv = http.createServer((q, r) => {
   const u = new URL(q.url, 'http://x');
   if (u.pathname === '/data/menu.json') { r.setHeader('content-type', 'application/json'); return r.end(JSON.stringify(menu)); }
   if (u.pathname === '/api/controls') { r.setHeader('content-type', 'application/json'); return r.end(JSON.stringify({ ok: true, status: { closed, until: {}, message: '' } })); }
+  if (u.pathname === '/api/orders' && u.searchParams.get('id')) { r.setHeader('content-type', 'application/json'); return r.end(JSON.stringify({ ok: true, order: { id: 'o1', number: 7, status: orderStatus } })); }
   if (u.pathname.startsWith('/api/')) { r.setHeader('content-type', 'application/json'); return r.end('{"ok":false}'); }
   const f = path.join(ROOT, u.pathname === '/' ? 'index.html' : u.pathname);
   if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { r.statusCode = 404; return r.end(); }
@@ -34,12 +36,14 @@ const base = `http://localhost:${srv.address().port}`;
 
 const browser = await chromium.launch();
 let failed = 0;
-async function scenario(name, { closedNow = {}, url = '/', saved = null }, fn) {
+async function scenario(name, { closedNow = {}, url = '/', saved = null, track = null }, fn) {
   closed = closedNow;
   const page = await browser.newPage({ viewport: { width: 390, height: 800 } });
   const errs = [];
   page.on('pageerror', (e) => errs.push(e.message));
   if (saved) await page.addInitScript((m) => localStorage.setItem('olv-order-mode', m), saved);
+  if (track) await page.addInitScript(() => localStorage.setItem('olv-last-order', JSON.stringify({ id: 'o1', number: 7, at: Date.now() })));
+  orderStatus = track || 'preparing';
   await page.goto(base + url);
   await page.waitForTimeout(1200);
   const checks = [];
@@ -103,6 +107,23 @@ await scenario('QR طاولة (الصالة مفتوحة)', { url: '/?table=5' }
   await enter(page);
   ok(await get(page, 'orderMode') === 'hall', 'انفتح على صالة');
   ok(await get(page, "document.getElementById('table').value") === '5', 'رقم الطاولة 5');
+});
+
+await scenario('طلب جاري: زر متابعة الطلب يبقى ظاهر بعد الخروج والرجوع', { track: 'preparing' }, async (page, ok) => {
+  ok(await get(page, "!!document.getElementById('trackOrderBtn')"), 'الزر ظاهر');
+  await page.reload(); await page.waitForTimeout(1200);
+  ok(await get(page, "!!document.getElementById('trackOrderBtn')"), 'الزر ظاهر بعد إعادة التحميل');
+  await enter(page);
+  ok(await get(page, "document.getElementById('trackOrderBtn').getBoundingClientRect().width>0"), 'الزر ظاهر بعد شاشة الترحيب');
+});
+
+await scenario('طلب مكتمل: زر المتابعة يختفي', { track: 'completed' }, async (page, ok) => {
+  ok(await get(page, "!document.getElementById('trackOrderBtn')"), 'الزر مخفي');
+  ok(await get(page, "!localStorage.getItem('olv-last-order')"), 'الطلب انمسح من التخزين');
+});
+
+await scenario('رقم الهاتف بشاشة الاختيار بيبقى بترتيبه (LTR)', {}, async (page, ok) => {
+  ok(await get(page, "document.querySelector('.choice-phone bdi').dir==='ltr'&&document.querySelector('.choice-phone bdi').textContent==='0775 82 60 60'"), 'الرقم معزول LTR');
 });
 
 await browser.close(); srv.close();
