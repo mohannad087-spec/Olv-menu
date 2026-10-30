@@ -1,6 +1,6 @@
 // فحص تحقق السيرفر من خيارات الأصناف: node scripts/options-test.mjs
 import fs from 'node:fs';
-import { customProblem } from '../functions/api/orders.js';
+import { customProblem, verifyOrderItems } from '../functions/api/orders.js';
 const menu = JSON.parse(fs.readFileSync(new URL('../data/menu.json', import.meta.url), 'utf8'));
 const by = (n) => menu.items.find((i) => i.ar === n);
 let failed = 0;
@@ -24,4 +24,9 @@ t('كيك + صوص', customProblem(by('لوتس كيك'), { extras: ['إضافة
 t('سلطة فواكه بدون ثلج', customProblem(by('سلطة فواكه'), { options: ['ثلج عادي'] }, menu), false);
 t('بيبسي + ثلج مع كاسة', customProblem(by('بيبسي'), { extras: ['ثلج مع كاسة'] }, menu), true);
 t('ماء بدون خيارات', customProblem(by('ماء 500 مل'), { extras: ['ثلج مع كاسة'] }, menu), false);
+const pep = by('بيبسي');
+const vo = (mode, extras) => verifyOrderItems([{ id: pep.id, qty: 2, custom: { extras } }], menu, mode).total;
+t('بيبسي بدون كاسة ثلج 0.60', Math.abs(vo('takeaway', []) - 0.6) < 1e-9 ? '' : 'x', true);
+t('بيبسي + كاسة ثلج x2 = 1.60 (نص دينار لكل وحدة)', Math.abs(vo('takeaway', ['ثلج مع كاسة']) - 1.6) < 1e-9 ? '' : String(vo('takeaway', ['ثلج مع كاسة'])), true);
+t('بالصالة الكاسة 0.5 بدون رسم الصالة', Math.abs(vo('hall', ['ثلج مع كاسة']) - vo('hall', []) - 1) < 1e-9 ? '' : 'x', true);
 process.exit(failed ? 1 : 0);

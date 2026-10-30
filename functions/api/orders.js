@@ -75,7 +75,7 @@ export function customProblem(real, custom, menu) {
   return '';
 }
 
-function verifyOrderItems(rawItems, menu, mode) {
+export function verifyOrderItems(rawItems, menu, mode) {
   if (rawItems.length > 50) throw new Error('Too many items in order.');
   const byId = new Map((menu.items || []).map(i => [String(i.id), i]));
   const items = [];
@@ -97,10 +97,13 @@ function verifyOrderItems(rawItems, menu, mode) {
     if (problem) throw new Error(problem);
     const customText = custom == null ? '' : JSON.stringify(custom);
     if (customText.length > 2000) throw new Error('Order customization is too large.');
+    // إضافات إلها سعر (مثل كاسة الثلج): السعر من ملف الخيارات، وما بينطبق عليه رسم الصالة
+    const prices = (menu.optionProfiles?.profiles?.[real.optionProfile || menu.optionProfiles?.byCat?.[real.cat] || 'none'] || {}).extraPrices || {};
+    const extrasCost = Array.isArray(custom?.extras) ? custom.extras.reduce((t, x) => t + (Number(prices[x]) || 0), 0) : 0;
     items.push({
       id: real.id,
       qty,
-      price: priceForMode(basePrice, mode, menu, real, large),
+      price: roundMoney(priceForMode(basePrice, mode, menu, real, large) + extrasCost),
       label,
       custom: custom || undefined
     });

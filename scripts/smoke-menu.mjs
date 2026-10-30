@@ -148,6 +148,15 @@ await scenario('اختيار واحد فقط من كل مجموعة', { saved: '
   ok(await get(page, 'JSON.stringify(currentCustom.options)') === '["سكر وسط"]', 'اختيار سكر ثاني بيبدّل الأول');
 });
 
+await scenario('كاسة ثلج للمشروب الغازي بنص دينار', { saved: 'takeaway' }, async (page, ok) => {
+  await enter(page); await pick(page, 'takeaway');
+  await page.evaluate((id) => openCustomize(id), byName('بيبسي').id); await page.waitForTimeout(400);
+  await page.click('button.option[onclick*="extras"]');
+  ok((await get(page, "document.getElementById('addCustomizedBtn').textContent")).includes('0.80') || (await get(page, "document.getElementById('addCustomizedBtn').textContent")).includes('0.8'), 'زر الإضافة بيعرض 0.80');
+  await page.evaluate(() => addCustomized()); await page.waitForTimeout(300);
+  ok(await get(page, "cartItems[0].extra") === 0.5, 'extra = 0.5 بالسلة');
+});
+
 await browser.close(); srv.close();
 console.log(failed ? `\nفشل ${failed} فحص` : '\nكل الفحوصات نجحت');
 process.exit(failed ? 1 : 0);
