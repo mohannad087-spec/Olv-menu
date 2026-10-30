@@ -41,7 +41,7 @@ function tableCount(menu) {
   return Number.isFinite(n) && n > 0 ? Math.min(n, 500) : 20;
 }
 
-function verifyTable(raw, menu) {
+export function verifyTable(raw, menu) {
   const t = String(raw ?? '').trim();
   if (!t) throw new Error('رقم الطاولة مطلوب لطلبات الصالة.');
   if (!/^\d{1,3}$/.test(t)) throw new Error('رقم الطاولة غير صحيح.');
@@ -114,7 +114,7 @@ export function verifyOrderItems(rawItems, menu, mode) {
   return { items, total, text };
 }
 
-async function verifyTurnstile(token, ip, env) {
+export async function verifyTurnstile(token, ip, env) {
   // نشيل المسافات وعلامات الاتجاه المخفية اللي بتلزق مع النسخ واللصق من الموبايل
   const secret = String(env.TURNSTILE_SECRET_KEY || '').replace(/[\u200e\u200f\u202a-\u202e\u2066-\u2069\ufeff]/g, '').trim();
   if (!secret) throw new Error('Bot verification is not configured yet.');
@@ -140,7 +140,7 @@ function normalizePhone(raw) {
 }
 
 // نص من الزبون: نحوّله لنص، نشيل رموز التحكم المخفية (ما عدا السطر الجديد)، ونقصّه للطول المسموح
-function cleanText(v, max) {
+export function cleanText(v, max) {
   return String(v ?? '').replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, '').trim().slice(0, max);
 }
 
@@ -324,6 +324,10 @@ export async function onRequest(context) {
       // اسم النادل بييجي من حسابه، مش من اللي انكتب بالطلب
       if (auth.role === 'staff') fields.waiter = auth.staffName;
       else if (!trusted) fields.waiter = '';
+      // طلبات الصالة بس عن طريق الويتر (صفحة الموظفين): الزبون بالصالة بيتصفح، وبينادي الويتر أو بيبعت قائمة عبر /api/table-requests
+      if (p.mode === 'hall' && !trusted) {
+        return json({ ok: false, code: 'hall_waiter_only', error: 'الطلب بالصالة عن طريق الويتر. اضغط «نادِ الويتر» أو «جهّز لي الطلب».', errorEn: 'Dine-in orders are taken by the waiter. Tap "Call the waiter" or "Prepare my order".' }, 403);
+      }
       // التحكم بالطلبات من الإدارة: إيقاف عام / لنوع الطلب / لمجموعة أصناف (الموظفين مستثنين)
       if (!trusted) {
         const byCat = new Map((menu.items || []).map(i => [String(i.id), i.cat]));
