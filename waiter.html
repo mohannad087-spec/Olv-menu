@@ -56,6 +56,10 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 .badge{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:4px 12px;font-size:13px;margin-top:8px;background:var(--sunk);color:var(--ink)}
 .badge:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--ink2)}
 .b-new:before{background:var(--f1)}.b-confirmed:before{background:var(--f4)}.b-preparing:before{background:var(--f2)}.b-ready:before{background:var(--f3)}.b-cancelled:before{background:var(--f0)}
+.rbadge{display:inline-block;min-width:22px;margin-inline-start:8px;padding:1px 7px;border-radius:999px;background:var(--f0);color:var(--ground);font-size:12px;font-weight:700}
+.tab.active .rbadge{background:var(--on-primary);color:var(--primary)}
+.rq-items{margin:8px 0;padding:0;list-style:none;font-size:14px;color:var(--ink)}.rq-items li{padding:3px 0;border-bottom:1px dashed var(--line)}
+.rq-act{display:flex;gap:8px;margin-top:10px}.rq-act button{flex:1;min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:500}.rq-act .go{background:var(--primary);border-color:var(--primary);color:var(--on-primary);font-weight:600}
 .empty{text-align:center;padding:40px;color:var(--ink2);border:1px dashed var(--line);border-radius:var(--r)}
 .toast{position:fixed;z-index:1000;left:50%;bottom:90px;transform:translate(-50%,12px);opacity:0;background:var(--ink);color:var(--ground);padding:12px 16px;border-radius:12px;font-size:14px;pointer-events:none;transition:.2s}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -78,7 +82,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 </div>
 
 <div id="app" style="display:none">
-  <div class="tabs"><button class="tab active" id="tabMenu" onclick="showTab('menu')">المنيو</button><button class="tab" id="tabMine" onclick="showTab('mine')">طلباتي</button></div>
+  <div class="tabs"><button class="tab active" id="tabMenu" onclick="showTab('menu')">المنيو</button><button class="tab" id="tabReq" onclick="showTab('req')">الطاولات<span id="reqBadge" class="rbadge" style="display:none"></span></button><button class="tab" id="tabMine" onclick="showTab('mine')">طلباتي</button></div>
 
   <div id="menuTab">
     <input id="search" class="search" placeholder="ابحث عن صنف...">
@@ -86,6 +90,8 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
     <div id="cats" class="cats"></div>
     <div id="grid" class="grid"></div>
   </div>
+
+  <div id="reqTab" style="display:none" class="myorders"><div id="reqList"></div></div>
 
   <div id="mineTab" style="display:none" class="myorders"><div id="mineList"></div></div>
 </div>
@@ -114,7 +120,7 @@ const $=id=>document.getElementById(id);
 const money=n=>`${Number(n).toFixed(2)} JD`;
 const imgs={burgers:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=70',pizza:'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=70',offers:'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=70',snacks:'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=400&q=70',sandwiches:'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=400&q=70',pasta:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=400&q=70',salads:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=70',hot:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=70',cold:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=70',juices:'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=400&q=70',shakes:'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=70',desserts:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=70',icecream:'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=400&q=70',donuts:'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=400&q=70',shisha:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=70'};imgs.cocktails=imgs.juices;
 const names={new:'جديد',confirmed:'تم التأكيد',preparing:'قيد التحضير',ready:'جاهز',completed:'مكتمل',cancelled:'ملغى'};
-let DATA=null,cart=[],active='all',waiterName='',staffKey='',knownStatuses=null,audioCtx=null,orderIdempotencyKey='';
+let DATA=null,cart=[],active='all',waiterName='',staffKey='',knownStatuses=null,audioCtx=null,orderIdempotencyKey='',pendingReq=null,pendingName='',knownReqs=null,reqs=[];
 
 function showToast(m){$('toast').textContent=m;$('toast').classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>$('toast').classList.remove('show'),1700)}
 
@@ -169,7 +175,7 @@ async function init(){
   try{DATA=await fetch('data/menu.json',{cache:'no-store'}).then(r=>r.json())}catch(e){$('grid').innerHTML='<div class="empty">تعذر تحميل المنيو.</div>';return}
   renderCats();renderGrid();loadMine();
   $('search').oninput=renderGrid;
-  setInterval(loadMine,15000);
+  setInterval(loadMine,15000);loadReqs();setInterval(loadReqs,6000);
   document.addEventListener('click',ensureAudio);
 }
 
@@ -279,7 +285,8 @@ async function submitOrder(){
   const phone=$('tablePhone').value.trim();
   try{
     if(!orderIdempotencyKey)orderIdempotencyKey=crypto.randomUUID();
-    await api('/api/orders',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({mode:'hall',table,phone,waiter:waiterName,notes:$('orderNotes').value.trim(),items:cart,total,text,idempotencyKey:orderIdempotencyKey})});
+    const res=await api('/api/orders',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({mode:'hall',table,phone,name:pendingName,waiter:waiterName,notes:$('orderNotes').value.trim(),items:cart,total,text,idempotencyKey:orderIdempotencyKey})});
+    if(pendingReq){try{await api('/api/table-requests',{method:'PATCH',headers:{'content-type':'application/json'},body:JSON.stringify({id:pendingReq,status:'done',orderId:res.order&&res.order.id})})}catch(e){}pendingReq=null;pendingName='';loadReqs()}
     cart=[];orderIdempotencyKey='';$('tableNum').value='';$('tablePhone').value='';$('orderNotes').value='';
     updateCartBar();closeCart();showToast('تم إرسال الطلب');
     loadMine();
@@ -287,13 +294,64 @@ async function submitOrder(){
 }
 
 function showTab(t,fromBack){
-  const was=$('mineTab').style.display==='none'?'menu':'mine';
-  if(!fromBack&&was!==t){if(t==='mine')olvLayerOpen(()=>showTab('menu',true));else if(olvLayerBack())return}
+  const was=$('mineTab').style.display!=='none'?'mine':$('reqTab').style.display!=='none'?'req':'menu';
+  if(!fromBack&&was!==t){if(was==='menu')olvLayerOpen(()=>showTab('menu',true));else if(t==='menu'&&olvLayerBack())return}
   $('tabMenu').classList.toggle('active',t==='menu');
+  $('tabReq').classList.toggle('active',t==='req');
   $('tabMine').classList.toggle('active',t==='mine');
   $('menuTab').style.display=t==='menu'?'block':'none';
+  $('reqTab').style.display=t==='req'?'block':'none';
   $('mineTab').style.display=t==='mine'?'block':'none';
   if(t==='mine')loadMine();
+  if(t==='req')renderReqs();
+}
+
+// طلبات الطاولات من الزبائن: «نادِ الويتر» و«جهّز لي الطلب». الويتر بيحمّل القائمة لسلته، بيراجعها وبيبعتها للمطبخ.
+async function loadReqs(){
+  try{
+    const out=await api('/api/table-requests?ts='+Date.now());
+    reqs=out.requests||[];
+    const ids=new Set(reqs.map(r=>r.id)),fresh=knownReqs?reqs.filter(r=>!knownReqs.has(r.id)):[];
+    knownReqs=ids;
+    if(fresh.length)notifyReqs(fresh);
+    const n=reqs.length;$('reqBadge').style.display=n?'inline-block':'none';$('reqBadge').textContent=n;
+    if($('reqTab').style.display!=='none')renderReqs();
+  }catch(e){}
+}
+function notifyReqs(list){
+  playReadyChime();
+  try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}
+  list.forEach(r=>{
+    const el=document.createElement('div');
+    el.className='ready-alert';
+    const t=document.createElement('b');
+    t.textContent=(r.kind==='call'?'طاولة '+r.table+' بتناديك':'طاولة '+r.table+' بعتت قائمة طلب')+(r.name?' — '+r.name:'');
+    const b=document.createElement('button');b.textContent='افتح';
+    b.onclick=()=>{el.remove();showTab('req')};
+    el.append(t,b);
+    $('alertStack').appendChild(el);
+    setTimeout(()=>el.remove(),30000);
+  });
+}
+const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function renderReqs(){
+  $('reqList').innerHTML=reqs.length?reqs.map(r=>`<div class="oc"><div class="head"><span>طاولة ${esc(r.table)}${r.name?' — '+esc(r.name):''}</span><span class="tm">${new Date(r.createdAt).toLocaleTimeString('ar-JO')}</span></div><span class="badge">${r.kind==='call'?'بتناديك':'قائمة طلب'}</span>${r.items.length?`<ul class="rq-items">${r.items.map(i=>`<li>${esc(i.label)} × ${esc(i.qty)}${i.custom&&(i.custom.note||(i.custom.remove||[]).length||(i.custom.extras||[]).length)?'<br><small>'+esc([].concat((i.custom.remove||[]).map(x=>'بدون '+x),(i.custom.extras||[]),i.custom.note?[i.custom.note]:[]).join('، '))+'</small>':''}</li>`).join('')}</ul><div class="tot" style="padding:4px 0"><span>المجموع</span><span>${money(r.total)}</span></div>`:''}${r.notes?`<div class="tm">ملاحظة: ${esc(r.notes)}</div>`:''}<div class="rq-act">${r.kind==='order'?`<button class="go" onclick="loadReq('${esc(r.id)}')">حمّل للسلة</button>`:`<button class="go" onclick="doneReq('${esc(r.id)}')">رحت للطاولة</button>`}<button onclick="doneReq('${esc(r.id)}','dismissed')">تجاهل</button></div></div>`).join(''):'<div class="empty">ما في طلبات من الطاولات.</div>';
+}
+async function doneReq(id,status){
+  try{await api('/api/table-requests',{method:'PATCH',headers:{'content-type':'application/json'},body:JSON.stringify({id,status:status||'done'})})}catch(e){showToast(e.message)}
+  if(pendingReq===id){pendingReq=null;pendingName=''}
+  loadReqs();
+}
+function loadReq(id){
+  const r=reqs.find(x=>x.id===id);if(!r)return;
+  if(cart.length&&pendingReq!==id&&!confirm('في أصناف بالسلة. تضيف عليها قائمة الطاولة '+r.table+'؟'))return;
+  r.items.forEach(i=>{
+    const f=cart.find(x=>x.id===i.id&&x.label===i.label&&JSON.stringify(x.custom||null)===JSON.stringify(i.custom||null));
+    if(f)f.qty+=i.qty;else cart.push({id:i.id,qty:i.qty,price:i.price,label:i.label,...(i.custom?{custom:i.custom}:{})});
+  });
+  pendingReq=r.id;pendingName=r.name||'';orderIdempotencyKey='';
+  $('tableNum').value=r.table;if(r.notes)$('orderNotes').value=r.notes;
+  updateCartBar();showTab('menu');openCart();
 }
 
 async function loadMine(){

@@ -26,6 +26,7 @@ const srv = http.createServer((q, r) => {
   if (u.pathname === '/data/menu.json') { r.setHeader('content-type', 'application/json'); return r.end(JSON.stringify(menu)); }
   if (u.pathname === '/api/controls') { r.setHeader('content-type', 'application/json'); return r.end(JSON.stringify({ ok: true, status: { closed, until: {}, message: '' } })); }
   if (u.pathname === '/api/orders' && u.searchParams.get('id')) { r.setHeader('content-type', 'application/json'); return r.end(JSON.stringify({ ok: true, order: { id: 'o1', number: 7, status: orderStatus } })); }
+  if (u.pathname === '/api/table-requests') { r.setHeader('content-type', 'application/json'); return r.end(JSON.stringify({ ok: true, request: { id: 'r1' } })); }
   if (u.pathname.startsWith('/api/')) { r.setHeader('content-type', 'application/json'); return r.end('{"ok":false}'); }
   const f = path.join(ROOT, u.pathname === '/' ? 'index.html' : u.pathname);
   if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { r.statusCode = 404; return r.end(); }
@@ -107,6 +108,29 @@ await scenario('QR طاولة (الصالة مفتوحة)', { url: '/?table=5' }
   await enter(page);
   ok(await get(page, 'orderMode') === 'hall', 'انفتح على صالة');
   ok(await get(page, "document.getElementById('table').value") === '5', 'رقم الطاولة 5');
+});
+
+await scenario('الصالة: بدون زر تأكيد، فقط «جهّز لي الطلب» و«نادِ الويتر»', { url: '/?table=5' }, async (page, ok) => {
+  await enter(page);
+  await addItem(page, burger.id);
+  await page.evaluate("document.getElementById('cart').click()");
+  await page.waitForTimeout(500);
+  const vis = (id) => get(page, `getComputedStyle(document.getElementById('${id}')).display!=='none'`);
+  ok(!(await vis('copy')) && !(await vis('whatsapp')), 'زر التأكيد والواتساب مخفيين بالصالة');
+  ok((await vis('hallPrepare')) && (await vis('hallCall')), 'زرّي الويتر ظاهرين');
+  await page.evaluate("document.getElementById('customerName').value='سامي';turnstileToken='t'");
+  await page.evaluate("document.getElementById('hallPrepare').click()");
+  await page.waitForTimeout(800);
+  ok(await get(page, 'cartItems.length') === 0, 'القائمة انرسلت والسلة تفضّت');
+});
+
+await scenario('سفري: زر التأكيد شغّال والواتساب ظاهر', { saved: 'takeaway' }, async (page, ok) => {
+  await enter(page);
+  await pick(page, 'takeaway');
+  await addItem(page, burger.id);
+  await page.evaluate("document.getElementById('cart').click()");
+  await page.waitForTimeout(500);
+  ok(await get(page, "getComputedStyle(document.getElementById('copy')).display!=='none'&&getComputedStyle(document.getElementById('hallPrepare')).display==='none'"), 'سفري بدون أزرار الويتر');
 });
 
 await scenario('طلب جاري: زر متابعة الطلب يبقى ظاهر بعد الخروج والرجوع', { track: 'preparing' }, async (page, ok) => {
