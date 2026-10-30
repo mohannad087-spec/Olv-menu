@@ -454,6 +454,7 @@
       "descAr": "خس، دجاج، بارميزان، كروتون وصوص سيزر",
       "descEn": "Lettuce, chicken, parmesan, croutons & Caesar dressing",
       "price": 2.5,
+      "hallPrice": 2,
       "tags": [],
       "image": "assets/photos/caesar.webp"
     },
@@ -468,6 +469,7 @@
       "descAr": "خضار طازجة مع تتبيلة خفيفة",
       "descEn": "Fresh vegetables with a light dressing",
       "price": 1,
+      "hallPrice": 2,
       "tags": [
         "veg"
       ],
@@ -485,6 +487,7 @@
       "descAr": "خضار، زيتون، فيتا وتتبيلة متوسطية",
       "descEn": "Vegetables, olives, feta & Mediterranean dressing",
       "price": 2,
+      "hallPrice": 2,
       "tags": [
         "veg"
       ],
@@ -4176,6 +4179,7 @@
       "descAr": "جرجير،بصل ،سماق بلدي",
       "descEn": "",
       "price": 1,
+      "hallPrice": 1.5,
       "tags": [],
       "available": true,
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/card-mvpyr8xc-mvsr5u2y.jpg",
