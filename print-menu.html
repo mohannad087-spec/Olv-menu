@@ -48,8 +48,11 @@ body{margin:0;background:#d8d0c2;color:var(--ink);font-family:"Readex Pro","Noto
 .row .star{color:var(--olive);margin-inline-end:4px;font-size:11px}
 .row .dtag{font-size:12px;margin-inline-start:3px}
 .leader{flex:1 1 auto;border-bottom:1px dotted #b3a993;margin:0 6px;position:relative;top:-4px;min-width:8px}
-.row .price{white-space:nowrap;font-weight:600;font-size:13.5px;color:var(--ink)}
-.row .price small{font-weight:400;font-size:11px;color:var(--muted);margin-inline-start:3px}
+.row .price{white-space:nowrap;font-weight:600;font-size:13.5px;color:var(--ink);display:inline-block;min-width:76px;text-align:center;direction:ltr}
+.row .price.take{color:var(--muted);font-weight:500}
+.cat h3 .cols{margin-inline-start:auto;display:flex;font:500 11px "Readex Pro",sans-serif;color:var(--muted)}
+.cat h3 .cols span{min-width:76px;text-align:center}
+.unit{font-size:12px;color:var(--muted);margin:0 0 10px;text-align:center}
 .row .en{font-size:11px;color:var(--muted);margin-top:1px}
 .foot{margin-top:8px;text-align:center}
 .foot .rule{margin:30px 0 16px}
@@ -87,6 +90,7 @@ body{margin:0;background:#d8d0c2;color:var(--ink);font-family:"Readex Pro","Noto
 </div>
 <div class="rule"><span></span><i>◆</i><span></span></div>
 
+<p class="unit">الأسعار بالدينار الأردني — صالة | سفري</p>
 <div id="body"><div class="empty">جاري تحميل المنيو...</div></div>
 
 <div class="foot">
@@ -103,6 +107,7 @@ body{margin:0;background:#d8d0c2;color:var(--ink);font-family:"Readex Pro","Noto
 <script>
 const $=id=>document.getElementById(id);
 function tagBadges(i){const t=i.tags||[];let h='';if(t.includes('veg'))h+='<span class="dtag" title="نباتي">🌱</span>';if(t.includes('spicy'))h+='<span class="dtag" title="حار">🌶️</span>';return h}
+let SURCHARGE=0;
 const GROUPS=[
   {title:'المقبلات والأطباق الرئيسية',cats:['offers','burgers','snacks','sandwiches','breakfast','pizza','pasta','salads']},
   {title:'المشروبات',cats:['hot','cold','cocktails','juices','shakes']},
@@ -111,14 +116,18 @@ const GROUPS=[
 ];
 function row(i){
   // صنف بحجمين: صغير / كبير
-  const hall=i.cat!=='donuts';
-  const base=hall&&i.hallPrice>0?i.hallPrice:i.price, big=i.large&&i.large.price?(hall&&i.large.hallPrice>0?i.large.hallPrice:i.large.price):0;
-  const price=big?`${Number(base).toFixed(2)} / ${Number(big).toFixed(2)}`:Number(base).toFixed(2);
+  // نفس منطق المنيو الحي: سعر الصالة المحدد للصنف، وإلا السفري + نسبة الصالة
+  const pct=SURCHARGE;
+  const hallOf=(p,h)=>h>0?Number(h):Math.round(Number(p)*(1+pct/100)*100)/100;
+  const L=i.large&&i.large.price?i.large:null;
+  const fmt=(a,b)=>b==null?Number(a).toFixed(2):`${Number(a).toFixed(2)} / ${Number(b).toFixed(2)}`;
+  const hallP=fmt(hallOf(i.price,i.hallPrice),L?hallOf(L.price,L.hallPrice):null);
+  const takeP=fmt(i.price,L?L.price:null);
   return `<div class="row">
     <div class="row-top">
       <span class="name">${i.popular?'<span class="star">★</span>':''}${i.ar}${tagBadges(i)}</span>
       <span class="leader"></span>
-      <span class="price">${price}<small>د.أ</small></span>
+      <span class="price hall">${hallP}</span><span class="price take">${takeP}</span>
     </div>
     ${i.en?`<div class="en">${i.en}</div>`:''}
   </div>`;
@@ -130,7 +139,7 @@ async function init(){
     const DATA=await fetch('data/menu.json',{cache:'no-store'}).then(r=>r.json());
     $('tagline').textContent=DATA.settings?.taglineAr||'مطعم وكافيه';
     $('wa').innerHTML=DATA.settings?.whatsappNumber?('للطلب والتواصل: <bdi dir="ltr">'+String(DATA.settings.whatsappNumber).replace(/[<>&]/g,'')+'</bdi>'):'';
-    const pct=Number(DATA.settings?.hallSurchargePercent)||0;$('surchargeNote').textContent=pct>0?`الأسعار أعلاه لطلبات السفري والتوصيل — عند الطلب داخل الكافيه تُضاف ${pct}% لكل الأصناف`:'';
+    SURCHARGE=Number(DATA.settings?.hallSurchargePercent)||0;$('surchargeNote').textContent='العمود الأول سعر الصالة والثاني سعر السفري والتوصيل';
     const catMap=new Map(DATA.categories.map(c=>[c.id,c]));
     let html='';
     GROUPS.forEach(g=>{
@@ -140,7 +149,7 @@ async function init(){
         if(!cat)return;
         const items=DATA.items.filter(i=>i.cat===catId&&i.available!==false&&!i.variants);
         if(!items.length)return;
-        catsHtml+=`<div class="cat"><h3>${cat.ar}</h3>${items.map(row).join('')}</div>`;
+        catsHtml+=`<div class="cat"><h3>${cat.ar}<span class="cols"><span>صالة</span><span>سفري</span></span></h3>${items.map(row).join('')}</div>`;
       });
       if(!catsHtml)return;
       html+=`<div class="section"><div class="section-title"><b>${g.title}</b>${pics(DATA,g)}</div><div class="section-rule"><span></span><i></i><span></span></div><div class="section-cats">${catsHtml}</div></div>`;
