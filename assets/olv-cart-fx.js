@@ -49,7 +49,7 @@ window.olvSaveLastCart=function(){try{if(window._olvPendingCart)localStorage.set
 function lastCart(){try{const a=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(a)?a.filter(x=>{const it=DATA.items.find(i=>i.id===x.id);return it&&it.available!==false&&shown(it)}):[]}catch(e){return[]}}
 window.olvRepeatOrder=function(){
   const list=lastCart();if(!list.length)return;
-  list.forEach(x=>{const it=DATA.items.find(i=>i.id===x.id);const price=String(x.key).endsWith('|default')?it.price:x.price;const f=cartItems.find(c=>c.key===x.key);if(f)f.qty+=x.qty;else cartItems.push({...x,price,custom:cleanCustom(it,x.custom)})});
+  list.forEach(x=>{const it=DATA.items.find(i=>i.id===x.id);const price=String(x.key).endsWith('|default')?it.price:x.price;const f=cartItems.find(c=>c.key===x.key);if(f)f.qty+=x.qty;else {const cc=cleanCustom(it,x.custom);cartItems.push({...x,price,custom:cc,extra:extrasCost(it,cc)})}});
   src=null;const btn=document.querySelector('.repeat-card img');if(btn){src={r:btn.getBoundingClientRect(),url:btn.src}}
   updateCart();showToast(L('رجّعنا طلبك الماضي للسلة','Your last order is back in the cart'));renderRepeat();
 };
