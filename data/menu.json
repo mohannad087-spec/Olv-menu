@@ -329,7 +329,8 @@
       "image": "assets/photos/fries.webp",
       "available": true,
       "popular": true,
-      "optionProfile": "snack"
+      "optionProfile": "snack",
+      "hallPrice": 1.5
     },
     {
       "id": "club",
