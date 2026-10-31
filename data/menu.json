@@ -4372,6 +4372,21 @@
       "price": 0.5,
       "tags": [],
       "available": true
+    },
+    {
+      "id": "card-mvwweykv",
+      "cat": "popular",
+      "subcat": "قهوه تركي كاس كبير",
+      "subcatAr": "قهوه تركي كاس كبير",
+      "subcatEn": "قهوه تركي كاس كبير",
+      "ar": "قهوه تركي كاس كبير",
+      "en": "قهوه تركي كاس كبير",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [],
+      "available": true,
+      "popular": true
     }
   ],
   "shishaOptions": {
