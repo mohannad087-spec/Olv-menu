@@ -4182,7 +4182,8 @@
       "tags": [],
       "available": true,
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/card-mvpyr8xc-mvsr5u2y.jpg",
-      "optionProfile": "greens"
+      "optionProfile": "greens",
+      "hallPrice": 1.5
     },
     {
       "id": "card-mvq9jump",
