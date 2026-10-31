@@ -4027,9 +4027,11 @@
       "en": "Chicken with Cream",
       "descAr": "قطع دجاج، كريمة، فطر، موزاريلا",
       "descEn": "Chicken pieces, cream, mushrooms, mozzarella",
-      "price": 2.5,
+      "price": 3.5,
       "tags": [],
-      "optionProfile": "snack"
+      "optionProfile": "snack",
+      "hallPrice": 4,
+      "available": false
     },
     {
       "id": "sn-hotdog",
