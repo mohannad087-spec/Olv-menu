@@ -4334,6 +4334,20 @@
       "price": 1.5,
       "tags": [],
       "available": true
+    },
+    {
+      "id": "card-mvworfef",
+      "cat": "popular",
+      "subcat": "زياده  ثلج",
+      "subcatAr": "زياده  ثلج",
+      "subcatEn": "زياده  ثلج",
+      "ar": "زياده  ثلج",
+      "en": "زياده  ثلج",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.25,
+      "tags": [],
+      "available": true
     }
   ],
   "shishaOptions": {
