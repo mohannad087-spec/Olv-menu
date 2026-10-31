@@ -3616,7 +3616,7 @@
       "price": 1.5,
       "tags": [],
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sh-meat-super-mvsnjehe.jpg",
-      "available": true,
+      "available": false,
       "popular": false,
       "meal": {
         "price": 3.5
