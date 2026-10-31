@@ -3530,19 +3530,15 @@
       "subcat": "شاورما سوبر",
       "subcatAr": "شاورما سوبر",
       "subcatEn": "Shawarma",
-      "ar": "شاورما دجاج عادي",
+      "ar": "شاورما دجاج عادي وجبات",
       "en": "Chicken Shawarma",
       "descAr": "دجاج، ثومة، بطاطا، مخلل",
       "descEn": "Chicken, garlic sauce, fries, pickles",
-      "price": 1,
+      "price": 2,
       "tags": [],
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sh-chicken-mvsnj6dn.jpg",
       "available": true,
       "popular": true,
-      "meal": {
-        "price": 2,
-        "descAr": "مع بطاطا"
-      },
       "large": {
         "price": 3.5
       },
