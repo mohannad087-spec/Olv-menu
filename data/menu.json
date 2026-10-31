@@ -4306,6 +4306,20 @@
       "tags": [],
       "available": true,
       "hallPrice": 0.25
+    },
+    {
+      "id": "card-mvwoofy3",
+      "cat": "sandwiches",
+      "subcat": "ساندويش شاورما دجاج",
+      "subcatAr": "ساندويش شاورما دجاج",
+      "subcatEn": "ساندويش شاورما دجاج",
+      "ar": "ساندويش شاورما دجاج",
+      "en": "ساندويش شاورما دجاج",
+      "descAr": "",
+      "descEn": "",
+      "price": 1,
+      "tags": [],
+      "available": true
     }
   ],
   "shishaOptions": {
