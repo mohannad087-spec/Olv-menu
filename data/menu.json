@@ -473,7 +473,8 @@
         "veg"
       ],
       "image": "assets/photos/garden-salad.webp",
-      "optionProfile": "greens"
+      "optionProfile": "greens",
+      "hallPrice": 2
     },
     {
       "id": "greek-salad",
