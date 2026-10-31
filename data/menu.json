@@ -3635,7 +3635,8 @@
       "descEn": "Double meal: beef, tahini, onion, tomato",
       "price": 3.25,
       "tags": [],
-      "optionProfile": "sandwich"
+      "optionProfile": "sandwich",
+      "available": false
     },
     {
       "id": "item-1792877670610",
