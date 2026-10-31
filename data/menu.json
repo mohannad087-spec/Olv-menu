@@ -4320,6 +4320,20 @@
       "price": 1,
       "tags": [],
       "available": true
+    },
+    {
+      "id": "card-mvwoq9zc",
+      "cat": "popular",
+      "subcat": "ساندويش شاورما لحمه",
+      "subcatAr": "ساندويش شاورما لحمه",
+      "subcatEn": "ساندويش شاورما لحمه",
+      "ar": "ساندويش شاورما لحمه",
+      "en": "ساندويش شاورما لحمه",
+      "descAr": "",
+      "descEn": "",
+      "price": 1.5,
+      "tags": [],
+      "available": true
     }
   ],
   "shishaOptions": {
