@@ -3012,14 +3012,14 @@
     {
       "id": "shisha",
       "cat": "shisha",
-      "subcat": "mazaya",
+      "subcat": "مزايا",
       "subcatAr": "مزايا",
       "subcatEn": "Mazaya",
       "ar": "أرجيلة مزايا",
       "en": "Mazaya Shisha",
       "descAr": "كل النكهات",
       "descEn": "All flavors",
-      "price": 2.5,
+      "price": 2.75,
       "shishaType": "mazaya",
       "flavors": [
         "double-apple",
@@ -3036,19 +3036,22 @@
         "olv-mix"
       ],
       "tags": [],
-      "image": "assets/photos/shisha.webp"
+      "image": "assets/photos/shisha.webp",
+      "available": true,
+      "popular": true,
+      "hallPrice": 2.75
     },
     {
       "id": "shisha-zaghloul",
       "cat": "shisha",
-      "subcat": "zaghloul",
+      "subcat": "زغلول وسلوم",
       "subcatAr": "زغلول وسلوم",
       "subcatEn": "Zaghloul & Salloum",
       "ar": "أرجيلة زغلول وسلوم",
       "en": "Zaghloul & Salloum Shisha",
       "descAr": "كل النكهات",
       "descEn": "All flavors",
-      "price": 1.75,
+      "price": 2,
       "shishaType": "zaghloul",
       "flavors": [
         "double-apple",
@@ -3065,25 +3068,29 @@
         "olv-mix"
       ],
       "tags": [],
-      "image": "assets/photos/shisha.webp"
+      "image": "assets/photos/shisha.webp",
+      "available": true,
+      "popular": false
     },
     {
       "id": "shisha-special",
       "cat": "shisha",
-      "subcat": "nakhla",
+      "subcat": "نخلة",
       "subcatAr": "نخلة",
       "subcatEn": "Nakhla",
       "ar": "أرجيلة نخلة تفاحتين",
       "en": "Nakhla Double Apple Shisha",
       "descAr": "نخلة بنكهة التفاحتين",
       "descEn": "Nakhla double apple",
-      "price": 3,
+      "price": 3.25,
       "shishaType": "nakhla",
       "flavors": [
         "double-apple"
       ],
       "tags": [],
-      "image": "assets/photos/shisha-special.webp"
+      "image": "assets/photos/shisha-special.webp",
+      "available": true,
+      "popular": false
     },
     {
       "id": "olv-special-shisha",
