@@ -427,7 +427,7 @@
         "spicy"
       ],
       "image": "assets/photos/arrabbiata.webp",
-      "available": true
+      "available": false
     },
     {
       "id": "chicken-pesto",
