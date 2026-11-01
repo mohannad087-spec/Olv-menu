@@ -3549,10 +3549,7 @@
       "large": {
         "price": 3.5
       },
-      "optionProfile": "sandwich",
-      "meal": {
-        "price": 2.5
-      }
+      "optionProfile": "sandwich"
     },
     {
       "id": "sh-chicken-super",
