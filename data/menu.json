@@ -3541,7 +3541,7 @@
       "en": "Chicken Shawarma",
       "descAr": "دجاج، ثومة، بطاطا، مخلل",
       "descEn": "Chicken, garlic sauce, fries, pickles",
-      "price": 2,
+      "price": 2.25,
       "tags": [],
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sh-chicken-mvsnj6dn.jpg",
       "available": true,
