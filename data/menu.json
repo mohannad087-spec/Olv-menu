@@ -3604,10 +3604,7 @@
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sh-meat-mvsnjae4.jpg",
       "available": true,
       "popular": false,
-      "optionProfile": "sandwich",
-      "meal": {
-        "price": 2.75
-      }
+      "optionProfile": "sandwich"
     },
     {
       "id": "sh-meat-super",
