@@ -1,0 +1,50 @@
+/* الهوية الجديدة (نيلي وبنفسجي) — نفس تطبيق المحاسبة.
+   ألوان وظلال وحركة خفيفة بس؛ ما في أي تغيير على سلوك الطلب.
+   بتتحمّل آخر ملف عشان تغلب الألوان القديمة (كموني/زيتي). */
+
+/* الليل: نيلي غامق */
+:root{
+  --ground:#14122a;--surface:#1d1a3a;--sunk:#0f0d22;--ink:#f1eefc;--ink2:#a9a3c9;--line:#35305e;
+  --primary:#aeb6ff;--on-primary:#14122a;--wa:#1fa383;
+  --f0:#ff8fb1;--f1:#ffab7a;--f2:#ffd166;--f3:#5fe0c0;--f4:#7cc4ff;--f5:#b9a2ff;
+  --amb1:rgba(108,92,255,.55);--amb2:rgba(66,84,232,.42);--amb3:rgba(190,110,255,.38);--amb4:rgba(255,120,170,.26);
+  --glass:rgba(255,255,255,.07);--glass-strong:rgba(26,22,58,.62);--glass-line:rgba(190,180,255,.18);
+  --glass-hi:rgba(255,255,255,.20);--glass-shadow:0 10px 30px rgba(8,6,30,.45);
+}
+/* النهار: لافندر فاتح */
+:root[data-olv-theme="light"]{
+  --ground:#f6f4ff;--surface:#ffffff;--sunk:#ebe8fa;--ink:#25223a;--ink2:#625d78;--line:#dcd8f2;
+  --primary:#4254e8;--on-primary:#ffffff;--wa:#0f9d83;
+  --f0:#e0367a;--f1:#e8662b;--f2:#c98a00;--f3:#0f9d83;--f4:#0b86c9;--f5:#6c4be0;
+  --amb1:rgba(108,92,255,.30);--amb2:rgba(66,84,232,.20);--amb3:rgba(190,110,255,.22);--amb4:rgba(255,130,170,.20);
+  --glass:rgba(255,255,255,.62);--glass-strong:rgba(255,255,255,.78);--glass-line:rgba(255,255,255,.9);
+  --glass-hi:rgba(255,255,255,1);--glass-shadow:0 12px 32px rgba(66,84,232,.14);
+}
+:focus-visible{outline-color:var(--primary)}
+
+/* الأزرار الرئيسية: تدرّج نيلي → بنفسجي */
+:root[data-olv-theme="light"] .primary,:root[data-olv-theme="light"] .feature-btn{background:linear-gradient(135deg,#4254e8,#6c4be0);color:#fff;box-shadow:0 8px 20px rgba(66,84,232,.28)}
+:root[data-olv-theme="light"] .entry-btn{background:linear-gradient(135deg,#4254e8,#6c4be0)!important;color:#fff!important;box-shadow:0 12px 28px rgba(66,84,232,.35)!important}
+:root:not([data-olv-theme="light"]) .entry-btn{background:linear-gradient(135deg,#aeb6ff,#c9b6ff)!important;color:#14122a!important}
+.mood.active{background:var(--primary);color:var(--on-primary);border-color:var(--primary)}
+.option.selected{border-color:var(--primary);box-shadow:0 0 0 2px color-mix(in srgb,var(--primary) 30%,transparent)}
+.entry-review span[aria-hidden]{color:#ffb020}
+
+/* بطاقات الأصناف: ترتفع شوي عن الخلفية وخط علوي بلون القسم */
+.item,.subitem,.subcategory-card,.feature,.recommend{transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s}
+@media (hover:hover){
+  .item:hover,.subcategory-card:hover{transform:translateY(-3px);box-shadow:inset 0 1px 0 var(--glass-hi),0 16px 34px color-mix(in srgb,var(--primary) 22%,transparent)}
+}
+.add{background:color-mix(in srgb,var(--primary) 14%,var(--glass-hi));color:var(--primary);border-color:color-mix(in srgb,var(--primary) 35%,transparent);font-weight:700}
+.cart{background:linear-gradient(135deg,rgba(66,84,232,.92),rgba(108,75,224,.92));color:#fff;border-color:rgba(255,255,255,.3)}
+:root:not([data-olv-theme="light"]) .cart{background:linear-gradient(135deg,rgba(80,92,235,.85),rgba(130,90,235,.85))}
+#trackOrderBtn{color:var(--primary)}
+
+@media (prefers-reduced-motion:reduce){.item,.subitem,.subcategory-card{transition:none}.item:hover{transform:none}}
+
+/* صفحة الترحيب: عنوان وأيقونات بألوان الهوية الجديدة (اللوجو نفسه ما بنلمسه) */
+:root{--olv-title:#e4e0ff;--olv-title-shine:#ffffff}
+:root[data-olv-theme="light"]{--olv-title:#2f2a8f;--olv-title-shine:#8b7bff}
+:root[data-olv-theme="light"] .entry-social a{color:#4254e8!important;border-color:rgba(66,84,232,.3)!important}
+:root[data-olv-theme="light"] .entry-copy{color:#625d78!important}
+.entry-bg:after{border-color:var(--glass-line)!important}
