@@ -3368,7 +3368,7 @@
       "cat": "burgers",
       "ar": "سكالوب دجاج",
       "en": "سكالوب دجاج",
-      "price": 1.5,
+      "price": 1.75,
       "subcatAr": "سكالوب دجاج",
       "subcatEn": "سكالوب دجاج",
       "subcat": "سكالوب دجاج",
@@ -3548,7 +3548,10 @@
       "large": {
         "price": 3.5
       },
-      "optionProfile": "sandwich"
+      "optionProfile": "sandwich",
+      "meal": {
+        "price": 3.25
+      }
     },
     {
       "id": "sh-chicken-super",
