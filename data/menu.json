@@ -3999,7 +3999,8 @@
       "tags": [
         "veg"
       ],
-      "optionProfile": "sandwich"
+      "optionProfile": "sandwich",
+      "available": false
     },
     {
       "id": "sn-potato-cups",
