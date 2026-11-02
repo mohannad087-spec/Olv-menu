@@ -1,0 +1,59 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OLV — صفحة السائق</title><link rel="preload" href="assets/fonts/readex-pro-arabic-wght-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="assets/olv-theme.css?v=b2"><link rel="stylesheet" href="assets/olv-staff.css?v=1"><script>(function(){try{var h=Number(new Intl.DateTimeFormat("en-US",{timeZone:"Asia/Amman",hour:"2-digit",hourCycle:"h23"}).format(new Date())),l=h>=6&&h<18;document.documentElement.dataset.olvTheme=l?"light":"dark";document.addEventListener("DOMContentLoaded",function(){document.body.classList.toggle("olv-light",l)});var m=document.querySelector("meta[name=theme-color]");if(m)m.content=l?"#efede9":"#1d1b18"}catch(e){}})()</script><style>
+.wrap{max-width:560px;margin:auto;padding:16px 14px 70px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.top h1{margin:0;font:600 22px/1.3 var(--display);color:var(--ink)}
+.btn{min-height:46px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:0 16px;font-weight:600;font-size:15px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.btn.pri{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.btn.big{min-height:56px;font-size:17px;width:100%}
+.field{min-height:50px;width:100%;box-sizing:border-box;background:var(--surface);border:1px solid var(--line);color:var(--ink);padding:0 14px;border-radius:12px;font-size:16px;margin-bottom:10px}
+.status{padding:10px 14px;border:1px solid var(--line);background:var(--sunk);border-radius:12px;color:var(--ink2);font-size:14px;margin:10px 0}
+.status.err{border-color:var(--f0);color:var(--ink)}
+h2{font:600 17px var(--display);margin:18px 0 8px;color:var(--ink)}
+.card{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:14px;margin-bottom:12px}
+.card.mine{border-color:var(--f3)}
+.row{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.num{font:800 24px var(--display);color:var(--f3)}
+.addr{margin:8px 0;line-height:1.7;font-size:16px}
+.muted{color:var(--ink2);font-size:13px}
+.cash{margin:8px 0;padding:10px 12px;border-radius:12px;background:var(--sunk);font-weight:700;font-size:17px}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 6px}
+.empty{text-align:center;color:var(--ink2);padding:26px 0}
+</style></head><body><div class="wrap">
+<div class="top"><h1>🛵 صفحة السائق</h1><div><b id="who" class="muted"></b> <button class="btn" id="logout" style="min-height:36px;padding:0 10px;display:none" onclick="logout()">خروج</button></div></div>
+<div id="login"><input id="nm" class="field" placeholder="اسمك" autocomplete="off"><input id="pin" class="field" type="password" inputmode="numeric" placeholder="الرمز" autocomplete="off" dir="ltr"><button class="btn pri big" onclick="login()">دخول</button><p class="muted">الاسم والرمز بيعطيهم لك صاحب المطعم من صفحة الإدارة ← الموظفين.</p></div>
+<div id="app" style="display:none"><div id="status" class="status">جاري التحميل...</div><div id="mineBox"></div><div id="readyBox"></div><div id="soonBox"></div></div>
+<div style="text-align:center;padding:16px 0 6px;font-size:12px;color:var(--ink2)">© 2026 OLV. جميع الحقوق محفوظة.</div></div>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+let me=sessionStorage.getItem('olv-driver-name')||'',seen=null,audio=null,timer=null,busy=false;
+const tok=()=>sessionStorage.getItem('olv-staff-key')||'';
+function setStatus(t,c){const e=$('status');e.textContent=t;e.className='status '+(c||'')}
+async function api(url,opt={}){opt.headers=Object.assign({'content-type':'application/json','x-olv-staff-key':tok()},opt.headers||{});const r=await fetch(url,opt),o=await r.json().catch(()=>({}));if(!r.ok)throw Error(o.error||'Request failed');return o}
+async function login(){try{const out=await api('/api/staff',{method:'POST',headers:{'x-olv-staff-key':''},body:JSON.stringify({action:'login',name:$('nm').value.trim(),pin:$('pin').value.trim()})});sessionStorage.setItem('olv-staff-key','staff:'+out.staff.id+':'+$('pin').value.trim());me=out.staff.name;sessionStorage.setItem('olv-driver-name',me);start()}catch(e){alert(e.message)}}
+function logout(){sessionStorage.removeItem('olv-staff-key');sessionStorage.removeItem('olv-driver-name');me='';clearInterval(timer);$('app').style.display='none';$('login').style.display='';$('who').textContent='';$('logout').style.display='none'}
+function start(){$('login').style.display='none';$('app').style.display='';$('who').textContent=me;$('logout').style.display='';load();clearInterval(timer);timer=setInterval(load,10000)}
+function beep(){try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();[880,1175].forEach((f,i)=>{const o=audio.createOscillator(),g=audio.createGain();o.frequency.value=f;g.gain.value=.15;o.connect(g);g.connect(audio.destination);o.start(audio.currentTime+i*.22);o.stop(audio.currentTime+i*.22+.18)});navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}}
+document.addEventListener('click',()=>{try{audio=audio||new (window.AudioContext||window.webkitAudioContext)()}catch(e){}},{once:true});
+const mapOf=a=>{const m=/https:\/\/[^\s]+/.exec(a||'');return m?m[0]:''};
+const addrText=a=>String(a||'').replace(/\s*—?\s*الموقع:\s*https:\/\/[^\s]+/,'').trim();
+const feeOf=o=>{const m=/رسوم التوصيل[^:]*:\s*([\d.]+)/.exec(o.text||'');return m?+m[1]:0};
+function card(o,kind){const ml=mapOf(o.address),mine=o.driver===me;
+const items=(o.items||[]).map(i=>esc(i.label||i.id)+' × '+i.qty).join('، ');
+const nav=ml?`<a class="btn" target="_blank" rel="noopener" href="${esc(ml)}">🧭 افتح الخريطة</a>`:'';
+const tel=o.phone?`<a class="btn" href="tel:${esc(o.phone)}">📞 اتصل</a>`:'';
+const act=kind==='ready'?`<button class="btn pri big" onclick="act('${esc(o.id)}','out',this)">استلمت الطلب · طلعت للتوصيل</button>`:`<button class="btn pri big" onclick="done('${esc(o.id)}',${esc(o.number)},this)">✓ تم التسليم</button>`;
+return `<div class="card ${mine?'mine':''}"><div class="row"><span class="num">#${esc(o.number)}</span><span class="muted">${esc(o.name)}${o.driver&&!mine?' · السائق: '+esc(o.driver):''}</span></div><div class="addr">${esc(addrText(o.address))}</div><div class="muted">${items}</div><div class="cash">💵 حصّل من الزبون: ${Number(o.total||0).toFixed(2)} د.أ <span class="muted">(منها توصيل ${feeOf(o).toFixed(2)})</span></div><div class="acts">${tel}${nav}</div>${kind==='mine'||kind==='ready'?act:''}</div>`}
+async function load(){if(busy)return;try{const out=await api('/api/orders?ts='+Date.now());const all=(out.orders||[]).filter(o=>o.mode==='delivery');
+const mine=all.filter(o=>o.status==='out'&&(!o.driver||o.driver===me));
+const ready=all.filter(o=>o.status==='ready'&&(!o.driver||o.driver===me));
+const soon=all.filter(o=>['new','confirmed','preparing'].includes(o.status));
+const ids=new Set(ready.map(o=>o.id));if(seen&&[...ids].some(i=>!seen.has(i)))beep();seen=ids;
+$('mineBox').innerHTML=mine.length?'<h2>🛵 بالطريق ('+mine.length+')</h2>'+mine.map(o=>card(o,'mine')).join(''):'';
+$('readyBox').innerHTML='<h2>✅ جاهزة للاستلام ('+ready.length+')</h2>'+(ready.length?ready.map(o=>card(o,'ready')).join(''):'<div class="empty">ما في طلبات جاهزة هلأ.</div>');
+$('soonBox').innerHTML=soon.length?'<h2>⏳ قيد التحضير ('+soon.length+')</h2><div class="muted">'+soon.map(o=>'#'+esc(o.number)).join(' · ')+'</div>':'';
+setStatus('تحديث تلقائي كل 10 ثواني.')}catch(e){if(/key|access|403|Staff|Admin/i.test(e.message)){logout();alert('انتهت الجلسة، سجّل دخولك من جديد.')}else setStatus(e.message,'err')}}
+async function patch(id,body,btn){busy=true;btn.disabled=true;try{await api('/api/orders',{method:'PATCH',body:JSON.stringify(Object.assign({id},body))})}catch(e){alert(e.message)}finally{busy=false;load()}}
+function act(id,status,btn){patch(id,{status,driver:me},btn)}
+function done(id,num,btn){if(!confirm('تأكيد: استلمت المبلغ وسلّمت الطلب #'+num+'؟'))return;patch(id,{status:'completed'},btn)}
+$('nm').value=me;if(tok()&&me)start();
+</script></body></html>

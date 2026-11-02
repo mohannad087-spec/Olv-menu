@@ -77,6 +77,13 @@ function notifyReady(o){
     }
   }catch(e){}
 }
+let dCfgPub=null;
+async function loadDeliveryPub(){try{const r=await fetch('/api/delivery',{cache:'no-store'});const j=await r.json();if(j.ok)dCfgPub=j.config}catch(e){}}
+function deliveryRows(o){let h='';const fee=/رسوم التوصيل[^:]*:\s*([\d.]+)/.exec(o.text||'');if(fee)h+=`<div class="row"><span>رسوم التوصيل</span><span class="value">${money(+fee[1])}</span></div>`;
+if(o.driver&&['ready','out'].includes(o.status))h+=`<div class="row"><span>السائق</span><span class="value">${esc(o.driver)}</span></div>`;
+if(dCfgPub&&dCfgPub.etaMin&&['new','confirmed','preparing','ready','out'].includes(o.status)){const t0=new Date(o.createdAt).getTime(),f=n=>new Date(t0+n*60000).toLocaleTimeString('ar-JO',{hour:'2-digit',minute:'2-digit'});h+=`<div class="row"><span>الوصول المتوقع</span><span class="value">${f(dCfgPub.etaMin)}${dCfgPub.etaMax>dCfgPub.etaMin?' – '+f(dCfgPub.etaMax):''}</span></div>`}
+if(o.status==='out')h+=`<div class="row"><span>الدفع</span><span class="value">كاش عند الاستلام: ${money(o.total)}</span></div>`;return h}
+function notifyOut(o){try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}try{if('Notification' in window&&Notification.permission==='granted')new Notification('OLV — طلبك بالطريق 🛵',{body:'طلب #'+o.number+(o.driver?' مع '+o.driver:'')+' طلع للتوصيل.',icon:'assets/olv-original.jpg'})}catch(e){}}
 function pickupText(o){
   if(o.pickup)return o.pickup;
   if(o.mode==='hall')return 'رح نوصله لطاولتك'+(o.table?' رقم '+o.table:'');
@@ -144,13 +151,13 @@ async function load(){
     if(!r.ok)throw Error(out.error||'تعذر تحميل الطلب');
     if(seq!==loadSeq)return;
     const o=out.order;
-    if(prevStatus&&prevStatus!=='ready'&&o.status==='ready')notifyReady(o);
+    if(prevStatus&&prevStatus!=='ready'&&o.status==='ready')notifyReady(o);if(prevStatus&&prevStatus!=='out'&&o.status==='out')notifyOut(o);if(o.mode==='delivery'&&!dCfgPub)await loadDeliveryPub();
     if(o.status==='ready')showReady(o);else hideReady();
     prevStatus=o.status;
     $('statusText').textContent=texts[o.status]||o.status;
     $('statusBadge').textContent=o.status==='cancelled'?'ملغى':'طلب #'+o.number;
     const lbls=o.mode==='delivery'?[...labels.slice(0,4),['out','طلع للتوصيل'],labels[4]]:labels;$('steps').innerHTML=lbls.map(x=>{const idx=lbls.findIndex(a=>a[0]===o.status),me=lbls.findIndex(a=>a[0]===x[0]);return `<div class="step ${idx>=0&&me<=idx?'on':''} ${me===idx?'now':''}">${x[1]}</div>`}).join('');
-    $('info').innerHTML=`<div class="row"><span>طريقة الطلب</span><span class="value">${o.mode==='hall'?'داخل الكافيه':(o.mode==='takeaway'?'سفري':'توصيل')}</span></div>${o.name?`<div class="row"><span>الاسم</span><span class="value">${esc(o.name)}</span></div>`:''}${o.table?`<div class="row"><span>الطاولة</span><span class="value">${esc(o.table)}</span></div>`:''}${o.address?`<div class="row"><span>العنوان</span><span class="value">${esc(o.address)}</span></div>`:''}<div class="row"><span>عدد السطور</span><span class="value">${o.items.length}</span></div><div class="row"><span>المجموع</span><span class="value">${money(o.total)}</span></div><div class="row"><span>آخر تحديث</span><span class="value">${new Date(o.updatedAt).toLocaleString('ar-JO')}</span></div>`;
+    $('info').innerHTML=`<div class="row"><span>طريقة الطلب</span><span class="value">${o.mode==='hall'?'داخل الكافيه':(o.mode==='takeaway'?'سفري':'توصيل')}</span></div>${o.name?`<div class="row"><span>الاسم</span><span class="value">${esc(o.name)}</span></div>`:''}${o.table?`<div class="row"><span>الطاولة</span><span class="value">${esc(o.table)}</span></div>`:''}${o.address?`<div class="row"><span>العنوان</span><span class="value">${esc(String(o.address).replace(/\s*—?\s*الموقع:\s*https:\/\/\S+/,''))}</span></div>`:''}${o.mode==='delivery'?deliveryRows(o):''}<div class="row"><span>عدد السطور</span><span class="value">${o.items.length}</span></div><div class="row"><span>المجموع</span><span class="value">${money(o.total)}</span></div><div class="row"><span>آخر تحديث</span><span class="value">${new Date(o.updatedAt).toLocaleString('ar-JO')}</span></div>`;
     renderRatingBox(o);
     if(o.phone)loadPoints(o.phone);
     hideRefreshErr();
