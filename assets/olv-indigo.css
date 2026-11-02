@@ -15,7 +15,7 @@
 :root[data-olv-theme="light"]{
   --ground:#f6f4ff;--surface:#ffffff;--sunk:#ebe8fa;--ink:#25223a;--ink2:#625d78;--line:#dcd8f2;
   --primary:#4254e8;--on-primary:#ffffff;--wa:#0f9d83;
-  --f0:#e0367a;--f1:#e8662b;--f2:#c98a00;--f3:#0f9d83;--f4:#0b86c9;--f5:#6c4be0;
+  --f0:#e0367a;--f1:#e8662b;--f2:#4254e8;--f3:#0f9d83;--f4:#0b86c9;--f5:#6c4be0;
   --amb1:rgba(108,92,255,.30);--amb2:rgba(66,84,232,.20);--amb3:rgba(190,110,255,.22);--amb4:rgba(255,130,170,.20);
   --glass:rgba(255,255,255,.62);--glass-strong:rgba(255,255,255,.78);--glass-line:rgba(255,255,255,.9);
   --glass-hi:rgba(255,255,255,1);--glass-shadow:0 12px 32px rgba(66,84,232,.14);
@@ -48,3 +48,47 @@
 :root[data-olv-theme="light"] .entry-social a{color:#4254e8!important;border-color:rgba(66,84,232,.3)!important}
 :root[data-olv-theme="light"] .entry-copy{color:#625d78!important}
 .entry-bg:after{border-color:var(--glass-line)!important}
+
+/* الخلفية: نفس خلفية برنامج المحاسبة بالضبط (لافندر فاتح من فوق يمين → خوخي فاتح تحت) */
+:root[data-olv-theme="light"]{--ground:#fbf9ff;--bg-top:#fbf9ff;--bg-bottom:#fff8f3}
+:root[data-olv-theme="light"] body:before,
+:root[data-olv-theme="light"] .entry-bg,
+:root[data-olv-theme="light"] .choice{
+  background:radial-gradient(900px 500px at 85% 0,#e4e8ff,transparent),linear-gradient(180deg,var(--bg-top),var(--bg-bottom))!important}
+/* الشفق المتحرك بصفحة الترحيب: خفيف جداً بالنهار عشان تبقى الخلفية نفس التطبيق */
+:root[data-olv-theme="light"] .aurora-canvas{opacity:.22}
+
+/* بلاطات ملوّنة مثل المحاسبة: كل قسم إله لونه، خلفية بتدرّج خفيف + حدّ ولمعة بنفس اللون */
+.grp-list .grp:nth-child(6n+1){--fc:var(--f0)}.grp-list .grp:nth-child(6n+2){--fc:var(--f4)}.grp-list .grp:nth-child(6n+3){--fc:var(--f5)}
+.grp-list .grp:nth-child(6n+4){--fc:var(--f3)}.grp-list .grp:nth-child(6n+5){--fc:var(--f1)}.grp-list .grp:nth-child(6n+6){--fc:var(--f2)}
+.grp{--tc:var(--fc,var(--primary));
+  background:linear-gradient(135deg,color-mix(in srgb,var(--tc) 16%,var(--surface)) 0%,color-mix(in srgb,var(--tc) 5%,var(--surface)) 100%);
+  border-color:color-mix(in srgb,var(--tc) 30%,transparent);
+  box-shadow:inset 0 1px 0 var(--glass-hi),0 14px 30px color-mix(in srgb,var(--tc) 22%,transparent)}
+.grp-copy b{color:var(--tc)}
+.grp-photo{box-shadow:0 14px 26px color-mix(in srgb,var(--tc) 40%,transparent)}
+.tile,.item{--tc:var(--fc,var(--primary))}
+.tile:not(.active){background:color-mix(in srgb,var(--tc) 12%,var(--surface));border-color:color-mix(in srgb,var(--tc) 28%,transparent)}
+.item{background:linear-gradient(135deg,color-mix(in srgb,var(--tc) 9%,var(--surface)),var(--surface));border-color:color-mix(in srgb,var(--tc) 22%,transparent);box-shadow:0 10px 24px color-mix(in srgb,var(--tc) 14%,transparent)}
+.tile.active{background:var(--tc);color:#fff}
+
+/* بطاقات الأصناف: ألوان الدورة الستة مثل بلاطات المحاسبة، وزر الإضافة بتدرّج */
+.grid .item:nth-child(6n+1){--fc:var(--f5)}.grid .item:nth-child(6n+2){--fc:var(--f4)}.grid .item:nth-child(6n+3){--fc:var(--f0)}
+.grid .item:nth-child(6n+4){--fc:var(--f3)}.grid .item:nth-child(6n+5){--fc:var(--f1)}.grid .item:nth-child(6n+6){--fc:var(--f2)}
+.item .add{background:var(--tc,var(--primary));color:#fff;border:0}
+.item .body .price,.item .price{color:var(--tc)}
+
+/* حركات مثل المحاسبة: لمعة ملوّنة بتتحرك ببطء ورا بلاطات الأقسام، ضغطة بتغمّض البلاطة، ودخول متتابع */
+.grp{overflow:visible;isolation:isolate}
+.grp:before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;overflow:hidden;
+  background:radial-gradient(120px 90px at 22% 30%,color-mix(in srgb,var(--tc) 38%,transparent),transparent 70%);
+  animation:olvGlow 7s ease-in-out infinite alternate;will-change:transform,opacity}
+@keyframes olvGlow{from{transform:translate3d(-8px,2px,0);opacity:.55}to{transform:translate3d(44px,-4px,0);opacity:1}}
+.grp-list .grp:nth-child(2):before{animation-delay:-2s}.grp-list .grp:nth-child(3):before{animation-delay:-4s}.grp-list .grp:nth-child(4):before{animation-delay:-6s}
+.grp,.tile,.item,.add{transition:transform .2s cubic-bezier(.22,1,.36,1),box-shadow .25s}
+.grp:active,.item:active,.tile:active{transform:scale(.97)}
+.add:active{transform:scale(.88) rotate(90deg)}
+.tile.active{animation:olvPop .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes olvPop{from{transform:scale(.9)}to{transform:none}}
+.tile-item{animation-delay:calc(var(--i,0)*60ms)}
+@media (prefers-reduced-motion:reduce){.grp:before,.tile.active{animation:none}.grp:active,.item:active,.tile:active,.add:active{transform:none}}
