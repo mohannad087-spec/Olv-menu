@@ -31,8 +31,21 @@ export function cleanDeliveryConfig(raw) {
   }
   const from = hhmm(raw?.hoursFrom), to = hhmm(raw?.hoursTo);
   const drivers = [...new Set((Array.isArray(raw?.drivers) ? raw.drivers : []).map(d => txt(d, 40)).filter(Boolean))].slice(0, 30);
+  // رسوم حسب المسافة: شرائح بالكيلومتر من موقع المطعم
+  const tiers = (Array.isArray(raw?.tiers) ? raw.tiers.slice(0, 30) : [])
+    .map(t => ({ km: Math.round(num(t?.km) * 10) / 10, fee: num(t?.fee) }))
+    .filter(t => t.km > 0)
+    .sort((a, b) => a.km - b.km);
+  const coord = (v, lim) => { const n = Number(v); return v !== '' && v != null && Number.isFinite(n) && Math.abs(n) <= lim ? Math.round(n * 1e6) / 1e6 : null; };
+  const originLat = coord(raw?.originLat, 90), originLng = coord(raw?.originLng, 180);
+  const mode = raw?.mode === 'distance' && tiers.length && originLat != null && originLng != null ? 'distance' : 'zones';
   return {
     enabled: raw?.enabled !== false,
+    mode,
+    tiers,
+    originLat,
+    originLng,
+    roadFactor: Math.min(3, Math.max(1, Number(raw?.roadFactor) || 1.3)),
     zones,
     minOrder: num(raw?.minOrder),
     freeOver: num(raw?.freeOver),

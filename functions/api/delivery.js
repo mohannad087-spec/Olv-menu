@@ -1,5 +1,6 @@
 import { checkKey } from '../_lib/keys.js';
 import { loadMenu as loadLiveMenu } from '../_lib/menu-live.js';
+import { distanceQuote } from '../_lib/delivery.js';
 import { loadDeliveryConfig, saveDeliveryConfig, deliveryClosedReason } from '../_lib/delivery-config.js';
 
 function json(data, status = 200) {
@@ -20,7 +21,12 @@ export async function onRequest(context) {
         if (!(await checkKey(request, env, { staff: true })).ok) return json({ ok: false, error: 'Staff access required.' }, 403);
         return json({ ok: true, config: cfg, closed: deliveryClosedReason(cfg) });
       }
-      const { drivers, ...pub } = cfg;
+      const qs = new URL(request.url).searchParams;
+      if (qs.has('lat')) {
+        const q = distanceQuote({ settings: { delivery: cfg } }, qs.get('lat'), qs.get('lng'), qs.has('sub') ? Number(qs.get('sub')) : null);
+        return json({ ok: !q.error, quote: q.error ? undefined : { fee: q.fee, km: Math.round(q.km * 10) / 10 }, error: q.error, errorEn: q.errorEn, km: q.km ? Math.round(q.km * 10) / 10 : undefined }, q.error ? 200 : 200);
+      }
+      const { drivers, originLat, originLng, ...pub } = cfg;
       return json({ ok: true, config: pub, closed: deliveryClosedReason(cfg) });
     }
     if (request.method === 'POST') {
