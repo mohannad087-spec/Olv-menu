@@ -4418,7 +4418,10 @@
       "descEn": "",
       "price": 2.5,
       "tags": [],
-      "available": true
+      "available": true,
+      "meal": {
+        "price": 3.5
+      }
     }
   ],
   "shishaOptions": {
