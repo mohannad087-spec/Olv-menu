@@ -199,6 +199,27 @@ await scenario('توصيل: منطقة + رسوم + حد أدنى + وقت تق�
 });
 menu.settings.delivery = { zones: [] };
 
+menu.settings.delivery = { mode: 'distance', originLat: 31.95, originLng: 35.91, tiers: [{ km: 3, fee: 1 }, { km: 6, fee: 2 }], zones: [], etaMin: 30, etaMax: 40 };
+await scenario('توصيل بالمسافة: مشاركة الموقع بتحسب الرسوم', { saved: 'delivery' }, async (page, ok) => {
+  await page.context().grantPermissions(['geolocation']);
+  await page.context().setGeolocation({ latitude: 31.97, longitude: 35.91 });
+  await enter(page);
+  await page.evaluate((id) => { addItem(id); }, burger.id);
+  await page.evaluate(() => { selectMode('delivery'); document.getElementById('cart').click(); });
+  await page.waitForTimeout(500);
+  ok(await get(page, "getComputedStyle(document.getElementById('deliveryZone')).display") === 'none', 'قائمة المناطق مخفية بوضع المسافة');
+  ok(await get(page, "getComputedStyle(document.getElementById('shareLoc')).display") !== 'none', 'زر مشاركة الموقع ظاهر');
+  ok(await get(page, "getOrder()") === null, 'بدون موقع الطلب ما بيكمل');
+  await page.evaluate(() => { window.fetch = ((f) => (u, o) => String(u).startsWith('/api/delivery?lat=') ? Promise.resolve(new Response(JSON.stringify({ ok: true, quote: { fee: 1, km: 2.9 } }))) : f(u, o))(window.fetch); shareLocation(); });
+  await page.waitForTimeout(800);
+  const info = await get(page, "document.getElementById('deliveryInfo').textContent");
+  ok(info.includes('2.9') && info.includes('1.00'), 'المسافة والرسوم ظاهرة: ' + info);
+  const sub = await get(page, "cartItems.reduce((a,x)=>a+x.price*x.qty,0)");
+  const total = await get(page, "parseFloat(document.getElementById('total').textContent.replace(/[^0-9.]/g,''))");
+  ok(sub > 0 && Math.abs(total - (sub + 1)) < 0.01, 'المجموع = الأصناف + رسوم المسافة');
+});
+menu.settings.delivery = { zones: [] };
+
 await browser.close(); srv.close();
 console.log(failed ? `\nفشل ${failed} فحص` : '\nكل الفحوصات نجحت');
 process.exit(failed ? 1 : 0);
