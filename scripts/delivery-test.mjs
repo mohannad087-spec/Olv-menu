@@ -3,6 +3,7 @@ import { DatabaseSync } from 'node:sqlite';
 import fs from 'node:fs';
 import { onRequest as orders } from '../functions/api/orders.js';
 import { onRequest as delivery } from '../functions/api/delivery.js';
+import { onRequest as driverApi } from '../functions/api/driver-order.js';
 
 const sql = new DatabaseSync(':memory:');
 for (const f of ['0001_orders_loyalty.sql', '0005_pickup_note.sql']) sql.exec(fs.readFileSync(new URL('../migrations/' + f, import.meta.url), 'utf8'));
@@ -74,5 +75,25 @@ ok(r.status === 201 && Math.abs(o.total - (item.price + 1)) < 0.01 && o.address.
 r = await order({ lat: 32.3, lng: 35.91 }, adm); ok(r.status === 400, 'طلب خارج المدى مرفوض');
 r = await call(orders, '/api/orders', 'POST', { mode: 'delivery', items: [{ id: item.id, qty: 1 }], name: 'x', phone: '0791234567', address: 'a', idempotencyKey: crypto.randomUUID(), turnstileToken: 't' });
 ok(r.status === 400, 'زبون بدون موقع بوضع المسافة مرفوض (' + r.status + ')');
+
+// ---- رابط السائق (بدون حساب)
+await call(delivery, '/api/delivery', 'POST', { enabled: true, mode: 'zones', zones: [{ ar: 'منطقة', fee: 1 }] }, adm);
+const zid = (await (await call(delivery, '/api/delivery', 'GET')).json()).config.zones[0].id;
+r = await order({ zone: zid, lat: 31.97, lng: 35.91, mapUrl: 'https://www.google.com/maps?q=31.97,35.91' }, adm); o = (await r.json()).order;
+const did = o.id;
+r = await call(driverApi, '/api/driver-order?id=' + did + '&link=1', 'GET'); ok(r.status === 403, 'توليد الرابط بدون مفتاح مرفوض');
+r = await call(driverApi, '/api/driver-order?id=' + did + '&link=1', 'GET', null, adm); const tk = (await r.json()).token; ok(r.status === 200 && tk.length === 24, 'توليد التوكن بمفتاح الموظف');
+r = await call(driverApi, '/api/driver-order?id=' + did + '&t=wrongtoken', 'GET'); ok(r.status === 404, 'توكن غلط = 404');
+r = await call(driverApi, '/api/driver-order?id=' + did + '&t=' + tk, 'GET'); let d = (await r.json()).order;
+ok(r.status === 200 && d.address.includes('[') && !d.address.includes('http') && d.lat === 31.97 && d.fee === 1 && d.total === o.total, 'تفاصيل الطلب للسائق: عنوان نظيف وإحداثيات ورسوم');
+const act = (a, t = tk, extra = {}) => call(driverApi, '/api/driver-order', 'POST', { id: did, t, action: a, ...extra });
+r = await act('pickup', 'bad'); ok(r.status === 404, 'استلام بتوكن غلط مرفوض');
+r = await act('pickup'); ok(r.status === 409, 'استلام قبل جاهز مرفوض');
+await call(orders, '/api/orders', 'PATCH', { id: did, status: 'preparing' }, adm); await call(orders, '/api/orders', 'PATCH', { id: did, status: 'ready' }, adm);
+r = await act('delivered'); ok(r.status === 409, 'تسليم قبل الاستلام مرفوض');
+r = await act('pickup', tk, { driver: 'أبو علي' }); ok(r.status === 200, 'استلام بعد جاهز');
+r = await call(driverApi, '/api/driver-order?id=' + did + '&t=' + tk, 'GET'); ok((await r.json()).order.driver === 'أبو علي', 'اسم السائق انحفظ');
+r = await act('delivered'); ok(r.status === 200, 'تسليم');
+r = await call(driverApi, '/api/driver-order?id=' + did + '&t=' + tk, 'GET'); d = await r.json(); ok(d.closed === true && !d.order.address, 'الرابط بيتقفل بعد التسليم ولا بيعرض بيانات');
 console.log(failed ? `\nفشل ${failed}` : '\nكل الفحوصات نجحت');
 process.exit(failed ? 1 : 0);

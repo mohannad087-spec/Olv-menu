@@ -18,6 +18,9 @@ const srv = http.createServer((q, r) => {
   const u = new URL(q.url, 'http://x');
   const j = (o) => { r.setHeader('content-type', 'application/json'); r.end(JSON.stringify(o)); };
   if (u.pathname === '/api/delivery') return j({ ok: true, config: cfg });
+  if (u.pathname === '/api/driver-order' && q.method === 'GET' && u.searchParams.get('link')) return j({ ok: true, token: 'a'.repeat(24) });
+  if (u.pathname === '/api/driver-order' && q.method === 'GET') { const o = orders.find((x) => x.id === u.searchParams.get('id')); if (u.searchParams.get('t') !== 'tok') { r.statusCode = 404; return j({ ok: false, error: 'الرابط غير صحيح أو انتهى.' }); } return j(o.status === 'completed' ? { ok: true, closed: true, order: { number: o.number, status: o.status } } : { ok: true, order: { id: o.id, number: o.number, status: o.status, name: o.name, phone: o.phone, address: '[2.9 كم] شارع الجامعة', mapUrl: 'https://www.google.com/maps?q=31.97,35.91', lat: 31.97, lng: 35.91, items: [{ label: 'برغر', qty: 2 }], notes: '', total: 9.5, fee: 1, driver: o.driver } }); }
+  if (u.pathname === '/api/driver-order' && q.method === 'POST') { let b = ''; q.on('data', (c) => (b += c)); q.on('end', () => { const p = JSON.parse(b); patches.push({ driverLink: p }); const o = orders.find((x) => x.id === p.id); o.status = p.action === 'pickup' ? 'out' : 'completed'; if (p.driver) o.driver = p.driver; j({ ok: true, status: o.status }); }); return; }
   if (u.pathname === '/api/staff') return j({ ok: true, staff: { id: 1, name: 'سامر' } });
   if (u.pathname === '/api/orders' && q.method === 'PATCH') {
     let b = ''; q.on('data', (c) => (b += c)); q.on('end', () => { const p = JSON.parse(b); patches.push(p); const o = orders.find((x) => x.id === p.id); if (p.driver != null) o.driver = p.driver; if (p.status) o.status = p.status; j({ ok: true, order: o }); }); return;
@@ -72,6 +75,29 @@ await t('لوحة الإدارة: إحصائيات التوصيل', async (page,
   await page.click('[data-view=delivery]'); await page.waitForTimeout(1200);
   const rep = await page.textContent('#dReport');
   ok(rep.includes('كل الطلبات') && rep.includes('سامر'), 'اللوحة وسطر السائق: ' + rep.slice(0, 80));
+});
+await t('رابط السائق: بدون حساب، ملاحة، استلام، تسليم', async (page, ok) => {
+  orders[0].status = 'ready'; orders[0].driver = '';
+  await page.goto(base + '/d.html?o=o1&t=bad'); await page.waitForTimeout(600);
+  ok((await page.textContent('#root')).includes('غير صحيح'), 'توكن غلط = رسالة');
+  await page.goto(base + '/d.html?o=o1&t=tok'); await page.waitForTimeout(900);
+  const txt = await page.textContent('#root');
+  ok(txt.includes('#11') && txt.includes('9.50') && txt.includes('شارع الجامعة'), 'رقم الطلب والمبلغ والعنوان');
+  ok(await page.locator('a[href*="google.com/maps/dir/?api=1&destination=31.97,35.91"]').count() === 1, 'رابط الملاحة بالإحداثيات');
+  ok(await page.locator('a[href^="tel:"]').count() >= 1 && await page.locator('a[href*="wa.me/962791234567"]').count() === 1, 'اتصال وواتساب الزبون');
+  await page.fill('#dn', 'أبو علي'); await page.click('button:has-text("استلمت الطلب")'); await page.waitForTimeout(900);
+  ok(patches.some((p) => p.driverLink && p.driverLink.action === 'pickup' && p.driverLink.driver === 'أبو علي'), 'استلام بالاسم');
+  ok((await page.textContent('#root')).includes('تم التسليم'), 'زر التسليم بعد الاستلام');
+  await page.click('button:has-text("تم التسليم")'); await page.waitForTimeout(1200);
+  ok((await page.textContent('#root')).includes('الرابط خلص'), 'الرابط بيخلص بعد التسليم');
+});
+await t('الموظف: زر رابط السائق بصفحة الطلبات', async (page, ok) => {
+  orders[0].status = 'ready';
+  await page.addInitScript(() => { sessionStorage.setItem('olv-staff-key', 'k'); window.prompt = () => '0791112223'; window.__open = []; window.open = (u) => { window.__open.push(u); }; });
+  await page.goto(base + '/orders.html'); await page.waitForTimeout(900);
+  await page.locator('button:has-text("رابط السائق")').first().click(); await page.waitForTimeout(500);
+  const u = await page.evaluate(() => window.__open[0] || '');
+  ok(u.startsWith('https://wa.me/962791112223?text=') && decodeURIComponent(u).includes('/d.html?o=') && decodeURIComponent(u).includes('t=' + 'a'.repeat(24)), 'واتساب للسائق فيه الرابط: ' + u.slice(0, 60));
 });
 await browser.close(); srv.close();
 console.log(failed ? `\nفشل ${failed}` : '\nكل الفحوصات نجحت');
