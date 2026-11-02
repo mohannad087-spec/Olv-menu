@@ -1,0 +1,62 @@
+// اختبار سيرفر التوصيل: D1 وهمي فوق node:sqlite + ASSETS وهمي. الاستعمال: node scripts/delivery-test.mjs
+import { DatabaseSync } from 'node:sqlite';
+import fs from 'node:fs';
+import { onRequest as orders } from '../functions/api/orders.js';
+import { onRequest as delivery } from '../functions/api/delivery.js';
+
+const sql = new DatabaseSync(':memory:');
+for (const f of ['0001_orders_loyalty.sql', '0005_pickup_note.sql']) sql.exec(fs.readFileSync(new URL('../migrations/' + f, import.meta.url), 'utf8'));
+const mk = (q, args = []) => ({
+  bind: (...a) => mk(q, a),
+  run: async () => { if (/RETURNING/i.test(q)) return { results: sql.prepare(q).all(...args), meta: { changes: 1 } }; const r = sql.prepare(q).run(...args); return { meta: { changes: Number(r.changes) } }; },
+  first: async () => sql.prepare(q).get(...args) || null,
+  all: async () => ({ results: sql.prepare(q).all(...args) })
+});
+const DB = { prepare: (q) => mk(q) };
+const menu = JSON.parse(fs.readFileSync(new URL('../data/menu.json', import.meta.url), 'utf8'));
+const item = menu.items.find((i) => i.cat === 'cold' && i.available !== false && !i.variants && !i.large && i.price > 1);
+const env = { OLV_DB: DB, OLV_ADMIN_KEY: 'adminkey123', TURNSTILE_SECRET_KEY: '', ASSETS: { fetch: async () => new Response(JSON.stringify(menu)) } };
+const call = (fn, path, method, body, headers = {}) => fn({ request: new Request('http://x' + path, { method, headers: { 'content-type': 'application/json', ...headers }, body: body ? JSON.stringify(body) : undefined }), env });
+const adm = { 'x-olv-admin-key': 'adminkey123' };
+let failed = 0;
+const ok = (c, w) => { if (!c) { failed++; console.log('✗ ' + w); } else console.log('✓ ' + w); };
+const order = (extra, headers = {}) => call(orders, '/api/orders', 'POST', { mode: 'delivery', items: [{ id: item.id, qty: 1 }], name: 'x', phone: '0791234567', address: 'شارع', idempotencyKey: crypto.randomUUID(), turnstileToken: 't', ...extra }, headers);
+
+// بدون إعدادات: متل قبل
+let r = await order({}, adm); ok(r.status === 201, 'بدون مناطق: طلب التوصيل بالمفتاح بيمرّ');
+
+// حفظ إعدادات
+r = await call(delivery, '/api/delivery', 'POST', { enabled: true, zones: [{ ar: 'قريبة', fee: 1.5 }, { ar: 'بعيدة', fee: 3, minOrder: 50 }], minOrder: 0, etaMin: 40, etaMax: 50, drivers: ['أحمد', 'أحمد', 'سامر'] });
+ok(r.status === 403, 'حفظ الإعدادات بدون مفتاح مرفوض');
+r = await call(delivery, '/api/delivery', 'POST', { enabled: true, zones: [{ ar: 'قريبة', fee: 1.5 }, { ar: 'بعيدة', fee: 3, minOrder: 50 }], etaMin: 40, etaMax: 50, drivers: ['أحمد', 'أحمد', 'سامر'] }, adm);
+const saved = (await r.json()).config;
+ok(r.status === 200 && saved.zones.length === 2 && saved.drivers.length === 2, 'حفظ الإعدادات بمفتاح الإدارة');
+let pub = await (await call(delivery, '/api/delivery', 'GET')).json();
+ok(pub.config.zones.length === 2 && !pub.config.drivers, 'GET العام بدون السائقين');
+let full = await (await call(delivery, '/api/delivery?full=1', 'GET', null, adm)).json();
+ok(full.config.drivers.length === 2, 'GET الكامل بمفتاح');
+
+// طلب زبون (Turnstile بدون سر = متروك؟) نجرّب بالمفتاح كزبون موثوق مع منطقة
+const z1 = saved.zones[0].id, z2 = saved.zones[1].id;
+r = await order({ zone: z1, mapUrl: 'https://www.google.com/maps?q=31.9,35.9' }, adm);
+let o = (await r.json()).order;
+ok(r.status === 201 && Math.abs(o.total - (item.price + 1.5)) < 0.01, 'المجموع = الصنف + رسوم المنطقة (' + (o && o.total) + ')');
+ok(o.address.includes('[قريبة]') && o.address.includes('google.com/maps'), 'المنطقة والموقع بالعنوان');
+r = await order({ zone: z2 }, adm); ok(r.status === 400, 'حد أدنى المنطقة البعيدة (50) مرفوض');
+r = await order({ zone: 'nope' }, adm); ok(r.status === 400, 'منطقة غير معروفة مرفوضة');
+
+// حالات + سائق
+const id = o.id;
+const patch = (b) => call(orders, '/api/orders', 'PATCH', { id, ...b }, adm);
+ok((await patch({ status: 'out' })).status === 409, 'out قبل ready مرفوض');
+for (const s of ['preparing', 'ready']) await patch({ status: s });
+r = await patch({ driver: 'سامر' }); ok((await r.json()).order.driver === 'سامر', 'تعيين السائق بدون تغيير الحالة');
+r = await patch({ status: 'out' }); ok((await r.json()).order.status === 'out', 'ready → out');
+r = await patch({ status: 'completed' }); ok((await r.json()).order.status === 'completed', 'out → completed');
+
+// إيقاف التوصيل
+await call(delivery, '/api/delivery', 'POST', { enabled: false, zones: saved.zones }, adm);
+r = await call(orders, '/api/orders', 'POST', { mode: 'delivery', items: [{ id: item.id, qty: 1 }], name: 'x', phone: '0791234567', address: 'a', zone: z1, idempotencyKey: crypto.randomUUID(), turnstileToken: 't' });
+ok(r.status === 403, 'التوصيل متوقف: الزبون مرفوض (' + r.status + ')');
+console.log(failed ? `\nفشل ${failed}` : '\nكل الفحوصات نجحت');
+process.exit(failed ? 1 : 0);
