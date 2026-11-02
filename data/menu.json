@@ -6,6 +6,13 @@
     "whatsappNumber": "0775826060",
     "googleReviewUrl": "https://search.google.com/local/writereview?placeid=ChIJX3yo-hKHHBURvqbTabZy88Y",
     "hallSurchargePercent": 0,
+    "delivery": {
+      "zones": [],
+      "minOrder": 0,
+      "freeOver": 0,
+      "etaMin": 0,
+      "etaMax": 0
+    },
     "hallOrdering": {
       "mode": "schedule",
       "closedFrom": "08:00",

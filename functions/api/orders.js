@@ -1,5 +1,6 @@
 import { checkKey } from '../_lib/keys.js';
 import { loadControls, blockReason } from '../_lib/controls.js';
+import { deliveryQuote, cleanMapUrl } from '../_lib/delivery.js';
 import { loadMenu as loadLiveMenu } from '../_lib/menu-live.js';
 const API = 'https://api.github.com';
 
@@ -351,6 +352,20 @@ export async function onRequest(context) {
         verified = verifyOrderItems(p.items, menu, p.mode);
       } catch (e) {
         return json({ ok: false, error: e instanceof Error ? e.message : 'Unable to verify order.' }, 400);
+      }
+
+      // التوصيل: المنطقة والرسوم والحد الأدنى بتنحسب هون (الموظفين بدون منطقة = بدون رسوم، متل قبل)
+      if (p.mode === 'delivery' && (!trusted || p.zone)) {
+        const q = deliveryQuote(menu, p.zone, verified.total);
+        if (q.error) return json({ ok: false, error: q.error, errorEn: q.errorEn }, 400);
+        if (q.zone) {
+          const mapUrl = cleanMapUrl(p.mapUrl);
+          fields.address = [`[${q.zone.ar}]`, fields.address, mapUrl && `الموقع: ${mapUrl}`].filter(Boolean).join(' — ').slice(0, 600);
+          if (q.fee > 0) {
+            verified.total = roundMoney(verified.total + q.fee);
+            verified.text = verified.text.replace(/\nالمجموع: .*$/, '') + `\nرسوم التوصيل (${q.zone.ar}): ${q.fee.toFixed(2)} JD\nالمجموع: ${verified.total.toFixed(2)} JD`;
+          }
+        }
       }
 
       const ip = request.headers.get('CF-Connecting-IP') || '';

@@ -181,6 +181,24 @@ await scenario('كاسة ثلج للمشروب الغازي بنص دينار', 
   ok(await get(page, "cartItems[0].extra") === 0.5, 'extra = 0.5 بالسلة');
 });
 
+menu.settings.delivery = { zones: [{ id: 'z1', ar: 'منطقة تجريبية', en: 'Test area', fee: 1.5 }], minOrder: 3, freeOver: 0, etaMin: 40, etaMax: 50 };
+await scenario('توصيل: منطقة + رسوم + حد أدنى + وقت تقريبي', { saved: 'delivery' }, async (page, ok) => {
+  await enter(page);
+  await page.evaluate((id) => { addItem(id); }, burger.id);
+  await page.evaluate(() => { selectMode('delivery'); document.getElementById('cart').click(); });
+  await page.waitForTimeout(500);
+  ok(await get(page, "getComputedStyle(document.getElementById('deliveryZone')).display") !== 'none', 'قائمة المناطق ظاهرة');
+  await page.evaluate(() => { const z = document.getElementById('deliveryZone'); z.value = 'z1'; z.dispatchEvent(new Event('change')); });
+  await page.waitForTimeout(200);
+  const info = await get(page, "document.getElementById('deliveryInfo').textContent");
+  ok(info.includes('1.50') || info.includes('1.5'), 'رسوم التوصيل ظاهرة: ' + info);
+  ok(info.includes('40'), 'الوقت التقريبي ظاهر');
+  const sub = await get(page, "cartItems.reduce((a,x)=>a+x.price*x.qty,0)");
+  const total = await get(page, "parseFloat(document.getElementById('total').textContent.replace(/[^0-9.]/g,''))");
+  ok(sub > 0 && Math.abs(total - (sub + 1.5)) < 0.01, 'المجموع = الأصناف + الرسوم');
+});
+menu.settings.delivery = { zones: [] };
+
 await browser.close(); srv.close();
 console.log(failed ? `\nفشل ${failed} فحص` : '\nكل الفحوصات نجحت');
 process.exit(failed ? 1 : 0);
