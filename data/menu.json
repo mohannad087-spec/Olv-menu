@@ -4405,6 +4405,20 @@
       "price": 1,
       "tags": [],
       "available": true
+    },
+    {
+      "id": "card-mvzezuvv",
+      "cat": "sandwiches",
+      "subcat": "ساندويش ستيك لحم",
+      "subcatAr": "ساندويش ستيك لحم",
+      "subcatEn": "ساندويش ستيك لحم",
+      "ar": "ساندويش ستيك لحم",
+      "en": "ساندويش ستيك لحم",
+      "descAr": "ساندويش ستيك لحم , مع كوكتيل صووص خاص , وفليفله حلوه , بصل مشوي,وجبنة موزاريلا",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [],
+      "available": true
     }
   ],
   "shishaOptions": {
