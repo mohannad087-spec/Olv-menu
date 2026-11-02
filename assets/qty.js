@@ -5,7 +5,7 @@ function cart(){try{return Array.isArray(cartItems)?cartItems:[]}catch(e){return
 function items(){var d=data();return d&&Array.isArray(d.items)?d.items:[]}
 /* Keep legacy phase2 code connected to the real global-lexical state. */
 function bridge(){try{window.cartItems=cart()}catch(e){}try{var d=data();if(d)window.DATA=d}catch(e){}}
-function jordanTheme(){try{var h=Number(new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Amman',hour:'2-digit',hourCycle:'h23'}).format(new Date())),light=h>=6&&h<18;document.body.classList.toggle('olv-light',light);document.documentElement.dataset.olvTheme=light?'light':'dark';var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=light?'#efede9':'#1d1b18'}catch(e){}}
+function jordanTheme(){try{var h=Number(new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Amman',hour:'2-digit',hourCycle:'h23'}).format(new Date())),light=h>=6&&h<18;document.body.classList.toggle('olv-light',light);document.documentElement.dataset.olvTheme=light?'light':'dark';var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=light?'#f6f4ff':'#14122a'}catch(e){}}
 /* Recommendations are handled by renderRecommendations() in index.html (runs whenever the cart panel renders); no duplicate logic here to avoid two systems overwriting the same #recommendations box. */
 /* Visual styling for these controls now lives in assets/olv-theme.css. */
 function luxury(){}

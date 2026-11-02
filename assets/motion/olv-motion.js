@@ -18,9 +18,9 @@
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const light = document.body.classList.contains('olv-light'); // النهار فاتح، الليل غامق (حسب الساعة)
-  const GOLD = '#c9a24b';
-  const GOLD_HI = '#f2dca6';
-  const OLIVE = '#586d3d';
+  const GOLD = '#6c5cff';
+  const GOLD_HI = '#d6d0ff';
+  const OLIVE = '#4254e8';
   const $1 = sel => document.querySelector(sel);
   // زر فاتح؟ (الألوان بتتبدل بين النهار والليل) — النجمة الفاتحة ما بتبين على زر فاتح
   const isLightBg = el => {
@@ -29,7 +29,7 @@
     return (0.299 * m[0] + 0.587 * m[1] + 0.114 * m[2]) > 150;
   };
   const starFor = el => isLightBg(el)
-    ? { color: '#a8822f', light: true, glow: 0.9, trackColor: 'rgba(176,138,62,.3)' }
+    ? { color: '#4254e8', light: true, glow: 0.9, trackColor: 'rgba(66,84,232,.3)' }
     : { color: GOLD_HI, light: false, glow: 0.7, trackColor: 'rgba(255,255,255,.18)' };
 
   /* ---------- Lenis + ScrollTrigger على نفس الساعة ---------- */
@@ -124,7 +124,7 @@
   const entryBg = $1('.entry-bg');
   if (entryBg) {
     Bits.aurora(entryBg, {
-      colorStops: [OLIVE, GOLD, '#9dab63'], // ألوان الشعار
+      colorStops: [OLIVE, GOLD, '#b36bff'], // ألوان الشعار
       direction: 'bottom',
       height: light ? 0.42 : 0.36,
       amplitude: 0.9,
@@ -158,7 +158,7 @@
   const cart = document.getElementById('cart');
   if (cart) Bits.starBorder(cart, Object.assign({ duration: 3.6, thickness: 1.5, radius: 999, trailLength: 0.3 }, starFor(cart)));
 
-  Bits.clickSpark({ selector: '.add, .overlay .primary', sparkColor: light ? '#b08a3e' : GOLD_HI, sparkSize: 9, sparkRadius: 20, sparkCount: 8, duration: 420 });
+  Bits.clickSpark({ selector: '.add, .overlay .primary', sparkColor: light ? '#4254e8' : GOLD_HI, sparkSize: 9, sparkRadius: 20, sparkCount: 8, duration: 420 });
 
   // الخط بيغيّر المقاسات لما يحمل
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ST.refresh());
