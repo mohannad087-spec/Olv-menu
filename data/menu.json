@@ -549,8 +549,7 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/espresso-double.webp",
-      "hallPrice": 2
+      "image": "assets/photos/espresso-double.webp"
     },
     {
       "id": "spanish-latte",
