@@ -4000,7 +4000,8 @@
         "veg"
       ],
       "optionProfile": "sandwich",
-      "available": false
+      "available": true,
+      "popular": true
     },
     {
       "id": "sn-potato-cups",
