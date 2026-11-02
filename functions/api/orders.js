@@ -1,6 +1,7 @@
 import { checkKey } from '../_lib/keys.js';
 import { loadControls, blockReason } from '../_lib/controls.js';
 import { deliveryQuote, cleanMapUrl } from '../_lib/delivery.js';
+import { loadDeliveryConfig, deliveryClosedReason } from '../_lib/delivery-config.js';
 import { loadMenu as loadLiveMenu } from '../_lib/menu-live.js';
 const API = 'https://api.github.com';
 
@@ -167,6 +168,7 @@ function summarize(row) {
     text: row.text_summary || '',
     notes: row.notes || '',
     pickup: row.pickup_note || '',
+    driver: row.driver || '',
     rating: row.rating == null ? null : { stars: Number(row.rating), comment: row.rating_comment || '', ratedAt: row.rated_at || '' },
     createdAt: row.created_at,
     updatedAt: row.updated_at
@@ -242,6 +244,13 @@ async function ensurePickupColumn(db) {
     await db.prepare("ALTER TABLE orders ADD COLUMN pickup_note TEXT NOT NULL DEFAULT ''").run();
   } catch { /* العمود موجود أصلًا */ }
   pickupColReady = true;
+}
+
+let driverColReady = false;
+async function ensureDriverColumn(db) {
+  if (driverColReady) return;
+  try { await db.prepare("ALTER TABLE orders ADD COLUMN driver TEXT NOT NULL DEFAULT ''").run(); } catch { /* العمود موجود أصلًا */ }
+  driverColReady = true;
 }
 
 async function ensureDB(db) {
@@ -355,8 +364,16 @@ export async function onRequest(context) {
       }
 
       // التوصيل: المنطقة والرسوم والحد الأدنى بتنحسب هون (الموظفين بدون منطقة = بدون رسوم، متل قبل)
+      let dcfg = null;
+      if (p.mode === 'delivery') {
+        dcfg = await loadDeliveryConfig(db, menu);
+        if (!trusted) {
+          const closedNow = deliveryClosedReason(dcfg);
+          if (closedNow) return json({ ok: false, code: 'ordering_closed', closed: 'delivery', error: closedNow.ar, errorEn: closedNow.en }, 403);
+        }
+      }
       if (p.mode === 'delivery' && (!trusted || p.zone)) {
-        const q = deliveryQuote(menu, p.zone, verified.total);
+        const q = deliveryQuote({ settings: { delivery: dcfg } }, p.zone, verified.total);
         if (q.error) return json({ ok: false, error: q.error, errorEn: q.errorEn }, 400);
         if (q.zone) {
           const mapUrl = cleanMapUrl(p.mapUrl);
@@ -415,8 +432,8 @@ export async function onRequest(context) {
 
       let p;
       try { p = await request.json(); } catch { return json({ ok: false, error: 'Invalid JSON body.' }, 400); }
-      const allowed = ['new', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'];
-      if (!p?.id || !allowed.includes(p.status)) return json({ ok: false, error: 'Invalid status update.' }, 400);
+      const allowed = ['new', 'confirmed', 'preparing', 'ready', 'out', 'completed', 'cancelled'];
+      if (!p?.id || (p.status === undefined ? typeof p.driver !== 'string' : !allowed.includes(p.status))) return json({ ok: false, error: 'Invalid status update.' }, 400);
 
       const current = await findById(db, p.id);
       if (!current) return json({ ok: false, error: 'Order not found' }, 404);
@@ -426,10 +443,23 @@ export async function onRequest(context) {
         new: ['confirmed', 'preparing', 'cancelled'],
         confirmed: ['preparing', 'cancelled'],
         preparing: ['ready', 'cancelled'],
-        ready: ['completed', 'cancelled'],
+        ready: ['out', 'completed', 'cancelled'],
+        // «طلع للتوصيل»: للتوصيل بس
+        out: ['completed', 'cancelled'],
         completed: [],
         cancelled: []
       };
+
+      if (p.status === undefined) p.status = current.status;
+      if (p.status === 'out' && current.mode !== 'delivery') {
+        return json({ ok: false, error: '«طلع للتوصيل» لطلبات التوصيل فقط.' }, 409);
+      }
+      // تعيين السائق (اسم من قائمة السائقين بالإعدادات، أو فاضي لإلغاء التعيين)
+      if (typeof p.driver === 'string') {
+        await ensureDriverColumn(db);
+        await db.prepare('UPDATE orders SET driver = ?1, updated_at = ?2 WHERE id = ?3').bind(p.driver.replace(/[\u0000-\u001f<>]/g, ' ').trim().slice(0, 40), new Date().toISOString(), p.id).run();
+        if (p.status === current.status) return json({ ok: true, order: rowOrder(await findById(db, p.id)) });
+      }
 
       if (p.status !== current.status && !transitions[current.status].includes(p.status)) {
         return json({ ok: false, error: `لا يمكن تغيير الطلب من "${current.status}" إلى "${p.status}".` }, 409);
