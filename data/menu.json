@@ -3613,7 +3613,10 @@
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sh-meat-mvsnjae4.jpg",
       "available": true,
       "popular": false,
-      "optionProfile": "sandwich"
+      "optionProfile": "sandwich",
+      "meal": {
+        "price": 3.5
+      }
     },
     {
       "id": "sh-meat-super",
@@ -4422,6 +4425,20 @@
       "meal": {
         "price": 3.5
       }
+    },
+    {
+      "id": "card-mw0hly7z",
+      "cat": "popular",
+      "subcat": "زياده فحم",
+      "subcatAr": "زياده فحم",
+      "subcatEn": "زياده فحم",
+      "ar": "زياده فحم",
+      "en": "زياده فحم",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.25,
+      "tags": [],
+      "available": true
     }
   ],
   "shishaOptions": {
