@@ -18,6 +18,7 @@ const srv = http.createServer((q, r) => {
   const u = new URL(q.url, 'http://x');
   const j = (o) => { r.setHeader('content-type', 'application/json'); r.end(JSON.stringify(o)); };
   if (u.pathname === '/api/delivery') return j({ ok: true, config: cfg });
+  if (u.pathname === '/api/driver-order' && q.method === 'GET' && u.searchParams.get('track')) return j({ ok: true, live: true, lat: 31.965, lng: 35.905, ageSec: 5, dest: { lat: 31.97, lng: 35.91 } });
   if (u.pathname === '/api/driver-order' && q.method === 'GET' && u.searchParams.get('link')) return j({ ok: true, token: 'a'.repeat(24) });
   if (u.pathname === '/api/driver-order' && q.method === 'GET') { const o = orders.find((x) => x.id === u.searchParams.get('id')); if (u.searchParams.get('t') !== 'tok') { r.statusCode = 404; return j({ ok: false, error: 'الرابط غير صحيح أو انتهى.' }); } return j(o.status === 'completed' ? { ok: true, closed: true, order: { number: o.number, status: o.status } } : { ok: true, order: { id: o.id, number: o.number, status: o.status, name: o.name, phone: o.phone, address: '[2.9 كم] شارع الجامعة', mapUrl: 'https://www.google.com/maps?q=31.97,35.91', lat: 31.97, lng: 35.91, items: [{ label: 'برغر', qty: 2 }], notes: '', total: 9.5, fee: 1, driver: o.driver } }); }
   if (u.pathname === '/api/driver-order' && q.method === 'POST') { let b = ''; q.on('data', (c) => (b += c)); q.on('end', () => { const p = JSON.parse(b); patches.push({ driverLink: p }); const o = orders.find((x) => x.id === p.id); o.status = p.action === 'pickup' ? 'out' : 'completed'; if (p.driver) o.driver = p.driver; j({ ok: true, status: o.status }); }); return; }
@@ -36,7 +37,7 @@ const base = `http://localhost:${srv.address().port}`;
 const browser = await chromium.launch();
 let failed = 0;
 async function t(name, fn, setup) {
-  const page = await browser.newPage({ viewport: { width: 390, height: 800 } });
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 800 }, geolocation: { latitude: 31.96, longitude: 35.9 }, permissions: ['geolocation'] }); const page = await ctx.newPage();
   const errs = []; page.on('pageerror', (e) => errs.push(e.message)); page.on('dialog', (d) => d.accept());
   if (setup) await page.addInitScript(setup);
   const bad = [];
@@ -63,11 +64,12 @@ await t('متابعة الزبون: طلع للتوصيل مع السائق وا
   orders[1].status = 'out'; orders[1].driver = 'سامر';
   await page.goto(base + '/order.html?id=o2'); await page.waitForTimeout(1500);
   const body = await page.textContent('body');
+  ok(await page.locator('#liveBox iframe[src*="openstreetmap.org"]').count() === 1 && (await page.textContent('#liveBox')).includes('المسافة المتبقية'), 'خريطة السائق الحية والمسافة المتبقية');
   ok(body.includes('طلع للتوصيل'), 'خطوة «طلع للتوصيل»');
   ok(body.includes('سامر'), 'اسم السائق');
   ok(body.includes('رسوم التوصيل'), 'رسوم التوصيل');
   ok(body.includes('الوصول المتوقع'), 'الوقت المتوقع');
-  ok(!body.includes('google.com/maps'), 'بدون رابط الخريطة بالعنوان');
+  ok(!(await page.textContent('#info')).includes('google.com/maps'), 'بدون رابط الخريطة بالعنوان');
 });
 await t('لوحة الإدارة: إحصائيات التوصيل', async (page, ok) => {
   await page.goto(base + '/admin.html'); await page.waitForTimeout(300);
@@ -86,7 +88,7 @@ await t('رابط السائق: بدون حساب، ملاحة، استلام، 
   ok(await page.locator('a[href*="google.com/maps/dir/?api=1&destination=31.97,35.91"]').count() === 1, 'رابط الملاحة بالإحداثيات');
   ok(await page.locator('a[href^="tel:"]').count() >= 1 && await page.locator('a[href*="wa.me/962791234567"]').count() === 1, 'اتصال وواتساب الزبون');
   await page.fill('#dn', 'أبو علي'); await page.click('button:has-text("استلمت الطلب")'); await page.waitForTimeout(900);
-  ok(patches.some((p) => p.driverLink && p.driverLink.action === 'pickup' && p.driverLink.driver === 'أبو علي'), 'استلام بالاسم');
+  ok(patches.some((p) => p.driverLink && p.driverLink.action === 'pickup' && p.driverLink.driver === 'أبو علي' && p.driverLink.lat === 31.96), 'استلام بالاسم مع الموقع');
   ok((await page.textContent('#root')).includes('تم التسليم'), 'زر التسليم بعد الاستلام');
   await page.click('button:has-text("تم التسليم")'); await page.waitForTimeout(1200);
   ok((await page.textContent('#root')).includes('الرابط خلص'), 'الرابط بيخلص بعد التسليم');
