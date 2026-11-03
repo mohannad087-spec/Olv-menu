@@ -30,7 +30,18 @@ export function cleanDeliveryConfig(raw) {
     zones.push({ id, ar, en: txt(z?.en, 60) || ar, fee: num(z?.fee), minOrder: z?.minOrder === '' || z?.minOrder == null ? null : num(z.minOrder) });
   }
   const from = hhmm(raw?.hoursFrom), to = hhmm(raw?.hoursTo);
-  const drivers = [...new Set((Array.isArray(raw?.drivers) ? raw.drivers : []).map(d => txt(d, 40)).filter(Boolean))].slice(0, 30);
+  // السائقين: سطر «الاسم | رقم الواتساب» (الرقم اختياري)، أو {name, phone}
+  const driverPhones = {};
+  const drivers = [];
+  for (const d of (Array.isArray(raw?.drivers) ? raw.drivers : [])) {
+    const parts = typeof d === 'object' && d ? [d.name, d.phone] : String(d ?? '').split('|');
+    const name = txt(parts[0], 40);
+    if (!name || drivers.includes(name)) continue;
+    drivers.push(name);
+    const ph = String(parts[1] ?? raw?.driverPhones?.[name] ?? '').replace(/\D/g, '');
+    if (ph.length >= 8 && ph.length <= 15) driverPhones[name] = ph;
+    if (drivers.length >= 30) break;
+  }
   // رسوم حسب المسافة: شرائح بالكيلومتر من موقع المطعم
   const tiers = (Array.isArray(raw?.tiers) ? raw.tiers.slice(0, 30) : [])
     .map(t => ({ km: Math.round(num(t?.km) * 10) / 10, fee: num(t?.fee) }))
@@ -53,7 +64,8 @@ export function cleanDeliveryConfig(raw) {
     etaMax: Math.min(300, Math.round(num(raw?.etaMax))),
     hoursFrom: from && to ? from : '',
     hoursTo: from && to ? to : '',
-    drivers
+    drivers,
+    driverPhones
   };
 }
 

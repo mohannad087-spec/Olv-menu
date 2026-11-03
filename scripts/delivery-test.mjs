@@ -36,6 +36,11 @@ let pub = await (await call(delivery, '/api/delivery', 'GET')).json();
 ok(pub.config.zones.length === 2 && !pub.config.drivers, 'GET العام بدون السائقين');
 let full = await (await call(delivery, '/api/delivery?full=1', 'GET', null, adm)).json();
 ok(full.config.drivers.length === 2, 'GET الكامل بمفتاح');
+r = await call(delivery, '/api/delivery', 'POST', { ...saved, drivers: ['أحمد | 0791112223', 'سامر'] }, adm);
+full = await (await call(delivery, '/api/delivery?full=1', 'GET', null, adm)).json();
+ok(full.config.drivers.join() === 'أحمد,سامر' && full.config.driverPhones['أحمد'] === '0791112223' && !full.config.driverPhones['سامر'], 'رقم واتساب السائق انحفظ مع الاسم');
+pub = await (await call(delivery, '/api/delivery', 'GET')).json();
+ok(!pub.config.driverPhones && !JSON.stringify(pub).includes('0791112223'), 'أرقام السائقين ما بتظهر بالـGET العام');
 
 // طلب زبون (Turnstile بدون سر = متروك؟) نجرّب بالمفتاح كزبون موثوق مع منطقة
 const z1 = saved.zones[0].id, z2 = saved.zones[1].id;
