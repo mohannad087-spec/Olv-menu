@@ -26,7 +26,7 @@ export async function onRequest(context) {
         const q = distanceQuote({ settings: { delivery: cfg } }, qs.get('lat'), qs.get('lng'), qs.has('sub') ? Number(qs.get('sub')) : null);
         return json({ ok: !q.error, quote: q.error ? undefined : { fee: q.fee, km: Math.round(q.km * 10) / 10 }, error: q.error, errorEn: q.errorEn, km: q.km ? Math.round(q.km * 10) / 10 : undefined }, q.error ? 200 : 200);
       }
-      const { drivers, originLat, originLng, ...pub } = cfg;
+      const { drivers, driverPhones, originLat, originLng, ...pub } = cfg;
       return json({ ok: true, config: pub, closed: deliveryClosedReason(cfg) });
     }
     if (request.method === 'POST') {
