@@ -40,7 +40,7 @@ export function deliveryQuote(menu, zoneId, itemsTotal) {
   if (!zone) return { error: 'اختر منطقة التوصيل.', errorEn: 'Please choose your delivery area.' };
   const min = zone.minOrder != null ? zone.minOrder : cfg.minOrder;
   if (min > 0 && itemsTotal < min) {
-    return { error: `الحد الأدنى للتوصيل لمنطقة ${zone.ar} هو ${min.toFixed(2)} JD.`, errorEn: `Minimum delivery order for ${zone.en} is ${min.toFixed(2)} JD.` };
+    return { error: `الحد الأدنى للتوصيل لمنطقة ${zone.ar} هو ${min.toFixed(2)} JD للأصناف (بدون رسوم التوصيل).`, errorEn: `Minimum delivery order for ${zone.en} is ${min.toFixed(2)} JD for items (excluding the delivery fee).` };
   }
   const fee = cfg.freeOver && itemsTotal >= cfg.freeOver ? 0 : zone.fee;
   return { fee, zone };
@@ -69,7 +69,7 @@ export function distanceQuote(menu, lat, lng, itemsTotal) {
   const kmTxt = km.toFixed(1);
   if (!tier) return { error: `موقعك على بعد حوالي ${kmTxt} كم، وهو خارج منطقة التوصيل.`, errorEn: `Your location is about ${kmTxt} km away, outside our delivery range.`, km };
   if (cfg.minOrder > 0 && itemsTotal != null && itemsTotal < cfg.minOrder) {
-    return { error: `الحد الأدنى للتوصيل هو ${cfg.minOrder.toFixed(2)} JD.`, errorEn: `Minimum delivery order is ${cfg.minOrder.toFixed(2)} JD.`, km };
+    return { error: `الحد الأدنى للتوصيل هو ${cfg.minOrder.toFixed(2)} JD للأصناف (بدون رسوم التوصيل).`, errorEn: `Minimum delivery order is ${cfg.minOrder.toFixed(2)} JD for items (excluding the delivery fee).`, km };
   }
   const fee = cfg.freeOver && itemsTotal != null && itemsTotal >= cfg.freeOver ? 0 : tier.fee;
   return { fee, km, zone: { ar: `${kmTxt} كم`, en: `${kmTxt} km` } };
