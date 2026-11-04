@@ -463,7 +463,8 @@
       "descEn": "Lettuce, chicken, parmesan, croutons & Caesar dressing",
       "price": 2.5,
       "tags": [],
-      "image": "assets/photos/caesar.webp"
+      "image": "assets/photos/caesar.webp",
+      "available": false
     },
     {
       "id": "garden-salad",
