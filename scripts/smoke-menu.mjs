@@ -220,6 +220,14 @@ await scenario('توصيل بالمسافة: مشاركة الموقع بتحس�
 });
 menu.settings.delivery = { zones: [] };
 
+await scenario('الاسم والهاتف بيتشاركوا بين طرق الطلب', { saved: 'takeaway' }, async (page, ok) => {
+  await enter(page);
+  await page.evaluate(() => { const t = document.getElementById('takeawayName'); t.value = 'John Smith'; t.dispatchEvent(new Event('input', { bubbles: true })); const p = document.getElementById('takeawayPhone'); p.value = '0791234567'; p.dispatchEvent(new Event('input', { bubbles: true })); });
+  ok(await get(page, "document.getElementById('deliveryName').value") === 'John Smith', 'اسم السفري انتقل لحقل التوصيل');
+  ok(await get(page, "document.getElementById('customerName').value") === 'John Smith', 'واسم الصالة كمان');
+  ok(await get(page, "document.getElementById('customerPhone').value") === '0791234567', 'الهاتف انتقل لحقل التوصيل');
+});
+
 await browser.close(); srv.close();
 console.log(failed ? `\nفشل ${failed} فحص` : '\nكل الفحوصات نجحت');
 process.exit(failed ? 1 : 0);
