@@ -39,6 +39,10 @@ ok(full.config.drivers.length === 2, 'GET الكامل بمفتاح');
 r = await call(delivery, '/api/delivery', 'POST', { ...saved, drivers: ['أحمد | 0791112223', 'سامر'] }, adm);
 full = await (await call(delivery, '/api/delivery?full=1', 'GET', null, adm)).json();
 ok(full.config.drivers.join() === 'أحمد,سامر' && full.config.driverPhones['أحمد'] === '0791112223' && !full.config.driverPhones['سامر'], 'رقم واتساب السائق انحفظ مع الاسم');
+r = await call(delivery, '/api/delivery', 'POST', { ...saved, drivers: ['عبدلله 0778166357', 'سامر: 0791112224', 'أحمد'] }, adm);
+full = await (await call(delivery, '/api/delivery?full=1', 'GET', null, adm)).json();
+ok(full.config.drivers.join() === 'عبدلله,سامر,أحمد' && full.config.driverPhones['عبدلله'] === '0778166357' && full.config.driverPhones['سامر'] === '0791112224', 'الرقم بآخر السطر بدون فاصل انفهم برضو');
+r = await call(delivery, '/api/delivery', 'POST', { ...saved, drivers: ['أحمد | 0791112223', 'سامر'] }, adm);
 pub = await (await call(delivery, '/api/delivery', 'GET')).json();
 ok(!pub.config.driverPhones && !JSON.stringify(pub).includes('0791112223'), 'أرقام السائقين ما بتظهر بالـGET العام');
 
