@@ -4453,6 +4453,20 @@
       "price": 0.25,
       "tags": [],
       "available": true
+    },
+    {
+      "id": "card-mw1q0skh",
+      "cat": "popular",
+      "subcat": "شوكلاته",
+      "subcatAr": "شوكلاته",
+      "subcatEn": "شوكلاته",
+      "ar": "شوكلاته",
+      "en": "شوكلاته",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.6,
+      "tags": [],
+      "available": true
     }
   ],
   "shishaOptions": {
