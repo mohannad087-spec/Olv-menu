@@ -34,7 +34,9 @@ export function cleanDeliveryConfig(raw) {
   const driverPhones = {};
   const drivers = [];
   for (const d of (Array.isArray(raw?.drivers) ? raw.drivers : [])) {
-    const parts = typeof d === 'object' && d ? [d.name, d.phone] : String(d ?? '').split('|');
+    let parts = typeof d === 'object' && d ? [d.name, d.phone] : String(d ?? '').split('|');
+    // بدون فاصل: «عبدلله 0778166357» أو «عبدلله: 0778166357» — الرقم بآخر السطر
+    if (parts.length === 1) { const m = /^(.*?)[\s:,\-–]+(\+?\d[\d\s()\-]{6,})$/.exec(String(parts[0] ?? '').trim()); if (m && m[1].trim()) parts = [m[1], m[2]]; }
     const name = txt(parts[0], 40);
     if (!name || drivers.includes(name)) continue;
     drivers.push(name);
