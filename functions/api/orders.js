@@ -169,6 +169,7 @@ function summarize(row) {
     notes: row.notes || '',
     pickup: row.pickup_note || '',
     driver: row.driver || '',
+    settled: !!row.cash_settled,
     rating: row.rating == null ? null : { stars: Number(row.rating), comment: row.rating_comment || '', ratedAt: row.rated_at || '' },
     createdAt: row.created_at,
     updatedAt: row.updated_at
@@ -251,6 +252,14 @@ async function ensureDriverColumn(db) {
   if (driverColReady) return;
   try { await db.prepare("ALTER TABLE orders ADD COLUMN driver TEXT NOT NULL DEFAULT ''").run(); } catch { /* العمود موجود أصلًا */ }
   driverColReady = true;
+}
+
+// تحصيل السائق: علامة «تم استلام المبلغ من السائق» لكل طلب توصيل
+let cashColReady = false;
+async function ensureCashColumn(db) {
+  if (cashColReady) return;
+  try { await db.prepare('ALTER TABLE orders ADD COLUMN cash_settled INTEGER NOT NULL DEFAULT 0').run(); } catch { /* العمود موجود أصلًا */ }
+  cashColReady = true;
 }
 
 async function ensureDB(db) {
@@ -436,6 +445,14 @@ export async function onRequest(context) {
       let p;
       try { p = await request.json(); } catch { return json({ ok: false, error: 'Invalid JSON body.' }, 400); }
       const allowed = ['new', 'confirmed', 'preparing', 'ready', 'out', 'completed', 'cancelled'];
+      if (p?.id && p.status === undefined && typeof p.driver !== 'string' && typeof p.settled === 'boolean') {
+        const cur = await findById(db, p.id);
+        if (!cur) return json({ ok: false, error: 'Order not found' }, 404);
+        if (cur.mode !== 'delivery') return json({ ok: false, error: 'التحصيل لطلبات التوصيل فقط.' }, 409);
+        await ensureCashColumn(db);
+        await db.prepare('UPDATE orders SET cash_settled = ?1 WHERE id = ?2').bind(p.settled ? 1 : 0, p.id).run();
+        return json({ ok: true, order: rowOrder(await findById(db, p.id)) });
+      }
       if (!p?.id || (p.status === undefined ? typeof p.driver !== 'string' : !allowed.includes(p.status))) return json({ ok: false, error: 'Invalid status update.' }, 400);
 
       const current = await findById(db, p.id);
