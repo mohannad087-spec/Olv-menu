@@ -112,5 +112,10 @@ r = await call(driverApi, '/api/driver-order?id=' + did + '&t=' + tk, 'GET'); ok
 r = await act('delivered'); ok(r.status === 200, 'تسليم');
 ok((await trk()).live === false, 'الموقع بيختفي بعد التسليم');
 r = await call(driverApi, '/api/driver-order?id=' + did + '&t=' + tk, 'GET'); d = await r.json(); ok(d.closed === true && !d.order.address, 'الرابط بيتقفل بعد التسليم ولا بيعرض بيانات');
+// تحصيل السائق: علامة «تم الاستلام» لكل طلب توصيل
+r = await call(orders, '/api/orders', 'PATCH', { id: did, settled: true }); ok(r.status === 403, 'علامة التحصيل بدون مفتاح مرفوضة');
+r = await call(orders, '/api/orders', 'PATCH', { id: did, settled: true }, adm); ok(r.status === 200 && (await r.json()).order.settled === true, 'تسجيل استلام المبلغ من السائق');
+r = await call(orders, '/api/orders?ts=1', 'GET', null, adm); ok((await r.json()).orders.find((x) => x.id === did).settled === true, 'العلامة ظاهرة بقائمة الطلبات');
+r = await call(orders, '/api/orders', 'PATCH', { id: did, settled: false }, adm); ok((await r.json()).order.settled === false, 'إلغاء علامة التحصيل');
 console.log(failed ? `\nفشل ${failed}` : '\nكل الفحوصات نجحت');
 process.exit(failed ? 1 : 0);
