@@ -4467,6 +4467,20 @@
       "price": 0.6,
       "tags": [],
       "available": true
+    },
+    {
+      "id": "card-mw1q1kqo",
+      "cat": "popular",
+      "subcat": "شوكلاته 75",
+      "subcatAr": "شوكلاته 75",
+      "subcatEn": "شوكلاته 75",
+      "ar": "شوكلاته 75",
+      "en": "شوكلاته 75",
+      "descAr": "",
+      "descEn": "",
+      "price": 75,
+      "tags": [],
+      "available": true
     }
   ],
   "shishaOptions": {
