@@ -228,6 +228,17 @@ await scenario('الاسم والهاتف بيتشاركوا بين طرق ال�
   ok(await get(page, "document.getElementById('customerPhone').value") === '0791234567', 'الهاتف انتقل لحقل التوصيل');
 });
 
+await scenario('التوصيل: الموقع المشارك بيكفي بدون عنوان نصي', { saved: 'delivery' }, async (page, ok) => {
+  await enter(page);
+  await page.evaluate((id) => { addItem(id); }, burger.id);
+  await page.evaluate(() => { selectMode('delivery'); document.getElementById('cart').click(); });
+  await page.waitForTimeout(400);
+  await page.evaluate(() => { deliveryMapUrl = 'https://www.google.com/maps?q=31.97,35.91'; document.getElementById('deliveryName').value = 'John'; document.getElementById('customerPhone').value = '0791234567'; document.getElementById('address').value = ''; });
+  ok(await get(page, "getOrder() !== null"), 'الطلب بيكمل بدون عنوان نصي مع الموقع');
+  await page.evaluate(() => { deliveryMapUrl = ''; });
+  ok(await get(page, "getOrder() === null"), 'بدون موقع ولا عنوان ما بيكمل');
+});
+
 await browser.close(); srv.close();
 console.log(failed ? `\nفشل ${failed} فحص` : '\nكل الفحوصات نجحت');
 process.exit(failed ? 1 : 0);
