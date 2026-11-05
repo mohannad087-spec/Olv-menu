@@ -118,7 +118,7 @@ function on(){go();done()}
 document.addEventListener('fullscreenchange',function(){if(document.fullscreenElement)h.style.opacity=0});
 setTimeout(function(){h.style.opacity=0},12000);})();
 var OFFERS=[
- {banner:'assets/banners/tabbouleh.webp',date:null,modes:['food'],title:'تبولة 1 دينار'},
+ {banner:'assets/banners/tabbouleh.webp',pin:true,date:null,modes:['food'],title:'تبولة 1 دينار'},
  {date:'2026-10-21',tag:'عرض اليوم فقط',title:'وجبة برغر OLV',desc:'برغر لحم، جبنة، خس، طماطم وصوص OLV',price:5,unit:'دنانير',images:['assets/photos/olv-burger.webp'],modes:['all','food'],every:5},
  {off:true,date:null,tag:'لحد نفاذ الكمية',title:'دونات طازجة',desc:'لوتس، أوريو أو شوكولاتة',price:'0.50',unit:'دينار للحبة',was:'0.75',images:['assets/photos/donut-chocolate.webp','assets/photos/donut-lotus.webp','assets/photos/donut-oreo.webp'],modes:['all','food','drinks'],every:5}
 ];
@@ -138,6 +138,8 @@ function build(DATA){
     for(var p=0;p<pages;p++)out.push({cat:c,ci:ci,items:items.slice(p*per,(p+1)*per),page:p,pages:pages});
   });
   var offs=activeOffers();
+  var pinned=offs.filter(function(o){return o.pin});
+  if(pinned.length)return [{offer:pinned[0]}]; // عرض مثبّت: بيعرض لحاله ثابت بدل المنيو
   if(offs.length){var res=[],k=0,j=0;offs.forEach(function(o){res.push({offer:o})});out.forEach(function(x){res.push(x);if(++k%5===0)res.push({offer:offs[j++%offs.length]})});return res}
   return out;
 }
@@ -174,7 +176,7 @@ function show(n){
 }
 function tick(now){
   var f=Math.min(1,(now-t0)/DWELL);bar.style.width=(f*100)+'%';
-  if(f>=1&&slides.length)show((cur+1)%slides.length);
+  if(f>=1&&slides.length>1)show((cur+1)%slides.length);
   requestAnimationFrame(tick);
 }
 
