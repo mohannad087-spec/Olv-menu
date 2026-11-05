@@ -63,6 +63,12 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 .empty{text-align:center;padding:40px;color:var(--ink2);border:1px dashed var(--line);border-radius:var(--r)}
 .toast{position:fixed;z-index:1000;left:50%;bottom:90px;transform:translate(-50%,12px);opacity:0;background:var(--ink);color:var(--ground);padding:12px 16px;border-radius:12px;font-size:14px;pointer-events:none;transition:.2s}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+#soundWarn{display:none;position:sticky;top:0;z-index:998;background:#b3261e;color:#fff;text-align:center;font-weight:700;padding:12px;cursor:pointer}
+#callOv{display:none;position:fixed;inset:0;z-index:2000;background:#b3261e;color:#fff;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;animation:callFlash .6s steps(2) infinite}
+#callOv .big{font-size:clamp(90px,28vw,220px);font-weight:900;line-height:1}
+#callOv .lbl{font-size:28px;font-weight:800}
+#callOv button{min-height:64px;padding:0 36px;border:0;border-radius:16px;font-size:22px;font-weight:800;background:#fff;color:#b3261e}
+@keyframes callFlash{50%{background:#ff5a4d}}
 #alertStack{position:fixed;top:10px;left:10px;right:10px;z-index:999;display:flex;flex-direction:column;gap:8px;max-width:640px;margin:auto}
 .ready-alert{background:var(--surface);border:1px solid var(--f3);border-inline-start:6px solid var(--f3);color:var(--ink);border-radius:var(--r);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:600;animation:readyIn .4s ease both}
 .ready-alert button{min-height:44px;border:0;background:var(--primary);color:var(--on-primary);border-radius:12px;padding:0 14px;font-weight:600;white-space:nowrap}
@@ -98,6 +104,8 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 <div style="text-align:center;padding:16px 0 6px;font-size:12px;color:var(--ink2)">© 2026 OLV. جميع الحقوق محفوظة.</div>
 </div>
 
+<div id="soundWarn" onclick="ensureAudio();checkSound()">🔕 الصوت متوقف — المس هون لتشغيل رنين الطلبات</div>
+<div id="callOv"><div class="lbl" id="callLbl"></div><div class="big" id="callNum"></div><div class="lbl" id="callSub"></div><button onclick="ackCall()">فتحت الطلب</button></div>
 <div id="alertStack"></div>
 <button id="cartbar" class="cartbar" onclick="openCart()"><span id="cartText">السلة</span><span id="cartTotal"></span></button>
 <div id="toast" class="toast"></div>
@@ -126,7 +134,29 @@ function showToast(m){$('toast').textContent=m;$('toast').classList.add('show');
 
 function ensureAudio(){try{if(window.OlvSound)OlvSound.unlock(true);if(!audioCtx)audioCtx=(window.OlvSound&&OlvSound.context())||new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}catch(e){}}
 function beep(freq,delay,dur){setTimeout(()=>{try{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=freq;o.connect(g);g.connect(audioCtx.destination);g.gain.setValueAtTime(.0001,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.3,audioCtx.currentTime+.02);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+dur);o.start();o.stop(audioCtx.currentTime+dur+.05)}catch(e){}},delay)}
-function playReadyChime(){if(window.OlvSound&&OlvSound.play('alert',{force:true}))return;if(!audioCtx)return;beep(880,0,.45);beep(1046,250,.4)}
+function harshRing(){
+  if(!audioCtx)return;
+  try{const t=audioCtx.currentTime,m=audioCtx.createGain();m.gain.value=1;m.connect(audioCtx.destination);
+    for(let i=0;i<8;i++){const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='square';o.frequency.value=i%2?1480:1100;o.connect(g);g.connect(m);
+      const a=t+i*.18;g.gain.setValueAtTime(.0001,a);g.gain.exponentialRampToValueAtTime(.9,a+.01);g.gain.setValueAtTime(.9,a+.14);g.gain.exponentialRampToValueAtTime(.0001,a+.17);o.start(a);o.stop(a+.18)}
+  }catch(e){}}
+function showCall(list){
+  const c=list.filter(r=>r.kind==='call'),l=c.length?c:list,tables=[...new Set(l.map(r=>r.table))];
+  $('callLbl').textContent=c.length?'طاولة بتناديك':'طاولة بعتت طلب';
+  $('callNum').textContent=tables.join(' + ');
+  $('callSub').textContent=l.map(r=>r.name).filter(Boolean).join('، ');
+  $('callOv').style.display='flex';
+}
+const ackedReqs=new Set();
+function ackCall(){reqs.forEach(r=>ackedReqs.add(r.id));$('callOv').style.display='none';showTab('req')}
+function playReadyChime(){if(window.OlvSound&&OlvSound.play('alert',{force:true}))return;if(!audioCtx)ensureAudio();if(!audioCtx)return;beep(880,0,.45);beep(1046,250,.4);beep(880,600,.45);beep(1046,850,.4)}
+let wakeLock=null;
+async function keepAwake(){try{if('wakeLock'in navigator&&!wakeLock){wakeLock=await navigator.wakeLock.request('screen');wakeLock.addEventListener('release',()=>{wakeLock=null})}}catch(e){wakeLock=null}}
+function audioRunning(){return !!audioCtx&&audioCtx.state==='running'}
+function checkSound(){const w=$('soundWarn');if(w)w.style.display=audioRunning()?'none':'block'}
+function sysNotify(title){try{if(document.hidden&&'Notification'in window&&Notification.permission==='granted'){const n=new Notification(title,{tag:'olv-req',renotify:true,requireInteraction:true,vibrate:[300,100,300,100,300]});n.onclick=()=>{window.focus();n.close()}}}catch(e){}}
+// رنين متكرر طول ما في طلب طاولة ما انفتح، عشان الويتر ما يفوته النداء
+function ringLoop(){const p=reqs.filter(r=>!ackedReqs.has(r.id));if(!p.length){$('callOv').style.display='none';return}ensureAudio();harshRing();showCall(p);try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}}
 function notifyReady(orders){
   playReadyChime();
   try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}
@@ -175,8 +205,12 @@ async function init(){
   try{DATA=await fetch('data/menu.json',{cache:'no-store'}).then(r=>r.json())}catch(e){$('grid').innerHTML='<div class="empty">تعذر تحميل المنيو.</div>';return}
   renderCats();renderGrid();loadMine();
   $('search').oninput=renderGrid;
-  setInterval(loadMine,15000);loadReqs();setInterval(loadReqs,6000);
-  document.addEventListener('click',ensureAudio);
+  setInterval(loadMine,15000);loadReqs();setInterval(loadReqs,4000);
+  document.addEventListener('click',ensureAudio);document.addEventListener('touchend',ensureAudio,{passive:true});
+  setInterval(()=>{ensureAudio();checkSound()},3000);setInterval(ringLoop,3000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden){ensureAudio();keepAwake();loadReqs();loadMine()}});
+  keepAwake();
+  try{if('Notification'in window&&Notification.permission==='default')Notification.requestPermission()}catch(e){}
 }
 
 // نفس الأقسام الأربعة تبع منيو الزبون، وتحتها تصنيفات القسم المختار
@@ -319,7 +353,8 @@ async function loadReqs(){
   }catch(e){}
 }
 function notifyReqs(list){
-  playReadyChime();
+  ensureAudio();harshRing();showCall(reqs.filter(r=>!ackedReqs.has(r.id)).concat([]).length?reqs.filter(r=>!ackedReqs.has(r.id)):list);
+  sysNotify(list.map(r=>r.kind==='call'?'طاولة '+r.table+' بتناديك':'طاولة '+r.table+' بعتت قائمة طلب').join(' | '));
   try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}
   list.forEach(r=>{
     const el=document.createElement('div');
