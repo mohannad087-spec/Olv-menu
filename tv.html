@@ -53,6 +53,8 @@ body{font-size:16px}
 .offer{flex:1;display:flex;align-items:center;gap:72px}
 .offer .photo{flex:0 0 760px;height:100%;border-radius:48px;overflow:hidden;box-shadow:inset 0 1px 0 var(--glass-hi),var(--shadow)}
 .offer .txt{flex:1;display:flex;flex-direction:column;gap:18px;align-items:flex-start;justify-content:center}
+.banner{flex:1;display:flex;align-items:center;justify-content:center}
+.banner img{width:100%;border-radius:48px;box-shadow:var(--shadow);display:block}
 .offer .was{font:500 40px var(--font);color:var(--ink2)}
 .offer .photo{display:grid;gap:16px;background:none;box-shadow:none;min-height:0;overflow:visible}
 .offer .photo img{width:100%;height:100%;min-height:0;object-fit:cover}
@@ -116,6 +118,7 @@ function on(){go();done()}
 document.addEventListener('fullscreenchange',function(){if(document.fullscreenElement)h.style.opacity=0});
 setTimeout(function(){h.style.opacity=0},12000);})();
 var OFFERS=[
+ {banner:'assets/banners/tabbouleh.webp',date:null,modes:['food'],title:'تبولة 1 دينار'},
  {date:'2026-10-21',tag:'عرض اليوم فقط',title:'وجبة برغر OLV',desc:'برغر لحم، جبنة، خس، طماطم وصوص OLV',price:5,unit:'دنانير',images:['assets/photos/olv-burger.webp'],modes:['all','food'],every:5},
  {off:true,date:null,tag:'لحد نفاذ الكمية',title:'دونات طازجة',desc:'لوتس، أوريو أو شوكولاتة',price:'0.50',unit:'دينار للحبة',was:'0.75',images:['assets/photos/donut-chocolate.webp','assets/photos/donut-lotus.webp','assets/photos/donut-oreo.webp'],modes:['all','food','drinks'],every:5}
 ];
@@ -142,7 +145,9 @@ function build(DATA){
 function slideEl(s){
   var el=document.createElement('section');el.className='slide';
   if(s.offer){
-    var o=s.offer,ph=o.images.map(function(u){return '<img src="'+esc(u)+'" alt="">'}).join('');
+    var o=s.offer;
+    if(o.banner){el.innerHTML='<div class="banner"><img src="'+esc(o.banner)+'" alt="'+esc(o.title)+'"></div>';return el}
+    var ph=o.images.map(function(u){return '<img src="'+esc(u)+'" alt="">'}).join('');
     el.innerHTML='<div class="offer"><div class="photo n'+o.images.length+'">'+ph+'</div><div class="txt"><img class="logo" src="assets/olv-logo-transparent.webp" alt="OLV"><span class="tag">'+esc(o.tag)+'</span><h2>'+esc(o.title)+'</h2><p>'+esc(o.desc)+'</p><div class="big">'+esc(String(o.price).replace(/\.00$/,''))+' <small>'+esc(o.unit)+'</small></div>'+(o.was?'<span class="was">بدل '+esc(o.was)+' دينار</span>':'')+'</div></div>';
     return el;
   }
