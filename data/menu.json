@@ -3677,21 +3677,18 @@
       "id": "item-1792877840161",
       "cat": "pasta",
       "ar": "فوتتشيني",
-      "en": "فوتتشيني",
-      "price": 2.5,
+      "en": "Fettuccine",
+      "price": 3,
       "subcatAr": "باستا فوتتشيني",
       "subcatEn": "فوتتشيني",
       "subcat": "باستا فوتتشيني",
       "image": "assets/photos/alfredo.webp",
-      "descAr": "يمكن ان تقدم بدون دجاج",
-      "descEn": "",
+      "descAr": "حجم واحد (كبير). يمكن أن تقدم بدون دجاج",
+      "descEn": "One size (large). Can be served without chicken",
       "available": true,
       "popular": false,
       "tags": [],
-      "large": {
-        "price": 3
-      },
-      "hallPrice": 3.5
+      "optionProfile": "fettuccine"
     },
     {
       "id": "bf-halloumi",
@@ -4800,6 +4797,22 @@
         ],
         "extraPrices": {
           "ثلج مع كاسة": 0.5
+        }
+      },
+      "fettuccine": {
+        "remove": [
+          "بدون بصل",
+          "بدون جبنة",
+          "بدون صوص"
+        ],
+        "extras": [
+          "دجاج إضافي",
+          "جبنة إضافية",
+          "صوص إضافي",
+          "فخارة"
+        ],
+        "extraPrices": {
+          "فخارة": 1
         }
       }
     },
