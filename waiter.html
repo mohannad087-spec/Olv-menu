@@ -285,9 +285,17 @@ function openSugar(i,size){
   $('flavorList').querySelectorAll('button').forEach((b,k)=>b.onclick=()=>{closeFlavors();addToCart(i.id,size,g.choices[k])});
   if(!$('flavorOverlay').classList.contains('open')){$('flavorOverlay').classList.add('open');olvLayerOpen(hideFlavors)}
 }
+// نكهات الصنف (بطاقة المادة): الكاشير يختار نكهة قبل الإضافة
+function openFlavorChoice(i,size){
+  $('flavorTitle').textContent=i.ar+' — اختر النكهة';
+  $('flavorList').innerHTML=i.flavorChoices.map(x=>`<button class="add" style="width:auto;padding:12px 8px;font-size:15px">${x}</button>`).join('');
+  $('flavorList').querySelectorAll('button').forEach((b,k)=>b.onclick=()=>{closeFlavors();addToCart(i.id,size,i.flavorChoices[k])});
+  if(!$('flavorOverlay').classList.contains('open')){$('flavorOverlay').classList.add('open');olvLayerOpen(hideFlavors)}
+}
 function addToCart(id,size,sugar){
   const i=DATA.items.find(x=>x.id===id);if(!i||i.available===false)return;
   if(i.cat==='shisha'){openFlavors(i);return}
+  if(Array.isArray(i.flavorChoices)&&i.flavorChoices.length&&!sugar){openFlavorChoice(i,size);return}
   if(['hot','cold'].includes(i.cat)&&sugarGroup(i)&&!sugar){openSugar(i,size);return}
   // الأصناف اللي إلها حجمين بتنضاف كسطر منفصل لكل حجم
   const sized=!!(i.large&&i.large.price);if(sized&&size!=='large')size='small';
