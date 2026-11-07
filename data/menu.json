@@ -4247,7 +4247,12 @@
       "price": 2.5,
       "tags": [],
       "available": true,
-      "optionProfile": "snack"
+      "optionProfile": "snack",
+      "flavorChoices": [
+        "بفلو",
+        "باربكيو",
+        "هوني ماسترد"
+      ]
     },
     {
       "id": "card-mvqb8thh",
