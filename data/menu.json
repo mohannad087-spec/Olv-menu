@@ -1926,7 +1926,7 @@
       "tags": [
         "veg"
       ],
-      "available": false,
+      "available": true,
       "large": {
         "price": 2,
         "hallPrice": 2.5
@@ -2733,12 +2733,11 @@
       "en": "Lotus Donut",
       "descAr": "دونات طازجة بتغطية اللوتس",
       "descEn": "Fresh donut with Lotus topping",
-      "price": 0.75,
+      "price": 1,
       "tags": [
         "veg"
       ],
       "image": "assets/photos/donut-lotus.webp",
-      "hallPrice": 1,
       "popular": true
     },
     {
@@ -3677,18 +3676,22 @@
       "id": "item-1792877840161",
       "cat": "pasta",
       "ar": "فوتتشيني",
-      "en": "Fettuccine",
-      "price": 3,
+      "en": "فوتتشيني",
+      "price": 2.5,
       "subcatAr": "باستا فوتتشيني",
       "subcatEn": "فوتتشيني",
       "subcat": "باستا فوتتشيني",
       "image": "assets/photos/alfredo.webp",
-      "descAr": "حجم واحد (كبير). يمكن أن تقدم بدون دجاج",
+      "descAr": "يمكن ان تقدم بدون دجاج",
       "descEn": "One size (large). Can be served without chicken",
       "available": true,
       "popular": false,
       "tags": [],
-      "optionProfile": "fettuccine"
+      "optionProfile": "fettuccine",
+      "hallPrice": 3.5,
+      "large": {
+        "price": 3
+      }
     },
     {
       "id": "bf-halloumi",
