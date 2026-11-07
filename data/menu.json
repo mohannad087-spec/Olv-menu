@@ -2750,12 +2750,11 @@
       "en": "Oreo Donut",
       "descAr": "دونات طازجة بتغطية الأوريو",
       "descEn": "Fresh donut with Oreo topping",
-      "price": 0.75,
+      "price": 1,
       "tags": [
         "veg"
       ],
-      "image": "assets/photos/donut-oreo.webp",
-      "hallPrice": 1
+      "image": "assets/photos/donut-oreo.webp"
     },
     {
       "id": "donut-chocolate",
