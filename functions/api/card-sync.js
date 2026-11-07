@@ -44,6 +44,11 @@ function applyCard(item, card, catIds, items = []) {
     const img = card.image.trim();
     next.image = img.startsWith(SITE) ? img.slice(SITE.length) : img;
   }
+  // نكهات الصنف: قائمة نصوص (حد أقصى 8، بدون علامات اقتباس) — فاضية = شيل النكهات
+  if (card.flavors !== undefined) {
+    const fl = [...new Set((Array.isArray(card.flavors) ? card.flavors : []).map((x) => text(x, 40).replace(/['"`<>\\]/g, '')).filter(Boolean))].slice(0, 8);
+    if (fl.length) next.flavorChoices = fl; else delete next.flavorChoices;
+  }
   const meal = Number(card.mealPrice);
   if (card.mealPrice === undefined) { /* ما انبعتت: ما بنلمس الوجبة */ } else if (meal > 0) { if (!item.meal || Number(item.meal.price) !== money(meal)) next.meal = { ...(item.meal || {}), price: money(meal) }; } else delete next.meal;
   const large = Number(card.largePrice);
@@ -85,7 +90,7 @@ export function mergeCards(menu, cards) {
   return { menu: { ...menu, items }, added, updated, skipped };
 }
 
-// POST { cards: [{ id, ar, en?, descAr?, descEn?, cat?, subcatAr?, subcatEn?, price, hallPrice?, mealPrice?, largePrice?, available?, popular?, image? }] } + مفتاح الإدارة
+// POST { cards: [{ id, ar, en?, descAr?, descEn?, cat?, subcatAr?, subcatEn?, price, hallPrice?, mealPrice?, largePrice?, flavors?, available?, popular?, image? }] } + مفتاح الإدارة
 export async function onRequest(context) {
   const { request, env } = context;
   if (request.method !== 'POST') return json({ ok: false, error: 'Method not allowed' }, 405);

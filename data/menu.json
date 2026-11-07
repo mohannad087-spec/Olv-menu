@@ -4235,6 +4235,21 @@
       "optionProfile": "sandwich"
     },
     {
+      "id": "card-boneless",
+      "cat": "snacks",
+      "subcat": "boneless",
+      "subcatAr": "بونلس",
+      "subcatEn": "Boneless",
+      "ar": "بونلس",
+      "en": "Boneless",
+      "descAr": "",
+      "descEn": "",
+      "price": 2.5,
+      "tags": [],
+      "available": true,
+      "optionProfile": "snack"
+    },
+    {
       "id": "card-mvqb8thh",
       "cat": "breakfast",
       "subcat": "ساندويش جبنه وزعتر",

@@ -55,6 +55,12 @@ export function verifyTable(raw, menu) {
 
 // الخيارات المسموحة لكل صنف حسب menu.optionProfiles (نفس المنطق اللي بيعرضه المنيو)
 export function customProblem(real, custom, menu) {
+  // نكهات الصنف (بطاقة المادة): لازم نكهة وحدة من القائمة
+  const flavorChoices = Array.isArray(real.flavorChoices) ? real.flavorChoices.map(String) : [];
+  if (flavorChoices.length) {
+    const picked = Array.isArray(custom?.options) ? custom.options.map(String).filter((x) => flavorChoices.includes(x)) : [];
+    if (picked.length !== 1) return `اختر نكهة لـ ${real.ar}.`;
+  }
   if (!custom) return '';
   const list = (v) => (Array.isArray(v) ? v.map(String) : []);
   const remove = list(custom.remove), extras = list(custom.extras), options = list(custom.options);
@@ -66,7 +72,8 @@ export function customProblem(real, custom, menu) {
   if (!menu.optionProfiles) return ''; // نسخة مؤقتة قديمة من المنيو بدون ملفات الخيارات
   const O = menu.optionProfiles;
   const prof = (O.profiles || {})[real.optionProfile || (O.byCat || {})[real.cat] || 'none'] || {};
-  const groups = prof.groups || [];
+  const groups = [...(prof.groups || [])];
+  if (flavorChoices.length) groups.push({ id: 'flavor', ar: 'النكهة', choices: flavorChoices });
   const bad = [
     ...remove.filter(x => !(prof.remove || []).includes(x)),
     ...extras.filter(x => !(prof.extras || []).includes(x)),
