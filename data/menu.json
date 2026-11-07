@@ -2766,12 +2766,11 @@
       "en": "Chocolate Donut",
       "descAr": "دونات طازجة بتغطية الشوكولاتة",
       "descEn": "Fresh donut with chocolate topping",
-      "price": 0.75,
+      "price": 1,
       "tags": [
         "veg"
       ],
-      "image": "assets/photos/donut-chocolate.webp",
-      "hallPrice": 1
+      "image": "assets/photos/donut-chocolate.webp"
     },
     {
       "id": "waffle-mix",
