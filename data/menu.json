@@ -193,10 +193,13 @@
       "en": "Classic Burger",
       "descAr": "برغر لحم، خس، طماطم، بصل وصوص برغر",
       "descEn": "Beef burger, lettuce, tomato, onion & burger sauce",
-      "price": 5.25,
+      "price": 2.25,
       "tags": [],
       "image": "assets/photos/classic-burger.webp",
-      "available": false
+      "available": true,
+      "meal": {
+        "price": 3
+      }
     },
     {
       "id": "cheese-burger",
