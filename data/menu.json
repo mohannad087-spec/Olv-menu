@@ -245,10 +245,13 @@
       "en": "Mushroom Burger",
       "descAr": "برغر لحم، مشروم، جبنة وصوص كريمي",
       "descEn": "Beef burger, mushrooms, cheese & creamy sauce",
-      "price": 6.25,
+      "price": 3.5,
       "tags": [],
       "image": "assets/photos/mushroom-burger.webp",
-      "available": false
+      "available": true,
+      "meal": {
+        "price": 4
+      }
     },
     {
       "id": "wings",
