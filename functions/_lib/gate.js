@@ -10,7 +10,7 @@ export const COOKIE_DAYS = 30;
 
 // أي صفحات بتنفتح بأي نطاق: admin = كل شي، staff = شاشة الموظفين والطلبات بس
 export const PAGES = {
-  admin: ['admin', 'waiter', 'orders', 'driver', 'qr', 'print-menu'],
+  admin: ['admin', 'waiter', 'orders', 'driver', 'qr', 'print-menu', 'tv-control'],
   staff: ['waiter', 'orders', 'driver'],
 };
 export const DEFAULT_PAGE = { admin: '/admin.html', staff: '/waiter.html' };

@@ -108,7 +108,11 @@ function priceHtml(i){
 // عرض اليوم: بيظهر بس بالتاريخ المحدد (بتوقيت عمّان) وبعدها بيختفي لحاله
 // شاشتين: المشروبات لحالها، والباقي (أكل وحلويات وأرجيلة) لحاله. بتتحدد من الدومين أو من ?show=drinks|food
 var DRINKS=['hot','cold','cocktails','juices','shakes'];
-var MODE=(new URLSearchParams(location.search).get('show')||(/^screen2\./.test(location.hostname)?'drinks':/^screen\./.test(location.hostname)?'food':'all')).toLowerCase();
+var QS=new URLSearchParams(location.search);
+var SCREEN_ID=(QS.get('id')||((/^(screen\d*|tv)\./.exec(location.hostname)||[])[1])||'').toLowerCase();
+var BASE_MODE=(QS.get('show')||(/^screen2\./.test(location.hostname)?'drinks':/^screen\./.test(location.hostname)?'food':'all')).toLowerCase();
+var CFG=null; // إعدادات التحكم عن بعد من /api/tv-config (لو ما انضبطت بنكمل بالإعدادات الثابتة بالكود)
+var MODE=BASE_MODE;
 function inMode(id){return MODE==='drinks'?DRINKS.indexOf(id)>-1:MODE==='food'?DRINKS.indexOf(id)<0:true}
 // المتصفح بيمنع ملء الشاشة التلقائي، فأول ضغطة أو مفتاح بتدخّل ملء الشاشة
 (function(){var h=document.getElementById('fs');
@@ -130,6 +134,7 @@ function activeOffers(){var t=today();return OFFERS.filter(function(o){return!o.
 var slides=[],cur=-1,timer=null,t0=performance.now(),sig='';
 
 function build(DATA){
+  if(CFG&&CFG.configured&&CFG.mode==='banner'&&CFG.banner)return [{offer:{banner:CFG.banner,title:'banner'}}];
   var out=[];
   DATA.categories.forEach(function(c,ci){
     if(!inMode(c.id)||(MODE==='drinks'&&c.id==='popular'))return;
@@ -141,7 +146,8 @@ function build(DATA){
     for(var p=0;p<pages;p++)out.push({cat:c,ci:ci,items:items.slice(p*per,(p+1)*per),page:p,pages:pages});
   });
   var offs=activeOffers();
-  var pinned=offs.filter(function(o){return o.pin});
+  if(CFG&&CFG.configured)offs=offs.filter(function(o){return!o.pin}); // بعد ما تنضبط الشاشة من لوحة التحكم، البنرات الثابتة بالكود ما بتنطبق
+  var pinned=CFG&&CFG.configured?[]:offs.filter(function(o){return o.pin});
   if(pinned.length)return [{offer:pinned[0]}]; // عرض مثبّت: بيعرض لحاله ثابت بدل المنيو
   if(offs.length){var res=[],k=0,j=0;offs.forEach(function(o){res.push({offer:o})});out.forEach(function(x){res.push(x);if(++k%5===0)res.push({offer:offs[j++%offs.length]})});return res}
   return out;
@@ -186,15 +192,25 @@ function tick(now){
 function load(first){
   return fetch('data/menu.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(D){
     var s=build(D);
-    var ns=MODE+JSON.stringify(s.map(function(x){if(x.offer)return 'offer:'+x.offer.title;return[x.cat.id,x.cat.ar,x.items.map(function(i){return[i.id,i.ar,i.price,i.hallPrice,i.image,i.large,i.variants]})]}));
+    var ns=MODE+(CFG?CFG.v||'':'')+JSON.stringify(s.map(function(x){if(x.offer)return 'offer:'+x.offer.title;return[x.cat.id,x.cat.ar,x.items.map(function(i){return[i.id,i.ar,i.price,i.hallPrice,i.image,i.large,i.variants]})]}));
     if(ns===sig)return;           // ما تغيّر شي
     sig=ns;slides=s;
     msg.style.display='none';
     if(first||cur<0||cur>=slides.length){show(0)}else{show(cur)}
   }).catch(function(){if(first){msg.textContent='تعذّر تحميل المنيو';msg.style.display='flex'}});
 }
+function loadCfg(){
+  if(!SCREEN_ID)return Promise.resolve(false);
+  return fetch('/api/tv-config?screen='+encodeURIComponent(SCREEN_ID)+'&ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(c){
+    if(!c||!c.ok)return false;
+    var key=JSON.stringify(c),old=CFG?JSON.stringify(CFG):'';
+    CFG=c;MODE=(c.configured&&c.show)?c.show:BASE_MODE;
+    return key!==old;
+  }).catch(function(){return false});
+}
 requestAnimationFrame(tick);
-load(true);
+loadCfg().then(function(){load(true)});
+setInterval(function(){loadCfg().then(function(ch){if(ch)load(false)})},15000);
 // لو فشل أول تحميل (نت ضعيف أو رفرش) بنعيد المحاولة كل 10 ثواني لين ينجح
 var retry=setInterval(function(){if(slides.length)clearInterval(retry);else load(true)},10000);
 setInterval(function(){load(false)},REFRESH);

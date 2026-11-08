@@ -16,6 +16,9 @@
   Cache-Control: public, max-age=604800
 
 # صفحات الإدارة والموظفين: ما لازم تنفهرس بمحركات البحث
+/tv-control.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
 /tv.html
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-cache
