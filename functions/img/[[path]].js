@@ -3,9 +3,16 @@
 const ORIGIN = 'https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/';
 const SAFE = /^[A-Za-z0-9._-]+$/;
 
-export async function onRequestGet({ request, params, waitUntil }) {
+export async function onRequestGet({ request, params, waitUntil, env }) {
   const name = [].concat(params.path || []).join('/');
   if (!SAFE.test(name)) return new Response('Not found', { status: 404 });
+  // نسخة مصغّرة محفوظة مع الموقع (assets/items)؟ بتنقدّم منها بدون Supabase
+  try {
+    const local = await env.ASSETS.fetch(new URL('/assets/items/' + name, request.url));
+    if (local.ok && (local.headers.get('content-type') || '').startsWith('image/')) {
+      return new Response(local.body, { headers: { 'content-type': local.headers.get('content-type'), 'cache-control': 'public, max-age=2592000, immutable' } });
+    }
+  } catch {}
   const cache = caches.default;
   const key = new Request(new URL(request.url).origin + '/img/' + name, { method: 'GET' });
   const hit = await cache.match(key);
