@@ -1,6 +1,6 @@
 import { checkKey } from '../_lib/keys.js';
 import { readCookie, verify } from '../_lib/gate.js';
-import { loadState, saveScreens, listBanners, addBanner, deleteBanner } from '../_lib/tv.js';
+import { loadState, saveScreens, listBanners, addBanner, deleteBanner, bannerUrl } from '../_lib/tv.js';
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
@@ -29,7 +29,7 @@ export async function onRequest(context) {
       const id = String(url.searchParams.get('screen') || '').toLowerCase();
       const s = st.screens[id];
       if (!s) return json({ ok: true, configured: false });
-      return json({ ok: true, configured: true, mode: s.mode, show: s.show, banner: s.banner ? '/api/tv-banner?id=' + s.banner : null, v: st.updatedAt });
+      return json({ ok: true, configured: true, mode: s.mode, show: s.show, banner: s.banner ? bannerUrl(s.banner) : null, v: st.updatedAt });
     }
     if (request.method === 'POST') {
       if (!(await isAdmin(request, env))) return json({ ok: false, error: 'Admin access required.' }, 403);

@@ -3,7 +3,18 @@
 export const SHOW = ['all', 'food', 'drinks'];
 export const MODES = ['menu', 'banner'];
 const SCREEN_ID = /^[a-z0-9]{1,12}$/;
-const BANNER_ID = /^[a-f0-9]{12}$/;
+const BANNER_ID = /^(?:[a-f0-9]{12}|s-[a-z0-9]{3,20})$/;
+const UPLOADED_ID = /^[a-f0-9]{12}$/;
+// بنرات جاهزة بالمشروع (assets/banners) بتظهر بالمكتبة دايمًا وما بتنحذف
+export const BUILTIN = [
+  { id: 's-tabbouleh', name: 'تبولة 1 دينار', url: '/assets/banners/tabbouleh.webp' },
+  { id: 's-boneless', name: 'بونلس 8 قطع', url: '/assets/banners/boneless.webp' },
+  { id: 's-shawarma', name: 'شاورما لحم 2.50', url: '/assets/banners/shawarma.webp' }
+];
+export function bannerUrl(id) {
+  const b = BUILTIN.find((x) => x.id === id);
+  return b ? b.url : '/api/tv-banner?id=' + id;
+}
 const MAX_DATA_URL = 1_800_000; // ~1.3MB صورة، تحت حد صف D1 (2MB)
 
 let ready = false;
@@ -42,7 +53,7 @@ export async function saveScreens(db, raw) {
   const screens = cleanScreens(raw);
   await ensure(db);
   for (const s of Object.values(screens)) {
-    if (s.banner) {
+    if (s.banner && !BUILTIN.some((b) => b.id === s.banner)) {
       const ok = await db.prepare('SELECT id FROM tv_banners WHERE id = ?1').bind(s.banner).first();
       if (!ok) throw new Error('صورة البنر غير موجودة');
     }
@@ -54,10 +65,10 @@ export async function saveScreens(db, raw) {
 }
 
 export async function listBanners(db) {
-  if (!db) return [];
+  if (!db) return BUILTIN.map((b) => ({ ...b, builtin: true }));
   await ensure(db);
   const { results } = await db.prepare('SELECT id, name, created_at FROM tv_banners ORDER BY created_at DESC').all();
-  return (results || []).map((b) => ({ id: b.id, name: b.name, url: '/api/tv-banner?id=' + b.id, createdAt: b.created_at }));
+  return [...BUILTIN.map((b) => ({ ...b, builtin: true })), ...(results || []).map((b) => ({ id: b.id, name: b.name, url: '/api/tv-banner?id=' + b.id, createdAt: b.created_at }))];
 }
 
 export async function addBanner(db, name, dataUrl) {
@@ -72,7 +83,7 @@ export async function addBanner(db, name, dataUrl) {
 }
 
 export async function deleteBanner(db, id) {
-  if (!BANNER_ID.test(String(id))) throw new Error('رقم صورة غير صحيح');
+  if (!UPLOADED_ID.test(String(id))) throw new Error('رقم صورة غير صحيح');
   await ensure(db);
   await db.prepare('DELETE FROM tv_banners WHERE id = ?1').bind(id).run();
   // أي شاشة كانت عارضة هالصورة بترجع للمنيو
@@ -83,7 +94,7 @@ export async function deleteBanner(db, id) {
 }
 
 export async function getBanner(db, id) {
-  if (!db || !BANNER_ID.test(String(id))) return null;
+  if (!db || !UPLOADED_ID.test(String(id))) return null;
   await ensure(db);
   return db.prepare('SELECT mime, data FROM tv_banners WHERE id = ?1').bind(id).first();
 }
