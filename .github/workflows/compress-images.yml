@@ -1,0 +1,33 @@
+name: Compress item images
+# بينزّل صور الأصناف من Supabase، بيصغّرها (800px، ~70KB) وبيحفظها بـassets/items
+# فبتنقدّم من Cloudflare بدون ما تلمس Supabase. تشغيل يدوي من تبويب Actions.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  compress:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and compress
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick >/dev/null
+          mkdir -p assets/items
+          BASE="https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/"
+          grep -oE 'item-images/[A-Za-z0-9._-]+' data/menu.json | sed 's#item-images/##' | sort -u > /tmp/names.txt
+          wc -l /tmp/names.txt
+          while read -r n; do
+            [ -f "assets/items/$n" ] && continue
+            if curl -fsS "$BASE$n" -o "/tmp/orig"; then
+              convert "/tmp/orig" -auto-orient -resize '800x800>' -strip -interlace Plane -quality 72 "assets/items/$n" \
+                && echo "$n $(stat -c%s /tmp/orig) -> $(stat -c%s assets/items/$n)"
+            else echo "skip $n"; fi
+          done < /tmp/names.txt
+          du -sh assets/items
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/items
+          git diff --cached --quiet || git commit -m "Add compressed item images" && git push
