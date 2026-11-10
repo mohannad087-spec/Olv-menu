@@ -333,8 +333,12 @@ export async function onRequest(context) {
           return json({ ok: false, error: 'رقم الهاتف غير صحيح.' }, 400);
         }
       }
-      if (p.mode === 'delivery' && (!fields.phone || !fields.address)) {
-        return json({ ok: false, error: 'التوصيل بحتاج رقم هاتف وعنوان.' }, 400);
+      // سفري وتوصيل: الاسم ورقم الهاتف إلزاميين
+      if ((p.mode === 'takeaway' || p.mode === 'delivery') && (!fields.name || !fields.phone)) {
+        return json({ ok: false, error: 'طلبات السفري والتوصيل بتحتاج الاسم ورقم الهاتف.' }, 400);
+      }
+      if (p.mode === 'delivery' && !fields.address) {
+        return json({ ok: false, error: 'التوصيل بحتاج عنوان.' }, 400);
       }
 
       let menu;
