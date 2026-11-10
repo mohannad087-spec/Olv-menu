@@ -4186,7 +4186,7 @@
       "descEn": "",
       "price": 0.25,
       "tags": [],
-      "available": false,
+      "available": true,
       "source": "stock",
       "optionProfile": "canDrink"
     },
