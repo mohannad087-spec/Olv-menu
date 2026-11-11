@@ -60,3 +60,11 @@
   .choice-box strong{font-size:23px}
 }
 @media(prefers-reduced-motion:reduce){.entry-bg,.entry-title,.entry-copy,.entry-btn,.entry-social,.choice-card h1,.choice-box{animation:none!important}}
+
+/* فيديو خلفية الترحيب: لقطات بطيئة من صور الأصناف، مطفي ومموّه عشان النص يبقى واضح */
+.entry-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
+.entry-scrim{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--ground) 30%,transparent),color-mix(in srgb,var(--ground) 38%,transparent) 55%,color-mix(in srgb,var(--ground) 55%,transparent))}
+.entry:not(.no-video) .entry-bg{background:var(--ground)!important;animation:none}
+.entry:not(.no-video) .entry-bg:after{z-index:1}
+@media(prefers-reduced-motion:reduce){.entry-video{display:none}}
