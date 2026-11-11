@@ -83,7 +83,9 @@ var DWELL=7000,REFRESH=120000,PER=3;
 var stage=document.getElementById('stage'),bar=document.getElementById('bar'),msg=document.getElementById('msg');
 var FC=['--f0','--f1','--f2','--f3','--f4','--f5'];
 
-function theme(){var h=new Date().getHours(),l=h>=6&&h<18;document.documentElement.dataset.olvTheme=l?'light':'dark'}
+// ساعة عمّان (مش ساعة التلفاز: كثير تلفازات ساعتها على UTC أو غلط)
+function ammanHour(){try{return Number(new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Amman',hour:'2-digit',hour12:false}).format(new Date()))%24}catch(e){return new Date().getHours()}}
+function theme(){var h=ammanHour(),l=h>=6&&h<18;document.documentElement.dataset.olvTheme=l?'light':'dark'}
 theme();setInterval(theme,60000);
 
 function fit(){var s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform='translate(-50%,-50%) scale('+s+')'}
@@ -110,7 +112,8 @@ function priceHtml(i){
 var DRINKS=['hot','cold','cocktails','juices','shakes'];
 var QS=new URLSearchParams(location.search);
 var SCREEN_ID=(QS.get('id')||((/^(screen\d*|tv)\./.exec(location.hostname)||[])[1])||'').toLowerCase();
-var BASE_MODE=(QS.get('show')||(/^screen2\./.test(location.hostname)?'drinks':/^screen\./.test(location.hostname)?'food':'all')).toLowerCase();
+var BASE_MODE=(QS.get('show')||(/^screen2\./.test(location.hostname)||SCREEN_ID==='screen2'?'drinks':/^screen\./.test(location.hostname)||SCREEN_ID==='screen'?'food':'all')).toLowerCase();
+var badBanner={}; // بنرات صورتها ما انحمّلت (انحذفت أو النت واقع): ما بنعرضها عشان ما تظهر شاشة سودا
 var CFG=null; // إعدادات التحكم عن بعد من /api/tv-config (لو ما انضبطت بنكمل بالإعدادات الثابتة بالكود)
 var MODE=BASE_MODE;
 function inMode(id){return MODE==='drinks'?DRINKS.indexOf(id)>-1:MODE==='food'?DRINKS.indexOf(id)<0:true}
@@ -134,7 +137,7 @@ function activeOffers(){var t=today();return OFFERS.filter(function(o){return!o.
 var slides=[],cur=-1,timer=null,t0=performance.now(),sig='';
 
 function build(DATA){
-  if(CFG&&CFG.configured&&CFG.mode==='banner'&&CFG.banner)return [{offer:{banner:CFG.banner,title:'banner'}}];
+  if(CFG&&CFG.configured&&CFG.mode==='banner'&&CFG.banner&&!badBanner[CFG.banner])return [{offer:{banner:CFG.banner,title:'banner'}}];
   var out=[];
   DATA.categories.forEach(function(c,ci){
     if(!inMode(c.id)||(MODE==='drinks'&&c.id==='popular'))return;
@@ -145,7 +148,7 @@ function build(DATA){
     var per=Math.ceil(items.length/pages);
     for(var p=0;p<pages;p++)out.push({cat:c,ci:ci,items:items.slice(p*per,(p+1)*per),page:p,pages:pages});
   });
-  var offs=activeOffers();
+  var offs=activeOffers().filter(function(o){return!(o.banner&&badBanner[o.banner])});
   if(CFG&&CFG.configured)offs=offs.filter(function(o){return!o.pin}); // بعد ما تنضبط الشاشة من لوحة التحكم، البنرات الثابتة بالكود ما بتنطبق
   var pinned=CFG&&CFG.configured?[]:offs.filter(function(o){return o.pin});
   if(pinned.length)return [{offer:pinned[0]}]; // عرض مثبّت: بيعرض لحاله ثابت بدل المنيو
@@ -157,7 +160,8 @@ function slideEl(s){
   var el=document.createElement('section');el.className='slide';
   if(s.offer){
     var o=s.offer;
-    if(o.banner){el.style.padding='0';el.innerHTML='<div class="banner" style="--bg:url('+esc(o.banner)+')"><img src="'+esc(o.banner)+'" alt="'+esc(o.title)+'"></div>';return el}
+    if(o.banner){el.style.padding='0';el.innerHTML='<div class="banner" style="--bg:url('+esc(o.banner)+')"><img src="'+esc(o.banner)+'" alt="'+esc(o.title)+'"></div>';
+      el.querySelector('img').onerror=function(){badBanner[o.banner]=1;setTimeout(function(){delete badBanner[o.banner];sig='';load(false)},120000);sig='';load(false)};return el}
     var ph=o.images.map(function(u){return '<img src="'+esc(u)+'" alt="">'}).join('');
     el.innerHTML='<div class="offer"><div class="photo n'+o.images.length+'">'+ph+'</div><div class="txt"><img class="logo" src="assets/olv-logo-transparent.webp" alt="OLV"><span class="tag">'+esc(o.tag)+'</span><h2>'+esc(o.title)+'</h2><p>'+esc(o.desc)+'</p><div class="big">'+esc(String(o.price).replace(/\.00$/,''))+' <small>'+esc(o.unit)+'</small></div>'+(o.was?'<span class="was">بدل '+esc(o.was)+' دينار</span>':'')+'</div></div>';
     return el;

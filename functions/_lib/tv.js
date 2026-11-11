@@ -38,14 +38,15 @@ export function cleanScreens(raw) {
   return out;
 }
 
+// لو قاعدة البيانات فشلت لحظيًا بنرمي خطأ (بدل ما نرجّع "ما في إعدادات")، حتى ما تغيّر الشاشات عرضها بالغلط
 export async function loadState(db) {
   if (!db) return { screens: {}, updatedAt: null };
-  try {
-    await ensure(db);
-    const row = await db.prepare('SELECT json, updated_at FROM tv_state WHERE id = 1').first();
-    if (!row) return { screens: {}, updatedAt: null };
-    return { screens: cleanScreensLoose(JSON.parse(row.json).screens), updatedAt: row.updated_at };
-  } catch { return { screens: {}, updatedAt: null }; }
+  await ensure(db);
+  const row = await db.prepare('SELECT json, updated_at FROM tv_state WHERE id = 1').first();
+  if (!row) return { screens: {}, updatedAt: null };
+  let screens = {};
+  try { screens = cleanScreensLoose(JSON.parse(row.json).screens); } catch { /* json تالف */ }
+  return { screens, updatedAt: row.updated_at };
 }
 function cleanScreensLoose(raw) { try { return cleanScreens(raw); } catch { return {}; } }
 
