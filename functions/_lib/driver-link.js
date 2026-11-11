@@ -24,8 +24,10 @@ export async function verifyDriverToken(env, orderId, token) {
 // نص العنوان بدون رابط الخريطة + إحداثيات من رابط الخريطة إن وجدت
 export function splitAddress(address) {
   const a = String(address || '');
-  const m = /https:\/\/[^\s]+/.exec(a);
-  const mapUrl = m ? m[0] : '';
+  // بس روابط خرائط جوجل (نفس قائمة cleanMapUrl)، غير هيك الزبون بيقدر يحط رابط تصيّد بعنوانه
+  const mapUrl = (a.match(/https:\/\/[^\s]+/g) || []).find((u) => {
+    try { const h = new URL(u).hostname; return ['maps.google.com', 'www.google.com', 'google.com', 'maps.app.goo.gl', 'goo.gl'].includes(h); } catch { return false; }
+  }) || '';
   const text = a.replace(/\s*—?\s*الموقع:\s*https:\/\/[^\s]+/, '').trim();
   const c = /[?&]q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/.exec(mapUrl);
   return { text, mapUrl, lat: c ? Number(c[1]) : null, lng: c ? Number(c[2]) : null };

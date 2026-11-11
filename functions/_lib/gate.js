@@ -49,7 +49,8 @@ export async function verify(env, kind, token) {
 }
 
 export function pageKey(pathname) {
-  let p = decodeURIComponent(pathname).toLowerCase().replace(/^\/+|\/+$/g, '');
+  let p; try { p = decodeURIComponent(pathname); } catch { p = pathname; } // % غلط بالمسار ما لازم يطيّح الصفحة بـ 500
+  p = p.toLowerCase().replace(/^\/+|\/+$/g, '');
   if (p.endsWith('.html')) p = p.slice(0, -5);
   return p;
 }

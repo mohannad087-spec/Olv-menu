@@ -34,7 +34,7 @@ function logout(){sessionStorage.removeItem('olv-staff-key');sessionStorage.remo
 function start(){$('login').style.display='none';$('app').style.display='';$('who').textContent=me;$('logout').style.display='';load();clearInterval(timer);timer=setInterval(load,10000)}
 function beep(){try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();[880,1175].forEach((f,i)=>{const o=audio.createOscillator(),g=audio.createGain();o.frequency.value=f;g.gain.value=.15;o.connect(g);g.connect(audio.destination);o.start(audio.currentTime+i*.22);o.stop(audio.currentTime+i*.22+.18)});navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}}
 document.addEventListener('click',()=>{try{audio=audio||new (window.AudioContext||window.webkitAudioContext)()}catch(e){}},{once:true});
-const mapOf=a=>{const m=/https:\/\/[^\s]+/.exec(a||'');return m?m[0]:''};
+const mapOf=a=>((String(a||'').match(/https:\/\/[^\s]+/g))||[]).find(u=>{try{return['maps.google.com','www.google.com','google.com','maps.app.goo.gl','goo.gl'].includes(new URL(u).hostname)}catch(e){return false}})||'';
 const addrText=a=>String(a||'').replace(/\s*—?\s*الموقع:\s*https:\/\/[^\s]+/,'').trim();
 const feeOf=o=>{const m=/رسوم التوصيل[^:]*:\s*([\d.]+)/.exec(o.text||'');return m?+m[1]:0};
 function card(o,kind){const ml=mapOf(o.address),mine=o.driver===me;
