@@ -322,7 +322,8 @@ export async function onRequest(context) {
         table: cleanText(p.table, 30),
         name: cleanText(p.name, 100),
         phone: cleanText(p.phone, 30),
-        address: cleanText(p.address, 300),
+        // عنوان الزبون نص حر: بنشيل أي رابط منه، الرابط الوحيد المقبول هو رابط خرائط جوجل اللي بنركّبه نحن تحت (السائق بيضغط عليه)
+        address: cleanText(String(p.address ?? '').replace(/(?:https?:)?\/\/\S+/gi, ' '), 300),
         notes: cleanText(p.notes, 500),
         waiter: cleanText(p.waiter, 100)
       };
@@ -425,7 +426,7 @@ export async function onRequest(context) {
       // can leave a harmless gap, but two concurrent orders cannot get the same number.
       const number = await nextOrderNumber(db);
       const now = new Date().toISOString();
-      const id = `olv-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
+      const id = `olv-${Date.now()}-${crypto.randomUUID().replace(/-/g, '').slice(0, 20)}`; // رقم الطلب هو مفتاح تتبعه العام، فبنزيد العشوائية
 
       try {
         await db.prepare(
