@@ -3681,7 +3681,7 @@
       "cat": "pasta",
       "ar": "فوتتشيني",
       "en": "فوتتشيني",
-      "price": 2.5,
+      "price": 3.5,
       "subcatAr": "باستا فوتتشيني",
       "subcatEn": "فوتتشيني",
       "subcat": "باستا فوتتشيني",
@@ -3691,11 +3691,7 @@
       "available": true,
       "popular": false,
       "tags": [],
-      "optionProfile": "fettuccine",
-      "hallPrice": 3.5,
-      "large": {
-        "price": 3
-      }
+      "optionProfile": "fettuccine"
     },
     {
       "id": "bf-halloumi",
