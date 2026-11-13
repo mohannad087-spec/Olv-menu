@@ -4566,6 +4566,22 @@
           "available": true
         }
       ]
+    },
+    {
+      "id": "stk-3128a9b00dc1",
+      "cat": "cold",
+      "subcat": "stk-3128a9b00dc1",
+      "subcatAr": "ماء بيبي 250 مل",
+      "subcatEn": "ماء بيبي 250 مل",
+      "ar": "ماء بيبي 250 مل",
+      "en": "ماء بيبي 250 مل",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.1,
+      "tags": [],
+      "available": true,
+      "source": "stock",
+      "hallPrice": 0.25
     }
   ],
   "shishaOptions": {
