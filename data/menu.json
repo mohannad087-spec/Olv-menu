@@ -4184,7 +4184,8 @@
       "tags": [],
       "available": true,
       "source": "stock",
-      "optionProfile": "canDrink"
+      "optionProfile": "canDrink",
+      "inGroup": "grp-1tyb99c"
     },
     {
       "id": "card-mvpyr8xc",
@@ -4517,6 +4518,54 @@
       "price": 0.5,
       "tags": [],
       "available": true
+    },
+    {
+      "id": "stk-65f04661b529",
+      "cat": "cold",
+      "subcat": "stk-65f04661b529",
+      "subcatAr": "كيفا غازي",
+      "subcatEn": "كيفا غازي",
+      "ar": "كيفا غازي",
+      "en": "كيفا غازي",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.5,
+      "tags": [],
+      "available": true,
+      "source": "stock",
+      "hallPrice": 0.75,
+      "inGroup": "grp-1tyb99c"
+    },
+    {
+      "id": "grp-1tyb99c",
+      "cat": "cold",
+      "subcat": "grp-1tyb99c",
+      "subcatAr": "مشروب غازي",
+      "subcatEn": "مشروب غازي",
+      "ar": "مشروب غازي",
+      "en": "مشروب غازي",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.25,
+      "tags": [],
+      "available": true,
+      "source": "stock-group",
+      "variants": [
+        {
+          "id": "stk-65f04661b529",
+          "ar": "كيفا غازي",
+          "en": "كيفا غازي",
+          "price": 0.5,
+          "available": true
+        },
+        {
+          "id": "stk-288ce4d3034b",
+          "ar": "مشروب غازي",
+          "en": "Soft Drink",
+          "price": 0.25,
+          "available": true
+        }
+      ]
     }
   ],
   "shishaOptions": {
