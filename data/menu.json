@@ -411,15 +411,11 @@
       "en": "Chicken Alfredo Pasta",
       "descAr": "باستا بصوص ألفريدو الكريمي والدجاج",
       "descEn": "Pasta in creamy Alfredo sauce with chicken",
-      "price": 2.5,
+      "price": 5,
       "tags": [],
       "available": true,
       "image": "assets/photos/alfredo.webp",
-      "popular": false,
-      "large": {
-        "price": 3
-      },
-      "hallPrice": 3.5
+      "popular": false
     },
     {
       "id": "arrabbiata",
