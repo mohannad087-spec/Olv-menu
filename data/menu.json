@@ -3811,7 +3811,7 @@
       "descEn": "",
       "price": 2,
       "tags": [],
-      "available": false
+      "available": true
     },
     {
       "id": "bk-veg",
@@ -3825,7 +3825,7 @@
       "descEn": "",
       "price": 2,
       "tags": [],
-      "available": false
+      "available": true
     },
     {
       "id": "bk-margherita",
@@ -3839,7 +3839,7 @@
       "descEn": "",
       "price": 2,
       "tags": [],
-      "available": false
+      "available": true
     },
     {
       "id": "bk-zinger",
@@ -3853,7 +3853,7 @@
       "descEn": "",
       "price": 2.5,
       "tags": [],
-      "available": false,
+      "available": true,
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/bk-zinger-mvsr4ly0.jpg"
     },
     {
@@ -3868,7 +3868,7 @@
       "descEn": "",
       "price": 2.5,
       "tags": [],
-      "available": false,
+      "available": true,
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/bk-chicken-cream-mvsr4n36.jpg"
     },
     {
@@ -3883,7 +3883,7 @@
       "descEn": "",
       "tags": [],
       "price": 2,
-      "available": false
+      "available": true
     },
     {
       "id": "bk-turkey",
@@ -3897,7 +3897,7 @@
       "descEn": "",
       "tags": [],
       "price": 2,
-      "available": false
+      "available": true
     },
     {
       "id": "bk-bbq",
@@ -3911,7 +3911,7 @@
       "descEn": "",
       "price": 2.5,
       "tags": [],
-      "available": false
+      "available": true
     },
     {
       "id": "bk-zaatar-cheese",
@@ -3925,7 +3925,7 @@
       "descEn": "",
       "price": 1,
       "tags": [],
-      "available": false,
+      "available": true,
       "optionProfile": "manakish"
     },
     {
@@ -3940,7 +3940,7 @@
       "descEn": "",
       "price": 0.75,
       "tags": [],
-      "available": false,
+      "available": true,
       "optionProfile": "manakish"
     },
     {
@@ -3955,7 +3955,7 @@
       "descEn": "",
       "price": 1,
       "tags": [],
-      "available": false,
+      "available": true,
       "optionProfile": "manakish"
     },
     {
@@ -3970,7 +3970,7 @@
       "descEn": "",
       "price": 1.25,
       "tags": [],
-      "available": false,
+      "available": true,
       "optionProfile": "manakish"
     },
     {
@@ -3985,7 +3985,7 @@
       "descEn": "",
       "price": 1.5,
       "tags": [],
-      "available": false,
+      "available": true,
       "optionProfile": "none"
     },
     {
@@ -4572,6 +4572,20 @@
       "available": true,
       "source": "stock",
       "hallPrice": 0.25
+    },
+    {
+      "id": "card-mwgx1fh5",
+      "cat": "cold",
+      "subcat": "ماتشا",
+      "subcatAr": "ماتشا",
+      "subcatEn": "Matcha",
+      "ar": "ماتشا",
+      "en": "Matcha",
+      "descAr": "",
+      "descEn": "",
+      "price": 3,
+      "tags": [],
+      "available": true
     }
   ],
   "shishaOptions": {
