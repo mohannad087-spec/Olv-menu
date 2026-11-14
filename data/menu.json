@@ -3811,7 +3811,7 @@
       "descEn": "",
       "price": 2,
       "tags": [],
-      "available": true
+      "available": false
     },
     {
       "id": "bk-veg",
@@ -3825,7 +3825,7 @@
       "descEn": "",
       "price": 2,
       "tags": [],
-      "available": true
+      "available": false
     },
     {
       "id": "bk-margherita",
@@ -3839,7 +3839,7 @@
       "descEn": "",
       "price": 2,
       "tags": [],
-      "available": true
+      "available": false
     },
     {
       "id": "bk-zinger",
@@ -3853,7 +3853,7 @@
       "descEn": "",
       "price": 2.5,
       "tags": [],
-      "available": true,
+      "available": false,
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/bk-zinger-mvsr4ly0.jpg"
     },
     {
@@ -3868,7 +3868,7 @@
       "descEn": "",
       "price": 2.5,
       "tags": [],
-      "available": true,
+      "available": false,
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/bk-chicken-cream-mvsr4n36.jpg"
     },
     {
@@ -3883,7 +3883,7 @@
       "descEn": "",
       "tags": [],
       "price": 2,
-      "available": true
+      "available": false
     },
     {
       "id": "bk-turkey",
@@ -3897,7 +3897,7 @@
       "descEn": "",
       "tags": [],
       "price": 2,
-      "available": true
+      "available": false
     },
     {
       "id": "bk-bbq",
@@ -3911,7 +3911,7 @@
       "descEn": "",
       "price": 2.5,
       "tags": [],
-      "available": true
+      "available": false
     },
     {
       "id": "bk-zaatar-cheese",
