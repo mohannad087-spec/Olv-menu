@@ -3445,13 +3445,13 @@
       "en": "Fajita Sandwich",
       "descAr": "دجاج، فلفل ألوان، فطر، بطاطا",
       "descEn": "Chicken, colored peppers, mushrooms, potato",
-      "price": 1.75,
+      "price": 2,
       "tags": [],
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sw-fajita-mvsnic9g.jpg",
       "available": true,
       "popular": false,
       "meal": {
-        "price": 2.75,
+        "price": 3,
         "descAr": "مع بطاطا"
       },
       "optionProfile": "sandwich"
