@@ -3445,7 +3445,7 @@
       "en": "Fajita Sandwich",
       "descAr": "دجاج، فلفل ألوان، فطر، بطاطا",
       "descEn": "Chicken, colored peppers, mushrooms, potato",
-      "price": 2,
+      "price": 1.75,
       "tags": [],
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sw-fajita-mvsnic9g.jpg",
       "available": true,
