@@ -14,10 +14,7 @@
       "etaMax": 0
     },
     "hallOrdering": {
-      "mode": "schedule",
-      "closedFrom": "08:00",
-      "closedTo": "16:00",
-      "timezone": "Asia/Amman"
+      "mode": "on"
     }
   },
   "categories": [
