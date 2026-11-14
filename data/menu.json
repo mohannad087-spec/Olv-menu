@@ -3490,11 +3490,11 @@
       "price": 2.5,
       "tags": [],
       "meal": {
-        "price": 3,
+        "price": 3.25,
         "descAr": "مع بطاطا"
       },
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sw-mushroom-mvsnih29.jpg",
-      "available": false,
+      "available": true,
       "popular": false,
       "optionProfile": "sandwich"
     },
