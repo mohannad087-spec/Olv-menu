@@ -1499,8 +1499,7 @@
         "price": 3,
         "hallPrice": 3.5
       },
-      "image": "assets/photos/khamis-plain.webp",
-      "hallPrice": 2.5
+      "image": "assets/photos/khamis-plain.webp"
     },
     {
       "id": "khamis-cream",
