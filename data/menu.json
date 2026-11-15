@@ -1062,8 +1062,7 @@
         "price": 3.5,
         "hallPrice": 4
       },
-      "image": "assets/photos/cocktail-cream-honey.webp",
-      "hallPrice": 3
+      "image": "assets/photos/cocktail-cream-honey.webp"
     },
     {
       "id": "cocktail-icecream",
