@@ -1016,7 +1016,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/cocktail-plain.webp",
       "hallPrice": 1.5
@@ -1144,7 +1144,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/mango-strawberry.webp",
       "hallPrice": 2
@@ -1168,8 +1168,7 @@
         "price": 3,
         "hallPrice": 3.5
       },
-      "image": "assets/photos/mango-vanilla.webp",
-      "hallPrice": 3
+      "image": "assets/photos/mango-vanilla.webp"
     },
     {
       "id": "galaxy-plain",
@@ -1188,7 +1187,7 @@
       "available": false,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/galaxy-plain.webp",
       "hallPrice": 2.5
@@ -1232,7 +1231,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/orange.webp",
       "hallPrice": 1.5
@@ -1254,7 +1253,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/orange-lemon.webp",
       "hallPrice": 1.5
@@ -1276,7 +1275,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/lemon.webp",
       "hallPrice": 1.5
@@ -1298,7 +1297,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/lemon-mint.webp",
       "hallPrice": 1.5
@@ -1320,7 +1319,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/banana-milk.webp",
       "hallPrice": 1.5
@@ -1342,7 +1341,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/banana-milk-dates.webp",
       "hallPrice": 1.5
@@ -1722,7 +1721,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/cantaloupe.webp",
       "hallPrice": 1.5
@@ -1744,7 +1743,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/cantaloupe-strawberry.webp",
       "hallPrice": 1.5
@@ -1766,7 +1765,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/watermelon.webp",
       "hallPrice": 1.5
@@ -1788,7 +1787,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/watermelon-strawberry.webp",
       "hallPrice": 1.5
@@ -1810,7 +1809,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/carrot.webp",
       "hallPrice": 1.5
@@ -1832,7 +1831,7 @@
       "available": false,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/carrot-orange.webp",
       "hallPrice": 1.5
@@ -1854,7 +1853,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/strawberry.webp",
       "hallPrice": 1.5
@@ -1876,7 +1875,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/strawberry-milk.webp",
       "hallPrice": 1.5
@@ -1898,7 +1897,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/strawberry-banana-milk.webp",
       "hallPrice": 1.5
@@ -2006,7 +2005,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/cocktail-banana-strawberry-orange.webp",
       "hallPrice": 1.5
@@ -2028,7 +2027,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/passion-mango.webp",
       "hallPrice": 2.5
@@ -2050,7 +2049,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/passion-pineapple.webp",
       "hallPrice": 2.5
@@ -2072,7 +2071,7 @@
       "available": true,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/passion-strawberry.webp",
       "hallPrice": 2.5
@@ -2094,7 +2093,7 @@
       "available": false,
       "large": {
         "price": 2.5,
-        "hallPrice": 3.0
+        "hallPrice": 3
       },
       "image": "assets/photos/tropicana.webp",
       "hallPrice": 2.5
@@ -2116,7 +2115,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/kiwi.webp",
       "hallPrice": 1.5
@@ -2138,7 +2137,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/kiwi-lemon.webp",
       "hallPrice": 1.5
@@ -2160,7 +2159,7 @@
       "available": true,
       "large": {
         "price": 1.5,
-        "hallPrice": 2.0
+        "hallPrice": 2
       },
       "image": "assets/photos/kiwi-strawberry.webp",
       "hallPrice": 1.5
