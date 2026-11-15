@@ -1520,8 +1520,7 @@
         "price": 3.25,
         "hallPrice": 3.75
       },
-      "image": "assets/photos/khamis-cream.webp",
-      "hallPrice": 3
+      "image": "assets/photos/khamis-cream.webp"
     },
     {
       "id": "fruit-salad",
