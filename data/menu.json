@@ -1574,7 +1574,7 @@
       "tags": [
         "veg"
       ],
-      "available": true,
+      "available": false,
       "image": "assets/photos/fakhfakhina.webp",
       "hallPrice": 4,
       "optionProfile": "none"
