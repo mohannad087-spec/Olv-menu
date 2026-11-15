@@ -55,6 +55,15 @@ function applyCard(item, card, catIds, items = []) {
   if (large > 0 && (large > next.price || (item.large && Number(item.large.price) === money(large)))) {
     if (!item.large || Number(item.large.price) !== money(large)) next.large = { ...(item.large || {}), price: money(large) };
   } else if (card.largePrice !== undefined) delete next.large;
+  // الحجم الوسط (بين الصغير والكبير): نفس فكرة الكبير. سعر الصالة له = سعر صالة الصغير + فرق الوسط (متل ما بيحسبها الكاشير)
+  const medium = Number(card.mediumPrice);
+  const upper = next.large ? Number(next.large.price) : Infinity;
+  if (medium > 0 && medium > next.price && medium < upper) {
+    const mh = Number(next.hallPrice) > 0 ? money(Number(next.hallPrice) + (medium - next.price)) : 0;
+    const m = { ...(item.medium || {}), price: money(medium) };
+    if (mh > 0) m.hallPrice = mh; else delete m.hallPrice;
+    if (JSON.stringify(m) !== JSON.stringify(item.medium)) next.medium = m; else next.medium = item.medium;
+  } else if (card.mediumPrice !== undefined) delete next.medium;
   return next;
 }
 
@@ -90,7 +99,7 @@ export function mergeCards(menu, cards) {
   return { menu: { ...menu, items }, added, updated, skipped };
 }
 
-// POST { cards: [{ id, ar, en?, descAr?, descEn?, cat?, subcatAr?, subcatEn?, price, hallPrice?, mealPrice?, largePrice?, flavors?, available?, popular?, image? }] } + مفتاح الإدارة
+// POST { cards: [{ id, ar, en?, descAr?, descEn?, cat?, subcatAr?, subcatEn?, price, hallPrice?, mealPrice?, mediumPrice?, largePrice?, flavors?, available?, popular?, image? }] } + مفتاح الإدارة
 export async function onRequest(context) {
   const { request, env } = context;
   if (request.method !== 'POST') return json({ ok: false, error: 'Method not allowed' }, 405);
