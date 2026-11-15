@@ -28,13 +28,22 @@ function roundMoney(n) {
   return Math.round(n * 100) / 100;
 }
 
-function priceForMode(basePrice, mode, menu, real, isLarge) {
+function priceForMode(basePrice, mode, menu, real, sizeObj) {
   if (mode !== 'hall') return basePrice;
   // per-item hall price (e.g. donuts) overrides the global surcharge for the plain item price
-  if (real && isLarge && Number(real.large?.hallPrice) > 0 && basePrice === Number(real.large.price)) return Number(real.large.hallPrice);
-  if (real && !isLarge && Number(real.hallPrice) > 0 && basePrice === real.price) return Number(real.hallPrice);
+  if (real && sizeObj && Number(sizeObj.hallPrice) > 0 && basePrice === Number(sizeObj.price)) return Number(sizeObj.hallPrice);
+  if (real && !sizeObj && Number(real.hallPrice) > 0 && basePrice === real.price) return Number(real.hallPrice);
   const pct = Number(menu.settings?.hallSurchargePercent) || 0;
   return roundMoney(basePrice * (1 + pct / 100));
+}
+
+// أحجام الصنف: small = السعر الأساسي، medium / large = حقل بسعره (بطاقة المادة). بيرجع الحجم المطلوب (الافتراضي صغير)
+const SIZE_LABEL = { small: 'صغير', medium: 'وسط', large: 'كبير' };
+export function sizeOf(real, raw) {
+  const has = (k) => Number(real[k]?.price) > 0;
+  if (!has('medium') && !has('large')) return null;
+  const want = raw?.custom?.size;
+  return want === 'large' && has('large') ? 'large' : want === 'medium' && has('medium') ? 'medium' : 'small';
 }
 
 // رقم الطاولة لطلبات الصالة لازم يكون رقم ضمن عدد الطاولات المحدد بالإدارة (الافتراضي 20).
@@ -96,10 +105,10 @@ export function verifyOrderItems(rawItems, menu, mode) {
     const qty = Math.max(1, Math.min(50, parseInt(raw?.qty, 10) || 0));
     if (!qty) throw new Error(`Invalid quantity for ${real.ar}.`);
     const wantsMeal = raw?.custom?.meal === true && real.meal && Number(real.meal.price) > 0;
-    const sized = !wantsMeal && real.large && Number(real.large.price) > 0;
-    const large = sized && raw?.custom?.size === 'large';
-    const basePrice = wantsMeal ? Number(real.meal.price) : large ? Number(real.large.price) : real.price;
-    const label = wantsMeal ? `${real.ar} (وجبة)` : sized ? `${real.ar} (${large ? 'كبير' : 'صغير'})` : real.ar;
+    const size = wantsMeal ? null : sizeOf(real, raw);
+    const sizeObj = size === 'large' ? real.large : size === 'medium' ? real.medium : null;
+    const basePrice = wantsMeal ? Number(real.meal.price) : sizeObj ? Number(sizeObj.price) : real.price;
+    const label = wantsMeal ? `${real.ar} (وجبة)` : size ? `${real.ar} (${SIZE_LABEL[size]})` : real.ar;
     const custom = raw?.custom;
     if (custom != null && (typeof custom !== 'object' || Array.isArray(custom))) throw new Error('Invalid order customization.');
     const problem = customProblem(real, custom, menu);
@@ -112,7 +121,7 @@ export function verifyOrderItems(rawItems, menu, mode) {
     items.push({
       id: real.id,
       qty,
-      price: roundMoney(priceForMode(basePrice, mode, menu, real, large) + extrasCost),
+      price: roundMoney(priceForMode(basePrice, mode, menu, real, sizeObj) + extrasCost),
       label,
       custom: custom || undefined
     });

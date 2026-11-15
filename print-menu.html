@@ -115,14 +115,15 @@ const GROUPS=[
   {title:'الأرجيلة',cats:['shisha']}
 ];
 function row(i){
-  // صنف بحجمين: صغير / كبير
+  // صنف بأكثر من حجم: صغير / وسط / كبير
   // نفس منطق المنيو الحي: سعر الصالة المحدد للصنف، وإلا السفري + نسبة الصالة
   const pct=SURCHARGE;
   const hallOf=(p,h)=>h>0?Number(h):Math.round(Number(p)*(1+pct/100)*100)/100;
   const L=i.large&&i.large.price?i.large:null;
-  const fmt=(a,b)=>b==null?Number(a).toFixed(2):`${Number(a).toFixed(2)} / ${Number(b).toFixed(2)}`;
-  const hallP=fmt(hallOf(i.price,i.hallPrice),L?hallOf(L.price,L.hallPrice):null);
-  const takeP=fmt(i.price,L?L.price:null);
+  const M=i.medium&&i.medium.price?i.medium:null;
+  const fmt=(...v)=>v.filter(x=>x!=null).map(x=>Number(x).toFixed(2)).join(' / ');
+  const hallP=fmt(hallOf(i.price,i.hallPrice),M?hallOf(M.price,M.hallPrice):null,L?hallOf(L.price,L.hallPrice):null);
+  const takeP=fmt(i.price,M?M.price:null,L?L.price:null);
   return `<div class="row">
     <div class="row-top">
       <span class="name">${i.popular?'<span class="star">★</span>':''}${i.ar}${tagBadges(i)}</span>
