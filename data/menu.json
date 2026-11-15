@@ -4586,6 +4586,20 @@
       "price": 3,
       "tags": [],
       "available": true
+    },
+    {
+      "id": "card-mwhfz17w",
+      "cat": "offers",
+      "subcat": "اوريو",
+      "subcatAr": "اوريو",
+      "subcatEn": "اوريو",
+      "ar": "اوريو",
+      "en": "اوريو",
+      "descAr": "",
+      "descEn": "",
+      "price": 35,
+      "tags": [],
+      "available": true
     }
   ],
   "shishaOptions": {
