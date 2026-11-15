@@ -1923,13 +1923,12 @@
       "tags": [
         "veg"
       ],
-      "available": true,
+      "available": false,
       "large": {
         "price": 2,
         "hallPrice": 2.5
       },
-      "image": "assets/photos/cocktail-awar-alqalb.webp",
-      "hallPrice": 2
+      "image": "assets/photos/cocktail-awar-alqalb.webp"
     },
     {
       "id": "cocktail-papaya-mango",
