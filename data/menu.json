@@ -1168,7 +1168,8 @@
         "price": 3,
         "hallPrice": 3.5
       },
-      "image": "assets/photos/mango-vanilla.webp"
+      "image": "assets/photos/mango-vanilla.webp",
+      "hallPrice": 2.5
     },
     {
       "id": "galaxy-plain",
