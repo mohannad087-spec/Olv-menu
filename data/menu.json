@@ -1093,7 +1093,7 @@
       "subcat": "mango",
       "subcatAr": "مانجا",
       "subcatEn": "Mango",
-      "ar": "الإمبراطور موز ومانجا",
+      "ar": "موز ومانجا",
       "en": "The Emperor (Banana & Mango)",
       "descAr": "",
       "descEn": "",
@@ -1101,7 +1101,7 @@
       "tags": [
         "veg"
       ],
-      "available": true,
+      "available": false,
       "large": {
         "price": 3,
         "hallPrice": 3.5
