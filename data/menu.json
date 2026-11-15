@@ -1083,8 +1083,7 @@
         "price": 3.5,
         "hallPrice": 4
       },
-      "image": "assets/photos/cocktail-icecream.webp",
-      "hallPrice": 3
+      "image": "assets/photos/cocktail-icecream.webp"
     },
     {
       "id": "emperor",
