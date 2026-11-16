@@ -4011,7 +4011,8 @@
       "tags": [
         "veg"
       ],
-      "optionProfile": "snack"
+      "optionProfile": "snack",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sn-potato-cups-mwixuz3k.jpg"
     },
     {
       "id": "sn-chicken-cream",
