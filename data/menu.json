@@ -4078,7 +4078,8 @@
       ],
       "available": true,
       "hallPrice": 0.5,
-      "optionProfile": "canDrink"
+      "optionProfile": "canDrink",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/soft-pepsi-diet-mwixvbhc.jpg"
     },
     {
       "id": "soft-7up",
@@ -4096,7 +4097,8 @@
       ],
       "available": true,
       "hallPrice": 0.5,
-      "optionProfile": "canDrink"
+      "optionProfile": "canDrink",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/soft-7up-mwixv8fa.jpg"
     },
     {
       "id": "soft-mirinda",
@@ -4133,7 +4135,8 @@
       ],
       "available": true,
       "hallPrice": 0.5,
-      "optionProfile": "canDrink"
+      "optionProfile": "canDrink",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/soft-mountain-dew-mwixuuut.jpg"
     },
     {
       "id": "soft-schweppes",
