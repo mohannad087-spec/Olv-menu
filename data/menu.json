@@ -4114,7 +4114,8 @@
       ],
       "available": true,
       "hallPrice": 0.5,
-      "optionProfile": "canDrink"
+      "optionProfile": "canDrink",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/soft-mirinda-mwixv3he.jpg"
     },
     {
       "id": "soft-mountain-dew",
