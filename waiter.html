@@ -181,7 +181,7 @@ async function doLogin(){
     if(!r.ok){showToast(out.error||'تعذّر الدخول');return}
   }catch(e){showToast('تعذّر الاتصال، جرّب كمان مرة');return}
   localStorage.setItem('olv-waiter-name',out.staff.name);
-  sessionStorage.setItem('olv-staff-key','staff:'+out.staff.id+':'+pin);
+  localStorage.setItem('olv-staff-key','staff:'+out.staff.id+':'+pin);
   enterApp(out.staff.name,'staff:'+out.staff.id+':'+pin);
 }
 function enterApp(n,k){
@@ -191,7 +191,7 @@ function enterApp(n,k){
   $('logoutBtn').style.display='inline-block';
   init();
 }
-function logout(){sessionStorage.removeItem('olv-staff-key');location.reload()}
+function logout(){localStorage.removeItem('olv-staff-key');sessionStorage.removeItem('olv-staff-key');location.reload()}
 
 async function api(url,opt={}){
   opt.headers=Object.assign({'x-olv-staff-key':staffKey},opt.headers||{});
@@ -415,7 +415,7 @@ async function loadMine(){
 }
 
 (function(){
-  const n=localStorage.getItem('olv-waiter-name'),k=sessionStorage.getItem('olv-staff-key');
+  const n=localStorage.getItem('olv-waiter-name'),k=localStorage.getItem('olv-staff-key')||sessionStorage.getItem('olv-staff-key');
   if(n&&k&&k.startsWith('staff:')){$('waiterName').value=n;enterApp(n,k)}
 })();
 </script>
