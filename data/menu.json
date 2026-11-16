@@ -3994,7 +3994,8 @@
       ],
       "optionProfile": "sandwich",
       "available": true,
-      "popular": true
+      "popular": true,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sn-potato-sandwich-mwixtmk2.jpg"
     },
     {
       "id": "sn-potato-cups",
