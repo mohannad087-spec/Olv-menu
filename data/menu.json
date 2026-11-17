@@ -4583,7 +4583,8 @@
       "descEn": "",
       "price": 3,
       "tags": [],
-      "available": true
+      "available": true,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/card-mwgx1fh5-mwkwr1ze.jpg"
     },
     {
       "id": "card-mwhfz17w",
