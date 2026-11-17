@@ -4096,7 +4096,7 @@
       "tags": [
         "veg"
       ],
-      "available": true,
+      "available": false,
       "hallPrice": 0.5,
       "optionProfile": "canDrink",
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/soft-7up-mwixv8fa.jpg"
