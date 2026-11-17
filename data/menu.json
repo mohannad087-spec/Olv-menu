@@ -4597,7 +4597,8 @@
       "descEn": "",
       "price": 0.35,
       "tags": [],
-      "available": true
+      "available": true,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/card-mwhfz17w-mwkwpruk.jpg"
     }
   ],
   "shishaOptions": {
