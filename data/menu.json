@@ -3960,7 +3960,7 @@
       "descEn": "",
       "price": 1.25,
       "tags": [],
-      "available": true,
+      "available": false,
       "optionProfile": "manakish"
     },
     {
