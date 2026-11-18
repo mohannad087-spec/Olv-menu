@@ -3297,7 +3297,7 @@
       "descEn": "",
       "price": 0.25,
       "tags": [],
-      "available": true,
+      "available": false,
       "source": "stock",
       "image": "assets/photos/stk-850b359bed0b.webp",
       "hallPrice": 0.5,
@@ -4169,7 +4169,7 @@
       "descEn": "",
       "price": 0.25,
       "tags": [],
-      "available": true,
+      "available": false,
       "source": "stock",
       "optionProfile": "canDrink",
       "inGroup": "grp-1tyb99c"
@@ -4518,7 +4518,7 @@
       "descEn": "",
       "price": 0.5,
       "tags": [],
-      "available": true,
+      "available": false,
       "source": "stock",
       "hallPrice": 0.75,
       "inGroup": "grp-1tyb99c"
@@ -4535,7 +4535,7 @@
       "descEn": "",
       "price": 0.25,
       "tags": [],
-      "available": true,
+      "available": false,
       "source": "stock-group",
       "variants": [
         {
@@ -4543,15 +4543,14 @@
           "ar": "كيفا غازي",
           "en": "كيفا غازي",
           "price": 0.5,
-          "available": true,
-          "hallPrice": 0.75
+          "available": false
         },
         {
           "id": "stk-288ce4d3034b",
           "ar": "مشروب غازي",
           "en": "Soft Drink",
           "price": 0.25,
-          "available": true
+          "available": false
         }
       ]
     },
@@ -4567,7 +4566,7 @@
       "descEn": "",
       "price": 0.1,
       "tags": [],
-      "available": true,
+      "available": false,
       "source": "stock",
       "hallPrice": 0.25
     },
