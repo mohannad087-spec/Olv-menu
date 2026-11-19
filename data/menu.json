@@ -4599,6 +4599,21 @@
       "tags": [],
       "available": true,
       "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/card-mwhfz17w-mwkwpruk.jpg"
+    },
+    {
+      "id": "card-mwnbfiyu",
+      "cat": "popular",
+      "subcat": "بوم بوم",
+      "subcatAr": "بوم بوم",
+      "subcatEn": "بوم بوم",
+      "ar": "بوم بوم",
+      "en": "بوم بوم",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.75,
+      "tags": [],
+      "available": true,
+      "hallPrice": 1
     }
   ],
   "shishaOptions": {
