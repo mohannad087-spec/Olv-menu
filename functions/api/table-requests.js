@@ -1,7 +1,7 @@
 import { checkKey } from '../_lib/keys.js';
 import { loadControls, blockReason } from '../_lib/controls.js';
 import { loadMenu } from '../_lib/menu-live.js';
-import { verifyOrderItems, verifyTable, cleanText, verifyTurnstile, nextOrderNumber } from './orders.js';
+import { verifyOrderItems, verifyTable, cleanText, verifyTurnstile } from './orders.js';
 
 // طلبات الطاولة من الزبون: «نادِ الويتر» (kind=call) أو «جهّز لي الطلب» (kind=order، قائمة أصناف).
 // الزبون ما بيرسل طلب للمطبخ بالصالة؛ هاد الطلب بيظهر عند الويتر، والويتر بيأكّده ويبعته للمطبخ من صفحته.
@@ -107,27 +107,11 @@ export async function onRequest(context) {
 
       const now = new Date().toISOString();
       const id = `req-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
-      // «جهّز لي الطلب»: بنعمل كمان طلب صالة حقيقي بحالة «جديد» عشان يوصل «الطلبات الواردة» بالمحاسبة (الكاشير بيقبله وبيروح للمطبخ).
-      // إذا فشل إنشاء الطلب لأي سبب بيضل طلب الطاولة مفتوح عند الويتر متل قبل.
-      let orderId = '';
-      if (kind === 'order') {
-        try {
-          const oid = `olv-${Date.now()}-${crypto.randomUUID().replace(/-/g, '').slice(0, 20)}`;
-          const number = await nextOrderNumber(db);
-          await db.prepare(
-            `INSERT INTO orders
-             (id, number, idempotency_key, status, mode, table_no, name, phone, address, notes, waiter, ip, total, items_json, text_summary, created_at, updated_at, loyalty_awarded)
-             VALUES (?1, ?2, ?3, 'new', 'hall', ?4, ?5, '', '', ?6, '', ?7, ?8, ?9, ?10, ?11, ?11, 0)`
-          ).bind(oid, number, 'tr-' + key, table, name, notes, ip, verified.total, JSON.stringify(verified.items), verified.text, now).run();
-          orderId = oid;
-        } catch (e) { console.error('table request -> order failed: ' + (e instanceof Error ? e.message : e)); }
-      }
       try {
         await db.prepare(
-          `INSERT INTO table_requests (id, idempotency_key, kind, status, table_no, name, notes, items_json, total, ip, handled_by, order_id, created_at, updated_at)
-           VALUES (?1, ?2, ?3, ?11, ?4, ?5, ?6, ?7, ?8, ?9, ?12, ?13, ?10, ?10)`
-        ).bind(id, key, kind, table, name, notes, JSON.stringify(verified.items), verified.total, ip, now,
-          orderId ? 'done' : 'open', orderId ? 'auto' : '', orderId).run();
+          `INSERT INTO table_requests (id, idempotency_key, kind, status, table_no, name, notes, items_json, total, ip, created_at, updated_at)
+           VALUES (?1, ?2, ?3, 'open', ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?10)`
+        ).bind(id, key, kind, table, name, notes, JSON.stringify(verified.items), verified.total, ip, now).run();
       } catch (e) {
         const again = await db.prepare('SELECT * FROM table_requests WHERE idempotency_key = ?1').bind(key).first();
         if (again) return json({ ok: true, duplicate: true, request: summarize(again) });
