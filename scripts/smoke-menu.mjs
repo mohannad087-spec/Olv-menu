@@ -124,6 +124,32 @@ await scenario('الصالة: بدون زر تأكيد، فقط «جهّز لي 
   ok(await get(page, 'cartItems.length') === 0, 'القائمة انرسلت والسلة تفضّت');
 });
 
+await scenario('زر «نادِ الويتر» العائم: يظهر بباركود الطاولة، تأكيد ثم إرسال وقفل', { url: '/?table=5' }, async (page, ok) => {
+  const calls = [];
+  page.on('request', (r) => { if (r.url().includes('/api/table-requests') && r.method() === 'POST') calls.push(r.postData()); });
+  await enter(page);
+  await page.waitForTimeout(1300);
+  ok(await get(page, "document.getElementById('callFab').getBoundingClientRect().width>0"), 'الزر العائم ظاهر بباركود الطاولة');
+  await page.evaluate("turnstileToken='t';document.getElementById('callFab').click()");
+  await page.waitForTimeout(300);
+  ok(await get(page, "document.getElementById('callConfirm').classList.contains('on')&&document.getElementById('callConfirm').textContent.includes('5')"), 'التأكيد بيطلع برقم الطاولة');
+  ok(calls.length === 0, 'ما انبعت شي قبل التأكيد');
+  await page.evaluate("document.getElementById('callNo').click()");
+  ok(calls.length === 0 && await get(page, "!document.getElementById('callConfirm').classList.contains('on')"), 'الإلغاء بيسكّر بدون إرسال');
+  await page.evaluate("document.getElementById('callFab').click()");
+  await page.waitForTimeout(200);
+  await page.evaluate("turnstileToken='t';document.getElementById('callGo').click()");
+  await page.waitForTimeout(1500);
+  ok(calls.length === 1 && JSON.parse(calls[0]).kind === 'call' && JSON.parse(calls[0]).table === '5', 'انبعت طلب call لطاولة 5');
+  ok(await get(page, "document.getElementById('callFab').disabled"), 'الزر بيتقفل بعد الإرسال');
+});
+
+await scenario('زر «نادِ الويتر» العائم: ما بيظهر بدون باركود طاولة', { saved: 'takeaway' }, async (page, ok) => {
+  await enter(page);
+  await page.waitForTimeout(1300);
+  ok(await get(page, "document.getElementById('callFab').getBoundingClientRect().width===0"), 'مخفي بالسفري/بدون باركود');
+});
+
 await scenario('سفري: زر التأكيد شغّال والواتساب ظاهر', { saved: 'takeaway' }, async (page, ok) => {
   await enter(page);
   await pick(page, 'takeaway');
