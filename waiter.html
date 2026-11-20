@@ -134,10 +134,13 @@ function showToast(m){$('toast').textContent=m;$('toast').classList.add('show');
 
 function ensureAudio(){try{if(window.OlvSound)OlvSound.unlock(true);if(!audioCtx)audioCtx=(window.OlvSound&&OlvSound.context())||new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}catch(e){}}
 function beep(freq,delay,dur){setTimeout(()=>{try{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=freq;o.connect(g);g.connect(audioCtx.destination);g.gain.setValueAtTime(.0001,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.3,audioCtx.currentTime+.02);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+dur);o.start();o.stop(audioCtx.currentTime+dur+.05)}catch(e){}},delay)}
+// اهتزاز قوي ومتواصل (أندرويد/كروم؛ الآيفون ما بيدعم الاهتزاز من المتصفح)
+const ALERT_VIB=[700,120,700,120,700,120,900];
+function strongVibrate(){try{if(navigator.vibrate)navigator.vibrate(ALERT_VIB)}catch(e){}}
 function harshRing(){
   if(!audioCtx)return;
   try{const t=audioCtx.currentTime,m=audioCtx.createGain();m.gain.value=1;m.connect(audioCtx.destination);
-    for(let i=0;i<8;i++){const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='square';o.frequency.value=i%2?1480:1100;o.connect(g);g.connect(m);
+    for(let i=0;i<16;i++){const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='square';o.frequency.value=i%2?1480:1100;o.connect(g);g.connect(m);
       const a=t+i*.18;g.gain.setValueAtTime(.0001,a);g.gain.exponentialRampToValueAtTime(.9,a+.01);g.gain.setValueAtTime(.9,a+.14);g.gain.exponentialRampToValueAtTime(.0001,a+.17);o.start(a);o.stop(a+.18)}
   }catch(e){}}
 function showCall(list){
@@ -156,7 +159,7 @@ function audioRunning(){return !!audioCtx&&audioCtx.state==='running'}
 function checkSound(){const w=$('soundWarn');if(w)w.style.display=audioRunning()?'none':'block'}
 function sysNotify(title){try{if(document.hidden&&'Notification'in window&&Notification.permission==='granted'){const n=new Notification(title,{tag:'olv-req',renotify:true,requireInteraction:true,vibrate:[300,100,300,100,300]});n.onclick=()=>{window.focus();n.close()}}}catch(e){}}
 // رنين متكرر طول ما في طلب طاولة ما انفتح، عشان الويتر ما يفوته النداء
-function ringLoop(){const p=reqs.filter(r=>!ackedReqs.has(r.id));if(!p.length){$('callOv').style.display='none';return}ensureAudio();harshRing();showCall(p);try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}}
+function ringLoop(){const p=reqs.filter(r=>!ackedReqs.has(r.id));if(!p.length){$('callOv').style.display='none';return}ensureAudio();harshRing();showCall(p);strongVibrate()}
 function notifyReady(orders){
   playReadyChime();
   try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}
@@ -364,7 +367,7 @@ async function loadReqs(){
 function notifyReqs(list){
   ensureAudio();harshRing();showCall(reqs.filter(r=>!ackedReqs.has(r.id)).concat([]).length?reqs.filter(r=>!ackedReqs.has(r.id)):list);
   sysNotify(list.map(r=>r.kind==='call'?'طاولة '+r.table+' بتناديك':'طاولة '+r.table+' بعتت قائمة طلب').join(' | '));
-  try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}
+  strongVibrate();
   list.forEach(r=>{
     const el=document.createElement('div');
     el.className='ready-alert';
