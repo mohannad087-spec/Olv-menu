@@ -1,4 +1,4 @@
-import { parseStaffToken, verifyStaff } from './staff.js';
+import { parseStaffToken, verifyStaff, parseSignedToken, verifySignedStaff } from './staff.js';
 import { storedAdmin, matchesStored } from './admin-pass.js';
 // تحقق من مفاتيح الإدارة/الموظفين: مقارنة ثابتة الزمن (ما بتسرّب طول التطابق بالتوقيت) + قفل مؤقت لمحاولات التخمين.
 // القفل: 10 مفاتيح غلط *مختلفة* من نفس الـIP خلال 15 دقيقة => 429 (نفس المفتاح الغلط المكرّر، متل جهاز موظف مفتاحه قديم وبيعمل تحديث كل 15 ثانية، بينحسب مرة وحدة حتى ما يقفل المطعم كله) (بيحتاج ربط D1 باسم OLV_DB، وإذا مش مربوط بنتخطاه بدون ما نكسر شي).
@@ -76,7 +76,17 @@ export async function checkKey(request, env, opts = {}) {
   const db = env.OLV_DB || null;
   const ip = request.headers.get('CF-Connecting-IP') || '';
   if (await lockedOut(db, ip)) return { ok: false, status: 429 };
-  if (await isAdminPassword(env, provided)) return { ok: true, status: 200, role: 'admin' };
+  // رمز موظف موقّع: تحقق رخيص (HMAC)، وما بنمرّ على فحص باسورد الإدارة (PBKDF2 ثقيل)
+  const signed = staff ? parseSignedToken(provided) : null;
+  if (signed) {
+    let member = null;
+    try { member = await verifySignedStaff(db, cleanKey(env.OLV_ADMIN_KEY), signed); } catch { member = null; }
+    if (member) return { ok: true, status: 200, role: 'staff', staffId: member.id, staffName: member.name };
+    await recordFailure(db, ip, provided);
+    return { ok: false, status: 403 };
+  }
+  // رمز قديم staff:<id>:<pin> ما بيشبه باسورد إدارة، فنتخطى فحص الإدارة الثقيل
+  if (!(staff && parseStaffToken(provided)) && await isAdminPassword(env, provided)) return { ok: true, status: 200, role: 'admin' };
   // الموظف بيدخل بحسابه (اسم + رمز) اللي ضافه صاحب المطعم. المفتاح المشترك القديم OLV_STAFF_KEY ما عاد ينقبل.
   const tok = staff ? parseStaffToken(provided) : null;
   if (tok) {

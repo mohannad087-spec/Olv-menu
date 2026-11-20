@@ -1,5 +1,6 @@
 import { checkKey, lockedOut, recordFailure } from '../_lib/keys.js';
-import { newSalt, hashPin, validPin, cleanName, verifyStaff } from '../_lib/staff.js';
+import { newSalt, hashPin, validPin, cleanName, verifyStaff, signStaffToken } from '../_lib/staff.js';
+import { cleanKey } from '../_lib/keys.js';
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
@@ -33,7 +34,8 @@ export async function onRequest(context) {
         return json({ ok: false, error: 'الاسم أو الرمز غلط.' }, 403);
       }
       await db.prepare('UPDATE staff SET last_login_at = ?1 WHERE id = ?2').bind(new Date().toISOString(), member.id).run();
-      return json({ ok: true, staff: member });
+      const token = await signStaffToken(cleanKey(env.OLV_ADMIN_KEY), member.id, member.pinHash);
+      return json({ ok: true, staff: { id: member.id, name: member.name }, token });
     }
 
     const auth = await checkKey(request, env);

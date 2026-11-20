@@ -184,8 +184,9 @@ async function doLogin(){
     if(!r.ok){showToast(out.error||'تعذّر الدخول');return}
   }catch(e){showToast('تعذّر الاتصال، جرّب كمان مرة');return}
   localStorage.setItem('olv-waiter-name',out.staff.name);
-  localStorage.setItem('olv-staff-key','staff:'+out.staff.id+':'+pin);
-  enterApp(out.staff.name,'staff:'+out.staff.id+':'+pin);
+  const key=out.token||('staff:'+out.staff.id+':'+pin);
+  localStorage.setItem('olv-staff-key',key);
+  enterApp(out.staff.name,key);
 }
 function enterApp(n,k){
   waiterName=n;staffKey=k;
@@ -193,6 +194,12 @@ function enterApp(n,k){
   $('whoBar').style.display='block';$('whoBar').textContent='الموظف: '+n;
   $('logoutBtn').style.display='inline-block';
   init();
+}
+// جهاز مسجّل بالطريقة القديمة (الرمز PIN بالمفتاح): نبدّله مرة وحدة برمز موقّع حتى ما يتحقق السيرفر من PIN مع كل طلب (كان يعطّل الجلب والرنين)
+async function upgradeKey(n,k){
+  const m=/^staff:\d+:(\d{4,8})$/.exec(k);if(!m)return;
+  try{const r=await fetch('/api/staff',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'login',name:n,pin:m[1]})});
+    const o=await r.json();if(r.ok&&o.token){localStorage.setItem('olv-staff-key',o.token);staffKey=o.token}}catch(e){}
 }
 function logout(){localStorage.removeItem('olv-staff-key');sessionStorage.removeItem('olv-staff-key');location.reload()}
 
@@ -419,7 +426,7 @@ async function loadMine(){
 
 (function(){
   const n=localStorage.getItem('olv-waiter-name'),k=localStorage.getItem('olv-staff-key')||sessionStorage.getItem('olv-staff-key');
-  if(n&&k&&k.startsWith('staff:')){$('waiterName').value=n;enterApp(n,k)}
+  if(n&&k&&k.startsWith('staff:')){$('waiterName').value=n;enterApp(n,k);upgradeKey(n,k)}
 })();
 </script>
 </body>
