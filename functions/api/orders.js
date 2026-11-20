@@ -205,7 +205,7 @@ async function findByIdempotency(db, key) {
   return db.prepare('SELECT * FROM orders WHERE idempotency_key = ?1').bind(key).first();
 }
 
-async function nextOrderNumber(db) {
+export async function nextOrderNumber(db) {
   const result = await db.prepare(
     'UPDATE order_counter SET next_number = next_number + 1 WHERE id = 1 RETURNING next_number - 1 AS number'
   ).run();
