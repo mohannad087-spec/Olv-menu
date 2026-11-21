@@ -2202,7 +2202,8 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/shake-oreo.webp"
+      "image": "assets/photos/shake-oreo.webp",
+      "hallPrice": 2.5
     },
     {
       "id": "shake-snickers",
