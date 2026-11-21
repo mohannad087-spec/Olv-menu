@@ -2220,7 +2220,8 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/shake-snickers.webp"
+      "image": "assets/photos/shake-snickers.webp",
+      "hallPrice": 2.5
     },
     {
       "id": "shake-chocolate",
