@@ -290,11 +290,12 @@ async function sendTableRequest(kind){
     if(!(r.status>=500||/Bot verification/i.test(lastErr)))break;
   }
   reqSending=false;['hallPrepare','hallCall'].forEach(id=>{$(id).disabled=false;$(id).style.opacity=''});
-  if(!done){showToast(lastErr,4500);return}
+  if(!done){showToast(lastErr,4500);return false}
   delete reqKey[kind];
   if(kind==='order'){clearCart();render()}
   showToast(kind==='order'?L('وصلت قائمتك للويتر، رح يأكّد معك ويبعت الطلب للمطبخ','Your list reached the waiter, they will confirm and send it to the kitchen'):L('نادينا الويتر، رح يوصلك بلحظات','We called the waiter, they will be right with you'),5000);
   closeOrder();
+  return true;
 }
 let orderSending=false;
 function setSending(on){orderSending=on;['copy','whatsapp'].forEach(id=>{const b=$(id);if(b){b.disabled=on;b.style.opacity=on?.6:''}});const nt=$('notice');if(nt&&on)nt.textContent=L('جاري إرسال الطلب…','Sending your order…')}
@@ -473,6 +474,7 @@ applyLang();init();
 })();
 </script>
 <script src="assets/phase2.js?v=4"></script>
+<script src="assets/call-waiter.js?v=1"></script>
 <script>
 (function(){var ids=['detailOverlay','orderOverlay','shishaOverlay','categoryOverlay'],opener=null,openSet={};
 function foc(el){return [].slice.call(el.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')).filter(function(e){return !e.disabled&&e.offsetWidth>0})}
