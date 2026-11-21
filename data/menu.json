@@ -2238,7 +2238,8 @@
         "veg"
       ],
       "available": true,
-      "image": "assets/photos/shake-chocolate.webp"
+      "image": "assets/photos/shake-chocolate.webp",
+      "hallPrice": 2.5
     },
     {
       "id": "shake-pistachio",
