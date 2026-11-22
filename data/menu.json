@@ -4620,6 +4620,21 @@
       "tags": [],
       "available": true,
       "hallPrice": 1
+    },
+    {
+      "id": "card-mws5w6md",
+      "cat": "cold",
+      "subcat": "ببريكان علب",
+      "subcatAr": "ببريكان علب",
+      "subcatEn": "0.75",
+      "ar": "ببريكان علب",
+      "en": "0.75",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.5,
+      "tags": [],
+      "available": true,
+      "hallPrice": 0.75
     }
   ],
   "shishaOptions": {
