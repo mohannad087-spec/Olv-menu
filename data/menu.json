@@ -4635,6 +4635,21 @@
       "tags": [],
       "available": true,
       "hallPrice": 0.75
+    },
+    {
+      "id": "card-mws61jmh",
+      "cat": "cold",
+      "subcat": "iced tea",
+      "subcatAr": "iced tea",
+      "subcatEn": "liptom",
+      "ar": "iced tea",
+      "en": "liptom",
+      "descAr": "",
+      "descEn": "",
+      "price": 0.5,
+      "tags": [],
+      "available": true,
+      "hallPrice": 0.75
     }
   ],
   "shishaOptions": {
