@@ -4409,7 +4409,8 @@
       "price": 1,
       "tags": [],
       "available": true,
-      "popular": true
+      "popular": true,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/card-mvwweykv-mws6eud6.jpg"
     },
     {
       "id": "card-mvxjdz90",
