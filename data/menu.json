@@ -4338,7 +4338,8 @@
       "price": 0.15,
       "tags": [],
       "available": true,
-      "hallPrice": 0.25
+      "hallPrice": 0.25,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/card-mvtc4yw7-mws6eu0m.jpg"
     },
     {
       "id": "card-mvwoofy3",
