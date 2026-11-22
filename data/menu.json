@@ -4048,7 +4048,8 @@
       "descEn": "Hot dog, mayonnaise, cheddar or mustard, ketchup, chips stick",
       "price": 1.5,
       "tags": [],
-      "optionProfile": "sandwich"
+      "optionProfile": "sandwich",
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/sn-hotdog-mws6hwaz.jpg"
     },
     {
       "id": "soft-pepsi",
