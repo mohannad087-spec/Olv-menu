@@ -4649,7 +4649,8 @@
       "price": 0.5,
       "tags": [],
       "available": true,
-      "hallPrice": 0.75
+      "hallPrice": 0.75,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/card-mws61jmh-mws6b6st.jpg"
     }
   ],
   "shishaOptions": {
