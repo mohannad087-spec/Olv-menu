@@ -4384,7 +4384,8 @@
       "descEn": "",
       "price": 0.25,
       "tags": [],
-      "available": true
+      "available": true,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/card-mvworfef-mws6hz0o.jpg"
     },
     {
       "id": "card-mvws9lbh",
