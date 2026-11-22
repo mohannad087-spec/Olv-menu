@@ -4353,7 +4353,8 @@
       "descEn": "",
       "price": 1,
       "tags": [],
-      "available": true
+      "available": true,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/card-mvwoofy3-mws6fkg3.jpg"
     },
     {
       "id": "card-mvwoq9zc",
@@ -4367,7 +4368,8 @@
       "descEn": "",
       "price": 1.5,
       "tags": [],
-      "available": true
+      "available": true,
+      "image": "https://usogbwgjnbcaduqcqxqc.supabase.co/storage/v1/object/public/item-images/card-mvwoq9zc-mws6fh89.jpg"
     },
     {
       "id": "card-mvworfef",
