@@ -1053,15 +1053,13 @@
       "en": "Cocktail with Cream & Honey",
       "descAr": "",
       "descEn": "",
-      "price": 2.5,
+      "price": 3,
       "tags": [
         "veg"
       ],
       "available": true,
-      "large": {
-        "price": 3.5
-      },
-      "image": "assets/photos/cocktail-cream-honey.webp"
+      "image": "assets/photos/cocktail-cream-honey.webp",
+      "hallPrice": 3.5
     },
     {
       "id": "cocktail-icecream",
